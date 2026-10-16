@@ -1,0 +1,518 @@
+[
+  {
+    "id": "p205",
+    "index": 205,
+    "title": "Assign Cookies",
+    "topic": "Greedy Approach",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie.\n\nEach child i has a greed factor g[i], which is the minimum size of a cookie that the child will be content with; and each cookie j has a size s[j]. If s[j] >= g[i], we can assign the cookie j to the child i, and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.\n\nExample:\nInput: g = [1,2,3], s = [1,1]\nOutput: 1\nExplanation: You have 3 children and 2 cookies. The greed factors of 3 children are 1, 2, 3.\nAnd even though you have 2 cookies, since their size is both 1, you could only make the child whose greed factor is 1 content.\nYou need to output 1.",
+    "approach": "1. Sort the greed factor array g and the cookie size array s in ascending order.\n2. Initialize a counter variable child to track the number of content children.\n3. Iterate over the cookie size array s and check if the current cookie size is greater than or equal to the greed factor of the current child.\n4. If it is, increment the child counter and move to the next child.\n5. Finally, return the total number of content children.",
+    "pseudocode": "ALGORITHM  Assign Cookies\nPATTERN    Greedy\n\nBEGIN\n  01  Sort the greed factor array g and the cookie size array s in ascending order\n  02  SET a counter variable child to track the number of content children\n  03  Iterate over the cookie size array s and check if the current cookie size is greater than or equal to the greed factor of the current child\n  04  IF it is, increment the child counter and move to the next child\n  05  Finally, return the total number of content children\n  06  RETURN the required result\nEND",
+    "time": "O(n log n)",
+    "space": "Not explicitly stated in the source file",
+    "strategy": "Greedy",
+    "tags": ["Greedy Approach", "Greedy"],
+    "intuition": "Make the locally safe choice that leaves the widest set of future options. The key is the exchange argument that proves no optimal solution is lost.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nAssume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie.\n\nEach child i has a greed factor g[i], which is the minimum size of a cookie that the child will be content with; and each cookie j has a size s[j]. If s[j] >= g[i], we can assign the cookie j to the child i, and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.\n\nExample:\nInput: g = [1,2,3], s = [1,1]\nOutput: 1\nExplanation: You have 3 children and 2 cookies. The greed factors of 3 children are 1, 2, 3. \nAnd even though you have 2 cookies, since their size is both 1, you could only make the child whose greed factor is 1 content.\nYou need to output 1.\n\nApproach:\n1. Sort the greed factor array g and the cookie size array s in ascending order.\n2. Initialize a counter variable child to track the number of content children.\n3. Iterate over the cookie size array s and check if the current cookie size is greater than or equal to the greed factor of the current child.\n4. If it is, increment the child counter and move to the next child.\n5. Finally, return the total number of content children.\n\nComplexity Analysis:\n- Sorting the arrays takes O(n log n) time, where n is the size of the arrays.\n- The iteration over the arrays takes O(n) time.\n- Therefore, the overall time complexity is O(n log n).\n\nCode:\n*/\n\nint findContentChildren(vector<int>& g, vector<int>& s) {\n    sort(g.begin(), g.end());\n    sort(s.begin(), s.end());\n    int child = 0;\n    for (int i = 0; i < s.size() && child < g.size(); i++) {\n        if (s[i] >= g[child])\n            child++;\n    }\n    return child;\n}\n",
+    "codeLines": 38,
+    "repoPath": "10. Greedy Approach/1. Easy/01. Assign Cookies.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/1.%20Easy/01.%20Assign%20Cookies.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/assign-cookies/",
+      "title": "Assign Cookies",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p206",
+    "index": 206,
+    "title": "Fractional Knapsack",
+    "topic": "Greedy Approach",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given weights and values of N items, we need to put these items in a knapsack of capacity W to get the maximum total value in the knapsack.\nNote: Unlike 0/1 knapsack, you are allowed to break the item.\n\nExample:\nInput:\nN = 3, W = 50\nvalues[] = {60, 100, 120}\nweight[] = {10, 20, 30}\nOutput:\n240.00\nExplanation: Total maximum value of items\nwe can have is 240.00 from the given\ncapacity of the sack.",
+    "approach": "1. We will define a comparator function that compares items based on their value/weight ratio in descending order.\n2. We will sort the items array based on the comparator function.\n3. Initialize a variable loot to keep track of the total value in the knapsack.\n4. Iterate over the items array, starting from the item with the highest value/weight ratio.\n5. If the weight of the current item is greater than the remaining capacity W, we take a fraction of the item to fill the remaining capacity.\n   The fraction is determined by the remaining capacity divided by the weight of the current item.\n6. Add the fraction of the item's value to the loot.\n7. Reduce the remaining capacity by the weight of the item.\n8. Repeat steps 5-7 until the remaining capacity becomes zero or all items are considered.\n9. Finally, return the loot, which represents the maximum total value in the knapsack.",
+    "pseudocode": "ALGORITHM  Fractional Knapsack\nPATTERN    Greedy\n\nBEGIN\n  01  We will define a comparator function that compares items based on their value/weight ratio in descending order\n  02  We will sort the items array based on the comparator function\n  03  SET a variable loot to keep track of the total value in the knapsack\n  04  Iterate over the items array, starting from the item with the highest value/weight ratio\n  05  IF the weight of the current item is greater than the remaining capacity W, we take a fraction of the item to fill the remaining capacity\n  06  The fraction is determined by the remaining capacity divided by the weight of the current item\n  07  Add the fraction of the item's value to the loot\n  08  Reduce the remaining capacity by the weight of the item\n  09  REPEAT steps 5-7 until the remaining capacity becomes zero or all items are considered\n  10  Finally, return the loot, which represents the maximum total value in the knapsack\n  11  RETURN the required result\nEND",
+    "time": "O(n log n)",
+    "space": "Not explicitly stated in the source file",
+    "strategy": "Greedy",
+    "tags": ["Greedy Approach", "Greedy"],
+    "intuition": "Make the locally safe choice that leaves the widest set of future options. The key is the exchange argument that proves no optimal solution is lost.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven weights and values of N items, we need to put these items in a knapsack of capacity W to get the maximum total value in the knapsack.\nNote: Unlike 0/1 knapsack, you are allowed to break the item.\n\nExample:\nInput:\nN = 3, W = 50\nvalues[] = {60, 100, 120}\nweight[] = {10, 20, 30}\nOutput:\n240.00\nExplanation: Total maximum value of items\nwe can have is 240.00 from the given\ncapacity of the sack.\n\nApproach:\n1. We will define a comparator function that compares items based on their value/weight ratio in descending order.\n2. We will sort the items array based on the comparator function.\n3. Initialize a variable loot to keep track of the total value in the knapsack.\n4. Iterate over the items array, starting from the item with the highest value/weight ratio.\n5. If the weight of the current item is greater than the remaining capacity W, we take a fraction of the item to fill the remaining capacity.\n   The fraction is determined by the remaining capacity divided by the weight of the current item.\n6. Add the fraction of the item's value to the loot.\n7. Reduce the remaining capacity by the weight of the item.\n8. Repeat steps 5-7 until the remaining capacity becomes zero or all items are considered.\n9. Finally, return the loot, which represents the maximum total value in the knapsack.\n\nComplexity Analysis:\n- The sorting step takes O(n log n) time, where n is the number of items.\n- The iteration over the items takes O(n) time.\n- Therefore, the overall time complexity is O(n log n).\n\nCode:\n*/\n\nstatic bool comp(Item a, Item b) {\n    return a.value / (a.weight * 1.0) > b.value / (b.weight * 1.0);\n}\n\ndouble fractionalKnapsack(int W, Item arr[], int n) {\n    sort(arr, arr + n, comp);\n    double loot = 0;\n    for (int i = 0; i < n && W; i++) {\n        if (arr[i].weight > W) {\n            loot += (W * (arr[i].value / (arr[i].weight * 1.0)));\n            W = 0;\n        } else {\n            loot += arr[i].value;\n            W -= arr[i].weight;\n        }\n    }\n    return loot;\n}\n",
+    "codeLines": 54,
+    "repoPath": "10. Greedy Approach/1. Easy/02. Fractional Knapsack.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/1.%20Easy/02.%20Fractional%20Knapsack.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-units-on-a-truck/",
+      "title": "Maximum Units on a Truck",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p207",
+    "index": 207,
+    "title": "Lemonade Exchange",
+    "topic": "Greedy Approach",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "At a lemonade stand, each lemonade costs $5. Customers are standing in a queue to buy from you and order one at a time (in the order specified by bills).\nEach customer will only buy one lemonade and pay with either a $5, $10, or $20 bill. You must provide the correct change to each customer so that the net transaction is that the customer pays $5.\nNote that you do not have any change in hand at first.\nGiven an integer array bills where bills[i] is the bill the ith customer pays, return true if you can provide every customer with the correct change, or false otherwise.\n\nExample:\nInput: bills = [5, 5, 5, 10, 20]\nOutput: true\nExplanation:\nFrom the first 3 customers, we collect three $5 bills in order.\nFrom the fourth customer, we collect a $10 bill and give back a $5.\nFrom the fifth customer, we give a $10 bill and a $5 bill.\nSince all customers got correct change, we output true.",
+    "approach": "- We maintain two counters: `fiveCnt` to count the number of $5 bills and `tenCnt` to count the number of $10 bills we have.\n- We iterate over the bills array.\n- For each bill, we check if it is $5, $10, or $20.\n  - If it is $5, we increment the `fiveCnt`.\n  - If it is $10, we increment the `tenCnt` and decrement the `fiveCnt` since we need to give back a $5 bill as change.\n  - If it is $20, we try to give back a $10 bill and a $5 bill as change if we have them. Otherwise, we try to give back three $5 bills.\n- After each transaction, we check if the `fiveCnt` is negative, which means we have given a $5 bill that we actually don't have. In this case, we return false.\n- If we successfully process all the bills without any negative `fiveCnt`, we return true.",
+    "pseudocode": "ALGORITHM  Lemonade Exchange\nPATTERN    Greedy\n\nBEGIN\n  01  We maintain two counters: fiveCnt to count the number of $5 bills and tenCnt to count the number of $10 bills we have\n  02  We iterate over the bills array\n  03  FOR EACH bill, we check if it is $5, $10, or $20\n  04  IF it is $5, we increment the fiveCnt\n  05  IF it is $10, we increment the tenCnt and decrement the fiveCnt since we need to give back a $5 bill as change\n  06  IF it is $20, we try to give back a $10 bill and a $5 bill as change if we have them. Otherwise, we try to give back three $5 bills\n  07  After each transaction, we check if the fiveCnt is negative, which means we have given a $5 bill that we actually don't have. In this case, we return false\n  08  IF we successfully process all the bills without any negative fiveCnt, we return true\n  09  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the length of the bills array",
+    "space": "O(1) as we are using only a constant amount of extra space",
+    "strategy": "Greedy",
+    "tags": ["Greedy Approach", "Greedy"],
+    "intuition": "Make the locally safe choice that leaves the widest set of future options. The key is the exchange argument that proves no optimal solution is lost.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nAt a lemonade stand, each lemonade costs $5. Customers are standing in a queue to buy from you and order one at a time (in the order specified by bills).\nEach customer will only buy one lemonade and pay with either a $5, $10, or $20 bill. You must provide the correct change to each customer so that the net transaction is that the customer pays $5.\nNote that you do not have any change in hand at first.\nGiven an integer array bills where bills[i] is the bill the ith customer pays, return true if you can provide every customer with the correct change, or false otherwise.\n\nExample:\nInput: bills = [5, 5, 5, 10, 20]\nOutput: true\nExplanation:\nFrom the first 3 customers, we collect three $5 bills in order.\nFrom the fourth customer, we collect a $10 bill and give back a $5.\nFrom the fifth customer, we give a $10 bill and a $5 bill.\nSince all customers got correct change, we output true.\n\nApproach:\n- We maintain two counters: `fiveCnt` to count the number of $5 bills and `tenCnt` to count the number of $10 bills we have.\n- We iterate over the bills array.\n- For each bill, we check if it is $5, $10, or $20.\n  - If it is $5, we increment the `fiveCnt`.\n  - If it is $10, we increment the `tenCnt` and decrement the `fiveCnt` since we need to give back a $5 bill as change.\n  - If it is $20, we try to give back a $10 bill and a $5 bill as change if we have them. Otherwise, we try to give back three $5 bills.\n- After each transaction, we check if the `fiveCnt` is negative, which means we have given a $5 bill that we actually don't have. In this case, we return false.\n- If we successfully process all the bills without any negative `fiveCnt`, we return true.\n\nComplexity Analysis:\n- The time complexity of this approach is O(N), where N is the length of the bills array.\n- We iterate over the bills array once to process each bill.\n- The space complexity is O(1) as we are using only a constant amount of extra space.\n\nCode:\n*/\n\nbool lemonadeChange(vector<int>& bills) {\n    int fiveCnt = 0, tenCnt = 0;\n    for (auto bill : bills) {\n        if (bill == 5)\n            fiveCnt++;\n        else if (bill == 10) {\n            tenCnt++;\n            fiveCnt--;\n        } else {\n            if (tenCnt) {\n                tenCnt--;\n                fiveCnt--;\n            } else\n                fiveCnt -= 3;\n        }\n        // this means we have given $5 which we actually don't have\n        if (fiveCnt < 0)\n            return false;\n    }\n    return true;\n}",
+    "codeLines": 55,
+    "repoPath": "10. Greedy Approach/1. Easy/03. Lemonade Exchange.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/1.%20Easy/03.%20Lemonade%20Exchange.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/lemonade-change/",
+      "title": "Lemonade Change",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p208",
+    "index": 208,
+    "title": "Valid Parenthesis String",
+    "topic": "Greedy Approach",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given a string s containing only three types of characters: '(', ')' and '*', return true if s is valid.\nThe following rules define a valid string:\n- Any left parenthesis '(' must have a corresponding right parenthesis ')'.\n- Any right parenthesis ')' must have a corresponding left parenthesis '('.\n- Left parenthesis '(' must go before the corresponding right parenthesis ')'.\n- '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string \"\".\n\nExample:\nInput: s = \"(*))\"\nOutput: true",
+    "approach": "- We maintain two counters `cmin` and `cmax` to keep track of the minimum and maximum possible number of open parentheses.\n- We iterate over the characters in the string.\n- For each character:\n  - If it is '(', we increment both `cmin` and `cmax`.\n  - If it is ')', we decrement `cmax` and update `cmin` to the maximum of `cmin - 1` and 0 (to handle cases where '*' is treated as '(').\n  - If it is '*', we increment `cmax` (considering '*' as '(') and update `cmin` to the maximum of `cmin - 1` and 0 (to handle cases where '*' is treated as ')').\n  - If `cmax` becomes negative at any point, it means even after treating all '*' as '(' we can't maintain balance, so we return false.\n- Finally, we check if `cmin` is 0, which means we have balanced parentheses.",
+    "pseudocode": "ALGORITHM  Valid Parenthesis String\nPATTERN    Two pointers\n\nBEGIN\n  01  We maintain two counters cmin and cmax to keep track of the minimum and maximum possible number of open parentheses\n  02  We iterate over the characters in the string\n  03  FOR EACH character:\n  04  IF it is '(', we increment both cmin and cmax\n  05  IF it is ')', we decrement cmax and update cmin to the maximum of cmin - 1 and 0 (to handle cases where '*' is treated as '(')\n  06  IF it is '*', we increment cmax (considering '*' as '(') and update cmin to the maximum of cmin - 1 and 0 (to handle cases where '*' is treated as ')')\n  07  IF cmax becomes negative at any point, it means even after treating all '*' as '(' we can't maintain balance, so we return false\n  08  Finally, we check if cmin is 0, which means we have balanced parentheses\n  09  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the length of the string s",
+    "space": "O(1) as we are using only a constant amount of extra space",
+    "strategy": "Two pointers",
+    "tags": ["Greedy Approach", "Two pointers", "Strings"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven a string s containing only three types of characters: '(', ')' and '*', return true if s is valid.\nThe following rules define a valid string:\n- Any left parenthesis '(' must have a corresponding right parenthesis ')'.\n- Any right parenthesis ')' must have a corresponding left parenthesis '('.\n- Left parenthesis '(' must go before the corresponding right parenthesis ')'.\n- '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string \"\".\n\nExample:\nInput: s = \"(*))\"\nOutput: true\n\nApproach:\n- We maintain two counters `cmin` and `cmax` to keep track of the minimum and maximum possible number of open parentheses.\n- We iterate over the characters in the string.\n- For each character:\n  - If it is '(', we increment both `cmin` and `cmax`.\n  - If it is ')', we decrement `cmax` and update `cmin` to the maximum of `cmin - 1` and 0 (to handle cases where '*' is treated as '(').\n  - If it is '*', we increment `cmax` (considering '*' as '(') and update `cmin` to the maximum of `cmin - 1` and 0 (to handle cases where '*' is treated as ')').\n  - If `cmax` becomes negative at any point, it means even after treating all '*' as '(' we can't maintain balance, so we return false.\n- Finally, we check if `cmin` is 0, which means we have balanced parentheses.\n\nComplexity Analysis:\n- The time complexity of this approach is O(N), where N is the length of the string s.\n- We iterate over each character once.\n- The space complexity is O(1) as we are using only a constant amount of extra space.\n\nCode:\n*/\n\n// NOTE- this approach is not intuitive but the most optimal however we can use recursion to solve this problem and optimize it using dp.\n// We can also solve this using recursion where in the case of '*' we will make 3 recursion calls,\n//  1-> where opencnt++,\n//  2-> where opencnt\n//  3-> where opencnt--\n//  The base case would be at end if opencnt == 0 return true else false.\n\nbool checkValidString(string s) {\n    int cmin = 0, cmax = 0;\n    for (auto c : s) {\n        if (c == '(') {\n            cmax++;\n            cmin++;\n        } else if (c == ')') {\n            cmax--;\n            cmin = max(cmin - 1, 0);\n        } else { // this is the case of '*'\n            cmax++; // if we treat '*' as '('\n            cmin = max(cmin - 1, 0); // if we treat '*' as ')'\n        }\n        if (cmax < 0) // this means even after treating all '*' as '(' we can't maintain balance\n            return false;\n    }\n    return (cmin == 0);\n}\n",
+    "codeLines": 56,
+    "repoPath": "10. Greedy Approach/1. Easy/04. Valid Parenthesis String.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/1.%20Easy/04.%20Valid%20Parenthesis%20String.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/valid-parenthesis-string/",
+      "title": "Valid Parenthesis String",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p209",
+    "index": 209,
+    "title": "N Meetings in one room",
+    "topic": "Greedy Approach",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "There is one meeting room in a firm. There are N meetings in the form of (start[i], end[i]) where start[i] is the start time of meeting i and end[i] is the finish time of meeting i.\nWhat is the maximum number of meetings that can be accommodated in the meeting room when only one meeting can be held in the meeting room at a particular time?\nNote: Start time of one chosen meeting can't be equal to the end time of the other chosen meeting.\n\nExample:\nInput:\nN = 6\nstart[] = {1,3,0,5,8,5}\nend[] = {2,4,6,7,9,9}\nOutput: 4\nExplanation: Maximum four meetings can be held with the given start and end timings.\nThe meetings are - (1, 2), (3, 4), (5, 7), and (8, 9)",
+    "approach": "- We store the meetings as pairs of (end[i], start[i]) in a vector.\n- We sort the vector in non-decreasing order based on the end time of meetings.\n- We initialize the answer as 1 and the previous meeting end time as the end time of the first meeting in the sorted vector.\n- We iterate over the meetings starting from the second meeting.\n  - If the start time of the current meeting is greater than the previous meeting end time, we increment the answer and update the previous meeting end time.\n- Finally, we return the answer.",
+    "pseudocode": "ALGORITHM  N Meetings in one room\nPATTERN    Greedy\n\nBEGIN\n  01  We store the meetings as pairs of (end[i], start[i]) in a vector\n  02  We sort the vector in non-decreasing order based on the end time of meetings\n  03  We initialize the answer as 1 and the previous meeting end time as the end time of the first meeting in the sorted vector\n  04  We iterate over the meetings starting from the second meeting\n  05  IF the start time of the current meeting is greater than the previous meeting end time, we increment the answer and update the previous meeting end time\n  06  Finally, we return the answer\n  07  RETURN the required result\nEND",
+    "time": "of this approach is O(NlogN), where N is the number of meetings",
+    "space": "O(N) as we store the meetings in a vector",
+    "strategy": "Greedy",
+    "tags": ["Greedy Approach", "Greedy"],
+    "intuition": "Make the locally safe choice that leaves the widest set of future options. The key is the exchange argument that proves no optimal solution is lost.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nThere is one meeting room in a firm. There are N meetings in the form of (start[i], end[i]) where start[i] is the start time of meeting i and end[i] is the finish time of meeting i.\nWhat is the maximum number of meetings that can be accommodated in the meeting room when only one meeting can be held in the meeting room at a particular time?\nNote: Start time of one chosen meeting can't be equal to the end time of the other chosen meeting.\n\nExample:\nInput:\nN = 6\nstart[] = {1,3,0,5,8,5}\nend[] = {2,4,6,7,9,9}\nOutput: 4\nExplanation: Maximum four meetings can be held with the given start and end timings.\nThe meetings are - (1, 2), (3, 4), (5, 7), and (8, 9)\n\nApproach:\n- We store the meetings as pairs of (end[i], start[i]) in a vector.\n- We sort the vector in non-decreasing order based on the end time of meetings.\n- We initialize the answer as 1 and the previous meeting end time as the end time of the first meeting in the sorted vector.\n- We iterate over the meetings starting from the second meeting.\n  - If the start time of the current meeting is greater than the previous meeting end time, we increment the answer and update the previous meeting end time.\n- Finally, we return the answer.\n\nComplexity Analysis:\n- The time complexity of this approach is O(NlogN), where N is the number of meetings.\n- Sorting the meetings based on the end time takes O(NlogN) time.\n- The space complexity is O(N) as we store the meetings in a vector.\n\nCode:\n*/\n\nint maxMeetings(int start[], int end[], int n)\n{\n    vector<pair<int, int>> meet;\n    for (int i = 0; i < n; i++) {\n        meet.push_back({end[i], start[i]});\n    }\n    sort(meet.begin(), meet.end());\n    int ans = 1, prev = meet[0].first;\n    for (int i = 1; i < n; i++) {\n        if (meet[i].second > prev) {\n            ans++;\n            prev = meet[i].first;\n        }\n    }\n    return ans;\n}\n",
+    "codeLines": 47,
+    "repoPath": "10. Greedy Approach/2. Medium/01. N Meetings in one room.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/2.%20Medium/01.%20N%20Meetings%20in%20one%20room.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/non-overlapping-intervals/",
+      "title": "Non-overlapping Intervals",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p210",
+    "index": 210,
+    "title": "Jump Game",
+    "topic": "Greedy Approach",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.\nReturn true if you can reach the last index, or false otherwise.\n\nExample:\nInput: nums = [2,3,1,1,4]\nOutput: true\nExplanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.",
+    "approach": "- We maintain a variable 'farthest' to keep track of the farthest position we can reach.\n- We iterate over the array from left to right.\n- At each position, we check if the current position is reachable from the previous farthest position.\n- If the current position is beyond the farthest position, it means we cannot reach the end, so we return false.\n- Otherwise, we update the farthest position by taking the maximum of the current farthest and the current position plus the maximum jump length at that position.\n- Finally, if we reach the end of the array or beyond it, we return true.",
+    "pseudocode": "ALGORITHM  Jump Game\nPATTERN    Two pointers\n\nBEGIN\n  01  We maintain a variable 'farthest' to keep track of the farthest position we can reach\n  02  We iterate over the array from left to right\n  03  At each position, we check if the current position is reachable from the previous farthest position\n  04  IF the current position is beyond the farthest position, it means we cannot reach the end, so we return false\n  05  ELSE we update the farthest position by taking the maximum of the current farthest and the current position plus the maximum jump length at that position\n  06  Finally, if we reach the end of the array or beyond it, we return true\n  07  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the length of the array nums",
+    "space": "O(1) as we use only a constant amount of extra space",
+    "strategy": "Two pointers",
+    "tags": ["Greedy Approach", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nYou are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.\nReturn true if you can reach the last index, or false otherwise.\n\nExample:\nInput: nums = [2,3,1,1,4]\nOutput: true\nExplanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.\n\nApproach:\n- We maintain a variable 'farthest' to keep track of the farthest position we can reach.\n- We iterate over the array from left to right.\n- At each position, we check if the current position is reachable from the previous farthest position.\n- If the current position is beyond the farthest position, it means we cannot reach the end, so we return false.\n- Otherwise, we update the farthest position by taking the maximum of the current farthest and the current position plus the maximum jump length at that position.\n- Finally, if we reach the end of the array or beyond it, we return true.\n\nComplexity Analysis:\n- The time complexity of this approach is O(N), where N is the length of the array nums.\n- We iterate over the array once to update the farthest position.\n- The space complexity is O(1) as we use only a constant amount of extra space.\n\nCode:\n*/\n\nbool canJump(vector<int>& nums) {\n    int farthest = 0;\n    for (int i = 0; i < nums.size(); i++) {\n        if (farthest < i)\n            return false;\n        farthest = max(farthest, nums[i] + i);\n    }\n    return true;\n}\n",
+    "codeLines": 35,
+    "repoPath": "10. Greedy Approach/2. Medium/02. Jump Game.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/2.%20Medium/02.%20Jump%20Game.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/jump-game/",
+      "title": "Jump Game",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p211",
+    "index": 211,
+    "title": "Jump Game 2",
+    "topic": "Greedy Approach",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "You are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].\nEach element nums[i] represents the maximum length of a forward jump from index i.\nReturn the minimum number of jumps to reach nums[n - 1].\n\nExample:\nInput: nums = [2,3,1,1,4]\nOutput: 2\nExplanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.",
+    "approach": "- We maintain three variables: 'steps', 'end', and 'farthest'.\n- 'steps' keeps track of the minimum number of jumps required.\n- 'end' represents the current farthest position that we can reach.\n- 'farthest' stores the farthest position we can reach by taking a jump from the current position.\n- We iterate over the array from left to right, except for the last element.\n- At each position, we update the 'farthest' by taking the maximum of the current farthest and the current position plus the maximum jump length at that position.\n- If the 'farthest' position is greater than or equal to the last index, it means we can reach the end, so we return 'steps + 1'.\n- When we reach the 'end' position, it means we have taken the maximum number of jumps from the previous step.\n- So, we increment 'steps' by 1 and update the 'end' to the 'farthest' position.\n- Finally, we return the 'steps' as the minimum number of jumps required.",
+    "pseudocode": "ALGORITHM  Jump Game 2\nPATTERN    Two pointers\n\nBEGIN\n  01  We maintain three variables: 'steps', 'end', and 'farthest'\n  02  'steps' keeps track of the minimum number of jumps required\n  03  'end' represents the current farthest position that we can reach\n  04  'farthest' stores the farthest position we can reach by taking a jump from the current position\n  05  We iterate over the array from left to right, except for the last element\n  06  At each position, we update the 'farthest' by taking the maximum of the current farthest and the current position plus the maximum jump length at that position\n  07  IF the 'farthest' position is greater than or equal to the last index, it means we can reach the end, so we return 'steps + 1'\n  08  When we reach the 'end' position, it means we have taken the maximum number of jumps from the previous step\n  09  So, we increment 'steps' by 1 and update the 'end' to the 'farthest' position\n  10  Finally, we return the 'steps' as the minimum number of jumps required\n  11  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the length of the input array 'nums'",
+    "space": "O(1) as we use only a constant amount of extra space",
+    "strategy": "Two pointers",
+    "tags": ["Greedy Approach", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nYou are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].\nEach element nums[i] represents the maximum length of a forward jump from index i.\nReturn the minimum number of jumps to reach nums[n - 1].\n\nExample:\nInput: nums = [2,3,1,1,4]\nOutput: 2\nExplanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.\n\nApproach:\n- We maintain three variables: 'steps', 'end', and 'farthest'.\n- 'steps' keeps track of the minimum number of jumps required.\n- 'end' represents the current farthest position that we can reach.\n- 'farthest' stores the farthest position we can reach by taking a jump from the current position.\n- We iterate over the array from left to right, except for the last element.\n- At each position, we update the 'farthest' by taking the maximum of the current farthest and the current position plus the maximum jump length at that position.\n- If the 'farthest' position is greater than or equal to the last index, it means we can reach the end, so we return 'steps + 1'.\n- When we reach the 'end' position, it means we have taken the maximum number of jumps from the previous step.\n- So, we increment 'steps' by 1 and update the 'end' to the 'farthest' position.\n- Finally, we return the 'steps' as the minimum number of jumps required.\n\nComplexity Analysis:\n- The time complexity of this approach is O(N), where N is the length of the input array 'nums'.\n- We iterate over the array once.\n- The space complexity is O(1) as we use only a constant amount of extra space.\n\nCode:\n*/\n\nint jump(vector<int>& nums) {\n    int steps = 0, end = 0, farthest = 0;\n    for (int i = 0; i < nums.size() - 1; i++) {\n        farthest = max(farthest, nums[i] + i);\n        if (farthest >= nums.size() - 1)\n            return steps + 1;\n        if (i == end) {\n            steps++;\n            end = farthest;\n        }\n    }\n    return steps;\n}\n",
+    "codeLines": 44,
+    "repoPath": "10. Greedy Approach/2. Medium/03. Jump Game 2.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/2.%20Medium/03.%20Jump%20Game%202.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/jump-game-ii/",
+      "title": "Jump Game II",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p212",
+    "index": 212,
+    "title": "Minimum Platforms",
+    "topic": "Greedy Approach",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given arrival and departure times of all trains that reach a railway station, find the minimum number of platforms required for the railway station so that no train is kept waiting.\nConsider that all the trains arrive on the same day and leave on the same day. Arrival and departure time can never be the same for a train, but we can have the arrival time of one train equal to the departure time of another. At any given instance of time, the same platform cannot be used for both the departure of a train and the arrival of another train. In such cases, we need different platforms.\n\nExample:\nInput: n = 6\narr[] = {0900, 0940, 0950, 1100, 1500, 1800}\ndep[] = {0910, 1200, 1120, 1130, 1900, 2000}\nOutput: 3\nExplanation:\nMinimum 3 platforms are required to safely arrive and depart all trains.",
+    "approach": "- We sort the arrival and departure arrays in non-decreasing order.\n- We initialize variables 'i', 'j', 'plat', and 'ans' to 0.\n- We iterate over the arrival array using 'i' and departure array using 'j'.\n- If the arrival time at index 'i' is less than or equal to the departure time at index 'j', it means a train is arriving and we need an additional platform.\n  - So, we increment 'i' and 'plat'.\n  - We update 'ans' with the maximum value of 'ans' and 'plat'.\n- If the arrival time is greater than the departure time, it means a train has departed and we can free up a platform.\n  - So, we increment 'j' and decrement 'plat'.\n- Finally, we return 'ans' as the minimum number of platforms required.",
+    "pseudocode": "ALGORITHM  Minimum Platforms\nPATTERN    Greedy\n\nBEGIN\n  01  We sort the arrival and departure arrays in non-decreasing order\n  02  We initialize variables 'i', 'j', 'plat', and 'ans' to 0\n  03  We iterate over the arrival array using 'i' and departure array using 'j'\n  04  IF the arrival time at index 'i' is less than or equal to the departure time at index 'j', it means a train is arriving and we need an additional platform\n  05  So, we increment 'i' and 'plat'\n  06  We update 'ans' with the maximum value of 'ans' and 'plat'\n  07  IF the arrival time is greater than the departure time, it means a train has departed and we can free up a platform\n  08  So, we increment 'j' and decrement 'plat'\n  09  Finally, we return 'ans' as the minimum number of platforms required\n  10  RETURN the required result\nEND",
+    "time": "of this approach is O(NlogN), where N is the number of trains",
+    "space": "O(1) as we use only a constant amount of extra space",
+    "strategy": "Greedy",
+    "tags": ["Greedy Approach", "Greedy"],
+    "intuition": "Make the locally safe choice that leaves the widest set of future options. The key is the exchange argument that proves no optimal solution is lost.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven arrival and departure times of all trains that reach a railway station, find the minimum number of platforms required for the railway station so that no train is kept waiting.\nConsider that all the trains arrive on the same day and leave on the same day. Arrival and departure time can never be the same for a train, but we can have the arrival time of one train equal to the departure time of another. At any given instance of time, the same platform cannot be used for both the departure of a train and the arrival of another train. In such cases, we need different platforms.\n\nExample:\nInput: n = 6\narr[] = {0900, 0940, 0950, 1100, 1500, 1800}\ndep[] = {0910, 1200, 1120, 1130, 1900, 2000}\nOutput: 3\nExplanation:\nMinimum 3 platforms are required to safely arrive and depart all trains.\n\nApproach:\n- We sort the arrival and departure arrays in non-decreasing order.\n- We initialize variables 'i', 'j', 'plat', and 'ans' to 0.\n- We iterate over the arrival array using 'i' and departure array using 'j'.\n- If the arrival time at index 'i' is less than or equal to the departure time at index 'j', it means a train is arriving and we need an additional platform.\n  - So, we increment 'i' and 'plat'.\n  - We update 'ans' with the maximum value of 'ans' and 'plat'.\n- If the arrival time is greater than the departure time, it means a train has departed and we can free up a platform.\n  - So, we increment 'j' and decrement 'plat'.\n- Finally, we return 'ans' as the minimum number of platforms required.\n\nComplexity Analysis:\n- The time complexity of this approach is O(NlogN), where N is the number of trains.\n- We sort the arrival and departure arrays, which takes O(NlogN) time.\n- The space complexity is O(1) as we use only a constant amount of extra space.\n\nCode:\n*/\n\nint findPlatform(int arr[], int dep[], int n)\n{\n    sort(arr, arr + n);\n    sort(dep, dep + n);\n    int i = 0, j = 0, plat = 0, ans = 0;\n    while (i < n) {\n        if (arr[i] <= dep[j]) {\n            i++;\n            plat++;\n            ans = max(ans, plat);\n        }\n        else {\n            j++;\n            plat--;\n        }\n    }\n    return ans;\n}\n",
+    "codeLines": 50,
+    "repoPath": "10. Greedy Approach/2. Medium/04. Minimum Platforms.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/2.%20Medium/04.%20Minimum%20Platforms.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/",
+      "title": "Minimum Number of Arrows to Burst Balloons",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p213",
+    "index": 213,
+    "title": "Job Sequencing Problem",
+    "topic": "Greedy Approach",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given a set of N jobs where each job 'i' has a deadline and profit associated with it. Each job takes 1 unit of time to complete, and only one job can be scheduled at a time. We earn the profit associated with a job if and only if the job is completed by its deadline. Find the number of jobs done and the maximum profit.\n\nExample:\nInput:\nN = 4\nJobs = {(1,4,20),(2,1,10),(3,1,40),(4,1,30)}\nOutput:\n2 60\nExplanation:\nJob1 and Job3 can be done with a maximum profit of 60 (20+40).",
+    "approach": "- We create a vector of pairs 'jobs' to store the profit and deadline of each job.\n- We sort the 'jobs' vector in non-increasing order of profits.\n- We initialize a vector 'deadline' of size 'n+1' and set all elements to -1.\n- We also initialize variables 'ans' and 'cnt' to 0.\n- We iterate over the 'jobs' vector.\n  - For each job, we get the deadline and profit.\n  - We check from the deadline to 1 (in reverse order) if there is any slot available to schedule the job.\n  - If we find an available slot, we mark it as scheduled by setting 'deadline[dead]' to 1, increment 'cnt' and add the profit to 'ans'.\n- Finally, we return a vector containing 'cnt' and 'ans' as the number of jobs done and the maximum profit.",
+    "pseudocode": "ALGORITHM  Job Sequencing Problem\nPATTERN    Greedy\n\nBEGIN\n  01  We create a vector of pairs 'jobs' to store the profit and deadline of each job\n  02  We sort the 'jobs' vector in non-increasing order of profits\n  03  We initialize a vector 'deadline' of size 'n+1' and set all elements to -1\n  04  We also initialize variables 'ans' and 'cnt' to 0\n  05  We iterate over the 'jobs' vector\n  06  FOR EACH job, we get the deadline and profit\n  07  We check from the deadline to 1 (in reverse order) if there is any slot available to schedule the job\n  08  IF we find an available slot, we mark it as scheduled by setting 'deadline[dead]' to 1, increment 'cnt' and add the profit to 'ans'\n  09  Finally, we return a vector containing 'cnt' and 'ans' as the number of jobs done and the maximum profit\n  10  RETURN the required result\nEND",
+    "time": "of this approach is O(NlogN), where N is the number of jobs",
+    "space": "O(N) as we use additional vectors to store the jobs and deadlines",
+    "strategy": "Greedy",
+    "tags": ["Greedy Approach", "Greedy"],
+    "intuition": "Make the locally safe choice that leaves the widest set of future options. The key is the exchange argument that proves no optimal solution is lost.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven a set of N jobs where each job 'i' has a deadline and profit associated with it. Each job takes 1 unit of time to complete, and only one job can be scheduled at a time. We earn the profit associated with a job if and only if the job is completed by its deadline. Find the number of jobs done and the maximum profit.\n\nExample:\nInput:\nN = 4\nJobs = {(1,4,20),(2,1,10),(3,1,40),(4,1,30)}\nOutput:\n2 60\nExplanation:\nJob1 and Job3 can be done with a maximum profit of 60 (20+40).\n\nApproach:\n- We create a vector of pairs 'jobs' to store the profit and deadline of each job.\n- We sort the 'jobs' vector in non-increasing order of profits.\n- We initialize a vector 'deadline' of size 'n+1' and set all elements to -1.\n- We also initialize variables 'ans' and 'cnt' to 0.\n- We iterate over the 'jobs' vector.\n  - For each job, we get the deadline and profit.\n  - We check from the deadline to 1 (in reverse order) if there is any slot available to schedule the job.\n  - If we find an available slot, we mark it as scheduled by setting 'deadline[dead]' to 1, increment 'cnt' and add the profit to 'ans'.\n- Finally, we return a vector containing 'cnt' and 'ans' as the number of jobs done and the maximum profit.\n\nComplexity Analysis:\n- The time complexity of this approach is O(NlogN), where N is the number of jobs.\n- This is due to the sorting operation on the 'jobs' vector based on profits.\n- The space complexity is O(N) as we use additional vectors to store the jobs and deadlines.\n\nCode:\n*/\n\nstatic bool comp(pair<int,int> a, pair<int,int> b) {\n    return a.first > b.first;\n}\n\nvector<int> JobScheduling(Job arr[], int n) {\n    vector<pair<int,int>> jobs;\n    for(int i = 0; i < n; i++) {\n        jobs.push_back({arr[i].profit, arr[i].dead});\n    }\n    sort(jobs.begin(), jobs.end(), comp);\n    vector<int> deadline(n+1, -1);\n    int ans = 0, cnt = 0;\n    for(int i = 0; i < n; i++) {\n        int dead = jobs[i].second;\n        int profit = jobs[i].first;\n        while(dead >= 1 && deadline[dead] != -1) {\n            dead--;\n        }\n        if(dead >= 1) {\n            deadline[dead] = 1;\n            cnt++;\n            ans += profit;\n        }\n    }\n    return {cnt, ans};\n}\n",
+    "codeLines": 58,
+    "repoPath": "10. Greedy Approach/2. Medium/05. Job Sequencing Problem.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/2.%20Medium/05.%20Job%20Sequencing%20Problem.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-profit-in-job-scheduling/",
+      "title": "Maximum Profit in Job Scheduling",
+      "match": "related",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p214",
+    "index": 214,
+    "title": "Candy",
+    "topic": "Greedy Approach",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "There are n children standing in a line. Each child is assigned a rating value given in the integer array ratings.\nYou are giving candies to these children subjected to the following requirements:\n- Each child must have at least one candy.\n- Children with a higher rating get more candies than their neighbors.\nReturn the minimum number of candies you need to have to distribute the candies to the children.\n\nExample:\nInput: ratings = [1,0,2]\nOutput: 5\nExplanation: You can allocate to the first, second, and third child with 2, 1, 2 candies respectively.",
+    "approach": "- We start by assigning 1 candy to each child as the minimum requirement.\n- Then, we iterate from left to right and check if the current child has a higher rating than the previous child.\n- If yes, we increment the number of candies for the current child by 1 compared to the previous child.\n- Next, we iterate from right to left and check if the current child has a higher rating than the next child.\n- If yes, we take the maximum of the current child's candies and the next child's candies plus 1.\n- Finally, we sum up all the candies assigned to get the minimum number of candies required.",
+    "pseudocode": "ALGORITHM  Candy\nPATTERN    Two pointers\n\nBEGIN\n  01  We start by assigning 1 candy to each child as the minimum requirement\n  02  Then, we iterate from left to right and check if the current child has a higher rating than the previous child\n  03  IF yes, we increment the number of candies for the current child by 1 compared to the previous child\n  04  Next, we iterate from right to left and check if the current child has a higher rating than the next child\n  05  IF yes, we take the maximum of the current child's candies and the next child's candies plus 1\n  06  Finally, we sum up all the candies assigned to get the minimum number of candies required\n  07  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of children",
+    "space": "O(N) as we use an additional vector to store the number of candies assigned to each child",
+    "strategy": "Two pointers",
+    "tags": ["Greedy Approach", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nThere are n children standing in a line. Each child is assigned a rating value given in the integer array ratings.\nYou are giving candies to these children subjected to the following requirements:\n- Each child must have at least one candy.\n- Children with a higher rating get more candies than their neighbors.\nReturn the minimum number of candies you need to have to distribute the candies to the children.\n\nExample:\nInput: ratings = [1,0,2]\nOutput: 5\nExplanation: You can allocate to the first, second, and third child with 2, 1, 2 candies respectively.\n\nApproach:\n- We start by assigning 1 candy to each child as the minimum requirement.\n- Then, we iterate from left to right and check if the current child has a higher rating than the previous child.\n- If yes, we increment the number of candies for the current child by 1 compared to the previous child.\n- Next, we iterate from right to left and check if the current child has a higher rating than the next child.\n- If yes, we take the maximum of the current child's candies and the next child's candies plus 1.\n- Finally, we sum up all the candies assigned to get the minimum number of candies required.\n\nComplexity Analysis:\n- The time complexity of this approach is O(N), where N is the number of children.\n- We iterate over the ratings twice to assign the candies.\n- The space complexity is O(N) as we use an additional vector to store the number of candies assigned to each child.\n\nCode:\n*/\n\nint candy(vector<int>& ratings) {\n    int n = ratings.size();\n    if(n == 1) return 1;\n    vector<int> num(n, 1);\n    for(int i = 1; i < n; i++) {\n        if(ratings[i] > ratings[i-1]) {\n            num[i] = num[i-1] + 1;\n        }\n    }\n    for(int i = n-2; i >= 0; i--) {\n        if(ratings[i] > ratings[i+1]) {\n            num[i] = max(num[i], num[i+1] + 1);\n        }\n    }\n    int sum = 0;\n    for(auto it : num) {\n        sum += it;\n    }\n    return sum;\n}\n",
+    "codeLines": 49,
+    "repoPath": "10. Greedy Approach/2. Medium/06. Candy.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/2.%20Medium/06.%20Candy.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/candy/",
+      "title": "Candy",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p215",
+    "index": 215,
+    "title": "Insert Interval",
+    "topic": "Greedy Approach",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.\n\nInsert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).\n\nReturn intervals after the insertion.\n\nExample:\nInput: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]\nOutput: [[1,2],[3,10],[12,16]]\nExplanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].",
+    "approach": "- We iterate through the intervals and compare them with the newInterval.\n- There are three possible cases:\n  1. The newInterval is before the current interval: We add the newInterval and update the newInterval to the current interval.\n  2. The newInterval is after the current interval: We add the current interval to the result.\n  3. The newInterval overlaps with the current interval: We update the newInterval to cover the merged interval.",
+    "pseudocode": "ALGORITHM  Insert Interval\nPATTERN    Greedy\n\nBEGIN\n  01  We iterate through the intervals and compare them with the newInterval\n  02  There are three possible cases:\n  03  The newInterval is before the current interval: We add the newInterval and update the newInterval to the current interval\n  04  The newInterval is after the current interval: We add the current interval to the result\n  05  The newInterval overlaps with the current interval: We update the newInterval to cover the merged interval\n  06  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of intervals",
+    "space": "O(1) as we are using a constant amount of additional space",
+    "strategy": "Greedy",
+    "tags": ["Greedy Approach", "Greedy"],
+    "intuition": "Make the locally safe choice that leaves the widest set of future options. The key is the exchange argument that proves no optimal solution is lost.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nYou are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.\n\nInsert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).\n\nReturn intervals after the insertion.\n\nExample:\nInput: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]\nOutput: [[1,2],[3,10],[12,16]]\nExplanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].\n\nApproach:\n- We iterate through the intervals and compare them with the newInterval.\n- There are three possible cases:\n  1. The newInterval is before the current interval: We add the newInterval and update the newInterval to the current interval.\n  2. The newInterval is after the current interval: We add the current interval to the result.\n  3. The newInterval overlaps with the current interval: We update the newInterval to cover the merged interval.\n\nComplexity Analysis:\n- The time complexity of this approach is O(N), where N is the number of intervals.\n- We iterate through the intervals once.\n- The space complexity is O(1) as we are using a constant amount of additional space.\n\nCode:\n*/\n\nvector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {\n    vector<vector<int>> ans;\n    int n = intervals.size();\n\n    for(int i = 0; i < n; i++) {\n        // newInterval is after the current interval\n        if(intervals[i][1] < newInterval[0]) {\n            ans.push_back(intervals[i]);\n        }\n        // newInterval is before the current interval\n        else if(newInterval[1] < intervals[i][0]) {\n            ans.push_back(newInterval);\n            newInterval = intervals[i];\n        }\n        // newInterval overlaps with the current interval\n        else {\n            newInterval[0] = min(intervals[i][0], newInterval[0]);\n            newInterval[1] = max(intervals[i][1], newInterval[1]);\n        }\n    }\n    ans.push_back(newInterval);\n    return ans;\n}\n",
+    "codeLines": 51,
+    "repoPath": "10. Greedy Approach/2. Medium/07. Insert Interval.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/2.%20Medium/07.%20Insert%20Interval.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/insert-interval/",
+      "title": "Insert Interval",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p216",
+    "index": 216,
+    "title": "Non Overlapping Intervals",
+    "topic": "Greedy Approach",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given an array of intervals intervals where intervals[i] = [starti, endi], return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.\n\nExample:\nInput: intervals = [[1,2],[2,3],[3,4],[1,3]]\nOutput: 1\nExplanation: [1,3] can be removed and the rest of the intervals are non-overlapping.",
+    "approach": "- We sort the intervals based on the end time in ascending order.\n- We initialize a count variable to keep track of the number of intervals that need to be removed.\n- We initialize the end variable to store the end time of the first interval.\n- Then, we iterate through the intervals starting from the second interval.\n- If the start time of the current interval is less than the end time of the previous interval, it means there is an overlap.\n- In that case, we increment the count variable since we need to remove this interval to make the rest non-overlapping.\n- Otherwise, if there is no overlap, we update the end variable to the end time of the current interval.\n- Finally, we return the count variable, which represents the minimum number of intervals to remove.",
+    "pseudocode": "ALGORITHM  Non Overlapping Intervals\nPATTERN    Greedy\n\nBEGIN\n  01  We sort the intervals based on the end time in ascending order\n  02  We initialize a count variable to keep track of the number of intervals that need to be removed\n  03  We initialize the end variable to store the end time of the first interval\n  04  Then, we iterate through the intervals starting from the second interval\n  05  IF the start time of the current interval is less than the end time of the previous interval, it means there is an overlap\n  06  In that case, we increment the count variable since we need to remove this interval to make the rest non-overlapping\n  07  ELSE if there is no overlap, we update the end variable to the end time of the current interval\n  08  Finally, we return the count variable, which represents the minimum number of intervals to remove\n  09  RETURN the required result\nEND",
+    "time": "of this approach is O(NlogN), where N is the number of intervals",
+    "space": "O(1) as we are not using any additional data structures",
+    "strategy": "Greedy",
+    "tags": ["Greedy Approach", "Greedy"],
+    "intuition": "Make the locally safe choice that leaves the widest set of future options. The key is the exchange argument that proves no optimal solution is lost.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven an array of intervals intervals where intervals[i] = [starti, endi], return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.\n\nExample:\nInput: intervals = [[1,2],[2,3],[3,4],[1,3]]\nOutput: 1\nExplanation: [1,3] can be removed and the rest of the intervals are non-overlapping.\n\nApproach:\n- We sort the intervals based on the end time in ascending order.\n- We initialize a count variable to keep track of the number of intervals that need to be removed.\n- We initialize the end variable to store the end time of the first interval.\n- Then, we iterate through the intervals starting from the second interval.\n- If the start time of the current interval is less than the end time of the previous interval, it means there is an overlap.\n- In that case, we increment the count variable since we need to remove this interval to make the rest non-overlapping.\n- Otherwise, if there is no overlap, we update the end variable to the end time of the current interval.\n- Finally, we return the count variable, which represents the minimum number of intervals to remove.\n\nComplexity Analysis:\n- The time complexity of this approach is O(NlogN), where N is the number of intervals.\n- Sorting the intervals takes O(NlogN) time, and iterating through the intervals takes O(N) time.\n- The space complexity is O(1) as we are not using any additional data structures.\n\nCode:\n*/\n\nbool comp(vector<int>& a, vector<int>& b) {\n    return a[1] < b[1];\n}\n\nint eraseOverlapIntervals(vector<vector<int>>& intervals) {\n    if(intervals.size() < 2) return 0;\n    sort(intervals.begin(), intervals.end(), comp);\n    int cnt = 0, end = intervals[0][1];\n    for(int i = 1; i < intervals.size(); i++) {\n        if(intervals[i][0] < end) {\n            cnt++;\n        }\n        else {\n            end = intervals[i][1];\n        }\n    }\n    return cnt;\n}\n",
+    "codeLines": 45,
+    "repoPath": "10. Greedy Approach/2. Medium/08. Non Overlapping Intervals.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/10.%20Greedy%20Approach/2.%20Medium/08.%20Non%20Overlapping%20Intervals.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/non-overlapping-intervals/",
+      "title": "Non-overlapping Intervals",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "topic": "Arrays",
+    "file": "topics/arrays.json",
+    "count": 39
+  },
+  {
+    "topic": "Binary Search",
+    "file": "topics/binary-search.json",
+    "count": 31
+  },
+  {
+    "topic": "Strings",
+    "file": "topics/strings.json",
+    "count": 14
+  },
+  {
+    "topic": "Linked List",
+    "file": "topics/linked-list.json",
+    "count": 29
+  },
+  {
+    "topic": "Recursion",
+    "file": "topics/recursion.json",
+    "count": 21
+  },
+  {
+    "topic": "Bit Manipulation",
+    "file": "topics/bit-manipulation.json",
+    "count": 16
+  },
+  {
+    "topic": "Stack and Queues",
+    "file": "topics/stack-and-queues.json",
+    "count": 27
+  },
+  {
+    "topic": "Sliding Window",
+    "file": "topics/sliding-window.json",
+    "count": 11
+  },
+  {
+    "topic": "Heaps",
+    "file": "topics/heaps.json",
+    "count": 16
+  },
+  {
+    "topic": "Greedy Approach",
+    "file": "topics/greedy-approach.json",
+    "count": 12
+  },
+  {
+    "topic": "Binary Trees",
+    "file": "topics/binary-trees.json",
+    "count": 35
+  },
+  {
+    "topic": "Binary Search Trees",
+    "file": "topics/binary-search-trees.json",
+    "count": 15
+  },
+  {
+    "topic": "Graphs",
+    "file": "topics/graphs.json",
+    "count": 42
+  },
+  {
+    "topic": "Dynamic Programming",
+    "file": "topics/dynamic-programming.json",
+    "count": 50
+  },
+  {
+    "topic": "Tries",
+    "file": "topics/tries.json",
+    "count": 6
+  },
+  {
+    "topic": "Strings (Hard)",
+    "file": "topics/strings-hard.json",
+    "count": 5
+  }
+]

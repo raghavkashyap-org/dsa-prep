@@ -1,0 +1,690 @@
+[
+  {
+    "id": "p135",
+    "index": 135,
+    "title": "Bit Manipulation",
+    "topic": "Bit Manipulation",
+    "subtopic": "Learn Bit Manipulation",
+    "difficulty": "Medium",
+    "question": "Given a 32-bit unsigned integer num and an integer i, perform the following operations on the number:\n1. Get the ith bit.\n2. Set the ith bit.\n3. Clear the ith bit.\n\nNote: The bits are indexed from 1 instead of 0 (1-based indexing).\n\nExample:\nInput: 70, 3\nOutput: 1 70 66\nExplanation:\n- The bit at the 3rd position from the least significant bit (LSB) is 1. (1 0 0 0 1 1 0)\n- The value of the given number after setting the 3rd bit is 70.\n- The value of the given number after clearing the 3rd bit is 66. (1 0 0 0 0 1 0)",
+    "approach": "1. Subtract 1 from i to adjust the index to 0-based.\n2. To get the ith bit, perform a bitwise AND operation between num and (1 << i). If the result is non-zero, the ith bit is set; otherwise, it is cleared.\n3. To set the ith bit, perform a bitwise OR operation between num and (1 << i).\n4. To clear the ith bit, perform a bitwise AND operation between num and the complement of (1 << i).",
+    "pseudocode": "ALGORITHM  Bit Manipulation\nPATTERN    Bit manipulation\n\nBEGIN\n  01  Subtract 1 from i to adjust the index to 0-based\n  02  To get the ith bit, perform a bitwise AND operation between num and (1 << i). If the result is non-zero, the ith bit is set; otherwise, it is cleared\n  03  To set the ith bit, perform a bitwise OR operation between num and (1 << i)\n  04  To clear the ith bit, perform a bitwise AND operation between num and the complement of (1 << i)\n  05  RETURN the required result\nEND",
+    "time": "Not explicitly stated in the source file",
+    "space": "Not explicitly stated in the source file",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*QUESTION:-\nGiven a 32-bit unsigned integer num and an integer i, perform the following operations on the number:\n1. Get the ith bit.\n2. Set the ith bit.\n3. Clear the ith bit.\n\nNote: The bits are indexed from 1 instead of 0 (1-based indexing).\n\nExample:\nInput: 70, 3\nOutput: 1 70 66\nExplanation:\n- The bit at the 3rd position from the least significant bit (LSB) is 1. (1 0 0 0 1 1 0)\n- The value of the given number after setting the 3rd bit is 70.\n- The value of the given number after clearing the 3rd bit is 66. (1 0 0 0 0 1 0)\n\nApproach:\n1. Subtract 1 from i to adjust the index to 0-based.\n2. To get the ith bit, perform a bitwise AND operation between num and (1 << i). If the result is non-zero, the ith bit is set; otherwise, it is cleared.\n3. To set the ith bit, perform a bitwise OR operation between num and (1 << i).\n4. To clear the ith bit, perform a bitwise AND operation between num and the complement of (1 << i).\n\nCODE:*/\nvoid bitManipulation(int num, int i) {\n    i = i - 1; // Adjusting index to 0-based\n    \n    // Get the ith bit\n    if (num & (1 << i))\n        cout << 1 << \" \";\n    else\n        cout << 0 << \" \";\n    \n    // Set the ith bit\n    int set = num | (1 << i);\n    cout << set << \" \";\n    \n    // Clear the ith bit\n    int clear = num & (~(1 << i));\n    cout << clear;\n}\n",
+    "codeLines": 40,
+    "repoPath": "06.Bit Manipulation/1. Learn Bit Manipulation/01.Bit Manipulation.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/1.%20Learn%20Bit%20Manipulation/01.Bit%20Manipulation.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/number-of-1-bits/",
+      "title": "Number of 1 Bits",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p136",
+    "index": 136,
+    "title": "Check for the ith bit",
+    "topic": "Bit Manipulation",
+    "subtopic": "Learn Bit Manipulation",
+    "difficulty": "Medium",
+    "question": "Given a number N and a bit number K, check if the Kth index bit of N is set or not. A bit is called set if it is 1. The position of the set bit '1' should be indexed starting with 0 from the least significant bit (LSB) side in the binary representation of the number.\n\nExample:\nInput: N = 4, K = 0\nOutput: No\nExplanation: The binary representation of 4 is 100, in which the 0th index bit from the LSB is not set. So, return false.",
+    "approach": "1. Perform a bitwise AND operation between N and (1 << K).\n2. If the result is non-zero, it means the Kth index bit is set (1); otherwise, it is not set (0).",
+    "pseudocode": "ALGORITHM  Check for the ith bit\nPATTERN    Bit manipulation\n\nBEGIN\n  01  Perform a bitwise AND operation between N and (1 << K)\n  02  IF the result is non-zero, it means the Kth index bit is set (1); otherwise, it is not set (0)\n  03  RETURN the required result\nEND",
+    "time": "Not explicitly stated in the source file",
+    "space": "Not explicitly stated in the source file",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*QUESTION:\nGiven a number N and a bit number K, check if the Kth index bit of N is set or not. A bit is called set if it is 1. The position of the set bit '1' should be indexed starting with 0 from the least significant bit (LSB) side in the binary representation of the number.\n\nExample:\nInput: N = 4, K = 0\nOutput: No\nExplanation: The binary representation of 4 is 100, in which the 0th index bit from the LSB is not set. So, return false.\n\nApproach:\n1. Perform a bitwise AND operation between N and (1 << K).\n2. If the result is non-zero, it means the Kth index bit is set (1); otherwise, it is not set (0).\n\nCODE:*/\nbool checkKthBit(int n, int k) {\n    if (n & (1 << k))\n        return true;\n    return false;\n}\n",
+    "codeLines": 18,
+    "repoPath": "06.Bit Manipulation/1. Learn Bit Manipulation/02.Check for the ith bit.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/1.%20Learn%20Bit%20Manipulation/02.Check%20for%20the%20ith%20bit.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/number-of-1-bits/",
+      "title": "Number of 1 Bits",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p137",
+    "index": 137,
+    "title": "Check for odd even",
+    "topic": "Bit Manipulation",
+    "subtopic": "Learn Bit Manipulation",
+    "difficulty": "Medium",
+    "question": "Given a positive integer N, determine whether it is odd or even.\n\nExample 1:\n\nInput:\nN = 1\nOutput:\nodd\nExplanation:\nThe number 1 is odd.",
+    "approach": "To determine whether a positive integer N is odd or even, we can check the least significant bit (LSB) of N.\nIf the LSB is 1, the number is odd. If the LSB is 0, the number is even.\nWe can use the bitwise AND operation with 1 (N & 1) to check the LSB.\nIf the result is 1, we return \"odd\". If the result is 0, we return \"even\".",
+    "pseudocode": "ALGORITHM  Check for odd even\nPATTERN    Bit manipulation\n\nBEGIN\n  01  To determine whether a positive integer N is odd or even, we can check the least significant bit (LSB) of N\n  02  IF the LSB is 1, the number is odd. If the LSB is 0, the number is even\n  03  We can use the bitwise AND operation with 1 (N & 1) to check the LSB\n  04  IF the result is 1, we return \"odd\". If the result is 0, we return \"even\"\n  05  RETURN the required result\nEND",
+    "time": "O(1)",
+    "space": "O(1)",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation", "Strings"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven a positive integer N, determine whether it is odd or even.\n\nExample 1:\n\nInput:\nN = 1\nOutput:\nodd\nExplanation:\nThe number 1 is odd.\n\nAPPROACH:\nTo determine whether a positive integer N is odd or even, we can check the least significant bit (LSB) of N. \nIf the LSB is 1, the number is odd. If the LSB is 0, the number is even.\nWe can use the bitwise AND operation with 1 (N & 1) to check the LSB.\nIf the result is 1, we return \"odd\". If the result is 0, we return \"even\".\n\n\nCODE*/\n\nstring oddEven(int N){\n    if(N&1)\n        return \"odd\";\n    return \"even\";\n}\n\n// Time Complexity: O(1)\n// Space Complexity: O(1)\n",
+    "codeLines": 30,
+    "repoPath": "06.Bit Manipulation/1. Learn Bit Manipulation/03.Check for odd even.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/1.%20Learn%20Bit%20Manipulation/03.Check%20for%20odd%20even.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/number-of-1-bits/",
+      "title": "Number of 1 Bits",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p138",
+    "index": 138,
+    "title": "Check for the power of 2",
+    "topic": "Bit Manipulation",
+    "subtopic": "Learn Bit Manipulation",
+    "difficulty": "Easy",
+    "question": "Given an integer n, return true if it is a power of two. Otherwise, return false.\n\nExample 1:\nInput: n = 1\nOutput: true\nExplanation: 2^0 = 1\n\nExample 2:\nInput: n = 16\nOutput: true\nExplanation: 2^4 = 16",
+    "approach": "An integer n is a power of two if it has only one bit set (i.e., it is a power of 2).\nTo check if a number has only one bit set, we can use the bitwise AND operation with (n-1).\nIf the result is 0, then it is a power of two; otherwise, it is not.\n\n1. If n is less than or equal to 0, return false.\n2. Perform the bitwise AND operation between n and (n-1).\n3. If the result is 0, return true; otherwise, return false.\n\nbool isPowerOfTwo(int n) {\n    if(n <= 0)\n        return false;\n    if(n & (n-1))\n        return false;\n    return true;\n}",
+    "pseudocode": "ALGORITHM  Check for the power of 2\nPATTERN    Bit manipulation\n\nBEGIN\n  01  An integer n is a power of two if it has only one bit set (i.e., it is a power of 2)\n  02  To check if a number has only one bit set, we can use the bitwise AND operation with (n-1)\n  03  IF the result is 0, then it is a power of two; otherwise, it is not\n  04  IF n is less than or equal to 0, return false\n  05  Perform the bitwise AND operation between n and (n-1)\n  06  IF the result is 0, return true; otherwise, return false\n  07  bool isPowerOfTwo(int n) {\n  08  if(n <= 0)\n  09  RETURN false;\n  10  if(n & (n-1))\n  11  RETURN false;\n  12  RETURN true;\n  13  }\nEND",
+    "time": "O(1)",
+    "space": "O(1)",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an integer n, return true if it is a power of two. Otherwise, return false.\n\nExample 1:\nInput: n = 1\nOutput: true\nExplanation: 2^0 = 1\n\nExample 2:\nInput: n = 16\nOutput: true\nExplanation: 2^4 = 16\n*/\n\n/*\nAPPROACH:\nAn integer n is a power of two if it has only one bit set (i.e., it is a power of 2).\nTo check if a number has only one bit set, we can use the bitwise AND operation with (n-1).\nIf the result is 0, then it is a power of two; otherwise, it is not.\n\n1. If n is less than or equal to 0, return false.\n2. Perform the bitwise AND operation between n and (n-1).\n3. If the result is 0, return true; otherwise, return false.\n*/\n\nbool isPowerOfTwo(int n) {\n    if(n <= 0)\n        return false;\n    if(n & (n-1))\n        return false;\n    return true;\n}\n\n// Time Complexity: O(1)\n// Space Complexity: O(1)\n",
+    "codeLines": 36,
+    "repoPath": "06.Bit Manipulation/1. Learn Bit Manipulation/04.Check for the power of 2.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/1.%20Learn%20Bit%20Manipulation/04.Check%20for%20the%20power%20of%202.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/power-of-two/",
+      "title": "Power of Two",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p139",
+    "index": 139,
+    "title": "Set the rightmost unset bit",
+    "topic": "Bit Manipulation",
+    "subtopic": "Learn Bit Manipulation",
+    "difficulty": "Medium",
+    "question": "Given a non-negative number N, set the rightmost unset bit in its binary representation. If there are no unset bits, leave the number as it is.\n\nExample:\nInput: N = 6\nOutput: 7\nExplanation:\nThe binary representation of 6 is 110.\nAfter setting the rightmost unset bit, it becomes 111 which is 7.\n\nInput: N = 15\nOutput: 15\nExplanation:\nThe binary representation of 15 is 1111.\nSince there are no unset bits, it remains the same.",
+    "approach": "To set the rightmost unset bit in the binary representation of N, we can follow these steps:\n1. Check if N+1 is a power of 2. If it is, then N already has all bits set, so return N.\n2. Otherwise, perform the bitwise OR operation between N and (N+1). This will set the rightmost unset bit.\n3. Return the result.\n\n1. Check if N+1 is a power of 2 by using the isPowerOfTwo function.\n2. If it is, return N as it already has all bits set.\n3. Otherwise, perform the bitwise OR operation between N and (N+1) and return the result.",
+    "pseudocode": "ALGORITHM  Set the rightmost unset bit\nPATTERN    Two pointers\n\nBEGIN\n  01  To set the rightmost unset bit in the binary representation of N, we can follow these steps:\n  02  Check if N+1 is a power of 2. If it is, then N already has all bits set, so return N\n  03  ELSE perform the bitwise OR operation between N and (N+1). This will set the rightmost unset bit\n  04  RETURN the result\n  05  Check if N+1 is a power of 2 by using the isPowerOfTwo function\n  06  IF it is, return N as it already has all bits set\n  07  ELSE perform the bitwise OR operation between N and (N+1) and return the result\nEND",
+    "time": "O(1)",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Bit Manipulation", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven a non-negative number N, set the rightmost unset bit in its binary representation. If there are no unset bits, leave the number as it is.\n\nExample:\nInput: N = 6\nOutput: 7\nExplanation:\nThe binary representation of 6 is 110.\nAfter setting the rightmost unset bit, it becomes 111 which is 7.\n\nInput: N = 15\nOutput: 15\nExplanation:\nThe binary representation of 15 is 1111.\nSince there are no unset bits, it remains the same.\n\nAPPROACH:\nTo set the rightmost unset bit in the binary representation of N, we can follow these steps:\n1. Check if N+1 is a power of 2. If it is, then N already has all bits set, so return N.\n2. Otherwise, perform the bitwise OR operation between N and (N+1). This will set the rightmost unset bit.\n3. Return the result.\n\n1. Check if N+1 is a power of 2 by using the isPowerOfTwo function.\n2. If it is, return N as it already has all bits set.\n3. Otherwise, perform the bitwise OR operation between N and (N+1) and return the result.\n\nCODE:*/\nbool isPowerOfTwo(int n) {\n    if(n <= 0)\n        return false;\n    if(n & (n-1))\n        return false;\n    return true;\n}\n\nint setBit(int N)\n{\n    if(isPowerOfTwo(N+1))\n        return N;\n\n    int ans = (N | (N+1));\n    return ans;\n}\n\n// Time Complexity: O(1)\n// Space Complexity: O(1)\n",
+    "codeLines": 47,
+    "repoPath": "06.Bit Manipulation/1. Learn Bit Manipulation/05.Set the righmost unset bit.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/1.%20Learn%20Bit%20Manipulation/05.Set%20the%20righmost%20unset%20bit.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/number-of-1-bits/",
+      "title": "Number of 1 Bits",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p140",
+    "index": 140,
+    "title": "Swap two numbers without temporary variable",
+    "topic": "Bit Manipulation",
+    "subtopic": "Learn Bit Manipulation",
+    "difficulty": "Medium",
+    "question": "Given two numbers a and b, swap their values without using a temporary variable and return them.\n\nExample:\nInput: a = 13, b = 9\nOutput: 9 13\nExplanation: After swapping, the values become 9 and 13.",
+    "approach": "To swap two numbers a and b without using a temporary variable, we can use the XOR (^) operation.\n1. Set a = a XOR b, which XORs the binary representations of a and b and stores the result in a.\n2. Set b = a XOR b, which XORs the new value of a (after step 1) with the original value of b, and stores the result in b.\n3. Set a = a XOR b, which XORs the new value of a (after step 1) with the new value of b (after step 2), and stores the result in a.\n4. The values of a and b are swapped.",
+    "pseudocode": "ALGORITHM  Swap two numbers without temporary variable\nPATTERN    Bit manipulation\n\nBEGIN\n  01  To swap two numbers a and b without using a temporary variable, we can use the XOR (^) operation\n  02  SET a = a XOR b, which XORs the binary representations of a and b and stores the result in a\n  03  SET b = a XOR b, which XORs the new value of a (after step 1) with the original value of b, and stores the result in b\n  04  SET a = a XOR b, which XORs the new value of a (after step 1) with the new value of b (after step 2), and stores the result in a\n  05  The values of a and b are swapped\n  06  RETURN the required result\nEND",
+    "time": "O(1)",
+    "space": "O(1)",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven two numbers a and b, swap their values without using a temporary variable and return them.\n\nExample:\nInput: a = 13, b = 9\nOutput: 9 13\nExplanation: After swapping, the values become 9 and 13.\n\nAPPROACH:\nTo swap two numbers a and b without using a temporary variable, we can use the XOR (^) operation.\n1. Set a = a XOR b, which XORs the binary representations of a and b and stores the result in a.\n2. Set b = a XOR b, which XORs the new value of a (after step 1) with the original value of b, and stores the result in b.\n3. Set a = a XOR b, which XORs the new value of a (after step 1) with the new value of b (after step 2), and stores the result in a.\n4. The values of a and b are swapped.\n\nCODE:*/\npair<int, int> get(int a, int b){\n    a = a^b;\n    b = a^b; \n    a = a^b;\n    return {a, b};\n}\n\n// Time Complexity: O(1)\n// Space Complexity: O(1)\n\n",
+    "codeLines": 27,
+    "repoPath": "06.Bit Manipulation/1. Learn Bit Manipulation/06.Swap two numbers without temporary variable.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/1.%20Learn%20Bit%20Manipulation/06.Swap%20two%20numbers%20without%20temporary%20variable.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sum-of-two-integers/",
+      "title": "Sum of Two Integers",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p141",
+    "index": 141,
+    "title": "Divide two numbers using bit manipulation",
+    "topic": "Bit Manipulation",
+    "subtopic": "Learn Bit Manipulation",
+    "difficulty": "Medium",
+    "question": "Given two integers dividend and divisor, find the quotient after dividing dividend by divisor without using multiplication, division, and mod operator.\n\nExample:\nInput: dividend = 10, divisor = 3\nOutput: 3\nExplanation: 10/3 gives a quotient of 3 and remainder of 1.",
+    "approach": "To divide two integers without using multiplication, division, and mod operator, we can use a bitwise shifting approach.\n1. Initialize a variable ans as 0 to store the quotient.\n2. Check if the dividend and divisor have different signs to determine the sign of the quotient.\n3. Take the absolute values of the dividend and divisor to work with positive numbers.\n4. Iterate while the absolute value of the dividend is greater than or equal to the absolute value of the divisor:\n    a. Initialize a variable q as 1 to represent the current quotient digit.\n    b. Iterate while the absolute value of the dividend is greater than the absolute value of the divisor left-shifted by q:\n        i. Increment q.\n    c. Add (1 << (q - 1)) to the quotient ans.\n    d. Subtract the absolute value of the divisor left-shifted by (q - 1) from the absolute value of the dividend.\n5. Return the quotient ans, considering the sign based on the step 2.",
+    "pseudocode": "ALGORITHM  Divide two numbers using bit manipulation\nPATTERN    Two pointers\n\nBEGIN\n  01  To divide two integers without using multiplication, division, and mod operator, we can use a bitwise shifting approach\n  02  SET a variable ans as 0 to store the quotient\n  03  Check if the dividend and divisor have different signs to determine the sign of the quotient\n  04  Take the absolute values of the dividend and divisor to work with positive numbers\n  05  Iterate while the absolute value of the dividend is greater than or equal to the absolute value of the divisor:\n  06  a. Initialize a variable q as 1 to represent the current quotient digit\n  07  b. Iterate while the absolute value of the dividend is greater than the absolute value of the divisor left-shifted by q:\n  08  i. Increment q\n  09  c. Add (1 << (q - 1)) to the quotient ans\n  10  d. Subtract the absolute value of the divisor left-shifted by (q - 1) from the absolute value of the dividend\n  11  RETURN the quotient ans, considering the sign based on the step 2\nEND",
+    "time": "O(log n), where n is the absolute value of the dividend",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Bit Manipulation", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven two integers dividend and divisor, find the quotient after dividing dividend by divisor without using multiplication, division, and mod operator.\n\nExample:\nInput: dividend = 10, divisor = 3\nOutput: 3\nExplanation: 10/3 gives a quotient of 3 and remainder of 1.\n\nAPPROACH:\nTo divide two integers without using multiplication, division, and mod operator, we can use a bitwise shifting approach.\n1. Initialize a variable ans as 0 to store the quotient.\n2. Check if the dividend and divisor have different signs to determine the sign of the quotient.\n3. Take the absolute values of the dividend and divisor to work with positive numbers.\n4. Iterate while the absolute value of the dividend is greater than or equal to the absolute value of the divisor:\n    a. Initialize a variable q as 1 to represent the current quotient digit.\n    b. Iterate while the absolute value of the dividend is greater than the absolute value of the divisor left-shifted by q:\n        i. Increment q.\n    c. Add (1 << (q - 1)) to the quotient ans.\n    d. Subtract the absolute value of the divisor left-shifted by (q - 1) from the absolute value of the dividend.\n5. Return the quotient ans, considering the sign based on the step 2.\n\nCODE:*/\n\nint divideTwoInteger(int dividend, int divisor) {\n    if (dividend == divisor)\n        return 1;\n\n    bool isNegative = ((dividend < 0 && divisor >= 0) || (dividend >= 0 && divisor < 0));\n\n    int ans = 0;\n    int a = abs(dividend);\n    int b = abs(divisor);\n\n    while (a >= b) {\n        // at each stage we will find the greatest power of 2 which is smaller than the dividend\n        int q = 1;\n        while (a > (b << q))\n            q++;\n        ans += (1 << (q - 1));\n        a -= (b << (q - 1));\n    }\n\n    return (isNegative) ? -ans : ans;\n}\n\n// Time Complexity: O(log n), where n is the absolute value of the dividend\n// Space Complexity: O(1)\n\n\n",
+    "codeLines": 50,
+    "repoPath": "06.Bit Manipulation/1. Learn Bit Manipulation/07.Divide two numbers using bit maipulation.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/1.%20Learn%20Bit%20Manipulation/07.Divide%20two%20numbers%20using%20bit%20maipulation.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/divide-two-integers/",
+      "title": "Divide Two Integers",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p142",
+    "index": 142,
+    "title": "Count set bit from numbers 1 to n",
+    "topic": "Bit Manipulation",
+    "subtopic": "Learn Bit Manipulation",
+    "difficulty": "Medium",
+    "question": "You are given a number N. Find the total count of set bits for all numbers from 1 to N (both inclusive).\n\nExample:\nInput: N = 4\nOutput: 5\nExplanation:\nFor numbers from 1 to 4:\n- For 1: 0 0 1 = 1 set bit\n- For 2: 0 1 0 = 1 set bit\n- For 3: 0 1 1 = 2 set bits\n- For 4: 1 0 0 = 1 set bit\nTherefore, the total set bits is 5.",
+    "approach": "The approach to solve this problem is based on the observation that the count of set bits in the binary representation of a number `n` can be determined by the following formula:\ncountSetBits(n) = countSetBits(pow(2, x - 1) * x) + (n - pow(2, x) + 1) + countSetBits(n - pow(2, x))",
+    "pseudocode": "ALGORITHM  Count set bit from numbers 1 to n\nPATTERN    Bit manipulation\n\nBEGIN\n  01  The approach to solve this problem is based on the observation that the count of set bits in the binary representation of a number n can be determined by the following formula:\n  02  countSetBits(n) = countSetBits(pow(2, x - 1) * x) + (n - pow(2, x) + 1) + countSetBits(n - pow(2, x))\n  03  RETURN the required result\nEND",
+    "time": "O(log(n))",
+    "space": "O(log(n))",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nYou are given a number N. Find the total count of set bits for all numbers from 1 to N (both inclusive).\n\nExample:\nInput: N = 4\nOutput: 5\nExplanation:\nFor numbers from 1 to 4:\n- For 1: 0 0 1 = 1 set bit\n- For 2: 0 1 0 = 1 set bit\n- For 3: 0 1 1 = 2 set bits\n- For 4: 1 0 0 = 1 set bit\nTherefore, the total set bits is 5.\n\nAPPROACH:\nThe approach to solve this problem is based on the observation that the count of set bits in the binary representation of a number `n` can be determined by the following formula:\ncountSetBits(n) = countSetBits(pow(2, x - 1) * x) + (n - pow(2, x) + 1) + countSetBits(n - pow(2, x))\n\nCODE:*/\nint countSetBits(int n) {\n    if (n <= 1)\n        return n;\n    int x = log2(n); // Find the greatest power of 2 less than n\n    return (pow(2, x - 1) * x) + (n - pow(2, x) + 1) + countSetBits(n - pow(2, x));\n}\n\n// Time Complexity: O(log(n))\n// Space Complexity: O(log(n))\n\n\n",
+    "codeLines": 31,
+    "repoPath": "06.Bit Manipulation/1. Learn Bit Manipulation/08.Count set bit from numbers 1 to n.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/1.%20Learn%20Bit%20Manipulation/08.Count%20set%20bit%20from%20numbers%201%20to%20n.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/number-of-1-bits/",
+      "title": "Number of 1 Bits",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p143",
+    "index": 143,
+    "title": "Minimum bit flips",
+    "topic": "Bit Manipulation",
+    "subtopic": "Interview Problems",
+    "difficulty": "Easy",
+    "question": "A bit flip of a number x is choosing a bit in the binary representation of x and flipping it from either 0 to 1 or 1 to 0. Given two integers start and goal, return the minimum number of bit flips required to convert start to goal.\n\nExample:\nInput: start = 10, goal = 7\nOutput: 3\nExplanation: The binary representation of 10 and 7 are 1010 and 0111 respectively. We can convert 10 to 7 in 3 steps:\n- Flip the first bit from the right: 1010 -> 1011.\n- Flip the third bit from the right: 1011 -> 1111.\n- Flip the fourth bit from the right: 1111 -> 0111.\nIt can be shown that we cannot convert 10 to 7 in less than 3 steps. Hence, we return 3.",
+    "approach": "To find the minimum number of bit flips required to convert start to goal, we can iterate over each bit position from right to left and compare the corresponding bits in start and goal. If they are different, we increment a counter. Finally, we return the counter.",
+    "pseudocode": "ALGORITHM  Minimum bit flips\nPATTERN    Two pointers\n\nBEGIN\n  01  To find the minimum number of bit flips required to convert start to goal, we can iterate over each bit position from right to left and compare the corresponding bits in start and goal\n  02  IF they are different, we increment a counter\n  03  Finally, we return the counter\n  04  RETURN the required result\nEND",
+    "time": "O(log n), where n is the maximum value between start and goal",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Bit Manipulation", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nA bit flip of a number x is choosing a bit in the binary representation of x and flipping it from either 0 to 1 or 1 to 0. Given two integers start and goal, return the minimum number of bit flips required to convert start to goal.\n\nExample:\nInput: start = 10, goal = 7\nOutput: 3\nExplanation: The binary representation of 10 and 7 are 1010 and 0111 respectively. We can convert 10 to 7 in 3 steps:\n- Flip the first bit from the right: 1010 -> 1011.\n- Flip the third bit from the right: 1011 -> 1111.\n- Flip the fourth bit from the right: 1111 -> 0111.\nIt can be shown that we cannot convert 10 to 7 in less than 3 steps. Hence, we return 3.\n\nAPPROACH:\nTo find the minimum number of bit flips required to convert start to goal, we can iterate over each bit position from right to left and compare the corresponding bits in start and goal. If they are different, we increment a counter. Finally, we return the counter.\n\nCODE:*/\nint minBitFlips(int start, int goal) {\n    int i = 0;\n    int cnt = 0;\n    while (i < 32) {\n        int startbit = (start >> i) & 1;\n        int goalbit = (goal >> i) & 1;\n        if (startbit != goalbit)\n            cnt++;\n        i++;\n    }\n    return cnt;\n}\n\n// Time Complexity: O(log n), where n is the maximum value between start and goal\n// Space Complexity: O(1)\n\n\n",
+    "codeLines": 34,
+    "repoPath": "06.Bit Manipulation/2. Interview Problems/01. Minimum bit flips.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/2.%20Interview%20Problems/01.%20Minimum%20bit%20flips.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-bit-flips-to-convert-number/",
+      "title": "Minimum Bit Flips to Convert Number",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p144",
+    "index": 144,
+    "title": "Exceptionally odd",
+    "topic": "Bit Manipulation",
+    "subtopic": "Interview Problems",
+    "difficulty": "Easy",
+    "question": "Given an array of N positive integers where all numbers occur an even number of times except one number which occurs an odd number of times. Find the exceptional number.\n\nExample:\nInput: N = 7, Arr[] = {1, 2, 3, 2, 3, 1, 3}\nOutput: 3\nExplanation: Number 3 occurs three times, which is an odd number of times, while all other numbers occur an even number of times.",
+    "approach": "To find the exceptional number, we can use the bitwise XOR operation. XORing a number with itself results in 0, so XORing all the numbers in the array will cancel out the even occurrences, leaving only the exceptional number in the result.",
+    "pseudocode": "ALGORITHM  Exceptionally odd\nPATTERN    Bit manipulation\n\nBEGIN\n  01  To find the exceptional number, we can use the bitwise XOR operation\n  02  XORing a number with itself results in 0, so XORing all the numbers in the array will cancel out the even occurrences, leaving only the exceptional number in the result\n  03  RETURN the required result\nEND",
+    "time": "O(n), where n is the number of elements in the array",
+    "space": "O(1)",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array of N positive integers where all numbers occur an even number of times except one number which occurs an odd number of times. Find the exceptional number.\n\nExample:\nInput: N = 7, Arr[] = {1, 2, 3, 2, 3, 1, 3}\nOutput: 3\nExplanation: Number 3 occurs three times, which is an odd number of times, while all other numbers occur an even number of times.\n\nAPPROACH:\nTo find the exceptional number, we can use the bitwise XOR operation. XORing a number with itself results in 0, so XORing all the numbers in the array will cancel out the even occurrences, leaving only the exceptional number in the result.\n\nCODE:*/\nint getOddOccurrence(int arr[], int n) {\n    int xr = 0;\n    for (int i = 0; i < n; i++) {\n        xr = xr ^ arr[i];\n    }\n    return xr;\n}\n\n// Time Complexity: O(n), where n is the number of elements in the array\n// Space Complexity: O(1)\n\n\n",
+    "codeLines": 25,
+    "repoPath": "06.Bit Manipulation/2. Interview Problems/02. Exceptionally odd.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/2.%20Interview%20Problems/02.%20Exceptionally%20odd.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/single-number/",
+      "title": "Single Number",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p145",
+    "index": 145,
+    "title": "XOR of numbers from L to R",
+    "topic": "Bit Manipulation",
+    "subtopic": "Interview Problems",
+    "difficulty": "Medium",
+    "question": "You are given two integers L and R, your task is to find the XOR of elements of the range [L, R].\n\nExample:\n\nInput:\nL = 4, R = 8\nOutput:\n8\nExplanation:\n4 ^ 5 ^ 6 ^ 7 ^ 8 = 8",
+    "approach": "The XOR of a range [L, R] can be calculated by XORing the XORs of the individual numbers in the range [1, L-1] and [1, R].\nWe can observe a pattern in the XOR values based on the remainders of the numbers divided by 4.\nUsing this pattern, we can calculate the XOR of a given number n by applying some conditions.\n\n1. If n % 4 == 0, the XOR value is n.\n2. If n % 4 == 1, the XOR value is 1.\n3. If n % 4 == 2, the XOR value is n+1.\n4. If n % 4 == 3, the XOR value is 0.\n\nBy calculating the XOR values for L-1 and R separately using the above pattern, we can XOR them to get the final result.",
+    "pseudocode": "ALGORITHM  XOR of numbers from L to R\nPATTERN    Bit manipulation\n\nBEGIN\n  01  The XOR of a range [L, R] can be calculated by XORing the XORs of the individual numbers in the range [1, L-1] and [1, R]\n  02  We can observe a pattern in the XOR values based on the remainders of the numbers divided by 4\n  03  Using this pattern, we can calculate the XOR of a given number n by applying some conditions\n  04  IF n % 4 == 0, the XOR value is n\n  05  IF n % 4 == 1, the XOR value is 1\n  06  IF n % 4 == 2, the XOR value is n+1\n  07  IF n % 4 == 3, the XOR value is 0\n  08  By calculating the XOR values for L-1 and R separately using the above pattern, we can XOR them to get the final result\n  09  RETURN the required result\nEND",
+    "time": "O(1) as the calculations are based on simple arithmetic operations",
+    "space": "O(1) as no extra space is required",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nYou are given two integers L and R, your task is to find the XOR of elements of the range [L, R].\n\nExample:\n\nInput:\nL = 4, R = 8\nOutput:\n8\nExplanation:\n4 ^ 5 ^ 6 ^ 7 ^ 8 = 8\n*/\n\n/*\nApproach:\nThe XOR of a range [L, R] can be calculated by XORing the XORs of the individual numbers in the range [1, L-1] and [1, R].\nWe can observe a pattern in the XOR values based on the remainders of the numbers divided by 4.\nUsing this pattern, we can calculate the XOR of a given number n by applying some conditions.\n\n1. If n % 4 == 0, the XOR value is n.\n2. If n % 4 == 1, the XOR value is 1.\n3. If n % 4 == 2, the XOR value is n+1.\n4. If n % 4 == 3, the XOR value is 0.\n\nBy calculating the XOR values for L-1 and R separately using the above pattern, we can XOR them to get the final result.\n\nCode:\n*/\n\nint calculateXOR(int n) {\n    if (n % 4 == 0)\n        return n;\n    if (n % 4 == 1)\n        return 1;\n    if (n % 4 == 2)\n        return n + 1;\n    if (n % 4 == 3)\n        return 0;\n}\n\nint findXOR(int L, int R) {\n    int uptol = calculateXOR(L - 1);\n    int uptor = calculateXOR(R);\n    return uptor ^ uptol;\n}\n\n/*\nComplexity Analysis:\n- The time complexity is O(1) as the calculations are based on simple arithmetic operations.\n- The space complexity is O(1) as no extra space is required.\n*/\n\n",
+    "codeLines": 53,
+    "repoPath": "06.Bit Manipulation/2. Interview Problems/03. XOR of numbers from L to R.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/2.%20Interview%20Problems/03.%20XOR%20of%20numbers%20from%20L%20to%20R.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sum-of-two-integers/",
+      "title": "Sum of Two Integers",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p146",
+    "index": 146,
+    "title": "Prime factors of number",
+    "topic": "Bit Manipulation",
+    "subtopic": "Advanced Maths",
+    "difficulty": "Medium",
+    "question": "Given a number N, find its unique prime factors in increasing order.\n\nExample:\nInput: N = 100\nOutput: 2 5\nExplanation: 2 and 5 are the unique prime factors of 100.",
+    "approach": "To find the unique prime factors of a number N, we can iterate from 2 to sqrt(N) and check if each number divides N.\n1. Initialize an empty vector `ans` to store the prime factors.\n2. Iterate from 2 to sqrt(N):\n   - If `i` divides `N` (i.e., N % i == 0):\n     - Add `i` to `ans`.\n     - Divide `N` by `i` until it is no longer divisible by `i`.\n3. If `N` is still greater than 1, it means that `N` itself is a prime factor. Add it to `ans`.\n4. Return `ans`.",
+    "pseudocode": "ALGORITHM  Prime factors of number\nPATTERN    Bit manipulation\n\nBEGIN\n  01  To find the unique prime factors of a number N, we can iterate from 2 to sqrt(N) and check if each number divides N\n  02  SET an empty vector ans to store the prime factors\n  03  Iterate from 2 to sqrt(N):\n  04  IF i divides N (i.e., N % i == 0):\n  05  Add i to ans\n  06  Divide N by i until it is no longer divisible by i\n  07  IF N is still greater than 1, it means that N itself is a prime factor. Add it to ans\n  08  RETURN ans\nEND",
+    "time": "O(sqrt(N))",
+    "space": "O(1) (excluding the space required for the output vector)",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven a number N, find its unique prime factors in increasing order.\n\nExample:\nInput: N = 100\nOutput: 2 5\nExplanation: 2 and 5 are the unique prime factors of 100.\n\nAPPROACH:\nTo find the unique prime factors of a number N, we can iterate from 2 to sqrt(N) and check if each number divides N.\n1. Initialize an empty vector `ans` to store the prime factors.\n2. Iterate from 2 to sqrt(N):\n   - If `i` divides `N` (i.e., N % i == 0):\n     - Add `i` to `ans`.\n     - Divide `N` by `i` until it is no longer divisible by `i`.\n3. If `N` is still greater than 1, it means that `N` itself is a prime factor. Add it to `ans`.\n4. Return `ans`.\n\nCODE:*/\nvector<int> AllPrimeFactors(int n) {\n    vector<int> ans;\n    for (int i = 2; i * i <= n; i++) {\n        if (n % i == 0) {\n            ans.push_back(i);\n            while (n % i == 0)\n                n /= i;\n        }\n    }\n    if (n > 1)\n        ans.push_back(n);\n    return ans;\n}\n\n// Time Complexity: O(sqrt(N))\n// Space Complexity: O(1) (excluding the space required for the output vector)\n\n\n",
+    "codeLines": 38,
+    "repoPath": "06.Bit Manipulation/3. Advanced Maths/01. Prime factors of number.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/3.%20Advanced%20Maths/01.%20Prime%20factors%20of%20number.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/count-primes/",
+      "title": "Count Primes",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p147",
+    "index": 147,
+    "title": "All divisors of number",
+    "topic": "Bit Manipulation",
+    "subtopic": "Advanced Maths",
+    "difficulty": "Medium",
+    "question": "Given an integer N, print all the divisors of N in ascending order.\n\nExample:\nInput: 20\nOutput: 1 2 4 5 10 20\nExplanation: 20 is completely divisible by 1, 2, 4, 5, 10, and 20.",
+    "approach": "To print all the divisors of a number N, we can iterate from 1 to sqrt(N) and check if each number divides N.\n1. Initialize an empty vector `temp` to store the divisors greater than sqrt(N).\n2. Iterate from 1 to sqrt(N):\n   - If `i` divides `N` (i.e., N % i == 0):\n     - Print `i`.\n     - If N/i != i, it means N/i is a divisor. Add it to `temp`.(we are checking N/i != i because 6*6 = 36 so our divisor should be 1 time 6)\n3. Reverse the elements in `temp` vector.\n4. Print all the elements in `temp`.\n5. The divisors of N will be printed in ascending order.",
+    "pseudocode": "ALGORITHM  All divisors of number\nPATTERN    Bit manipulation\n\nBEGIN\n  01  To print all the divisors of a number N, we can iterate from 1 to sqrt(N) and check if each number divides N\n  02  SET an empty vector temp to store the divisors greater than sqrt(N)\n  03  Iterate from 1 to sqrt(N):\n  04  IF i divides N (i.e., N % i == 0):\n  05  Print i\n  06  IF N/i != i, it means N/i is a divisor. Add it to temp.(we are checking N/i != i because 6*6 = 36 so our divisor should be 1 time 6)\n  07  Reverse the elements in temp vector\n  08  Print all the elements in temp\n  09  The divisors of N will be printed in ascending order\n  10  RETURN the required result\nEND",
+    "time": "O(sqrt(N))",
+    "space": "O(sqrt(N)) (excluding the space required for the output vector)",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an integer N, print all the divisors of N in ascending order.\n\nExample:\nInput: 20\nOutput: 1 2 4 5 10 20\nExplanation: 20 is completely divisible by 1, 2, 4, 5, 10, and 20.\n\nAPPROACH:\nTo print all the divisors of a number N, we can iterate from 1 to sqrt(N) and check if each number divides N.\n1. Initialize an empty vector `temp` to store the divisors greater than sqrt(N).\n2. Iterate from 1 to sqrt(N):\n   - If `i` divides `N` (i.e., N % i == 0):\n     - Print `i`.\n     - If N/i != i, it means N/i is a divisor. Add it to `temp`.(we are checking N/i != i because 6*6 = 36 so our divisor should be 1 time 6)\n3. Reverse the elements in `temp` vector.\n4. Print all the elements in `temp`.\n5. The divisors of N will be printed in ascending order.\n\nCODE:*/\nvoid print_divisors(int n) {\n    vector<int> temp;\n    for (int i = 1; i * i <= n; i++) {\n        if (n % i == 0) {\n            cout << i << \" \";\n            if (n / i != i)\n                temp.push_back(n / i);\n        }\n    }\n    reverse(temp.begin(), temp.end());\n    for (auto it : temp)\n        cout << it << \" \";\n}\n\n// Time Complexity: O(sqrt(N))\n// Space Complexity: O(sqrt(N)) (excluding the space required for the output vector)\n",
+    "codeLines": 37,
+    "repoPath": "06.Bit Manipulation/3. Advanced Maths/02. All divisors of number.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/3.%20Advanced%20Maths/02.%20All%20divisors%20of%20number.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/count-primes/",
+      "title": "Count Primes",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p148",
+    "index": 148,
+    "title": "Sieve of Eratosthenes",
+    "topic": "Bit Manipulation",
+    "subtopic": "Advanced Maths",
+    "difficulty": "Medium",
+    "question": "Given an integer n, return the number of prime numbers that are strictly less than n.\n\nExample:\nInput: n = 10\nOutput: 4\nExplanation: There are 4 prime numbers less than 10, which are 2, 3, 5, and 7.",
+    "approach": "To count the number of prime numbers less than a given number n, we can use the Sieve of Eratosthenes algorithm.\n1. Create a boolean vector `primes` of size n+1 and initialize all elements to true. This vector will be used to mark numbers as prime or not.\n2. Initialize a variable `cnt` to count the number of primes.\n3. Iterate from 2 to n-1:\n   - If primes[i] is true (i.e., i is a prime number), increment `cnt`.\n   - Mark all multiples of i as false in the `primes` vector, as they are not prime.\n4. Return `cnt`, which will be the count of prime numbers less than n.",
+    "pseudocode": "ALGORITHM  Sieve of Eratosthenes\nPATTERN    Bit manipulation\n\nBEGIN\n  01  To count the number of prime numbers less than a given number n, we can use the Sieve of Eratosthenes algorithm\n  02  SET a boolean vector primes of size n+1 and initialize all elements to true. This vector will be used to mark numbers as prime or not\n  03  SET a variable cnt to count the number of primes\n  04  Iterate from 2 to n-1:\n  05  IF primes[i] is true (i.e., i is a prime number), increment cnt\n  06  Mark all multiples of i as false in the primes vector, as they are not prime\n  07  RETURN cnt, which will be the count of prime numbers less than n\nEND",
+    "time": "O(n log log n)",
+    "space": "O(n)",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an integer n, return the number of prime numbers that are strictly less than n.\n\nExample:\nInput: n = 10\nOutput: 4\nExplanation: There are 4 prime numbers less than 10, which are 2, 3, 5, and 7.\n\nAPPROACH:\nTo count the number of prime numbers less than a given number n, we can use the Sieve of Eratosthenes algorithm.\n1. Create a boolean vector `primes` of size n+1 and initialize all elements to true. This vector will be used to mark numbers as prime or not.\n2. Initialize a variable `cnt` to count the number of primes.\n3. Iterate from 2 to n-1:\n   - If primes[i] is true (i.e., i is a prime number), increment `cnt`.\n   - Mark all multiples of i as false in the `primes` vector, as they are not prime.\n4. Return `cnt`, which will be the count of prime numbers less than n.\n\nCODE:*/\nint countPrimes(int n) {\n    vector<bool> primes(n + 1, true);\n    int cnt = 0;\n    for (long long i = 2; i < n; i++) {\n        if (primes[i]) {\n            cnt++;\n            for (long long j = i * i; j <= n; j += i) {\n                primes[j] = false;\n            }\n        }\n    }\n    return cnt;\n}\n\n// Time Complexity: O(n log log n)\n// Space Complexity: O(n)\n\n\n",
+    "codeLines": 37,
+    "repoPath": "06.Bit Manipulation/3. Advanced Maths/03. Sieve of Eratosthenes.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/3.%20Advanced%20Maths/03.%20Sieve%20of%20Eratosthenes.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/count-primes/",
+      "title": "Count Primes",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p149",
+    "index": 149,
+    "title": "Prime factorization using Sieve",
+    "topic": "Bit Manipulation",
+    "subtopic": "Advanced Maths",
+    "difficulty": "Medium",
+    "question": "Given a positive number N, compute its prime factorization using the concept of Sieve.\n\nExample:\nInput: N = 12246\nOutput: 2 3 13 157\nExplanation: The prime factorization of 12246 is 2 * 3 * 13 * 157.",
+    "approach": "To compute the prime factorization of a number N, we can use the concept of Sieve.\n1. Create a boolean vector `prime` of size N+1 and initialize all elements to true. This vector will be used to mark numbers as prime or not.\n2. Create an empty vector `ans` to store the prime factors of N.\n3. Iterate from 2 to sqrt(N):\n   - If prime[i] is true (i.e., i is a prime number):\n     - While N is divisible by i, add i to the `ans` vector and divide N by i.\n     - Mark all multiples of i as false in the `prime` vector, as they are not prime.\n4. If N is greater than 1, it means N is a prime number itself, so add N to the `ans` vector.\n5. Return the `ans` vector, which will contain the prime factors of N.",
+    "pseudocode": "ALGORITHM  Prime factorization using Sieve\nPATTERN    Bit manipulation\n\nBEGIN\n  01  To compute the prime factorization of a number N, we can use the concept of Sieve\n  02  SET a boolean vector prime of size N+1 and initialize all elements to true. This vector will be used to mark numbers as prime or not\n  03  SET an empty vector ans to store the prime factors of N\n  04  Iterate from 2 to sqrt(N):\n  05  IF prime[i] is true (i.e., i is a prime number):\n  06  WHILE N is divisible by i, add i to the ans vector and divide N by i\n  07  Mark all multiples of i as false in the prime vector, as they are not prime\n  08  IF N is greater than 1, it means N is a prime number itself, so add N to the ans vector\n  09  RETURN the ans vector, which will contain the prime factors of N\nEND",
+    "time": "O(N log(log N))",
+    "space": "O(N)",
+    "strategy": "Bit manipulation",
+    "tags": ["Bit Manipulation", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven a positive number N, compute its prime factorization using the concept of Sieve.\n\nExample:\nInput: N = 12246\nOutput: 2 3 13 157\nExplanation: The prime factorization of 12246 is 2 * 3 * 13 * 157.\n\nAPPROACH:\nTo compute the prime factorization of a number N, we can use the concept of Sieve.\n1. Create a boolean vector `prime` of size N+1 and initialize all elements to true. This vector will be used to mark numbers as prime or not.\n2. Create an empty vector `ans` to store the prime factors of N.\n3. Iterate from 2 to sqrt(N):\n   - If prime[i] is true (i.e., i is a prime number):\n     - While N is divisible by i, add i to the `ans` vector and divide N by i.\n     - Mark all multiples of i as false in the `prime` vector, as they are not prime.\n4. If N is greater than 1, it means N is a prime number itself, so add N to the `ans` vector.\n5. Return the `ans` vector, which will contain the prime factors of N.\n\nCODE:*/\nvector<int> findPrimeFactors(int n) {\n    vector<bool> prime(n + 1, true);\n    vector<int> ans;\n\n    for (int i = 2; i * i <= n; i++) {\n        if (prime[i]) {\n            while (n % i == 0) {\n                ans.push_back(i);\n                n /= i;\n            }\n            for (long long j = (long long)i * i; j <= n; j += i) {\n                prime[j] = false;\n            }\n        }\n    }\n    if (n > 1)\n        ans.push_back(n);\n    return ans;\n}\n\n// Time Complexity: O(N log(log N))\n// Space Complexity: O(N)\n\n\n",
+    "codeLines": 45,
+    "repoPath": "06.Bit Manipulation/3. Advanced Maths/04. Prime factorization using Sieve.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/3.%20Advanced%20Maths/04.%20Prime%20factorization%20using%20Sieve.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/count-primes/",
+      "title": "Count Primes",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p150",
+    "index": 150,
+    "title": "Fast Power",
+    "topic": "Bit Manipulation",
+    "subtopic": "Advanced Maths",
+    "difficulty": "Medium",
+    "question": "Implement pow(x, n), which calculates x raised to the power n (i.e., x^n).\n\nExample:\nInput: x = 2.00000, n = 10\nOutput: 1024.00000",
+    "approach": "To calculate x raised to the power n, we can use the concept of binary exponentiation.\n1. If n is 0, return 1, as any number raised to the power 0 is 1.\n2. Initialize a variable res to 1 to store the result.\n3. If n is negative, set isNegative flag to true and make n positive.\n4. Iterate until n becomes 0:\n   - If the least significant bit of n is 1 (i.e., n is odd), multiply res by x.\n   - Update x to x^2 by multiplying it with itself.\n   - Right-shift n by 1 to remove the least significant bit.\n5. If isNegative is true, return 1/res; otherwise, return res.",
+    "pseudocode": "ALGORITHM  Fast Power\nPATTERN    Two pointers\n\nBEGIN\n  01  To calculate x raised to the power n, we can use the concept of binary exponentiation\n  02  IF n is 0, return 1, as any number raised to the power 0 is 1\n  03  SET a variable res to 1 to store the result\n  04  IF n is negative, set isNegative flag to true and make n positive\n  05  Iterate until n becomes 0:\n  06  IF the least significant bit of n is 1 (i.e., n is odd), multiply res by x\n  07  UPDATE x to x^2 by multiplying it with itself\n  08  Right-shift n by 1 to remove the least significant bit\n  09  IF isNegative is true, return 1/res; otherwise, return res\n  10  RETURN the required result\nEND",
+    "time": "O(log(n))",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Bit Manipulation", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nImplement pow(x, n), which calculates x raised to the power n (i.e., x^n).\n\nExample:\nInput: x = 2.00000, n = 10\nOutput: 1024.00000\n\nAPPROACH:\nTo calculate x raised to the power n, we can use the concept of binary exponentiation.\n1. If n is 0, return 1, as any number raised to the power 0 is 1.\n2. Initialize a variable res to 1 to store the result.\n3. If n is negative, set isNegative flag to true and make n positive.\n4. Iterate until n becomes 0:\n   - If the least significant bit of n is 1 (i.e., n is odd), multiply res by x.\n   - Update x to x^2 by multiplying it with itself.\n   - Right-shift n by 1 to remove the least significant bit.\n5. If isNegative is true, return 1/res; otherwise, return res.\n\nCODE:*/\ndouble myPow(double x, int n) {\n    if (n == 0)\n        return 1;\n    double res = 1;\n    bool isNegative = (n < 0);\n    n = abs(n);\n    while (n > 0) {\n        if (n & 1) { // Check if n is odd\n            res = res * x;\n        }\n        x = x * x; // Update x to x^2\n        n = n >> 1; // Right-shift n by 1\n    }\n    return (isNegative) ? 1 / res : res;\n}\n\n// Time Complexity: O(log(n))\n// Space Complexity: O(1)\n\n\n",
+    "codeLines": 40,
+    "repoPath": "06.Bit Manipulation/3. Advanced Maths/05. Fast Power.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/06.Bit%20Manipulation/3.%20Advanced%20Maths/05.%20Fast%20Power.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/powx-n/",
+      "title": "Pow(x, n)",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  }
+]

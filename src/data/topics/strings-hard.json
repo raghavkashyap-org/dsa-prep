@@ -1,0 +1,202 @@
+[
+  {
+    "id": "p365",
+    "index": 365,
+    "title": "Minimum number of insertions to make parenthesis valid",
+    "topic": "Strings (Hard)",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "A parentheses string is valid if and only if:\n- It is the empty string,\n- It can be written as AB (A concatenated with B), where A and B are valid strings, or\n- It can be written as (A), where A is a valid string.\nYou are given a parentheses string s. In one move, you can insert a parenthesis at any position of the string.\nReturn the minimum number of moves required to make s valid.\n\nExample:\n\nInput: s = \"())\"\nOutput: 1",
+    "approach": "- We can keep track of the balance of parentheses using two variables: open and close.\n- Traverse through the string, and for each character:\n  - If it's an opening parenthesis '(', increment the open count.\n  - If it's a closing parenthesis ')':\n    - If there are open parentheses available (open > 0), decrement the open count.\n    - Otherwise, increment the close count.\n- The total number of moves required to make the string valid would be equal to open + close.",
+    "pseudocode": "ALGORITHM  Minimum number of insertions to make parenthesis valid\nPATTERN    Stack / queue\n\nBEGIN\n  01  We can keep track of the balance of parentheses using two variables: open and close\n  02  FOR EACH element while traversing through the string, and for each character:\n  03  IF it's an opening parenthesis '(', increment the open count\n  04  IF it's a closing parenthesis ')':\n  05  IF there are open parentheses available (open > 0), decrement the open count\n  06  ELSE increment the close count\n  07  The total number of moves required to make the string valid would be equal to open + close\n  08  RETURN the required result\nEND",
+    "time": "O(n), where n is the length of the string",
+    "space": "O(1) as we are using only two extra variables",
+    "strategy": "Stack / queue",
+    "tags": ["Strings (Hard)", "Stack / queue", "Strings"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nA parentheses string is valid if and only if:\n- It is the empty string,\n- It can be written as AB (A concatenated with B), where A and B are valid strings, or\n- It can be written as (A), where A is a valid string.\nYou are given a parentheses string s. In one move, you can insert a parenthesis at any position of the string.\nReturn the minimum number of moves required to make s valid.\n\nExample:\n\nInput: s = \"())\"\nOutput: 1\n\nApproach:\n- We can keep track of the balance of parentheses using two variables: open and close.\n- Traverse through the string, and for each character:\n  - If it's an opening parenthesis '(', increment the open count.\n  - If it's a closing parenthesis ')':\n    - If there are open parentheses available (open > 0), decrement the open count.\n    - Otherwise, increment the close count.\n- The total number of moves required to make the string valid would be equal to open + close.\n\nComplexity Analysis:\n- The solution traverses the input string once, so the time complexity is O(n), where n is the length of the string.\n- The space complexity is O(1) as we are using only two extra variables.\n\nCODE:\n*/\n\nint minAddToMakeValid(string s) {\n    int open = 0, close = 0;\n    for(char c : s) {\n        if(c == '(') {\n            open++;\n        } else {\n            if(open > 0) {\n                open--; // balance it with an open parenthesis\n            } else {\n                close++;\n            }\n        }\n    }\n    return open + close; // total moves required\n}\n",
+    "codeLines": 45,
+    "repoPath": "16. Strings (Hard)/Hard/01. Minimum number of insertions to make parenthesis valid.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/16.%20Strings%20%28Hard%29/Hard/01.%20Minimum%20number%20of%20insertions%20to%20make%20parenthesis%20valid.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/",
+      "title": "Minimum Add to Make Parentheses Valid",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p366",
+    "index": 366,
+    "title": "Count and Say",
+    "topic": "Strings (Hard)",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "The count-and-say sequence is a sequence of digit strings defined by the recursive formula:\n\ncountAndSay(1) = \"1\"\ncountAndSay(n) is the way you would \"say\" the digit string from countAndSay(n-1), which is then converted into a different digit string.\nTo determine how you \"say\" a digit string, split it into the minimal number of substrings such that each substring contains exactly one unique digit. Then for each substring, say the number of digits, then say the digit. Finally, concatenate every said digit.\n\nInput: n = 4\nOutput: \"1211\"\nExplanation:\ncountAndSay(1) = \"1\"\ncountAndSay(2) = say \"1\" = one 1 = \"11\"\ncountAndSay(3) = say \"11\" = two 1's = \"21\"\ncountAndSay(4) = say \"21\" = one 2 + one 1 = \"12\" + \"11\" = \"1211\"",
+    "approach": "- We can solve this problem using recursion.\n- The base case is when n = 1, in which case we return \"1\".\n- Otherwise, we calculate the count-and-say string for n-1 using recursion.\n- Then, we iterate through the previous string and build the new string based on the count of consecutive characters.",
+    "pseudocode": "ALGORITHM  Count and Say\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can solve this problem using recursion\n  02  The base case is when n = 1, in which case we return \"1\"\n  03  ELSE we calculate the count-and-say string for n-1 using recursion\n  04  Then, we iterate through the previous string and build the new string based on the count of consecutive characters\n  05  RETURN the required result\nEND",
+    "time": "O(2^n), where n is the given input",
+    "space": "O(1) as we are using a constant amount of extra space for each recursion level",
+    "strategy": "Tree traversal",
+    "tags": ["Strings (Hard)", "Tree traversal", "Strings"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQUESTION:\nThe count-and-say sequence is a sequence of digit strings defined by the recursive formula:\n\ncountAndSay(1) = \"1\"\ncountAndSay(n) is the way you would \"say\" the digit string from countAndSay(n-1), which is then converted into a different digit string.\nTo determine how you \"say\" a digit string, split it into the minimal number of substrings such that each substring contains exactly one unique digit. Then for each substring, say the number of digits, then say the digit. Finally, concatenate every said digit.\n\nInput: n = 4\nOutput: \"1211\"\nExplanation:\ncountAndSay(1) = \"1\"\ncountAndSay(2) = say \"1\" = one 1 = \"11\"\ncountAndSay(3) = say \"11\" = two 1's = \"21\"\ncountAndSay(4) = say \"21\" = one 2 + one 1 = \"12\" + \"11\" = \"1211\"\n\nApproach:\n- We can solve this problem using recursion.\n- The base case is when n = 1, in which case we return \"1\".\n- Otherwise, we calculate the count-and-say string for n-1 using recursion.\n- Then, we iterate through the previous string and build the new string based on the count of consecutive characters.\n\nComplexity Analysis:\n- Since we are using recursion to generate the count-and-say sequence, the time complexity is O(2^n), where n is the given input.\n- The space complexity is O(1) as we are using a constant amount of extra space for each recursion level.\n\nCODE:\n*/\n\nstring countAndSay(int n) {\n    if(n == 1) {\n        return \"1\";\n    }\n    string prev = countAndSay(n - 1);\n    string ans = \"\";\n    for(int i = 0; i < prev.size(); i++) {\n        int j = i + 1;\n        while(j < prev.size() && prev[j - 1] == prev[j]) {\n            j++;\n        }\n        ans += to_string(j - i) + prev[i];\n        i = j - 1;\n    }\n    return ans;\n}\n",
+    "codeLines": 45,
+    "repoPath": "16. Strings (Hard)/Hard/02. Count and Say.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/16.%20Strings%20%28Hard%29/Hard/02.%20Count%20and%20Say.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/count-and-say/",
+      "title": "Count and Say",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p367",
+    "index": 367,
+    "title": "KMP or Z string matching algo",
+    "topic": "Strings (Hard)",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.\n\nExample 1:\nInput: haystack = \"sadbutsad\", needle = \"sad\"\nOutput: 0\nExplanation: \"sad\" occurs at index 0 and 6.\nThe first occurrence is at index 0, so we return 0.",
+    "approach": "- We can solve this problem using the KMP (Knuth-Morris-Pratt) string matching algorithm.\n- First, we calculate the LPS (Longest Prefix Suffix) array for the needle string.\n- Then, we create a new string by concatenating needle, a special character (not present in either needle or haystack), and haystack.\n- We iterate through the new string and compare characters using the LPS array to determine if there is a match.\n- If the LPS value becomes equal to the length of the needle, it means we have found a match, and we return the starting index of the match in the haystack string.",
+    "pseudocode": "ALGORITHM  KMP or Z string matching algo\nPATTERN    Stack / queue\n\nBEGIN\n  01  We can solve this problem using the KMP (Knuth-Morris-Pratt) string matching algorithm\n  02  First, we calculate the LPS (Longest Prefix Suffix) array for the needle string\n  03  Then, we create a new string by concatenating needle, a special character (not present in either needle or haystack), and haystack\n  04  We iterate through the new string and compare characters using the LPS array to determine if there is a match\n  05  IF the LPS value becomes equal to the length of the needle, it means we have found a match, and we return the starting index of the match in the haystack string\n  06  RETURN the required result\nEND",
+    "time": "of this solution is O(m + n), where m is the length of the needle and n is the length of the haystack",
+    "space": "O(m + n) but can be reduced to O(n), where m is the length of the needle",
+    "strategy": "Stack / queue",
+    "tags": ["Strings (Hard)", "Stack / queue", "Strings"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.\n\nExample 1:\nInput: haystack = \"sadbutsad\", needle = \"sad\"\nOutput: 0\nExplanation: \"sad\" occurs at index 0 and 6.\nThe first occurrence is at index 0, so we return 0.\n\nApproach:\n- We can solve this problem using the KMP (Knuth-Morris-Pratt) string matching algorithm.\n- First, we calculate the LPS (Longest Prefix Suffix) array for the needle string.\n- Then, we create a new string by concatenating needle, a special character (not present in either needle or haystack), and haystack.\n- We iterate through the new string and compare characters using the LPS array to determine if there is a match.\n- If the LPS value becomes equal to the length of the needle, it means we have found a match, and we return the starting index of the match in the haystack string.\n\nComplexity Analysis:\n- The time complexity of this solution is O(m + n), where m is the length of the needle and n is the length of the haystack.\n- The space complexity is O(m + n) but can be reduced to O(n), where m is the length of the needle.\n\nCODE:\n*/\n\nvector<int> lps(string& s){\n    int n = s.size();\n    vector<int> pi(n);\n    for(int i = 1; i < n; i++){\n        int j = pi[i - 1];\n        while(j > 0 && s[j] != s[i]) {\n            j = pi[j - 1];\n        }\n        if(s[j] == s[i]) {\n            j++;\n        }\n        pi[i] = j;\n    }\n    return pi;\n}\n\nint strStr(string haystack, string needle) {\n    if(needle.empty()) {\n        return 0;\n    }\n    string temp = needle + '$' + haystack;\n    vector<int> lpsArray = lps(temp);\n    for(int i = 0; i < lpsArray.size(); i++) {\n        if(lpsArray[i] == needle.size()) {\n            return i - 2 * needle.size();\n        }\n    }\n    return -1;\n}\n",
+    "codeLines": 53,
+    "repoPath": "16. Strings (Hard)/Hard/03. KMP or Z string matching algo.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/16.%20Strings%20%28Hard%29/Hard/03.%20KMP%20or%20Z%20string%20matching%20algo.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/",
+      "title": "Find the Index of the First Occurrence in a String",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p368",
+    "index": 368,
+    "title": "Longest Happy Prefix",
+    "topic": "Strings (Hard)",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "A string is called a happy prefix if it is a non-empty prefix that is also a suffix (excluding itself).\n\nGiven a string s, return the longest happy prefix of s. Return an empty string \"\" if no such prefix exists.\n\nExample 1:\nInput: s = \"level\"\nOutput: \"l\"\nExplanation: s contains 4 prefixes excluding itself (\"l\", \"le\", \"lev\", \"leve\") and suffixes (\"l\", \"el\", \"vel\", \"evel\"). The largest prefix that is also a suffix is \"l\".",
+    "approach": "- We can solve this problem using the KMP (Knuth-Morris-Pratt) algorithm.\n- First, we calculate the LPS (Longest Prefix Suffix) array for the given string s.\n- The last value in the LPS array, lps[n-1], represents the length of the longest prefix that is also a suffix.\n- We extract the corresponding substring from s and return it as the longest happy prefix.",
+    "pseudocode": "ALGORITHM  Longest Happy Prefix\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can solve this problem using the KMP (Knuth-Morris-Pratt) algorithm\n  02  First, we calculate the LPS (Longest Prefix Suffix) array for the given string s\n  03  The last value in the LPS array, lps[n-1], represents the length of the longest prefix that is also a suffix\n  04  We extract the corresponding substring from s and return it as the longest happy prefix\n  05  RETURN the required result\nEND",
+    "time": "of this solution is O(n), where n is the length of the string s",
+    "space": "O(n) to store the LPS array",
+    "strategy": "Tree traversal",
+    "tags": ["Strings (Hard)", "Tree traversal", "Strings"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQUESTION:\nA string is called a happy prefix if it is a non-empty prefix that is also a suffix (excluding itself).\n\nGiven a string s, return the longest happy prefix of s. Return an empty string \"\" if no such prefix exists.\n\nExample 1:\nInput: s = \"level\"\nOutput: \"l\"\nExplanation: s contains 4 prefixes excluding itself (\"l\", \"le\", \"lev\", \"leve\") and suffixes (\"l\", \"el\", \"vel\", \"evel\"). The largest prefix that is also a suffix is \"l\".\n\nApproach:\n- We can solve this problem using the KMP (Knuth-Morris-Pratt) algorithm.\n- First, we calculate the LPS (Longest Prefix Suffix) array for the given string s.\n- The last value in the LPS array, lps[n-1], represents the length of the longest prefix that is also a suffix.\n- We extract the corresponding substring from s and return it as the longest happy prefix.\n\nComplexity Analysis:\n- The time complexity of this solution is O(n), where n is the length of the string s.\n- The space complexity is O(n) to store the LPS array.\n\nCODE:\n*/\n\nvector<int> kmp(string& s){\n    int n = s.size();\n    vector<int> pi(n);\n    for(int i = 1; i < n; i++){\n        int j = pi[i - 1];\n        while(j > 0 && s[i] != s[j]) {\n            j = pi[j - 1];\n        }\n        if(s[i] == s[j]) {\n            j++;\n        }\n        pi[i] = j;\n    }\n    return pi;\n}\n\nstring longestPrefix(string s) {\n    int n = s.size();\n    vector<int> lps = kmp(s);\n    int length = lps[n - 1]; // Length of the longest prefix that is also a suffix\n    return s.substr(0, length);\n}\n",
+    "codeLines": 46,
+    "repoPath": "16. Strings (Hard)/Hard/04. Longest Happy Prefix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/16.%20Strings%20%28Hard%29/Hard/04.%20Longest%20Happy%20Prefix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-happy-prefix/",
+      "title": "Longest Happy Prefix",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p369",
+    "index": 369,
+    "title": "Shortest Palindrome",
+    "topic": "Strings (Hard)",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "You are given a string s. You can convert s to a palindrome by adding characters in front of it.\nReturn the shortest palindrome you can find by performing this transformation.\n\nExample 1:\nInput: s = \"aacecaaa\"\nOutput: \"aaacecaaa\"",
+    "approach": "1. We can solve this problem using the KMP (Knuth-Morris-Pratt) algorithm.\n2. First, we reverse the string s and store it in the string rev.\n3. We concatenate s and rev with a special character '$' in between, creating the string temp.\n4. We calculate the LPS (Longest Prefix Suffix) array for the string temp using KMP.\n5. The last value in the LPS array, lps.back(), represents the length of the longest prefix of temp that is also a suffix.\n6. We extract the substring of s starting from index lps.back() to the end and reverse it.\n7. Finally, we concatenate the reversed substring with s and return the result as the shortest palindrome.",
+    "pseudocode": "ALGORITHM  Shortest Palindrome\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can solve this problem using the KMP (Knuth-Morris-Pratt) algorithm\n  02  First, we reverse the string s and store it in the string rev\n  03  We concatenate s and rev with a special character '$' in between, creating the string temp\n  04  We calculate the LPS (Longest Prefix Suffix) array for the string temp using KMP\n  05  The last value in the LPS array, lps.back(), represents the length of the longest prefix of temp that is also a suffix\n  06  We extract the substring of s starting from index lps.back() to the end and reverse it\n  07  Finally, we concatenate the reversed substring with s and return the result as the shortest palindrome\n  08  RETURN the required result\nEND",
+    "time": "of this solution is O(n), where n is the length of the string s",
+    "space": "O(n) to store the LPS array",
+    "strategy": "Tree traversal",
+    "tags": ["Strings (Hard)", "Tree traversal", "Strings"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQUESTION:\nYou are given a string s. You can convert s to a palindrome by adding characters in front of it.\nReturn the shortest palindrome you can find by performing this transformation.\n\nExample 1:\nInput: s = \"aacecaaa\"\nOutput: \"aaacecaaa\"\n\nApproach:\n1. We can solve this problem using the KMP (Knuth-Morris-Pratt) algorithm.\n2. First, we reverse the string s and store it in the string rev.\n3. We concatenate s and rev with a special character '$' in between, creating the string temp.\n4. We calculate the LPS (Longest Prefix Suffix) array for the string temp using KMP.\n5. The last value in the LPS array, lps.back(), represents the length of the longest prefix of temp that is also a suffix.\n6. We extract the substring of s starting from index lps.back() to the end and reverse it.\n7. Finally, we concatenate the reversed substring with s and return the result as the shortest palindrome.\n\nComplexity Analysis:\n- The time complexity of this solution is O(n), where n is the length of the string s.\n- The space complexity is O(n) to store the LPS array.\n\nCODE:\n*/\n\nvector<int> kmp(string& s) {\n    int n = s.size();\n    vector<int> pi(n);\n    for(int i = 1; i < n; i++) {\n        int j = pi[i - 1];\n        while(j > 0 && s[i] != s[j]) {\n            j = pi[j - 1];\n        }\n        if(s[i] == s[j]) {\n            j++;\n        }\n        pi[i] = j;\n    }\n    return pi;\n}\n\nstring shortestPalindrome(string s) {\n    string rev = s;\n    reverse(rev.begin(), rev.end());\n    string temp = s + \"$\" + rev;\n    vector<int> lps = kmp(temp);\n    string toAdd = s.substr(lps.back());\n    reverse(toAdd.begin(), toAdd.end());\n    return toAdd + s;\n}\n",
+    "codeLines": 50,
+    "repoPath": "16. Strings (Hard)/Hard/05. Shortest Palindrome.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/16.%20Strings%20%28Hard%29/Hard/05.%20Shortest%20Palindrome.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/shortest-palindrome/",
+      "title": "Shortest Palindrome",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  }
+]

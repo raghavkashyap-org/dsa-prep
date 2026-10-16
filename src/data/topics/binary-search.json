@@ -1,0 +1,1335 @@
+[
+  {
+    "id": "p040",
+    "index": 40,
+    "title": "Find x in sorted array",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Easy",
+    "question": "Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.\n\nExample 1:\nInput: nums = [-1,0,3,5,9,12], target = 9\nOutput: 4\nExplanation: The target value 9 exists in the nums array, and its index is 4.\n\nExample 2:\nInput: nums = [-1,0,3,5,9,12], target = 2\nOutput: -1\nExplanation: The target value 2 does not exist in the nums array, so return -1.",
+    "approach": "1. Initialize low as 0 and high as the last index of the array.\n2. Iterate using a while loop until low is less than or equal to high.\n3. Calculate the middle index using the formula mid = low + (high - low) / 2.\n4. Compare the target value with the element at the middle index:\n   - If they are equal, return the middle index.\n   - If the target is less than the element, update high to mid - 1 and continue the search in the left half.\n   - If the target is greater than the element, update low to mid + 1 and continue the search in the right half.\n5. If the target is not found, return -1.",
+    "pseudocode": "ALGORITHM  Find x in sorted array\nPATTERN    Binary search\n\nBEGIN\n  01  SET low as 0 and high as the last index of the array\n  02  Iterate using a while loop until low is less than or equal to high\n  03  Calculate the middle index using the formula mid = low + (high - low) / 2\n  04  Compare the target value with the element at the middle index:\n  05  IF they are equal, return the middle index\n  06  IF the target is less than the element, update high to mid - 1 and continue the search in the left half\n  07  IF the target is greater than the element, update low to mid + 1 and continue the search in the right half\n  08  IF the target is not found, return -1\n  09  RETURN the required result\nEND",
+    "time": "O(log n)",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.\n\nExample 1:\nInput: nums = [-1,0,3,5,9,12], target = 9\nOutput: 4\nExplanation: The target value 9 exists in the nums array, and its index is 4.\n\nExample 2:\nInput: nums = [-1,0,3,5,9,12], target = 2\nOutput: -1\nExplanation: The target value 2 does not exist in the nums array, so return -1.\n*/\n\n/*\nAPPROACH:-\n1. Initialize low as 0 and high as the last index of the array.\n2. Iterate using a while loop until low is less than or equal to high.\n3. Calculate the middle index using the formula mid = low + (high - low) / 2.\n4. Compare the target value with the element at the middle index:\n   - If they are equal, return the middle index.\n   - If the target is less than the element, update high to mid - 1 and continue the search in the left half.\n   - If the target is greater than the element, update low to mid + 1 and continue the search in the right half.\n5. If the target is not found, return -1.\n*/\n\n//CODE:-\nint search(vector<int>& nums, int target) {\n    int low = 0, high = nums.size() - 1;\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        if (nums[mid] == target)\n            return mid;\n        else if (nums[mid] > target)\n            high = mid - 1;\n        else\n            low = mid + 1;\n    }\n    return -1;\n}\n\n\n// TIME COMPLEXITY: O(log n)\n// - The algorithm divides the search space in half at each step, resulting in a logarithmic time complexity.\n\n// SPACE COMPLEXITY: O(1)\n// - The algorithm uses a constant amount of extra space for the variables.\n",
+    "codeLines": 48,
+    "repoPath": "02.Binary Search/1D Arrays/01.Find_x_in_sorted_array.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/01.Find_x_in_sorted_array.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-search/",
+      "title": "Binary Search",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p041",
+    "index": 41,
+    "title": "Implement lower bound",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "Given a sorted array arr[] of size N without duplicates, and given a value x. Floor of x is defined as the largest element K in arr[] such that K is smaller than or equal to x. Find the index of K (0-based indexing).\n\nExample 1:\nInput:\nN = 7, x = 0\narr[] = {1,2,8,10,11,12,19}\nOutput: -1\nExplanation: No element less than 0 is found. So the output is \"-1\".\n\nExample 2:\nInput:\nN = 7, x = 5\narr[] = {1,2,8,10,11,12,19}\nOutput: 1\nExplanation: Largest number less than 5 is 2 (i.e K = 2), whose index is 1 (0-based indexing).",
+    "approach": "- Initialize low as 0 and high as N-1.\n- Iterate using a while loop until low is less than or equal to high.\n- Calculate the mid index using mid = low + (high - low) / 2.\n- Check if the element at mid index is less than or equal to x.\n  - If true, update the answer as mid and move the low pointer to mid+1 to search for a larger element.\n  - If false, update the high pointer to mid-1 to search in the lower half of the array.\n- Finally, return the answer.",
+    "pseudocode": "ALGORITHM  Implement lower bound\nPATTERN    Binary search\n\nBEGIN\n  01  SET low as 0 and high as N-1\n  02  Iterate using a while loop until low is less than or equal to high\n  03  Calculate the mid index using mid = low + (high - low) / 2\n  04  Check if the element at mid index is less than or equal to x\n  05  IF true, update the answer as mid and move the low pointer to mid+1 to search for a larger element\n  06  IF false, update the high pointer to mid-1 to search in the lower half of the array\n  07  Finally, return the answer\n  08  RETURN the required result\nEND",
+    "time": "O(log N)",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nGiven a sorted array arr[] of size N without duplicates, and given a value x. Floor of x is defined as the largest element K in arr[] such that K is smaller than or equal to x. Find the index of K (0-based indexing).\n\nExample 1:\nInput:\nN = 7, x = 0\narr[] = {1,2,8,10,11,12,19}\nOutput: -1\nExplanation: No element less than 0 is found. So the output is \"-1\".\n\nExample 2:\nInput:\nN = 7, x = 5\narr[] = {1,2,8,10,11,12,19}\nOutput: 1\nExplanation: Largest number less than 5 is 2 (i.e K = 2), whose index is 1 (0-based indexing).\n\nAPPROACH:\n- Initialize low as 0 and high as N-1.\n- Iterate using a while loop until low is less than or equal to high.\n- Calculate the mid index using mid = low + (high - low) / 2.\n- Check if the element at mid index is less than or equal to x.\n  - If true, update the answer as mid and move the low pointer to mid+1 to search for a larger element.\n  - If false, update the high pointer to mid-1 to search in the lower half of the array.\n- Finally, return the answer.\n\nCODE:\n*/\n\nint findFloor(vector<long long> v, long long n, long long x) {\n    long long low = 0, high = n - 1;\n    int ans = -1;\n    while (low <= high) {\n        long long mid = low + (high - low) / 2;\n        if (v[mid] <= x) {\n            ans = mid;\n            low = mid + 1;\n        } else {\n            high = mid - 1;\n        }\n    }\n    return ans;\n}\n\n// TIME COMPLEXITY: O(log N)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 47,
+    "repoPath": "02.Binary Search/1D Arrays/02.Implement_lower_bound.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/02.Implement_lower_bound.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-insert-position/",
+      "title": "Search Insert Position",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p042",
+    "index": 42,
+    "title": "Implement lower upper bound",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "Given an unsorted array Arr[] of N integers and an integer X, find floor and ceiling of X in Arr[0..N-1].\n\nFloor of X is the largest element which is smaller than or equal to X. Floor of X doesn’t exist if X is smaller than the smallest element of Arr[].\n\nCeil of X is the smallest element which is greater than or equal to X. Ceil of X doesn’t exist if X is greater than the greatest element of Arr[].\n\nExample:\n\nInput:\nN = 8, X = 7\nArr[] = {5, 6, 8, 9, 6, 5, 5, 6}\nOutput: 6 8\nExplanation:\nFloor of 7 is 6 and ceil of 7 is 8.",
+    "approach": "1. Sort the array in ascending order.\n2. Use binary search to find the floor and ceil values.\n3. The floor value is the largest element smaller than or equal to X, and the ceil value is the smallest element greater than or equal to X.\n4. If the floor or ceil values are not found, set them to -1.",
+    "pseudocode": "ALGORITHM  Implement lower upper bound\nPATTERN    Binary search\n\nBEGIN\n  01  Sort the array in ascending order\n  02  Use binary search to find the floor and ceil values\n  03  The floor value is the largest element smaller than or equal to X, and the ceil value is the smallest element greater than or equal to X\n  04  IF the floor or ceil values are not found, set them to -1\n  05  RETURN the required result\nEND",
+    "time": "O(NlogN)",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nGiven an unsorted array Arr[] of N integers and an integer X, find floor and ceiling of X in Arr[0..N-1].\n\nFloor of X is the largest element which is smaller than or equal to X. Floor of X doesn’t exist if X is smaller than the smallest element of Arr[].\n\nCeil of X is the smallest element which is greater than or equal to X. Ceil of X doesn’t exist if X is greater than the greatest element of Arr[].\n\nExample:\n\nInput:\nN = 8, X = 7\nArr[] = {5, 6, 8, 9, 6, 5, 5, 6}\nOutput: 6 8\nExplanation:\nFloor of 7 is 6 and ceil of 7 is 8.\n\nAPPROACH:\n1. Sort the array in ascending order.\n2. Use binary search to find the floor and ceil values.\n3. The floor value is the largest element smaller than or equal to X, and the ceil value is the smallest element greater than or equal to X.\n4. If the floor or ceil values are not found, set them to -1.\n\nCODE:\n*/\n\nint lowerbound(int arr[], int n, int x){\n    int low = 0, high = n-1;\n    int ans = -1;\n    while(low<=high){\n        int mid = low+(high-low)/2;\n        if(arr[mid]<=x){\n            ans = mid;\n            low = mid+1;\n        }\n        else{\n            high = mid-1;\n        }\n    }\n    if(ans!=-1) ans = arr[ans];\n    return ans;\n}\n\nint upperbound(int arr[], int n, int x){\n    int low = 0, high = n-1;\n    int ans = -1;\n    while(low<=high){\n        int mid = low+(high-low)/2;\n        if(arr[mid]>=x){\n            ans = mid;\n            high = mid-1;\n        }\n        else{\n            low = mid+1;\n        }\n    }\n    if(ans!=-1) ans = arr[ans];\n    return ans;\n}\n\npair<int, int> getFloorAndCeil(int arr[], int n, int x) {\n    sort(arr,arr+n);\n    int Floor = lowerbound(arr,n,x);\n    int Ceil = upperbound(arr,n,x);\n    return {Floor,Ceil};\n}\n\n// TIME COMPLEXITY: O(NlogN)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 69,
+    "repoPath": "02.Binary Search/1D Arrays/03.Implement_lower_upper_bound.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/03.Implement_lower_upper_bound.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-insert-position/",
+      "title": "Search Insert Position",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p043",
+    "index": 43,
+    "title": "Search insert position",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Easy",
+    "question": "Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.\n\nYou must write an algorithm with O(log n) runtime complexity.\n\nExample:\n\nInput: nums = [1,3,5,6], target = 5\nOutput: 2\nExample 2:\n\nInput: nums = [1,3,5,6], target = 2\nOutput: 1",
+    "approach": "We can use the lower_bound function from the C++ standard library to find the index where the target should be inserted. The lower_bound function returns an iterator pointing to the first element that is not less than the target. By subtracting the beginning iterator from the lower_bound iterator, we get the index where the target should be inserted.",
+    "pseudocode": "ALGORITHM  Search insert position\nPATTERN    Binary search\n\nBEGIN\n  01  We can use the lower_bound function from the C++ standard library to find the index where the target should be inserted\n  02  The lower_bound function returns an iterator pointing to the first element that is not less than the target\n  03  By subtracting the beginning iterator from the lower_bound iterator, we get the index where the target should be inserted\n  04  RETURN the required result\nEND",
+    "time": "Example:",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nGiven a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.\n\nYou must write an algorithm with O(log n) runtime complexity.\n\nExample:\n\nInput: nums = [1,3,5,6], target = 5\nOutput: 2\nExample 2:\n\nInput: nums = [1,3,5,6], target = 2\nOutput: 1\n*/\n\n/*\nAPPROACH:\nWe can use the lower_bound function from the C++ standard library to find the index where the target should be inserted. The lower_bound function returns an iterator pointing to the first element that is not less than the target. By subtracting the beginning iterator from the lower_bound iterator, we get the index where the target should be inserted.\n\nCODE:\n*/\n\nint searchInsert(vector<int>& nums, int target) {\n    auto ans = lower_bound(nums.begin(), nums.end(), target) - nums.begin();\n    return ans;\n}\n\n// TIME COMPLEXITY: O(log n) due to the use of lower_bound function\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 30,
+    "repoPath": "02.Binary Search/1D Arrays/04.Search_insert_position.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/04.Search_insert_position.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-insert-position/",
+      "title": "Search Insert Position",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p044",
+    "index": 44,
+    "title": "Check If array is sorted",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "Given an array arr[] of size N, check if it is sorted in non-decreasing order or not.",
+    "approach": "- We can use a recursive approach to check if the array is sorted in non-decreasing order or not.\n- The base case for recursion is when the subarray has only one element or when the subarray is empty, in which case we consider it to be sorted.\n- For a non-empty subarray, we compare the middle element with its next element. If they are in non-decreasing order and both the left and right subarrays are also sorted, then we consider the entire array to be sorted.\n- We recursively check the left and right subarrays using the same approach.\n- If any of the recursive calls returns false, we return false. Otherwise, we return true.\n\nExample:\n\nInput:\nN = 5\narr[] = {10, 20, 30, 40, 50}\nOutput: 1\nExplanation: The given array is sorted.",
+    "pseudocode": "ALGORITHM  Check If array is sorted\nPATTERN    Binary search\n\nBEGIN\n  01  We can use a recursive approach to check if the array is sorted in non-decreasing order or not\n  02  The base case for recursion is when the subarray has only one element or when the subarray is empty, in which case we consider it to be sorted\n  03  For a non-empty subarray, we compare the middle element with its next element\n  04  IF they are in non-decreasing order and both the left and right subarrays are also sorted, then we consider the entire array to be sorted\n  05  We recursively check the left and right subarrays using the same approach\n  06  IF any of the recursive calls returns false, we return false. Otherwise, we return true\n  07  Example:\n  08  Input:\n  09  N = 5\n  10  arr[] = {10, 20, 30, 40, 50}\n  11  Output: 1\n  12  Explanation: The given array is sorted\n  13  RETURN the required result\nEND",
+    "time": "O(log N)",
+    "space": "O(log N) (for recursion stack)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array arr[] of size N, check if it is sorted in non-decreasing order or not.\n\nAPPROACH:\n- We can use a recursive approach to check if the array is sorted in non-decreasing order or not.\n- The base case for recursion is when the subarray has only one element or when the subarray is empty, in which case we consider it to be sorted.\n- For a non-empty subarray, we compare the middle element with its next element. If they are in non-decreasing order and both the left and right subarrays are also sorted, then we consider the entire array to be sorted.\n- We recursively check the left and right subarrays using the same approach.\n- If any of the recursive calls returns false, we return false. Otherwise, we return true.\n\nExample:\n\nInput:\nN = 5\narr[] = {10, 20, 30, 40, 50}\nOutput: 1\nExplanation: The given array is sorted.\n\nCODE:\n*/\n\nbool solve(int arr[], int low, int high) {\n    if (low >= high)\n        return true;\n    \n    int mid = low + (high - low) / 2;\n    if (arr[mid] <= arr[mid + 1] && solve(arr, low, mid) && solve(arr, mid + 1, high))\n        return true;\n    \n    return false;\n}\n\nbool arraySortedOrNot(int arr[], int n) {\n    return solve(arr, 0, n - 1);\n}\n\n// TIME COMPLEXITY: O(log N)\n// SPACE COMPLEXITY: O(log N) (for recursion stack)\n",
+    "codeLines": 39,
+    "repoPath": "02.Binary Search/1D Arrays/05.Check_If_array_is_sorted.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/05.Check_If_array_is_sorted.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/",
+      "title": "Check if Array Is Sorted and Rotated",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p045",
+    "index": 45,
+    "title": "First and last position",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.\n\nIf target is not found in the array, return [-1, -1].\n\nYou must write an algorithm with O(log n) runtime complexity.\n\nExample:\n\nInput: nums = [5,7,7,8,8,10], target = 8\nOutput: [3,4]",
+    "approach": "1. Use lower_bound to find the index of the first occurrence of the target in the array.\n2. If the target is not found, return [-1, -1].\n3. Use upper_bound to find the index of the last occurrence of the target in the array.\n4. Return the range [first, last-1] as the starting and ending positions.",
+    "pseudocode": "ALGORITHM  First and last position\nPATTERN    Binary search\n\nBEGIN\n  01  Use lower_bound to find the index of the first occurrence of the target in the array\n  02  IF the target is not found, return [-1, -1]\n  03  Use upper_bound to find the index of the last occurrence of the target in the array\n  04  RETURN the range [first, last-1] as the starting and ending positions\nEND",
+    "time": "Example:",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.\n\nIf target is not found in the array, return [-1, -1].\n\nYou must write an algorithm with O(log n) runtime complexity.\n\nExample:\n\nInput: nums = [5,7,7,8,8,10], target = 8\nOutput: [3,4]\n\nAPPROACH:\n1. Use lower_bound to find the index of the first occurrence of the target in the array.\n2. If the target is not found, return [-1, -1].\n3. Use upper_bound to find the index of the last occurrence of the target in the array.\n4. Return the range [first, last-1] as the starting and ending positions.\n\nCODE:\n*/\n\nvector<int> searchRange(vector<int>& nums, int target) {\n    int first = lower_bound(nums.begin(), nums.end(), target) - nums.begin();\n    // if the target is not found, return [-1, -1]\n    if (first == nums.size() || nums[first] != target)\n        return {-1, -1};\n    int last = upper_bound(nums.begin(), nums.end(), target) - nums.begin();\n    return {first, last-1};\n}\n\n// TIME COMPLEXITY: O(log n)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 33,
+    "repoPath": "02.Binary Search/1D Arrays/06.First_and_last_position.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/06.First_and_last_position.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+      "title": "Find First and Last Position of Element in Sorted Array",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p046",
+    "index": 46,
+    "title": "Number of occurrences",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "Given a sorted array Arr of size N and a number X, you need to find the number of occurrences of X in Arr.\n\nExample:\n\nInput:\nN = 7, X = 2\nArr[] = {1, 1, 2, 2, 2, 2, 3}\nOutput: 4\nExplanation: 2 occurs 4 times in the given array.\nExample 2:\n\nInput:\nN = 7, X = 4\nArr[] = {1, 1, 2, 2, 2, 2, 3}\nOutput: 0\nExplanation: 4 is not present in the given array.",
+    "approach": "1. Use binary search to find the first occurrence of the target element.\n2. Use binary search to find the last occurrence of the target element.\n3. Return the difference between the indices of the first and last occurrence + 1.",
+    "pseudocode": "ALGORITHM  Number of occurrences\nPATTERN    Binary search\n\nBEGIN\n  01  Use binary search to find the first occurrence of the target element\n  02  Use binary search to find the last occurrence of the target element\n  03  RETURN the difference between the indices of the first and last occurrence + 1\nEND",
+    "time": "O(log N), where N is the size of the array",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nGiven a sorted array Arr of size N and a number X, you need to find the number of occurrences of X in Arr.\n\nExample:\n\nInput:\nN = 7, X = 2\nArr[] = {1, 1, 2, 2, 2, 2, 3}\nOutput: 4\nExplanation: 2 occurs 4 times in the given array.\nExample 2:\n\nInput:\nN = 7, X = 4\nArr[] = {1, 1, 2, 2, 2, 2, 3}\nOutput: 0\nExplanation: 4 is not present in the given array.\n*/\n\n/*\nAPPROACH:\n1. Use binary search to find the first occurrence of the target element.\n2. Use binary search to find the last occurrence of the target element.\n3. Return the difference between the indices of the first and last occurrence + 1.\n\nCODE:\n*/\n\nint countOccurrences(int arr[], int n, int x) {\n    int first = lower_bound(arr, arr + n, x) - arr;\n    if (first == n || arr[first] != x)\n        return 0;\n    int last = upper_bound(arr, arr + n, x) - arr;\n    return last - first;\n}\n\n// TIME COMPLEXITY: O(log N), where N is the size of the array.\n// SPACE COMPLEXITY: O(1).\n",
+    "codeLines": 39,
+    "repoPath": "02.Binary Search/1D Arrays/07.Number_of_occurences.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/07.Number_of_occurences.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-insert-position/",
+      "title": "Search Insert Position",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p047",
+    "index": 47,
+    "title": "Find peak element",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "A peak element is an element that is strictly greater than its neighbors.\n\nGiven a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.\n\nYou may imagine that nums[-1] = nums[n] = -∞. In other words, an element is always considered to be strictly greater than a neighbor that is outside the array.\n\nYou must write an algorithm that runs in O(log n) time.\n\nExample 1:\nInput: nums = [1,2,3,1]\nOutput: 2\nExplanation: 3 is a peak element and your function should return the index number 2.\n\nExample 2:\nInput: nums = [1,2,1,3,5,6,4]\nOutput: 5\nExplanation: Your function can return either index number 1 where the peak element is 2, or index number 5 where the peak element is 6.",
+    "approach": "We can use the binary search approach to find the peak element.\n1. Initialize low = 0 and high = n-1, where n is the size of the array.\n2. While low < high, calculate mid = low + (high - low) / 2.\n3. If nums[mid] < nums[mid+1], it means a peak element exists on the right side of mid, so update low = mid+1.\n4. Otherwise, a peak element exists on the left side of mid or mid itself is a peak, so update high = mid.\n5. After the loop ends, low will be pointing to the peak element index.\n6. Return low as the result.",
+    "pseudocode": "ALGORITHM  Find peak element\nPATTERN    Binary search\n\nBEGIN\n  01  We can use the binary search approach to find the peak element\n  02  SET low = 0 and high = n-1, where n is the size of the array\n  03  WHILE low < high, calculate mid = low + (high - low) / 2\n  04  IF nums[mid] < nums[mid+1], it means a peak element exists on the right side of mid, so update low = mid+1\n  05  ELSE a peak element exists on the left side of mid or mid itself is a peak, so update high = mid\n  06  After the loop ends, low will be pointing to the peak element index\n  07  RETURN low as the result\nEND",
+    "time": "O(log n)",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:-\nA peak element is an element that is strictly greater than its neighbors.\n\nGiven a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.\n\nYou may imagine that nums[-1] = nums[n] = -∞. In other words, an element is always considered to be strictly greater than a neighbor that is outside the array.\n\nYou must write an algorithm that runs in O(log n) time.\n\nExample 1:\nInput: nums = [1,2,3,1]\nOutput: 2\nExplanation: 3 is a peak element and your function should return the index number 2.\n\nExample 2:\nInput: nums = [1,2,1,3,5,6,4]\nOutput: 5\nExplanation: Your function can return either index number 1 where the peak element is 2, or index number 5 where the peak element is 6.\n*/\n\n/*\nAPPROACH:-\nWe can use the binary search approach to find the peak element.\n1. Initialize low = 0 and high = n-1, where n is the size of the array.\n2. While low < high, calculate mid = low + (high - low) / 2.\n3. If nums[mid] < nums[mid+1], it means a peak element exists on the right side of mid, so update low = mid+1.\n4. Otherwise, a peak element exists on the left side of mid or mid itself is a peak, so update high = mid.\n5. After the loop ends, low will be pointing to the peak element index.\n6. Return low as the result.\n\nCODE:-\n*/\n\nint findPeakElement(vector<int>& nums) {\n    int low = 0, high = nums.size()-1;\n    while(low < high){\n        int mid = low + (high - low) / 2;\n        if(nums[mid] < nums[mid+1])\n            low = mid+1;\n        else\n            high = mid;\n    }\n    return low;\n}\n\n// TIME COMPLEXITY: O(log n)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 48,
+    "repoPath": "02.Binary Search/1D Arrays/08.Find_peak_element.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/08.Find_peak_element.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-peak-element/",
+      "title": "Find Peak Element",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p048",
+    "index": 48,
+    "title": "Search in rotated sorted array",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "There is an integer array nums sorted in ascending order (with distinct values).\n\nPrior to being passed to your function, nums is possibly rotated at an unknown pivot index k (1 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].\n\nGiven the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.\n\nYou must write an algorithm with O(log n) runtime complexity.\n\nExample 1:\nInput: nums = [4,5,6,7,0,1,2], target = 0\nOutput: 4\n\nExample 2:\nInput: nums = [4,5,6,7,0,1,2], target = 3\nOutput: -1",
+    "approach": "We can use the binary search approach to find the target element in the rotated sorted array.\n1. Initialize low = 0 and high = nums.size() - 1, where nums is the input array.\n2. Perform binary search using the while loop until low <= high.\n3. Calculate mid = low + (high - low) / 2.\n4. If nums[mid] is equal to the target, return mid.\n5. Check if the left part of the array (nums[low] to nums[mid]) is sorted or the right part (nums[mid] to nums[high]) is sorted.\n   - If the left part is sorted:\n     - If the target is within the range of nums[low] and nums[mid], update high = mid - 1.\n     - Otherwise, update low = mid + 1.\n   - If the right part is sorted:\n     - If the target is within the range of nums[mid] and nums[high], update low = mid + 1.\n     - Otherwise, update high = mid - 1.\n6. If the target is not found after the while loop, return -1.",
+    "pseudocode": "ALGORITHM  Search in rotated sorted array\nPATTERN    Binary search\n\nBEGIN\n  01  We can use the binary search approach to find the target element in the rotated sorted array\n  02  SET low = 0 and high = nums.size() - 1, where nums is the input array\n  03  Perform binary search using the while loop until low <= high\n  04  Calculate mid = low + (high - low) / 2\n  05  IF nums[mid] is equal to the target, return mid\n  06  Check if the left part of the array (nums[low] to nums[mid]) is sorted or the right part (nums[mid] to nums[high]) is sorted\n  07  IF the left part is sorted:\n  08  IF the target is within the range of nums[low] and nums[mid], update high = mid - 1\n  09  ELSE update low = mid + 1\n  10  IF the right part is sorted:\n  11  IF the target is within the range of nums[mid] and nums[high], update low = mid + 1\n  12  ELSE update high = mid - 1\n  13  IF the target is not found after the while loop, return -1\n  14  RETURN the required result\nEND",
+    "time": "Example 1:",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nThere is an integer array nums sorted in ascending order (with distinct values).\n\nPrior to being passed to your function, nums is possibly rotated at an unknown pivot index k (1 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].\n\nGiven the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.\n\nYou must write an algorithm with O(log n) runtime complexity.\n\nExample 1:\nInput: nums = [4,5,6,7,0,1,2], target = 0\nOutput: 4\n\nExample 2:\nInput: nums = [4,5,6,7,0,1,2], target = 3\nOutput: -1\n*/\n\n/*\nAPPROACH:\nWe can use the binary search approach to find the target element in the rotated sorted array.\n1. Initialize low = 0 and high = nums.size() - 1, where nums is the input array.\n2. Perform binary search using the while loop until low <= high.\n3. Calculate mid = low + (high - low) / 2.\n4. If nums[mid] is equal to the target, return mid.\n5. Check if the left part of the array (nums[low] to nums[mid]) is sorted or the right part (nums[mid] to nums[high]) is sorted.\n   - If the left part is sorted:\n     - If the target is within the range of nums[low] and nums[mid], update high = mid - 1.\n     - Otherwise, update low = mid + 1.\n   - If the right part is sorted:\n     - If the target is within the range of nums[mid] and nums[high], update low = mid + 1.\n     - Otherwise, update high = mid - 1.\n6. If the target is not found after the while loop, return -1.\n\nCODE:\n*/\n\nint search(vector<int>& nums, int target) {\n    int low = 0, high = nums.size() - 1;\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        if (nums[mid] == target)\n            return mid;\n        if (nums[low] <= nums[mid]) {\n            if (nums[low] <= target && target <= nums[mid])\n                high = mid - 1;\n            else\n                low = mid + 1;\n        } else {\n            if (nums[mid] <= target && target <= nums[high])\n                low = mid + 1;\n            else\n                high = mid - 1;\n        }\n    }\n    return -1;\n}\n\n// TIME COMPLEXITY: O(log n)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 61,
+    "repoPath": "02.Binary Search/1D Arrays/09.Search_in_rotated_sorted_array.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/09.Search_in_rotated_sorted_array.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+      "title": "Search in Rotated Sorted Array",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p049",
+    "index": 49,
+    "title": "Search in rotated sorted array with duplicates",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "There is an integer array nums sorted in non-decreasing order (not necessarily with distinct values).\n\nBefore being passed to your function, nums is rotated at an unknown pivot index k (0 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,4,4,5,6,6,7] might be rotated at pivot index 5 and become [4,5,6,6,7,0,1,2,4,4].\n\nGiven the array nums after the rotation and an integer target, return true if target is in nums, or false if it is not in nums.\n\nYou must decrease the overall operation steps as much as possible.\n\nExample 1:\nInput: nums = [2,5,6,0,0,1,2], target = 0\nOutput: true\n\nExample 2:\nInput: nums = [2,5,6,0,0,1,2], target = 3\nOutput: false",
+    "approach": "We can modify the standard binary search algorithm to search for the target element.\n1. Initialize low = 0 and high = nums.size() - 1.\n2. While low <= high, calculate mid = low + (high - low) / 2.\n3. If nums[mid] equals the target, return true.\n4. If nums[mid] is equal to nums[low], we are in a situation where we can't determine which part of the array is sorted.\n   In this case, we increment low and decrement high to skip the duplicate elements.\n5. If the left part of the array from low to mid is sorted, check if the target lies within this range.\n   If so, update high = mid - 1. Otherwise, update low = mid + 1.\n6. If the right part of the array from mid to high is sorted, check if the target lies within this range.\n   If so, update low = mid + 1. Otherwise, update high = mid - 1.\n7. If the target is not found, return false.",
+    "pseudocode": "ALGORITHM  Search in rotated sorted array with duplicates\nPATTERN    Binary search\n\nBEGIN\n  01  We can modify the standard binary search algorithm to search for the target element\n  02  SET low = 0 and high = nums.size() - 1\n  03  WHILE low <= high, calculate mid = low + (high - low) / 2\n  04  IF nums[mid] equals the target, return true\n  05  IF nums[mid] is equal to nums[low], we are in a situation where we can't determine which part of the array is sorted\n  06  In this case, we increment low and decrement high to skip the duplicate elements\n  07  IF the left part of the array from low to mid is sorted, check if the target lies within this range\n  08  IF so, update high = mid - 1. Otherwise, update low = mid + 1\n  09  IF the right part of the array from mid to high is sorted, check if the target lies within this range\n  10  IF so, update low = mid + 1. Otherwise, update high = mid - 1\n  11  IF the target is not found, return false\n  12  RETURN the required result\nEND",
+    "time": "O(log n)",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nThere is an integer array nums sorted in non-decreasing order (not necessarily with distinct values).\n\nBefore being passed to your function, nums is rotated at an unknown pivot index k (0 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,4,4,5,6,6,7] might be rotated at pivot index 5 and become [4,5,6,6,7,0,1,2,4,4].\n\nGiven the array nums after the rotation and an integer target, return true if target is in nums, or false if it is not in nums.\n\nYou must decrease the overall operation steps as much as possible.\n\nExample 1:\nInput: nums = [2,5,6,0,0,1,2], target = 0\nOutput: true\n\nExample 2:\nInput: nums = [2,5,6,0,0,1,2], target = 3\nOutput: false\n*/\n\n/*\nAPPROACH:\nWe can modify the standard binary search algorithm to search for the target element.\n1. Initialize low = 0 and high = nums.size() - 1.\n2. While low <= high, calculate mid = low + (high - low) / 2.\n3. If nums[mid] equals the target, return true.\n4. If nums[mid] is equal to nums[low], we are in a situation where we can't determine which part of the array is sorted.\n   In this case, we increment low and decrement high to skip the duplicate elements.\n5. If the left part of the array from low to mid is sorted, check if the target lies within this range.\n   If so, update high = mid - 1. Otherwise, update low = mid + 1.\n6. If the right part of the array from mid to high is sorted, check if the target lies within this range.\n   If so, update low = mid + 1. Otherwise, update high = mid - 1.\n7. If the target is not found, return false.\n\nCODE:\n*/\n\nbool search(vector<int>& nums, int target) {\n    int low = 0, high = nums.size() - 1;\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        if (nums[mid] == target)\n            return true;\n        if (nums[mid] == nums[low] && nums[mid] == nums[high]) {\n            low++;\n            high--;\n            continue;\n        }\n        if (nums[low] <= nums[mid]) {\n            if (nums[low] <= target && target <= nums[mid])\n                high = mid - 1;\n            else\n                low = mid + 1;\n        } else {\n            if (nums[mid] <= target && target <= nums[high])\n                low = mid + 1;\n            else\n                high = mid - 1;\n        }\n    }\n    return false;\n}\n\n// TIME COMPLEXITY: O(log n)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 64,
+    "repoPath": "02.Binary Search/1D Arrays/10.Search_in_rotated_sorted_array_with_duplicates.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/10.Search_in_rotated_sorted_array_with_duplicates.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-in-rotated-sorted-array-ii/",
+      "title": "Search in Rotated Sorted Array II",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p050",
+    "index": 50,
+    "title": "Find the minimum element in sorted rotated array",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:\n\n[4,5,6,7,0,1,2] if it was rotated 4 times.\n[0,1,2,4,5,6,7] if it was rotated 7 times.\n\nGiven the sorted rotated array nums of unique elements, return the minimum element of this array.",
+    "approach": "We can use the binary search approach to find the minimum element.\n1. Initialize low = 0 and high = n-1, where n is the size of the array.\n2. While low < high, calculate mid = low + (high - low) / 2.\n3. If nums[mid] > nums[high], it means the minimum element is on the right side of mid, so update low = mid+1.\n4. Otherwise, the minimum element is on the left side of mid or mid itself, so update high = mid.\n5. After the loop ends, low will be pointing to the minimum element index.\n6. Return nums[low] as the result.",
+    "pseudocode": "ALGORITHM  Find the minimum element in sorted rotated array\nPATTERN    Binary search\n\nBEGIN\n  01  We can use the binary search approach to find the minimum element\n  02  SET low = 0 and high = n-1, where n is the size of the array\n  03  WHILE low < high, calculate mid = low + (high - low) / 2\n  04  IF nums[mid] > nums[high], it means the minimum element is on the right side of mid, so update low = mid+1\n  05  ELSE the minimum element is on the left side of mid or mid itself, so update high = mid\n  06  After the loop ends, low will be pointing to the minimum element index\n  07  RETURN nums[low] as the result\nEND",
+    "time": "O(log n)",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nSuppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:\n\n[4,5,6,7,0,1,2] if it was rotated 4 times.\n[0,1,2,4,5,6,7] if it was rotated 7 times.\n\nGiven the sorted rotated array nums of unique elements, return the minimum element of this array.\n\nAPPROACH:\nWe can use the binary search approach to find the minimum element.\n1. Initialize low = 0 and high = n-1, where n is the size of the array.\n2. While low < high, calculate mid = low + (high - low) / 2.\n3. If nums[mid] > nums[high], it means the minimum element is on the right side of mid, so update low = mid+1.\n4. Otherwise, the minimum element is on the left side of mid or mid itself, so update high = mid.\n5. After the loop ends, low will be pointing to the minimum element index.\n6. Return nums[low] as the result.\n\nCODE:\n*/\n\nint findMin(vector<int>& nums) {\n    int low = 0, high = nums.size()-1;\n    while(low < high){\n        int mid = low + (high - low) / 2;\n        if(nums[mid] > nums[high])\n            low = mid+1;\n        else\n            high = mid;\n    }\n    return nums[low];\n}\n\n// TIME COMPLEXITY: O(log n)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 35,
+    "repoPath": "02.Binary Search/1D Arrays/11.Find_the_minimum_element_in_sorted_rotated_array.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/11.Find_the_minimum_element_in_sorted_rotated_array.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+      "title": "Find Minimum in Rotated Sorted Array",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p051",
+    "index": 51,
+    "title": "Find single element in sorted array",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "You are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once.\n\nReturn the single element that appears only once.",
+    "approach": "Since the array is sorted and every element appears exactly twice except for one element, we can use binary search to find the single element.\n1. Initialize low = 0 and high = nums.size()-1, where nums is the input array.\n2. While low < high, calculate mid = low + (high - low) / 2.\n3. Check if mid is an even index (mid % 2 == 0).\n    - If nums[mid] is equal to nums[mid + 1], it means the single element is on the right side, so update low = mid + 1.\n    - Otherwise, the single element is on the left side, so update high = mid.\n4. If mid is an odd index (mid % 2 == 1).\n    - If nums[mid] is not equal to nums[mid + 1], it means the single element is on the right side, so update low = mid + 1.\n    - Otherwise, the single element is on the left side, so update high = mid.\n5. After the loop ends, low will be pointing to the single element.\n6. Return nums[low] as the result.",
+    "pseudocode": "ALGORITHM  Find single element in sorted array\nPATTERN    Binary search\n\nBEGIN\n  01  Since the array is sorted and every element appears exactly twice except for one element, we can use binary search to find the single element\n  02  SET low = 0 and high = nums.size()-1, where nums is the input array\n  03  WHILE low < high, calculate mid = low + (high - low) / 2\n  04  Check if mid is an even index (mid % 2 == 0)\n  05  IF nums[mid] is equal to nums[mid + 1], it means the single element is on the right side, so update low = mid + 1\n  06  ELSE the single element is on the left side, so update high = mid\n  07  IF mid is an odd index (mid % 2 == 1)\n  08  IF nums[mid] is not equal to nums[mid + 1], it means the single element is on the right side, so update low = mid + 1\n  09  ELSE the single element is on the left side, so update high = mid\n  10  After the loop ends, low will be pointing to the single element\n  11  RETURN nums[low] as the result\nEND",
+    "time": "O(log n)",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nYou are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once.\n\nReturn the single element that appears only once.\n\nAPPROACH:\nSince the array is sorted and every element appears exactly twice except for one element, we can use binary search to find the single element.\n1. Initialize low = 0 and high = nums.size()-1, where nums is the input array.\n2. While low < high, calculate mid = low + (high - low) / 2.\n3. Check if mid is an even index (mid % 2 == 0).\n    - If nums[mid] is equal to nums[mid + 1], it means the single element is on the right side, so update low = mid + 1.\n    - Otherwise, the single element is on the left side, so update high = mid.\n4. If mid is an odd index (mid % 2 == 1).\n    - If nums[mid] is not equal to nums[mid + 1], it means the single element is on the right side, so update low = mid + 1.\n    - Otherwise, the single element is on the left side, so update high = mid.\n5. After the loop ends, low will be pointing to the single element.\n6. Return nums[low] as the result.\n\nCODE:\n*/\n\nint singleNonDuplicate(vector<int>& nums) {\n    int low = 0, high = nums.size() - 1;\n    while (low < high) {\n        int mid = low + (high - low) / 2;\n        if (mid % 2 == 0) {\n            if (nums[mid] == nums[mid + 1])\n                low = mid + 1;\n            else\n                high = mid;\n        } else {\n            if (nums[mid] != nums[mid + 1])\n                low = mid + 1;\n            else\n                high = mid;\n        }\n    }\n    return nums[low];\n}\n\n// TIME COMPLEXITY: O(log n)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 43,
+    "repoPath": "02.Binary Search/1D Arrays/12.Find_single_element_in_sorted_array.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/12.Find_single_element_in_sorted_array.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/single-element-in-a-sorted-array/",
+      "title": "Single Element in a Sorted Array",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p052",
+    "index": 52,
+    "title": "Find how many times array is rotated",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "Given an ascending sorted rotated array Arr of distinct integers of size N. The array is right rotated K times. Find the value of K.\n\nExample 1:\n\nInput:\nN = 5\nArr[] = {5, 1, 2, 3, 4}\nOutput: 1\nExplanation: The given array is 5 1 2 3 4.\nThe original sorted array is 1 2 3 4 5.\nWe can see that the array was rotated\n1 times to the right.",
+    "approach": "To find the value of K, we can use binary search.\n1. Initialize low = 0 and high = N-1, where N is the size of the array.\n2. While low < high, calculate mid = low + (high - low) / 2.\n3. Check if arr[mid] > arr[n-1].\n    - If true, it means the rotation point lies on the right side of mid, so update low = mid + 1.\n    - If false, it means the rotation point lies on the left side of mid or mid is the rotation point, so update high = mid.\n4. After the loop ends, low will be pointing to the rotation point.\n5. Return low as the value of K.",
+    "pseudocode": "ALGORITHM  Find how many times array is rotated\nPATTERN    Binary search\n\nBEGIN\n  01  To find the value of K, we can use binary search\n  02  SET low = 0 and high = N-1, where N is the size of the array\n  03  WHILE low < high, calculate mid = low + (high - low) / 2\n  04  Check if arr[mid] > arr[n-1]\n  05  IF true, it means the rotation point lies on the right side of mid, so update low = mid + 1\n  06  IF false, it means the rotation point lies on the left side of mid or mid is the rotation point, so update high = mid\n  07  After the loop ends, low will be pointing to the rotation point\n  08  RETURN low as the value of K\nEND",
+    "time": "O(log n)",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nGiven an ascending sorted rotated array Arr of distinct integers of size N. The array is right rotated K times. Find the value of K.\n\nExample 1:\n\nInput:\nN = 5\nArr[] = {5, 1, 2, 3, 4}\nOutput: 1\nExplanation: The given array is 5 1 2 3 4. \nThe original sorted array is 1 2 3 4 5. \nWe can see that the array was rotated \n1 times to the right.\n\nAPPROACH:\nTo find the value of K, we can use binary search.\n1. Initialize low = 0 and high = N-1, where N is the size of the array.\n2. While low < high, calculate mid = low + (high - low) / 2.\n3. Check if arr[mid] > arr[n-1].\n    - If true, it means the rotation point lies on the right side of mid, so update low = mid + 1.\n    - If false, it means the rotation point lies on the left side of mid or mid is the rotation point, so update high = mid.\n4. After the loop ends, low will be pointing to the rotation point.\n5. Return low as the value of K.\n\nCODE:\n*/\n\nint findKRotation(int arr[], int n) {\n    int low = 0, high = n - 1;\n    while (low < high) {\n        int mid = low + (high - low) / 2;\n        if (arr[mid] > arr[n - 1])\n            low = mid + 1;\n        else\n            high = mid;\n    }\n    return low;\n}\n\n// TIME COMPLEXITY: O(log n)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 42,
+    "repoPath": "02.Binary Search/1D Arrays/13.Find_how_many_times_array_is_rotated.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/1D%20Arrays/13.Find_how_many_times_array_is_rotated.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/",
+      "title": "Check if Array Is Sorted and Rotated",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p053",
+    "index": 53,
+    "title": "Row with maximum number of 1's",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Easy",
+    "question": "Given a boolean 2D array of n x m dimensions where each row is sorted. Find the 0-based index of the first row that has the maximum number of 1's.\n\nExample 1:\n\nInput:\nN = 4 , M = 4\nArr[][] = {{0, 1, 1, 1},\n           {0, 0, 1, 1},\n           {1, 1, 1, 1},\n           {0, 0, 0, 0}}\nOutput: 2\nExplanation: Row 2 contains 4 1's (0-based indexing).",
+    "approach": "-> We can use two pointer i and j which indicates current row and col\n-> As we know the matrix is row-wise sorted we can intilaize j=m-1 i.e. last col and i=0 i.e. first row\n-> Now, the idea is we will keep moving left j while we occur 1 and if 0 is found we will check in next row\n-> The last row where we encountered 1 will be our ans\n\n                {*0, *1, *1, *1}\n                {*0,  0,  1,  1}\nout of matrix  *{*1,  1,  1,  1} ---> ans\n                {0,  0,  0,  0}",
+    "pseudocode": "ALGORITHM  Row with maximum number of 1's\nPATTERN    Binary search\n\nBEGIN\n  01  We can use two pointer i and j which indicates current row and col\n  02  As we know the matrix is row-wise sorted we can intilaize j=m-1 i.e. last col and i=0 i.e. first row\n  03  Now, the idea is we will keep moving left j while we occur 1 and if 0 is found we will check in next row\n  04  The last row where we encountered 1 will be our ans\n  05  {*0, *1, *1, *1}\n  06  {*0,  0,  1,  1}\n  07  out of matrix  *{*1,  1,  1,  1} ---> ans\n  08  {0,  0,  0,  0}\n  09  RETURN the required result\nEND",
+    "time": "O(N+M)",
+    "space": "O(0)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search", "Matrix / grid"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:-\nGiven a boolean 2D array of n x m dimensions where each row is sorted. Find the 0-based index of the first row that has the maximum number of 1's.\n\nExample 1:\n\nInput:\nN = 4 , M = 4\nArr[][] = {{0, 1, 1, 1},\n           {0, 0, 1, 1},\n           {1, 1, 1, 1},\n           {0, 0, 0, 0}}\nOutput: 2\nExplanation: Row 2 contains 4 1's (0-based indexing).\n*/\n\n/*\nAPPROACH:-\n-> We can use two pointer i and j which indicates current row and col\n-> As we know the matrix is row-wise sorted we can intilaize j=m-1 i.e. last col and i=0 i.e. first row\n-> Now, the idea is we will keep moving left j while we occur 1 and if 0 is found we will check in next row\n-> The last row where we encountered 1 will be our ans\n\n                {*0, *1, *1, *1}\n                {*0,  0,  1,  1}\nout of matrix  *{*1,  1,  1,  1} ---> ans\n                {0,  0,  0,  0}\n\n\n\n*/\n\n// CODE:-\nint rowWithMax1s(vector<vector<int>> arr, int n, int m)\n{\n    int j = m - 1;\n    int i = 0;\n    int ans = -1;\n    while (j >= 0 && i < n)\n    {\n        while (arr[i][j] == 1)\n        {\n            ans = i;\n            j--;\n        }\n        if (i < n)\n            i++;\n    }\n    return ans;\n}\n\n// TIME COMPLEXITY = O(N+M)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 53,
+    "repoPath": "02.Binary Search/2D Arrays/1.Row_with_maximum_number_of_1's.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/2D%20Arrays/1.Row_with_maximum_number_of_1%27s.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/row-with-maximum-ones/",
+      "title": "Row With Maximum Ones",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p054",
+    "index": 54,
+    "title": "Search in sorted matrix",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "You are given an m x n integer matrix matrix with the following two properties:\n\nEach row is sorted in non-decreasing order.\nThe first integer of each row is greater than the last integer of the previous row.\nGiven an integer target, return true if target is in matrix or false otherwise.\n\nYou must write a solution in O(log(m * n)) time complexity.\n\nExample 1:\nInput:  matrix = [[1,3,5,7]\n                [10,11,16,20]\n                [23,30,34,60]]\n        target = 3\nOutput: true",
+    "approach": "-> Since the array is sorted we can use binary search low = 0 and high = n*m-1 i.e. total number of elements\n-> Value at mid position could be accessed by matrix[mid/m][mid%m]\n-> Then, follow the traditional binary search",
+    "pseudocode": "ALGORITHM  Search in sorted matrix\nPATTERN    Binary search\n\nBEGIN\n  01  Since the array is sorted we can use binary search low = 0 and high = n*m-1 i.e. total number of elements\n  02  Value at mid position could be accessed by matrix[mid/m][mid%m]\n  03  Then, follow the traditional binary search\n  04  RETURN the required result\nEND",
+    "time": "Example 1:",
+    "space": "O(0)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search", "Matrix / grid"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ rows, columns ≤ 10³",
+      "Total cells should fit memory for the chosen O(R × C) representation",
+      "Cell values fit a signed 32-bit integer unless path sums require 64-bit"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:-\nYou are given an m x n integer matrix matrix with the following two properties:\n\nEach row is sorted in non-decreasing order.\nThe first integer of each row is greater than the last integer of the previous row.\nGiven an integer target, return true if target is in matrix or false otherwise.\n\nYou must write a solution in O(log(m * n)) time complexity.\n\n\n\nExample 1:\nInput:  matrix = [[1,3,5,7]\n                [10,11,16,20]\n                [23,30,34,60]]\n        target = 3\nOutput: true\n*/\n\n/*\nAPPROACH:-\n-> Since the array is sorted we can use binary search low = 0 and high = n*m-1 i.e. total number of elements\n-> Value at mid position could be accessed by matrix[mid/m][mid%m]\n-> Then, follow the traditional binary search\n*/\n\n// CODE:-\nbool searchMatrix(vector<vector<int>> &matrix, int target)\n{\n    int n = matrix.size();\n    int m = matrix[0].size();\n    int low = 0;\n    int high = n * m - 1;\n    while (low <= high)\n    {\n        int mid = low + (high - low) / 2;\n        int val = matrix[mid / m][mid % m];\n        if (val == target)\n            return true;\n        else if (val > target)\n            high = mid - 1;\n        else\n            low = mid + 1;\n    }\n    return false;\n}\n\n// TIME COMPLEXITY = O(log(M * N))\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 50,
+    "repoPath": "02.Binary Search/2D Arrays/2.Search_in_sorted_matrix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/2D%20Arrays/2.Search_in_sorted_matrix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-a-2d-matrix/",
+      "title": "Search a 2D Matrix",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p055",
+    "index": 55,
+    "title": "Search in rowwise sorted matrix",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix. This matrix has the following properties:\n- Integers in each row are sorted in ascending order from left to right.\n- Integers in each column are sorted in ascending order from top to bottom.\n\nExample 1:\nInput: matrix = [\n  [1, 4, 7, 11, 15],\n  [2, 5, 8, 12, 19],\n  [3, 6, 9, 16, 22],\n  [10, 13, 14, 17, 24],\n  [18, 21, 23, 26, 30]\n], target = 5\nOutput: true\nExplanation: The element 5 is present in the matrix.\n\nExample 2:\nInput: matrix = [\n  [1, 4, 7, 11, 15],\n  [2, 5, 8, 12, 19],\n  [3, 6, 9, 16, 22],\n  [10, 13, 14, 17, 24],\n  [18, 21, 23, 26, 30]\n], target = 20\nOutput: false\nExplanation: The element 20 is not present in the matrix.",
+    "approach": "We can start the search from the top-right element or the bottom-left element and move towards the target element based on the properties of the matrix.\n\n1. Initialize the current position to the top-right element (row = 0, col = n-1), where n is the number of columns in the matrix.\n2. While the current position is within the matrix boundaries:\n     - If the current element is equal to the target, return true.\n     - If the current element is greater than the target, move left to the previous column.\n     - If the current element is less than the target, move down to the next row.\n3. If the loop exits without finding the target, return false.",
+    "pseudocode": "ALGORITHM  Search in rowwise sorted matrix\nPATTERN    Binary search\n\nBEGIN\n  01  We can start the search from the top-right element or the bottom-left element and move towards the target element based on the properties of the matrix\n  02  SET the current position to the top-right element (row = 0, col = n-1), where n is the number of columns in the matrix\n  03  WHILE the current position is within the matrix boundaries:\n  04  IF the current element is equal to the target, return true\n  05  IF the current element is greater than the target, move left to the previous column\n  06  IF the current element is less than the target, move down to the next row\n  07  IF the loop exits without finding the target, return false\n  08  RETURN the required result\nEND",
+    "time": "The time complexity of this algorithm is O(m + n), where m is the number of rows and n is the number of columns in the matrix",
+    "space": "The space complexity is O(1) since we are using constant extra space",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search", "Matrix / grid"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ rows, columns ≤ 10³",
+      "Total cells should fit memory for the chosen O(R × C) representation",
+      "Cell values fit a signed 32-bit integer unless path sums require 64-bit"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nWrite an efficient algorithm that searches for a value target in an m x n integer matrix matrix. This matrix has the following properties:\n- Integers in each row are sorted in ascending order from left to right.\n- Integers in each column are sorted in ascending order from top to bottom.\n\nExample 1:\nInput: matrix = [\n  [1, 4, 7, 11, 15],\n  [2, 5, 8, 12, 19],\n  [3, 6, 9, 16, 22],\n  [10, 13, 14, 17, 24],\n  [18, 21, 23, 26, 30]\n], target = 5\nOutput: true\nExplanation: The element 5 is present in the matrix.\n\nExample 2:\nInput: matrix = [\n  [1, 4, 7, 11, 15],\n  [2, 5, 8, 12, 19],\n  [3, 6, 9, 16, 22],\n  [10, 13, 14, 17, 24],\n  [18, 21, 23, 26, 30]\n], target = 20\nOutput: false\nExplanation: The element 20 is not present in the matrix.\n\nAPPROACH:\nWe can start the search from the top-right element or the bottom-left element and move towards the target element based on the properties of the matrix.\n\n1. Initialize the current position to the top-right element (row = 0, col = n-1), where n is the number of columns in the matrix.\n2. While the current position is within the matrix boundaries:\n     - If the current element is equal to the target, return true.\n     - If the current element is greater than the target, move left to the previous column.\n     - If the current element is less than the target, move down to the next row.\n3. If the loop exits without finding the target, return false.\n\nCODE:\n*/\n\nbool searchMatrix(vector<vector<int>>& matrix, int target) {\n    int row = 0, col = matrix[0].size() - 1;\n    while (row < matrix.size() && col >= 0) {\n        if (matrix[row][col] == target)\n            return true;\n        else if (matrix[row][col] > target)\n            col--;\n        else\n            row++;\n    }\n    return false;\n}\n\n/*\nTime Complexity: The time complexity of this algorithm is O(m + n), where m is the number of rows and n is the number of columns in the matrix.\n                In the worst case, we may need to traverse through the entire row or column of the matrix.\nSpace Complexity: The space complexity is O(1) since we are using constant extra space.\n*/",
+    "codeLines": 59,
+    "repoPath": "02.Binary Search/2D Arrays/3.Search_in_rowwise_sorted_matrix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/2D%20Arrays/3.Search_in_rowwise_sorted_matrix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-a-2d-matrix-ii/",
+      "title": "Search a 2D Matrix II",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p056",
+    "index": 56,
+    "title": "Peak element in matrix",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "A peak element in a 2D grid is an element that is strictly greater than all of its adjacent neighbors to the left, right, top, and bottom.\n\nGiven a 0-indexed m x n matrix mat where no two adjacent cells are equal, find any peak element mat[i][j] and return the length 2 array [i,j].\n\nYou may assume that the entire matrix is surrounded by an outer perimeter with the value -1 in each cell.\n\nYou must write an algorithm that runs in O(m log(n)) or O(n log(m)) time.\n\nExample 1:\nInput: mat = [[1,4],[3,2]]\nOutput: [0,1]\nExplanation: Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptable answers.\n\nExample 2:\nInput: mat = [[10,20,15],[21,30,14],[7,16,32]]\nOutput: [1,1]\nExplanation: Both 30 and 32 are peak elements so [1,1] and [2,2] are both acceptable answers.",
+    "approach": "- Perform a binary search on the columns of the matrix.\n- Find the maximum element in each column and check if it is a peak element by comparing it with its adjacent elements.\n- If it is a peak element, return its position [i, j].",
+    "pseudocode": "ALGORITHM  Peak element in matrix\nPATTERN    Binary search\n\nBEGIN\n  01  Perform a binary search on the columns of the matrix\n  02  Find the maximum element in each column and check if it is a peak element by comparing it with its adjacent elements\n  03  IF it is a peak element, return its position [i, j]\n  04  RETURN the required result\nEND",
+    "time": "O(m log(n)) or O(n log(m)) - Binary search is performed on the columns of the matrix",
+    "space": "O(1) - Constant space is used",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search", "Matrix / grid"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ rows, columns ≤ 10³",
+      "Total cells should fit memory for the chosen O(R × C) representation",
+      "Cell values fit a signed 32-bit integer unless path sums require 64-bit"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nA peak element in a 2D grid is an element that is strictly greater than all of its adjacent neighbors to the left, right, top, and bottom.\n\nGiven a 0-indexed m x n matrix mat where no two adjacent cells are equal, find any peak element mat[i][j] and return the length 2 array [i,j].\n\nYou may assume that the entire matrix is surrounded by an outer perimeter with the value -1 in each cell.\n\nYou must write an algorithm that runs in O(m log(n)) or O(n log(m)) time.\n\nExample 1:\nInput: mat = [[1,4],[3,2]]\nOutput: [0,1]\nExplanation: Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptable answers.\n\nExample 2:\nInput: mat = [[10,20,15],[21,30,14],[7,16,32]]\nOutput: [1,1]\nExplanation: Both 30 and 32 are peak elements so [1,1] and [2,2] are both acceptable answers.\n\nAPPROACH:\n- Perform a binary search on the columns of the matrix.\n- Find the maximum element in each column and check if it is a peak element by comparing it with its adjacent elements.\n- If it is a peak element, return its position [i, j].\n\nTIME COMPLEXITY: O(m log(n)) or O(n log(m)) - Binary search is performed on the columns of the matrix.\nSPACE COMPLEXITY: O(1) - Constant space is used.\n\nCODE:\n*/\n\nint max_finder(vector<int>& row) {\n    int maxi = INT_MIN;\n    int ans = -1;\n    for (int i = 0; i < row.size(); i++) {\n        if (row[i] > maxi) {\n            maxi = row[i];\n            ans = i;\n        }\n    }\n    return ans;\n}\n\nvector<int> findPeakGrid(vector<vector<int>>& mat) {\n    int n = mat.size();\n    int low = 0, high = n - 1;\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        int col = max_finder(mat[mid]);\n        if ((mid == 0 || mat[mid][col] > mat[mid - 1][col]) && \n            (mid == n - 1 || mat[mid][col] > mat[mid + 1][col]))\n            return {mid, col};\n        else {\n            if (mid != 0 && mat[mid][col] < mat[mid - 1][col])\n                high = mid - 1;\n            else\n                low = mid + 1;\n        }\n    }\n    return {-1, -1};\n}\n\n/*\nTIME COMPLEXITY: O(m log(n)) or O(n log(m)) - Binary search is performed on the columns of the matrix.\nSPACE COMPLEXITY: O(1) - Constant space is used.\n*/",
+    "codeLines": 66,
+    "repoPath": "02.Binary Search/2D Arrays/4.Peak_element_in_matrix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/2D%20Arrays/4.Peak_element_in_matrix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-a-peak-element-ii/",
+      "title": "Find a Peak Element II",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p057",
+    "index": 57,
+    "title": "Matrix median",
+    "topic": "Binary Search",
+    "subtopic": "D Arrays",
+    "difficulty": "Medium",
+    "question": "Given a row-wise sorted matrix of size R*C where R and C are always odd, find the median of the matrix.\n\nExample:\n\nInput:\nR = 3, C = 3\nM = [[1, 3, 5],\n     [2, 6, 9],\n     [3, 6, 9]]\nOutput: 5\nExplanation: Sorting matrix elements gives us {1, 2, 3, 3, 5, 6, 6, 9, 9}. Hence, 5 is the median.",
+    "approach": "To find the median of a row-wise sorted matrix, we can follow these steps:\n\n1. Initialize two variables, `low` and `high`, to keep track of the minimum and maximum elements in the matrix.\n2. Iterate through each row and update `low` with the minimum value of the first element in each row and `high` with the maximum value of the last element in each row.\n3. Perform binary search between `low` and `high`.\n4. For each iteration of binary search, count the number of elements in the matrix that are less than or equal to the mid value.\n   - If the count is less than the desired median position, update `low` to mid + 1.\n   - If the count is greater than or equal to the desired median position, update the answer with the mid value and update `high` to mid - 1.\n5. Repeat steps 3-4 until `low` becomes greater than `high`.\n6. Return the final answer as the median of the matrix.",
+    "pseudocode": "ALGORITHM  Matrix median\nPATTERN    Binary search\n\nBEGIN\n  01  To find the median of a row-wise sorted matrix, we can follow these steps:\n  02  SET two variables, low and high, to keep track of the minimum and maximum elements in the matrix\n  03  FOR EACH element while traversing each row and update low with the minimum value of the first element in each row and high with the maximum value of the last element in each row\n  04  Perform binary search between low and high\n  05  FOR EACH iteration of binary search, count the number of elements in the matrix that are less than or equal to the mid value\n  06  IF the count is less than the desired median position, update low to mid + 1\n  07  IF the count is greater than or equal to the desired median position, update the answer with the mid value and update high to mid - 1\n  08  REPEAT steps 3-4 until low becomes greater than high\n  09  RETURN the final answer as the median of the matrix\nEND",
+    "time": "O(R * log(C) * log(range)), where R is the number of rows, C is the number of columns, and range is the difference between the minimum and maximum elements in the matrix",
+    "space": "O(1) as the algorithm only uses a constant amount of additional space to store variables",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search", "Matrix / grid"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ rows, columns ≤ 10³",
+      "Total cells should fit memory for the chosen O(R × C) representation",
+      "Cell values fit a signed 32-bit integer unless path sums require 64-bit"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*QUESTION:\n\nGiven a row-wise sorted matrix of size R*C where R and C are always odd, find the median of the matrix.\n\nExample:\n\nInput:\nR = 3, C = 3\nM = [[1, 3, 5], \n     [2, 6, 9], \n     [3, 6, 9]]\nOutput: 5\nExplanation: Sorting matrix elements gives us {1, 2, 3, 3, 5, 6, 6, 9, 9}. Hence, 5 is the median. \n\nAPPROACH:\n\nTo find the median of a row-wise sorted matrix, we can follow these steps:\n\n1. Initialize two variables, `low` and `high`, to keep track of the minimum and maximum elements in the matrix.\n2. Iterate through each row and update `low` with the minimum value of the first element in each row and `high` with the maximum value of the last element in each row.\n3. Perform binary search between `low` and `high`.\n4. For each iteration of binary search, count the number of elements in the matrix that are less than or equal to the mid value.\n   - If the count is less than the desired median position, update `low` to mid + 1.\n   - If the count is greater than or equal to the desired median position, update the answer with the mid value and update `high` to mid - 1.\n5. Repeat steps 3-4 until `low` becomes greater than `high`.\n6. Return the final answer as the median of the matrix.\n\nCODE:*/\n\nint median(vector<vector<int>>& matrix, int R, int C) {\n    int low = INT_MAX;\n    int high = INT_MIN;\n    int opt_cnt = (R * C + 1) / 2;\n    int ans = -1;\n\n    for (int i = 0; i < R; i++) {\n        low = min(low, matrix[i][0]);\n        high = max(high, matrix[i][C - 1]);\n    }\n\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        int cnt = 0;\n        for (int i = 0; i < R; i++) {\n            cnt += upper_bound(matrix[i].begin(), matrix[i].end(), mid) - matrix[i].begin();\n        }\n        if (cnt < opt_cnt)\n            low = mid + 1;\n        else {\n            ans = mid;\n            high = mid - 1;\n        }\n    }\n\n    return ans;\n}\n\n/*\nTIME COMPLEXITY: O(R * log(C) * log(range)), where R is the number of rows, C is the number of columns, and range is the difference between the minimum and maximum elements in the matrix. \n                The algorithm performs binary search on each row, which takes O(log(C)) time, and the outer binary search iterates log(range) times.\nSPACE COMPLEXITY: O(1) as the algorithm only uses a constant amount of additional space to store variables.\n*/",
+    "codeLines": 62,
+    "repoPath": "02.Binary Search/2D Arrays/5.Matrix_median.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/2D%20Arrays/5.Matrix_median.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+      "title": "Median of Two Sorted Arrays",
+      "match": "related",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p058",
+    "index": 58,
+    "title": "Square root of number",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Easy",
+    "question": "Given an integer x, find the square root of x. If x is not a perfect square, then return floor(√x).\n\nExample:\n\nInput:\nx = 5\nOutput: 2\nExplanation: Since 5 is not a perfect square, the floor of the square root of 5 is 2.\n\nInput:\nx = 4\nOutput: 2\nExplanation: Since 4 is a perfect square, the square root of 4 is 2.",
+    "approach": "We can use binary search to find the square root of x.\n1. Initialize the search space with low = 1 and high = x.\n2. While low is less than or equal to high:\n     - Calculate the mid of the search space.\n     - If the square of mid is equal to x, return mid as the square root.\n     - If the square of mid is less than x, update the answer to mid and set low = mid + 1 to search for a larger value.\n     - If the square of mid is greater than x, set high = mid - 1 to search for a smaller value.\n3. Return the answer, which represents the floor of the square root of x.",
+    "pseudocode": "ALGORITHM  Square root of number\nPATTERN    Binary search\n\nBEGIN\n  01  We can use binary search to find the square root of x\n  02  SET the search space with low = 1 and high = x\n  03  WHILE low is less than or equal to high:\n  04  Calculate the mid of the search space\n  05  IF the square of mid is equal to x, return mid as the square root\n  06  IF the square of mid is less than x, update the answer to mid and set low = mid + 1 to search for a larger value\n  07  IF the square of mid is greater than x, set high = mid - 1 to search for a smaller value\n  08  RETURN the answer, which represents the floor of the square root of x\nEND",
+    "time": "O(log(x))",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nGiven an integer x, find the square root of x. If x is not a perfect square, then return floor(√x).\n\nExample:\n\nInput:\nx = 5\nOutput: 2\nExplanation: Since 5 is not a perfect square, the floor of the square root of 5 is 2.\n\nInput:\nx = 4\nOutput: 2\nExplanation: Since 4 is a perfect square, the square root of 4 is 2.\n\nAPPROACH:\nWe can use binary search to find the square root of x. \n1. Initialize the search space with low = 1 and high = x.\n2. While low is less than or equal to high:\n     - Calculate the mid of the search space.\n     - If the square of mid is equal to x, return mid as the square root.\n     - If the square of mid is less than x, update the answer to mid and set low = mid + 1 to search for a larger value.\n     - If the square of mid is greater than x, set high = mid - 1 to search for a smaller value.\n3. Return the answer, which represents the floor of the square root of x.\n\nCODE:\n*/\n\nlong long int floorSqrt(long long int x) \n{\n    long long int low = 1, high = x;\n    long long int ans = -1;\n    while(low <= high){\n        long long int mid = low + (high - low) / 2;\n        if(x == mid * mid)\n            return mid;\n        else if(mid * mid < x){\n            ans = mid;\n            low = mid + 1;\n        }\n        else\n            high = mid - 1;\n    }\n    return ans;\n}\n\n/*\nTime Complexity: O(log(x))\nSpace Complexity: O(1)\n*/",
+    "codeLines": 51,
+    "repoPath": "02.Binary Search/In Search Space/01.Square_root_of_number.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/01.Square_root_of_number.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sqrtx/",
+      "title": "Sqrt(x)",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p059",
+    "index": 59,
+    "title": "Nth root of integer",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Medium",
+    "question": "You are given 2 numbers (n, m); the task is to find n√m (nth root of m).\n\nExample:\n\nInput: n = 2, m = 9\nOutput: 3\nExplanation: 3^2 = 9\n\nInput: n = 3, m = 9\nOutput: -1\nExplanation: 3rd root of 9 is not an integer.",
+    "approach": "We can use a binary search algorithm to find the nth root of m.\n1. Initialize the search range with low = 1 and high = m.\n2. While low is less than or equal to high:\n   - Calculate the mid value as the average of low and high.\n   - If mid raised to the power of n is equal to m, return mid.\n   - If mid raised to the power of n is less than m, update low to mid + 1.\n   - If mid raised to the power of n is greater than m, update high to mid - 1.\n3. If the loop exits without finding the nth root, return -1.",
+    "pseudocode": "ALGORITHM  Nth root of integer\nPATTERN    Binary search\n\nBEGIN\n  01  We can use a binary search algorithm to find the nth root of m\n  02  SET the search range with low = 1 and high = m\n  03  WHILE low is less than or equal to high:\n  04  Calculate the mid value as the average of low and high\n  05  IF mid raised to the power of n is equal to m, return mid\n  06  IF mid raised to the power of n is less than m, update low to mid + 1\n  07  IF mid raised to the power of n is greater than m, update high to mid - 1\n  08  IF the loop exits without finding the nth root, return -1\n  09  RETURN the required result\nEND",
+    "time": "O(log m)",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nYou are given 2 numbers (n, m); the task is to find n√m (nth root of m).\n\nExample:\n\nInput: n = 2, m = 9\nOutput: 3\nExplanation: 3^2 = 9\n\nInput: n = 3, m = 9\nOutput: -1\nExplanation: 3rd root of 9 is not an integer.\n\nAPPROACH:\nWe can use a binary search algorithm to find the nth root of m.\n1. Initialize the search range with low = 1 and high = m.\n2. While low is less than or equal to high:\n   - Calculate the mid value as the average of low and high.\n   - If mid raised to the power of n is equal to m, return mid.\n   - If mid raised to the power of n is less than m, update low to mid + 1.\n   - If mid raised to the power of n is greater than m, update high to mid - 1.\n3. If the loop exits without finding the nth root, return -1.\n\n\nCODE:\n*/\n\nint NthRoot(int n, int m) {\n    int low = 1, high = m;\n    while (low <= high) {\n        long long mid = low + (high - low) / 2;\n        if (pow(mid, n) == m)\n            return mid;\n        else if (pow(mid, n) < m)\n            low = mid + 1;\n        else\n            high = mid - 1;\n    }\n    return -1;\n}\n\n/*\nTIME COMPLEXITY: O(log m)\nThe binary search algorithm runs in logarithmic time complexity as it reduces the search range by half at each step.\n\nSPACE COMPLEXITY: O(1)\nThe algorithm uses a constant amount of space to store the variables and perform calculations.\n*/",
+    "codeLines": 49,
+    "repoPath": "02.Binary Search/In Search Space/02.Nth_root_of_integer.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/02.Nth_root_of_integer.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/powx-n/",
+      "title": "Pow(x, n)",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p060",
+    "index": 60,
+    "title": "Koko eating banana",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Medium",
+    "question": "Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.\n\nKoko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.\n\nKoko likes to eat slowly but still wants to finish eating all the bananas before the guards return.\n\nReturn the minimum integer k such that she can eat all the bananas within h hours.\n\nEXAMPLES:\nInput: piles = [3,6,7,11], h = 8\nOutput: 4\n\nInput: piles = [30,11,23,4,20], h = 5\nOutput: 30",
+    "approach": "- We can apply binary search to find the minimum eating speed.\n- The eating speed can range from 1 to the maximum number of bananas in a pile.\n- For each eating speed, we check if it is possible to finish eating all the bananas within h hours.\n- We calculate the required time based on the eating speed, considering the number of bananas in each pile.\n- If the required time is less than or equal to h, it means it is possible to finish eating all the bananas within h hours.\n- We update the answer accordingly and continue the binary search.",
+    "pseudocode": "ALGORITHM  Koko eating banana\nPATTERN    Binary search\n\nBEGIN\n  01  We can apply binary search to find the minimum eating speed\n  02  The eating speed can range from 1 to the maximum number of bananas in a pile\n  03  FOR EACH eating speed, we check if it is possible to finish eating all the bananas within h hours\n  04  We calculate the required time based on the eating speed, considering the number of bananas in each pile\n  05  IF the required time is less than or equal to h, it means it is possible to finish eating all the bananas within h hours\n  06  We update the answer accordingly and continue the binary search\n  07  RETURN the required result\nEND",
+    "time": "O(N log M), where N is the number of piles and M is the maximum number of bananas in a pile",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQUESTION:\nKoko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.\n\nKoko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.\n\nKoko likes to eat slowly but still wants to finish eating all the bananas before the guards return.\n\nReturn the minimum integer k such that she can eat all the bananas within h hours.\n\nEXAMPLES:\nInput: piles = [3,6,7,11], h = 8\nOutput: 4\n\nInput: piles = [30,11,23,4,20], h = 5\nOutput: 30\n\nAPPROACH:\n- We can apply binary search to find the minimum eating speed.\n- The eating speed can range from 1 to the maximum number of bananas in a pile.\n- For each eating speed, we check if it is possible to finish eating all the bananas within h hours.\n- We calculate the required time based on the eating speed, considering the number of bananas in each pile.\n- If the required time is less than or equal to h, it means it is possible to finish eating all the bananas within h hours.\n- We update the answer accordingly and continue the binary search.\n\n\nCODE:\n*/\n\nbool isPossible(int mid, vector<int>& piles, int h){\n    long req = 0;\n    for(auto it:piles){\n        int time = it/mid;\n        req += time;\n        if(it%mid!=0) req++;\n    }\n    if(req<=h)\n        return true;\n    return false;\n}\n\nint minEatingSpeed(vector<int>& piles, int h) {\n    int ans = -1;\n    int low = 1, high = INT_MIN;\n    for(auto it:piles){\n        high = max(high,it);\n    }\n    while(low<=high){\n        int mid = low+(high-low)/2;\n        if(isPossible(mid,piles,h)){\n            ans = mid;\n            high = mid-1;\n        }\n        else{\n            low = mid+1;\n        }\n    }\n    return ans;\n}\n\n// TIME COMPLEXITY: O(N log M), where N is the number of piles and M is the maximum number of bananas in a pile.\n// SPACE COMPLEXITY: O(1)",
+    "codeLines": 62,
+    "repoPath": "02.Binary Search/In Search Space/03.Koko_eating_banana.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/03.Koko_eating_banana.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/koko-eating-bananas/",
+      "title": "Koko Eating Bananas",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p061",
+    "index": 61,
+    "title": "Minimum days to make bouquets",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Medium",
+    "question": "You are given an integer array bloomDay, an integer m, and an integer k. You want to make m bouquets. To make a bouquet, you need to use k adjacent flowers from the garden.\n\nThe garden consists of n flowers, where the i-th flower will bloom on the bloomDay[i] day and can be used in exactly one bouquet.\n\nReturn the minimum number of days you need to wait to be able to make m bouquets from the garden. If it is impossible to make m bouquets, return -1.\n\nExample:\n\nInput:\nbloomDay = [1,10,3,10,2]\nm = 3\nk = 1\n\nOutput:\n3\n\nExplanation:\nLet us see what happened in the first three days. x means flower bloomed and _ means flower did not bloom in the garden.\nWe need 3 bouquets each should contain 1 flower.\nAfter day 1: [x, _, _, _, _]   // we can only make one bouquet.\nAfter day 2: [x, _, _, _, x]   // we can only make two bouquets.\nAfter day 3: [x, _, x, _, x]   // we can make 3 bouquets. The answer is 3.",
+    "approach": "- Use binary search to find the minimum number of days required to make m bouquets.\n- The search space will be between the minimum and maximum bloom day.\n- For each mid value, simulate the process of making bouquets.\n- Count the number of bouquets that can be made using k adjacent flowers on or after the current day.\n- If the count is equal to or greater than m, update the answer and search in the lower half of the search space.\n- If the count is less than m, search in the upper half of the search space.\n\nbool isPossible(int mid, vector<int>& bloomDay, int m, int k) {\n    int bqts = 0, temp = 0;\n    for(auto it:bloomDay){\n        if(it<=mid)\n            temp++;\n        else\n            temp = 0;\n        if(temp==k){\n            bqts++;\n            temp = 0;\n        }\n    }\n    if(bqts>=m)\n        return true;\n    return false;\n}\n\nint minDays(vector<int>& bloomDay, int m, int k) {\n    if((long)m*k > bloomDay.size())\n        return -1;\n\n    int ans = -1;\n    int low = INT_MAX, high = INT_MIN;\n    for(auto it:bloomDay){\n        low = min(low,it);\n        high = max(high,it);\n    }\n\n    while(low<=high){\n        int mid = low+(high-low)/2;\n        if(isPossible(mid,bloomDay,m,k)){\n            ans = mid;\n            high = mid-1;\n        }\n        else{\n            low = mid+1;\n        }\n    }\n    return ans;\n}",
+    "pseudocode": "ALGORITHM  Minimum days to make bouquets\nPATTERN    Binary search\n\nBEGIN\n  01  Use binary search to find the minimum number of days required to make m bouquets\n  02  The search space will be between the minimum and maximum bloom day\n  03  FOR EACH mid value, simulate the process of making bouquets\n  04  Count the number of bouquets that can be made using k adjacent flowers on or after the current day\n  05  IF the count is equal to or greater than m, update the answer and search in the lower half of the search space\n  06  IF the count is less than m, search in the upper half of the search space\n  07  bool isPossible(int mid, vector<int>& bloomDay, int m, int k) {\n  08  int bqts = 0, temp = 0;\n  09  for(auto it:bloomDay){\n  10  if(it<=mid)\n  11  temp++;\n  12  else\n  13  temp = 0;\n  14  if(temp==k){\n  15  RETURN the required result\nEND",
+    "time": "The binary search approach takes O(log n), where n is the number of elements in the `bloomDay` array",
+    "space": "The space complexity is O(1) since we are using a constant amount of extra space",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nYou are given an integer array bloomDay, an integer m, and an integer k. You want to make m bouquets. To make a bouquet, you need to use k adjacent flowers from the garden.\n\nThe garden consists of n flowers, where the i-th flower will bloom on the bloomDay[i] day and can be used in exactly one bouquet.\n\nReturn the minimum number of days you need to wait to be able to make m bouquets from the garden. If it is impossible to make m bouquets, return -1.\n\nExample:\n\nInput:\nbloomDay = [1,10,3,10,2]\nm = 3\nk = 1\n\nOutput:\n3\n\nExplanation:\nLet us see what happened in the first three days. x means flower bloomed and _ means flower did not bloom in the garden.\nWe need 3 bouquets each should contain 1 flower.\nAfter day 1: [x, _, _, _, _]   // we can only make one bouquet.\nAfter day 2: [x, _, _, _, x]   // we can only make two bouquets.\nAfter day 3: [x, _, x, _, x]   // we can make 3 bouquets. The answer is 3.\n*/\n\n/*\nApproach:\n- Use binary search to find the minimum number of days required to make m bouquets.\n- The search space will be between the minimum and maximum bloom day.\n- For each mid value, simulate the process of making bouquets.\n- Count the number of bouquets that can be made using k adjacent flowers on or after the current day.\n- If the count is equal to or greater than m, update the answer and search in the lower half of the search space.\n- If the count is less than m, search in the upper half of the search space.\n*/\n\nbool isPossible(int mid, vector<int>& bloomDay, int m, int k) {\n    int bqts = 0, temp = 0;\n    for(auto it:bloomDay){\n        if(it<=mid)\n            temp++;\n        else\n            temp = 0;\n        if(temp==k){\n            bqts++;\n            temp = 0;\n        }\n    }\n    if(bqts>=m)\n        return true;\n    return false;\n}\n\nint minDays(vector<int>& bloomDay, int m, int k) {\n    if((long)m*k > bloomDay.size())\n        return -1;\n\n    int ans = -1;\n    int low = INT_MAX, high = INT_MIN;\n    for(auto it:bloomDay){\n        low = min(low,it);\n        high = max(high,it);\n    }\n\n    while(low<=high){\n        int mid = low+(high-low)/2;\n        if(isPossible(mid,bloomDay,m,k)){\n            ans = mid;\n            high = mid-1;\n        }\n        else{\n            low = mid+1;\n        }\n    }\n    return ans;\n}\n\n// Time Complexity: The binary search approach takes O(log n), where n is the number of elements in the `bloomDay` array.\n// Space Complexity: The space complexity is O(1) since we are using a constant amount of extra space.",
+    "codeLines": 79,
+    "repoPath": "02.Binary Search/In Search Space/04.Minimum_days_to_make_boquets.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/04.Minimum_days_to_make_boquets.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/",
+      "title": "Minimum Number of Days to Make m Bouquets",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p062",
+    "index": 62,
+    "title": "Find smallest integer",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Medium",
+    "question": "You are given an array of integers nums and an integer threshold. We need to find the smallest divisor\nsuch that the result of dividing each element of the array by the divisor and summing up the results\nis less than or equal to the threshold.\n\nExample:\nInput: nums = [1,2,5,9], threshold = 6\nOutput: 5\nExplanation: We can get a sum of 17 (1+2+5+9) if the divisor is 1.\nIf the divisor is 4, we can get a sum of 7 (1+1+2+3).\nIf the divisor is 5, the sum will be 5 (1+1+1+2).\nThe smallest divisor that gives a sum less than or equal to the threshold is 5.",
+    "approach": "- Start with a range of possible divisors from 1 to the maximum value in the array.\n- Use binary search to find the smallest divisor that satisfies the given condition.\n- Check the midpoint of the range and calculate the sum of divisions using the current divisor.\n- If the sum is less than or equal to the threshold, update the answer and continue searching in the lower half of the range.\n- If the sum is greater than the threshold, search in the upper half of the range.\n- Repeat this process until the range is narrowed down to a single value, which will be the smallest divisor.",
+    "pseudocode": "ALGORITHM  Find smallest integer\nPATTERN    Binary search\n\nBEGIN\n  01  Start with a range of possible divisors from 1 to the maximum value in the array\n  02  Use binary search to find the smallest divisor that satisfies the given condition\n  03  Check the midpoint of the range and calculate the sum of divisions using the current divisor\n  04  IF the sum is less than or equal to the threshold, update the answer and continue searching in the lower half of the range\n  05  IF the sum is greater than the threshold, search in the upper half of the range\n  06  REPEAT this process until the range is narrowed down to a single value, which will be the smallest divisor\n  07  RETURN the required result\nEND",
+    "time": "O(n log(max(nums)))",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nYou are given an array of integers nums and an integer threshold. We need to find the smallest divisor\nsuch that the result of dividing each element of the array by the divisor and summing up the results\nis less than or equal to the threshold.\n\nExample:\nInput: nums = [1,2,5,9], threshold = 6\nOutput: 5\nExplanation: We can get a sum of 17 (1+2+5+9) if the divisor is 1.\nIf the divisor is 4, we can get a sum of 7 (1+1+2+3).\nIf the divisor is 5, the sum will be 5 (1+1+1+2).\nThe smallest divisor that gives a sum less than or equal to the threshold is 5.\n\nApproach:\n- Start with a range of possible divisors from 1 to the maximum value in the array.\n- Use binary search to find the smallest divisor that satisfies the given condition.\n- Check the midpoint of the range and calculate the sum of divisions using the current divisor.\n- If the sum is less than or equal to the threshold, update the answer and continue searching in the lower half of the range.\n- If the sum is greater than the threshold, search in the upper half of the range.\n- Repeat this process until the range is narrowed down to a single value, which will be the smallest divisor.\n\nCode:\n*/\n\nint smallestDivisor(vector<int>& nums, int threshold) {\n    int ans = -1;\n    int low = 1, high = INT_MIN;\n\n    // Finding the maximum value in the array\n    for (auto it : nums)\n        high = max(high, it);\n\n    // Binary search for the smallest divisor\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        int sum = 0;\n        for (auto num : nums) {\n            sum += (num + mid - 1) / mid;\n        }\n        if (sum <= threshold) {\n            ans = mid;\n            high = mid - 1;\n        } else {\n            low = mid + 1;\n        }\n    }\n    return ans;\n}\n\n// Time Complexity: O(n log(max(nums)))\n// Space Complexity: O(1)\n",
+    "codeLines": 52,
+    "repoPath": "02.Binary Search/In Search Space/05.Find_smallest_integer.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/05.Find_smallest_integer.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/",
+      "title": "Minimum Limit of Balls in a Bag",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p063",
+    "index": 63,
+    "title": "Capacity to ship packages",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Medium",
+    "question": "A conveyor belt has packages that must be shipped from one port to another within days days.\n\nThe ith package on the conveyor belt has a weight of weights[i]. Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship.\n\nReturn the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within days days.\n\nExample:\n\nInput: weights = [1,2,3,4,5,6,7,8,9,10], days = 5\nOutput: 15\nExplanation: A ship capacity of 15 is the minimum to ship all the packages in 5 days like this:\n1st day: 1, 2, 3, 4, 5\n2nd day: 6, 7\n3rd day: 8\n4th day: 9\n5th day: 10",
+    "approach": "To find the least weight capacity of the ship, we can use binary search. We set the low and high as the minimum and maximum weight from the weights array, respectively. Then, we iterate through the weights and check if it can be accommodated within the current capacity. If it can, we subtract the weight from the capacity. If it cannot, we increment the required number of days and update the capacity with the current weight. We continue this process until we find the minimum capacity that satisfies the given number of days.",
+    "pseudocode": "ALGORITHM  Capacity to ship packages\nPATTERN    Binary search\n\nBEGIN\n  01  To find the least weight capacity of the ship, we can use binary search\n  02  We set the low and high as the minimum and maximum weight from the weights array, respectively\n  03  Then, we iterate through the weights and check if it can be accommodated within the current capacity\n  04  IF it can, we subtract the weight from the capacity\n  05  IF it cannot, we increment the required number of days and update the capacity with the current weight\n  06  We continue this process until we find the minimum capacity that satisfies the given number of days\n  07  RETURN the required result\nEND",
+    "time": "O(N log M), where N is the size of the weights array and M is the sum of all the weights",
+    "space": "O(1) as we are using a constant amount of extra space",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nA conveyor belt has packages that must be shipped from one port to another within days days.\n\nThe ith package on the conveyor belt has a weight of weights[i]. Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship.\n\nReturn the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within days days.\n\nExample:\n\nInput: weights = [1,2,3,4,5,6,7,8,9,10], days = 5\nOutput: 15\nExplanation: A ship capacity of 15 is the minimum to ship all the packages in 5 days like this:\n1st day: 1, 2, 3, 4, 5\n2nd day: 6, 7\n3rd day: 8\n4th day: 9\n5th day: 10\n\nApproach:\nTo find the least weight capacity of the ship, we can use binary search. We set the low and high as the minimum and maximum weight from the weights array, respectively. Then, we iterate through the weights and check if it can be accommodated within the current capacity. If it can, we subtract the weight from the capacity. If it cannot, we increment the required number of days and update the capacity with the current weight. We continue this process until we find the minimum capacity that satisfies the given number of days.\n\nCode:\n*/\n\nbool isPossible(int mid, vector<int>& weights, int days){\n    int req_day = 1, temp = mid;\n    for(auto it:weights){\n        if(it <= temp){\n            temp -= it;\n        }\n        else{\n            req_day++;\n            if(it > mid)\n                return false;\n            temp = mid - it;\n        }\n    }\n    if(req_day <= days)\n        return true;\n    return false;\n}\n\nint shipWithinDays(vector<int>& weights, int days) {\n    int ans = -1;\n    int low = INT_MAX, high = 0;\n    for(auto it:weights){\n        low = min(low, it);\n        high += it;\n    }\n    while(low <= high){\n        int mid = low + (high - low) / 2;\n        if(isPossible(mid, weights, days)){\n            ans = mid;\n            high = mid - 1;\n        }\n        else\n            low = mid + 1;\n    }\n    return ans;\n}\n\n/*\n- Time Complexity: O(N log M), where N is the size of the weights array and M is the sum of all the weights.\n- Space Complexity: O(1) as we are using a constant amount of extra space.\n*/\n\n",
+    "codeLines": 67,
+    "repoPath": "02.Binary Search/In Search Space/06.Capacity_to_ship_packages.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/06.Capacity_to_ship_packages.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/",
+      "title": "Capacity To Ship Packages Within D Days",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p064",
+    "index": 64,
+    "title": "Aggressive cows",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Medium",
+    "question": "In the universe Earth C-137, Rick discovered a special form of magnetic force between two balls if they are put in his new invented basket. Rick has n empty baskets, the ith basket is at position[i], Morty has m balls and needs to distribute the balls into the baskets such that the minimum magnetic force between any two balls is maximum.\n\nRick stated that magnetic force between two different balls at positions x and y is |x - y|.\n\nGiven the integer array position and the integer m. Return the required force.\n\nExample:\n\nInput: position = [1,2,3,4,7], m = 3\nOutput: 3\nExplanation: Distributing the 3 balls into baskets 1, 4 and 7 will make the magnetic force between ball pairs [3, 3, 6]. The minimum magnetic force is 3. We cannot achieve a larger minimum magnetic force than 3.",
+    "approach": "- Sort the position array in ascending order to simplify the possibility check.\n- Use binary search to find the maximum minimum magnetic force.\n- Set the low and high values for the binary search.\n- While the low value is less than or equal to the high value, calculate the mid value.\n- Check if it is possible to distribute the balls with a minimum magnetic force of mid using the isPossible() function.\n- If it is possible, update the answer and set the low value to mid + 1.\n- If it is not possible, set the high value to mid - 1.\n- Return the answer.",
+    "pseudocode": "ALGORITHM  Aggressive cows\nPATTERN    Binary search\n\nBEGIN\n  01  Sort the position array in ascending order to simplify the possibility check\n  02  Use binary search to find the maximum minimum magnetic force\n  03  SET the low and high values for the binary search\n  04  WHILE the low value is less than or equal to the high value, calculate the mid value\n  05  Check if it is possible to distribute the balls with a minimum magnetic force of mid using the isPossible() function\n  06  IF it is possible, update the answer and set the low value to mid + 1\n  07  IF it is not possible, set the high value to mid - 1\n  08  RETURN the answer\nEND",
+    "time": "O(n log n), where n is the size of the position array. Sorting the array takes O(n log n) time and the binary search takes O(log n) time",
+    "space": "O(1), constant space is used",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nIn the universe Earth C-137, Rick discovered a special form of magnetic force between two balls if they are put in his new invented basket. Rick has n empty baskets, the ith basket is at position[i], Morty has m balls and needs to distribute the balls into the baskets such that the minimum magnetic force between any two balls is maximum.\n\nRick stated that magnetic force between two different balls at positions x and y is |x - y|.\n\nGiven the integer array position and the integer m. Return the required force.\n\nExample:\n\nInput: position = [1,2,3,4,7], m = 3\nOutput: 3\nExplanation: Distributing the 3 balls into baskets 1, 4 and 7 will make the magnetic force between ball pairs [3, 3, 6]. The minimum magnetic force is 3. We cannot achieve a larger minimum magnetic force than 3.\n\nApproach:\n- Sort the position array in ascending order to simplify the possibility check.\n- Use binary search to find the maximum minimum magnetic force.\n- Set the low and high values for the binary search.\n- While the low value is less than or equal to the high value, calculate the mid value.\n- Check if it is possible to distribute the balls with a minimum magnetic force of mid using the isPossible() function.\n- If it is possible, update the answer and set the low value to mid + 1.\n- If it is not possible, set the high value to mid - 1.\n- Return the answer.\n\nCode:\n*/\n\nbool isPossible(int mid, vector<int>& position, int m){\n    int placeM = 1;\n    int start = 0;\n    for(int i=1; i<position.size(); i++){\n        if(position[i]-position[start]>=mid){\n            placeM++;\n            start = i;\n        }\n    }\n    if(placeM>=m)\n        return true;\n    return false;\n}\n\nint maxDistance(vector<int>& position, int m) {\n    sort(position.begin(),position.end());\n    int low = 1, high = position[position.size()-1]-position[0];\n    int ans = -1; \n    while(low<=high){\n        int mid = low+(high-low)/2;\n        if(isPossible(mid,position,m)){\n            ans = mid;\n            low = mid+1;\n        }\n        else{\n            high = mid-1;\n        }\n    }\n    return ans;\n}\n\n/*\nTime Complexity: O(n log n), where n is the size of the position array. Sorting the array takes O(n log n) time and the binary search takes O(log n) time.\nSpace Complexity: O(1), constant space is used.\n*/\n",
+    "codeLines": 62,
+    "repoPath": "02.Binary Search/In Search Space/08.Aggresive_cows.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/08.Aggresive_cows.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/magnetic-force-between-two-balls/",
+      "title": "Magnetic Force Between Two Balls",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p065",
+    "index": 65,
+    "title": "Book allocation",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Medium",
+    "question": "You have N books, each with Ai number of pages. M students need to be allocated contiguous books, with each student getting at least one book. Out of all the permutations, the goal is to find the permutation where the student with the most pages allocated to him gets the minimum number of pages, out of all possible permutations.\n\nNote: Return -1 if a valid assignment is not possible, and allotment should be in contiguous order.\n\nExample:\n\nInput:\nN = 4\nA[] = {12,34,67,90}\nM = 2\nOutput: 113\nExplanation:\nAllocation can be done in following ways:\n{12} and {34, 67, 90} Maximum Pages = 191\n{12, 34} and {67, 90} Maximum Pages = 157\n{12, 34, 67} and {90} Maximum Pages = 113.\nTherefore, the minimum of these cases is 113, which is selected as the output.",
+    "approach": "- We can use binary search to find the minimum number of pages that can be allocated to the student with the most pages.\n- The range for binary search will be from the minimum number of pages in the array to the sum of all the pages in the array.\n- For each mid value, we will check if it is possible to allocate the books in a way that the maximum number of pages for a student is less than or equal to mid.\n- To check this, we iterate through the array of pages and keep track of the number of students and the sum of pages allocated to the current student.\n- If at any point, the sum exceeds the mid value, we increment the number of students and reset the sum to the current page value.\n- If the number of students exceeds the given M, it means we need more students to allocate the pages, so we return false.\n- If at the end, the number of students is less than or equal to M, it means it is possible to allocate the pages within the given constraints, so we return true.\n- Finally, we perform binary search and find the minimum mid value that returns true in the isPossible function.",
+    "pseudocode": "ALGORITHM  Book allocation\nPATTERN    Binary search\n\nBEGIN\n  01  We can use binary search to find the minimum number of pages that can be allocated to the student with the most pages\n  02  The range for binary search will be from the minimum number of pages in the array to the sum of all the pages in the array\n  03  FOR EACH mid value, we will check if it is possible to allocate the books in a way that the maximum number of pages for a student is less than or equal to mid\n  04  To check this, we iterate through the array of pages and keep track of the number of students and the sum of pages allocated to the current student\n  05  IF at any point, the sum exceeds the mid value, we increment the number of students and reset the sum to the current page value\n  06  IF the number of students exceeds the given M, it means we need more students to allocate the pages, so we return false\n  07  IF at the end, the number of students is less than or equal to M, it means it is possible to allocate the pages within the given constraints, so we return true\n  08  Finally, we perform binary search and find the minimum mid value that returns true in the isPossible function\n  09  RETURN the required result\nEND",
+    "time": "O(N log S), where N is the number of books and S is the sum of all the pages in the array. The binary search takes log S iterations, and for each iteration, we check the validity of allocation in O(N) time",
+    "space": "O(1), as we are using a constant amount of extra space",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nYou have N books, each with Ai number of pages. M students need to be allocated contiguous books, with each student getting at least one book. Out of all the permutations, the goal is to find the permutation where the student with the most pages allocated to him gets the minimum number of pages, out of all possible permutations.\n\nNote: Return -1 if a valid assignment is not possible, and allotment should be in contiguous order.\n\nExample:\n\nInput:\nN = 4\nA[] = {12,34,67,90}\nM = 2\nOutput: 113\nExplanation:\nAllocation can be done in following ways:\n{12} and {34, 67, 90} Maximum Pages = 191\n{12, 34} and {67, 90} Maximum Pages = 157\n{12, 34, 67} and {90} Maximum Pages = 113.\nTherefore, the minimum of these cases is 113, which is selected as the output.\n\nApproach:\n- We can use binary search to find the minimum number of pages that can be allocated to the student with the most pages.\n- The range for binary search will be from the minimum number of pages in the array to the sum of all the pages in the array.\n- For each mid value, we will check if it is possible to allocate the books in a way that the maximum number of pages for a student is less than or equal to mid.\n- To check this, we iterate through the array of pages and keep track of the number of students and the sum of pages allocated to the current student.\n- If at any point, the sum exceeds the mid value, we increment the number of students and reset the sum to the current page value.\n- If the number of students exceeds the given M, it means we need more students to allocate the pages, so we return false.\n- If at the end, the number of students is less than or equal to M, it means it is possible to allocate the pages within the given constraints, so we return true.\n- Finally, we perform binary search and find the minimum mid value that returns true in the isPossible function.\n\nCode:\n*/\n\nbool isPossible(int mid, int A[], int N, int M) {\n    int pos_m = 1;\n    int temp = 0;\n    for (int i = 0; i < N; i++) {\n        if (temp + A[i] <= mid) {\n            temp += A[i];\n        } else {\n            pos_m++;\n            if (A[i] > mid)\n                return false;\n            temp = A[i];\n        }\n    }\n    if (pos_m <= M)\n        return true;\n    return false;\n}\n\nint findPages(int A[], int N, int M) {\n    if (M > N)\n        return -1;\n    int low = INT_MAX, high = 0;\n    int ans = -1;\n    for (int i = 0; i < N; i++) {\n        low = min(low, A[i]);\n        high += A[i];\n    }\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        if (isPossible(mid, A, N, M)) {\n            ans = mid;\n            high = mid - 1;\n        } else {\n            low = mid + 1;\n        }\n    }\n    return ans;\n}\n\n/*\nTime Complexity: O(N log S), where N is the number of books and S is the sum of all the pages in the array. The binary search takes log S iterations, and for each iteration, we check the validity of allocation in O(N) time.\nSpace Complexity: O(1), as we are using a constant amount of extra space.\n*/",
+    "codeLines": 76,
+    "repoPath": "02.Binary Search/In Search Space/09.Book_allocation.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/09.Book_allocation.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/split-array-largest-sum/",
+      "title": "Split Array Largest Sum",
+      "match": "related",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p066",
+    "index": 66,
+    "title": "Split array largest",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Hard",
+    "question": "Given an integer array nums and an integer k, split nums into k non-empty subarrays such that the largest sum of any subarray is minimized. Return the minimized largest sum of the split.\n\nExample:\nInput: nums = [7,2,5,10,8], k = 2\nOutput: 18\nExplanation: There are four ways to split nums into two subarrays. The best way is to split it into [7,2,5] and [10,8], where the largest sum among the two subarrays is only 18.",
+    "approach": "- The problem can be solved using the binary search algorithm.\n- We need to find the range of possible values for the minimized largest sum.\n- The lower bound of the range is the maximum element in the array (as each subarray must contain at least one element).\n- The upper bound of the range is the sum of all elements in the array (as the largest sum cannot exceed the total sum of the array).\n- We perform binary search within this range to find the minimum largest sum that satisfies the given condition.\n- In each iteration, we calculate the mid value of the range and check if it is a valid solution using a helper function.\n- The helper function checks if it is possible to split the array into k subarrays with a maximum sum of mid.\n- If it is possible, we update the answer and search the lower half of the range.\n- If it is not possible, we search the upper half of the range.\n- We continue this process until we find the optimal solution.",
+    "pseudocode": "ALGORITHM  Split array largest\nPATTERN    Binary search\n\nBEGIN\n  01  The problem can be solved using the binary search algorithm\n  02  We need to find the range of possible values for the minimized largest sum\n  03  The lower bound of the range is the maximum element in the array (as each subarray must contain at least one element)\n  04  The upper bound of the range is the sum of all elements in the array (as the largest sum cannot exceed the total sum of the array)\n  05  We perform binary search within this range to find the minimum largest sum that satisfies the given condition\n  06  In each iteration, we calculate the mid value of the range and check if it is a valid solution using a helper function\n  07  The helper function checks if it is possible to split the array into k subarrays with a maximum sum of mid\n  08  IF it is possible, we update the answer and search the lower half of the range\n  09  IF it is not possible, we search the upper half of the range\n  10  We continue this process until we find the optimal solution\n  11  RETURN the required result\nEND",
+    "time": "O(n * log(sum of array))",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion: Given an integer array nums and an integer k, split nums into k non-empty subarrays such that the largest sum of any subarray is minimized. Return the minimized largest sum of the split.\n\nExample:\nInput: nums = [7,2,5,10,8], k = 2\nOutput: 18\nExplanation: There are four ways to split nums into two subarrays. The best way is to split it into [7,2,5] and [10,8], where the largest sum among the two subarrays is only 18.\n\nApproach:\n- The problem can be solved using the binary search algorithm.\n- We need to find the range of possible values for the minimized largest sum.\n- The lower bound of the range is the maximum element in the array (as each subarray must contain at least one element).\n- The upper bound of the range is the sum of all elements in the array (as the largest sum cannot exceed the total sum of the array).\n- We perform binary search within this range to find the minimum largest sum that satisfies the given condition.\n- In each iteration, we calculate the mid value of the range and check if it is a valid solution using a helper function.\n- The helper function checks if it is possible to split the array into k subarrays with a maximum sum of mid.\n- If it is possible, we update the answer and search the lower half of the range.\n- If it is not possible, we search the upper half of the range.\n- We continue this process until we find the optimal solution.\n\nTime Complexity: O(n * log(sum of array))\nSpace Complexity: O(1)\n*/\n\nbool isPossible(int mid, vector<int>& nums, int k) {\n    int pos_parts = 1, temp = 0;\n    for (auto it : nums) {\n        if (temp + it <= mid) {\n            temp += it;\n        } else {\n            pos_parts++;\n            if (it > mid)\n                return false;\n            temp = it;\n        }\n    }\n    if (pos_parts <= k)\n        return true;\n    return false;\n}\n\nint splitArray(vector<int>& nums, int k) {\n    int low = INT_MAX, high = 0;\n    int ans = -1;\n    for (auto it : nums) {\n        low = min(low, it);\n        high += it;\n    }\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        if (isPossible(mid, nums, k)) {\n            ans = mid;\n            high = mid - 1;\n        } else\n            low = mid + 1;\n    }\n    return ans;\n}\n",
+    "codeLines": 58,
+    "repoPath": "02.Binary Search/In Search Space/10.Split_array_largest.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/10.Split_array_largest.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/split-array-largest-sum/",
+      "title": "Split Array Largest Sum",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p067",
+    "index": 67,
+    "title": "Kth missing number",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Easy",
+    "question": "Given a sorted array arr of positive integers and an integer k, find the kth positive integer that is missing from the array.\n\nExample:\nInput: arr = [2,3,4,7,11], k = 5\nOutput: 9\nExplanation: The missing positive integers are [1,5,6,8,9,10,12,13,...]. The 5th missing positive integer is 9.",
+    "approach": "- We can solve this problem by finding the position in the array where the count of missing positive integers becomes greater than or equal to k.\n- Initialize a variable `low` to 0 to represent the start of the array.\n- Initialize a variable `high` to the size of the array minus 1 to represent the end of the array.\n- Initialize a variable `pos` to -1 to store the position of the missing integer.\n- Perform a binary search on the array:\n  - Calculate the middle index `mid` using the formula `low + (high - low) / 2`.\n  - If the count of missing positive integers in the subarray from the start to `mid` is less than k, update `low` to `mid + 1`.\n  - Otherwise, update `pos` to `mid` and update `high` to `mid - 1`.\n- After the binary search, check if a missing integer was found:\n  - If `pos` is still -1, it means that the missing integer should be after the last element in the array. Return the sum of the size of the array and k.\n  - Otherwise, return `pos + k` as the kth missing positive integer.",
+    "pseudocode": "ALGORITHM  Kth missing number\nPATTERN    Binary search\n\nBEGIN\n  01  We can solve this problem by finding the position in the array where the count of missing positive integers becomes greater than or equal to k\n  02  SET a variable low to 0 to represent the start of the array\n  03  SET a variable high to the size of the array minus 1 to represent the end of the array\n  04  SET a variable pos to -1 to store the position of the missing integer\n  05  Perform a binary search on the array:\n  06  Calculate the middle index mid using the formula low + (high - low) / 2\n  07  IF the count of missing positive integers in the subarray from the start to mid is less than k, update low to mid + 1\n  08  ELSE update pos to mid and update high to mid - 1\n  09  After the binary search, check if a missing integer was found:\n  10  IF pos is still -1, it means that the missing integer should be after the last element in the array. Return the sum of the size of the array and k\n  11  ELSE return pos + k as the kth missing positive integer\n  12  RETURN the required result\nEND",
+    "time": "O(log n), where n is the size of the array",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion: Given a sorted array arr of positive integers and an integer k, find the kth positive integer that is missing from the array.\n\nExample:\nInput: arr = [2,3,4,7,11], k = 5\nOutput: 9\nExplanation: The missing positive integers are [1,5,6,8,9,10,12,13,...]. The 5th missing positive integer is 9.\n\nApproach:\n- We can solve this problem by finding the position in the array where the count of missing positive integers becomes greater than or equal to k.\n- Initialize a variable `low` to 0 to represent the start of the array.\n- Initialize a variable `high` to the size of the array minus 1 to represent the end of the array.\n- Initialize a variable `pos` to -1 to store the position of the missing integer.\n- Perform a binary search on the array:\n  - Calculate the middle index `mid` using the formula `low + (high - low) / 2`.\n  - If the count of missing positive integers in the subarray from the start to `mid` is less than k, update `low` to `mid + 1`.\n  - Otherwise, update `pos` to `mid` and update `high` to `mid - 1`.\n- After the binary search, check if a missing integer was found:\n  - If `pos` is still -1, it means that the missing integer should be after the last element in the array. Return the sum of the size of the array and k.\n  - Otherwise, return `pos + k` as the kth missing positive integer.\n\nTime Complexity: O(log n), where n is the size of the array.\nSpace Complexity: O(1)\n\n*/\n\nint findKthPositive(vector<int>& arr, int k) {\n    int low = 0, high = arr.size() - 1;\n    int pos = -1;\n\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n\n        if ((arr[mid] - (mid + 1)) < k)\n            low = mid + 1;\n        else {\n            pos = mid;\n            high = mid - 1;\n        }\n    }\n\n    if (pos == -1)\n        return arr.size() + k;\n\n    return pos + k;\n}\n",
+    "codeLines": 46,
+    "repoPath": "02.Binary Search/In Search Space/11.Kth_missing_number.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/11.Kth_missing_number.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/kth-missing-positive-number/",
+      "title": "Kth Missing Positive Number",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p068",
+    "index": 68,
+    "title": "Gas station",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Medium",
+    "question": "s:-\nWe have an horizontal number line. On that number line, we have gas stations at positions stations[0], stations[1], ..., stations[N-1], where N = size of the stations array. Now, we add K more gas stations so that D, the maximum distance between adjacent gas stations, is minimized. We have to find the smallest possible value of D. Find the answer exactly to 2 decimal places.\n\nExample 1:\n\nInput:\nN = 10\nstations = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\nK = 9\nOutput: 0.50\nExplanation: Each of the 9 stations can be added mid way between all the existing adjacent stations.\nExample 2:\n\nInput:\nN = 10\nstations = [3,6,12,19,33,44,67,72,89,95]\nK = 2\nOutput: 14.00\nExplanation: Construction of gas stations at 86 locations",
+    "approach": "- To minimize the maximum distance between adjacent gas stations, we can perform binary search on the possible range of distances.\n- Initialize `low` to 0 and `high` to the maximum distance between adjacent existing gas stations.\n- While `high - low` is greater than a small threshold (e.g., 1e-6), calculate the mid-point `mid` between `low` and `high`.\n- Check if it is possible to add `K` additional gas stations such that the maximum distance between adjacent gas stations is less than or equal to `mid`.\n  - Iterate over the existing gas stations and check the distance between adjacent stations.\n  - If the total number of additional stations required is less than or equal to `K`, it is possible to achieve the maximum distance `mid`.\n- If it is possible, update `high` to `mid`, as we are looking for smaller distances.\n- Otherwise, update `low` to `mid`.\n- Finally, return the value of `low` plus a small value (e.g., 0.000001) to represent the answer to 2 decimal places.",
+    "pseudocode": "ALGORITHM  Gas station\nPATTERN    Binary search\n\nBEGIN\n  01  To minimize the maximum distance between adjacent gas stations, we can perform binary search on the possible range of distances\n  02  SET low to 0 and high to the maximum distance between adjacent existing gas stations\n  03  WHILE high - low is greater than a small threshold (e.g., 1e-6), calculate the mid-point mid between low and high\n  04  Check if it is possible to add K additional gas stations such that the maximum distance between adjacent gas stations is less than or equal to mid\n  05  Iterate over the existing gas stations and check the distance between adjacent stations\n  06  IF the total number of additional stations required is less than or equal to K, it is possible to achieve the maximum distance mid\n  07  IF it is possible, update high to mid, as we are looking for smaller distances\n  08  ELSE update low to mid\n  09  Finally, return the value of low plus a small value (e.g., 0.000001) to represent the answer to 2 decimal places\n  10  RETURN the required result\nEND",
+    "time": "O(N log M), where N is the number of existing gas stations and M is the range of distances between adjacent gas stations",
+    "space": "O(1), as we are using constant extra space",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestions:-\nWe have an horizontal number line. On that number line, we have gas stations at positions stations[0], stations[1], ..., stations[N-1], where N = size of the stations array. Now, we add K more gas stations so that D, the maximum distance between adjacent gas stations, is minimized. We have to find the smallest possible value of D. Find the answer exactly to 2 decimal places.\n\nExample 1:\n\nInput:\nN = 10\nstations = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\nK = 9\nOutput: 0.50\nExplanation: Each of the 9 stations can be added mid way between all the existing adjacent stations.\nExample 2:\n\nInput:\nN = 10\nstations = [3,6,12,19,33,44,67,72,89,95]\nK = 2\nOutput: 14.00\nExplanation: Construction of gas stations at 86 locations\n\nApproach:\n- To minimize the maximum distance between adjacent gas stations, we can perform binary search on the possible range of distances.\n- Initialize `low` to 0 and `high` to the maximum distance between adjacent existing gas stations.\n- While `high - low` is greater than a small threshold (e.g., 1e-6), calculate the mid-point `mid` between `low` and `high`.\n- Check if it is possible to add `K` additional gas stations such that the maximum distance between adjacent gas stations is less than or equal to `mid`.\n  - Iterate over the existing gas stations and check the distance between adjacent stations.\n  - If the total number of additional stations required is less than or equal to `K`, it is possible to achieve the maximum distance `mid`.\n- If it is possible, update `high` to `mid`, as we are looking for smaller distances.\n- Otherwise, update `low` to `mid`.\n- Finally, return the value of `low` plus a small value (e.g., 0.000001) to represent the answer to 2 decimal places.\n\nTime Complexity: O(N log M), where N is the number of existing gas stations and M is the range of distances between adjacent gas stations.\nSpace Complexity: O(1), as we are using constant extra space.\n*/\n\nbool isPossible(double mid, vector<int>& stations, int K) {\n    int req_stations = 0;\n    for (int i = 1; i < stations.size(); i++) {\n        req_stations += floor((stations[i] - stations[i - 1]) / mid);\n    }\n    return req_stations <= K;\n}\n\ndouble findSmallestMaxDist(vector<int>& stations, int K) {\n    double low = 0, high = stations[stations.size() - 1] - stations[0];\n    while (high - low > 1e-6) {\n        double mid = low + (high - low) / 2;\n        if (isPossible(mid, stations, K)) {\n            high = mid;\n        } else {\n            low = mid;\n        }\n    }\n    return low + 0.000001;\n}\n",
+    "codeLines": 56,
+    "repoPath": "02.Binary Search/In Search Space/12.Gas_station.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/12.Gas_station.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimize-max-distance-to-gas-station/",
+      "title": "Minimize Max Distance to Gas Station",
+      "match": "related",
+      "difficulty": "Hard",
+      "paid": true
+    }
+  },
+  {
+    "id": "p069",
+    "index": 69,
+    "title": "Median of two sorted arrays",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Hard",
+    "question": "Given two sorted arrays nums1 and nums2 of sizes m and n respectively, you need to find the median of the two sorted arrays.",
+    "approach": "To find the median of two sorted arrays, we can apply the concept of binary search. The overall time complexity of the solution should be O(log (m+n)).\n\n1. First, we ensure that nums1 is the smaller sized array. If not, we swap nums1 and nums2.\n2. Calculate the optimal count opt_cnt, which is (nums1.size() + nums2.size() + 1) / 2. This represents the median index in the merged array.\n3. Initialize low to 0 and high to nums1.size() - 1.\n4. Perform binary search until low is less than or equal to high:\n     - Calculate the cut1 as low + (high - low) / 2, which represents the potential index to partition nums1.\n     - Calculate cut2 as opt_cnt - cut1, which represents the corresponding index in nums2.\n     - Calculate l1, l2, r1, and r2 as the left and right elements around the potential partition points.\n     - If l1 is less than or equal to r2 and l2 is less than or equal to r1, it means we have found the correct partition points.\n          - If the total number of elements is even, return the average of the maximum of l1 and l2 and the minimum of r1 and r2.\n          - If the total number of elements is odd, return the maximum of l1 and l2.\n     - If l1 is greater than r2, move the high pointer to cut1 - 1.\n     - Otherwise, move the low pointer to cut1 + 1.\n5. If no median is found, return 0.0.",
+    "pseudocode": "ALGORITHM  Median of two sorted arrays\nPATTERN    Binary search\n\nBEGIN\n  01  To find the median of two sorted arrays, we can apply the concept of binary search. The overall time complexity of the solution should be O(log (m+n))\n  02  First, we ensure that nums1 is the smaller sized array. If not, we swap nums1 and nums2\n  03  Calculate the optimal count opt_cnt, which is (nums1.size() + nums2.size() + 1) / 2. This represents the median index in the merged array\n  04  SET low to 0 and high to nums1.size() - 1\n  05  Perform binary search until low is less than or equal to high:\n  06  Calculate the cut1 as low + (high - low) / 2, which represents the potential index to partition nums1\n  07  Calculate cut2 as opt_cnt - cut1, which represents the corresponding index in nums2\n  08  Calculate l1, l2, r1, and r2 as the left and right elements around the potential partition points\n  09  IF l1 is less than or equal to r2 and l2 is less than or equal to r1, it means we have found the correct partition points\n  10  IF the total number of elements is even, return the average of the maximum of l1 and l2 and the minimum of r1 and r2\n  11  IF the total number of elements is odd, return the maximum of l1 and l2\n  12  IF l1 is greater than r2, move the high pointer to cut1 - 1\n  13  ELSE move the low pointer to cut1 + 1\n  14  IF no median is found, return 0.0\n  15  RETURN the required result\nEND",
+    "time": "of the solution should be O(log (m+n))",
+    "space": "O(1), as we use constant extra space throughout the algorithm",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*QUESTION:\nGiven two sorted arrays nums1 and nums2 of sizes m and n respectively, you need to find the median of the two sorted arrays.\n\nAPPROACH:\nTo find the median of two sorted arrays, we can apply the concept of binary search. The overall time complexity of the solution should be O(log (m+n)).\n\n1. First, we ensure that nums1 is the smaller sized array. If not, we swap nums1 and nums2.\n2. Calculate the optimal count opt_cnt, which is (nums1.size() + nums2.size() + 1) / 2. This represents the median index in the merged array.\n3. Initialize low to 0 and high to nums1.size() - 1.\n4. Perform binary search until low is less than or equal to high:\n     - Calculate the cut1 as low + (high - low) / 2, which represents the potential index to partition nums1.\n     - Calculate cut2 as opt_cnt - cut1, which represents the corresponding index in nums2.\n     - Calculate l1, l2, r1, and r2 as the left and right elements around the potential partition points.\n     - If l1 is less than or equal to r2 and l2 is less than or equal to r1, it means we have found the correct partition points.\n          - If the total number of elements is even, return the average of the maximum of l1 and l2 and the minimum of r1 and r2.\n          - If the total number of elements is odd, return the maximum of l1 and l2.\n     - If l1 is greater than r2, move the high pointer to cut1 - 1.\n     - Otherwise, move the low pointer to cut1 + 1.\n5. If no median is found, return 0.0.\n\nCODE:*/\ndouble findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {\n    if (nums1.size() > nums2.size())\n        return findMedianSortedArrays(nums2, nums1);\n        \n    int opt_cnt = (nums1.size() + nums2.size() + 1) / 2;\n    int low = 0, high = nums1.size();\n    \n    while (low <= high) {\n        int cut1 = low + (high - low) / 2;\n        int cut2 = opt_cnt - cut1;\n        int l1, l2, r1, r2;\n\n        (cut1 - 1 < 0) ? l1 = INT_MIN : l1 = nums1[cut1 - 1];\n        (cut2 - 1 < 0) ? l2 = INT_MIN : l2 = nums2[cut2 - 1];\n        (cut1 >= nums1.size()) ? r1 = INT_MAX : r1 = nums1[cut1];\n        (cut2 >= nums2.size()) ? r2 = INT_MAX : r2 = nums2[cut2];\n\n        if (l1 <= r2 && l2 <= r1) {\n            if ((nums1.size() + nums2.size()) % 2 == 0)\n                return (max(l1, l2) + min(r1, r2)) / 2.0;\n            return max(l1, l2);\n        } else if (l1 > r2) {\n            high = cut1 - 1;\n        } else {\n            low = cut1 + 1;\n        }\n    }\n    return 0.0;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(log(min(m, n))), where m and n are the sizes of the input arrays nums1 and nums2, respectively. We perform binary search on the smaller array.\n- Space complexity: O(1), as we use constant extra space throughout the algorithm.\n*/\n",
+    "codeLines": 56,
+    "repoPath": "02.Binary Search/In Search Space/13.Median_of_two_sorted_arrays.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/13.Median_of_two_sorted_arrays.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+      "title": "Median of Two Sorted Arrays",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p070",
+    "index": 70,
+    "title": "Kth element of two sorted arrays",
+    "topic": "Binary Search",
+    "subtopic": "In Search Space",
+    "difficulty": "Medium",
+    "question": "Given two sorted arrays arr1 and arr2 of size N and M respectively and an element K.\nFind the element that would be at the kth position of the final sorted array.\n\nExample:-\n\nInput:\narr1[] = {2, 3, 6, 7, 9}\narr2[] = {1, 4, 8, 10}\nk = 5\nOutput:\n6\nExplanation:\nThe final sorted array would be -\n1, 2, 3, 4, 6, 7, 8, 9, 10\nThe 5th element of this array is 6.",
+    "approach": "1. Compare the sizes of the two arrays, arr1 and arr2. If the size of arr1 is greater than arr2, swap the arrays to ensure arr1 is the smaller sized array.\n2. Set the low and high variables for binary search.\n   - If m < k, set low = k - m, otherwise set low = 0.\n   - If k < n, set high = k, otherwise set high = n.\n3. Perform binary search within the range [low, high] to find the kth element.\n4. In each iteration of binary search:\n   - Calculate the cut positions, cut1 and cut2, based on the mid position.\n   - Determine the left and right elements of arr1 and arr2 based on the cut positions.\n   - Compare the left and right elements and adjust the low and high pointers accordingly.\n5. Return the maximum element among the left elements, as it would be the kth element in the final sorted array.",
+    "pseudocode": "ALGORITHM  Kth element of two sorted arrays\nPATTERN    Binary search\n\nBEGIN\n  01  Compare the sizes of the two arrays, arr1 and arr2. If the size of arr1 is greater than arr2, swap the arrays to ensure arr1 is the smaller sized array\n  02  SET the low and high variables for binary search\n  03  IF m < k, set low = k - m, otherwise set low = 0\n  04  IF k < n, set high = k, otherwise set high = n\n  05  Perform binary search within the range [low, high] to find the kth element\n  06  In each iteration of binary search:\n  07  Calculate the cut positions, cut1 and cut2, based on the mid position\n  08  Determine the left and right elements of arr1 and arr2 based on the cut positions\n  09  Compare the left and right elements and adjust the low and high pointers accordingly\n  10  RETURN the maximum element among the left elements, as it would be the kth element in the final sorted array\nEND",
+    "time": "O(log(min(N, M)))",
+    "space": "O(1)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:-\nGiven two sorted arrays arr1 and arr2 of size N and M respectively and an element K.\nFind the element that would be at the kth position of the final sorted array.\n\nExample:- \n\nInput:\narr1[] = {2, 3, 6, 7, 9}\narr2[] = {1, 4, 8, 10}\nk = 5\nOutput:\n6\nExplanation:\nThe final sorted array would be -\n1, 2, 3, 4, 6, 7, 8, 9, 10\nThe 5th element of this array is 6.\n\nApproach:\n1. Compare the sizes of the two arrays, arr1 and arr2. If the size of arr1 is greater than arr2, swap the arrays to ensure arr1 is the smaller sized array.\n2. Set the low and high variables for binary search.\n   - If m < k, set low = k - m, otherwise set low = 0.\n   - If k < n, set high = k, otherwise set high = n.\n3. Perform binary search within the range [low, high] to find the kth element.\n4. In each iteration of binary search:\n   - Calculate the cut positions, cut1 and cut2, based on the mid position.\n   - Determine the left and right elements of arr1 and arr2 based on the cut positions.\n   - Compare the left and right elements and adjust the low and high pointers accordingly.\n5. Return the maximum element among the left elements, as it would be the kth element in the final sorted array.\n\nCODE\n*/\n\nint kthElement(int arr1[], int arr2[], int n, int m, int k)\n{\n    // assuming arr1 is the smaller sized array\n    if (n > m)\n        kthElement(arr2, arr1, m, n, k);\n\n    int low, high;\n    (m < k) ? low = k - m : low = 0;\n    (k < n) ? high = k : high = n;\n\n    while (low <= high) {\n        int cut1 = low + (high - low) / 2;\n        int cut2 = k - cut1;\n\n        int l1, l2, r1, r2;\n\n        (cut1 - 1 < 0) ? l1 = INT_MIN : l1 = arr1[cut1 - 1];\n        (cut2 - 1 < 0) ? l2 = INT_MIN : l2 = arr2[cut2 - 1];\n        (cut1 >= n) ? r1 = INT_MAX : r1 = arr1[cut1];\n        (cut2 >= m) ? r2 = INT_MAX : r2 = arr2[cut2];\n\n        if (l1 <= r2 && l2 <= r1) {\n            return max(l1, l2);\n        }\n        else if (l1 > r2) {\n            high = cut1 - 1;\n        }\n        else {\n            low = cut1 + 1;\n        }\n    }\n}\n\n/*\nTime Complexity: O(log(min(N, M)))\nSpace Complexity: O(1)\n*/\n",
+    "codeLines": 70,
+    "repoPath": "02.Binary Search/In Search Space/14.Kth_element_of_two_sorted_arrays.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/02.Binary%20Search/In%20Search%20Space/14.Kth_element_of_two_sorted_arrays.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+      "title": "Median of Two Sorted Arrays",
+      "match": "related",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  }
+]

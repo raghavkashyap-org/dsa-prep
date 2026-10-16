@@ -1,0 +1,1163 @@
+[
+  {
+    "id": "p151",
+    "index": 151,
+    "title": "Implement stack using array",
+    "topic": "Stack and Queues",
+    "subtopic": "Learning",
+    "difficulty": "Foundation",
+    "question": "Write a program to implement a Stack using Array. Your task is to use the class as shown in the comments in the code editor and complete the functions push() and pop() to implement a stack.",
+    "approach": "- We use a class `MyStack` to represent the stack.\n- The stack is implemented using an array `arr` and a top variable to keep track of the top element.\n- The class provides two member functions: `push(int)` to push an element onto the stack and `pop()` to pop an element from the stack.\n- The `push(int)` function increments the top and adds the element to the array at the current top index.\n- The `pop()` function checks if the stack is empty (top = -1), in which case it returns -1. Otherwise, it retrieves the element at the top index, decrements the top, and returns the element.",
+    "pseudocode": "ALGORITHM  Implement stack using array\nPATTERN    Stack / queue\n\nBEGIN\n  01  We use a class MyStack to represent the stack\n  02  The stack is implemented using an array arr and a top variable to keep track of the top element\n  03  The class provides two member functions: push(int) to push an element onto the stack and pop() to pop an element from the stack\n  04  The push(int) function increments the top and adds the element to the array at the current top index\n  05  The pop() function checks if the stack is empty (top = -1), in which case it returns -1\n  06  ELSE it retrieves the element at the top index, decrements the top, and returns the element\n  07  RETURN the required result\nEND",
+    "time": "of both `push()` and `pop()` operations is O(1) since they involve constant-time operations like incrementing/decrementing the top and accessing/modifying the array elements",
+    "space": "O(1) since the array has a fixed size and does not depend on the number of elements pushed into the stack",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nWrite a program to implement a Stack using Array. Your task is to use the class as shown in the comments in the code editor and complete the functions push() and pop() to implement a stack.\n\nApproach:\n- We use a class `MyStack` to represent the stack.\n- The stack is implemented using an array `arr` and a top variable to keep track of the top element.\n- The class provides two member functions: `push(int)` to push an element onto the stack and `pop()` to pop an element from the stack.\n- The `push(int)` function increments the top and adds the element to the array at the current top index.\n- The `pop()` function checks if the stack is empty (top = -1), in which case it returns -1. Otherwise, it retrieves the element at the top index, decrements the top, and returns the element.\n\nCode:\n*/\n\nclass MyStack\n{\nprivate:\n    int arr[1000];\n    int top;\n\npublic:\n    MyStack() { top = -1; }\n    int pop();\n    void push(int);\n};\n\nvoid MyStack::push(int x)\n{\n    top++;\n    arr[top] = x;\n}\n\nint MyStack::pop()\n{\n    if (top == -1) {\n        return -1;\n    }\n    int ans = arr[top];\n    top--;\n    return ans;\n}\n\n/*\nComplexity Analysis:\n- The time complexity of both `push()` and `pop()` operations is O(1) since they involve constant-time operations like incrementing/decrementing the top and accessing/modifying the array elements.\n- The space complexity is O(1) since the array has a fixed size and does not depend on the number of elements pushed into the stack.\n*/\n\n",
+    "codeLines": 48,
+    "repoPath": "07.Stack and Queues/1. Learning/01. Implement stack using array.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/1.%20Learning/01.%20Implement%20stack%20using%20array.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/min-stack/",
+      "title": "Min Stack",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p152",
+    "index": 152,
+    "title": "Implement queue using array",
+    "topic": "Stack and Queues",
+    "subtopic": "Learning",
+    "difficulty": "Foundation",
+    "question": "Implement a Queue using an Array. Queries in the Queue are of the following type:\n(i) 1 x   (a query of this type means pushing 'x' into the queue)\n(ii) 2     (a query of this type means to pop an element from the queue and print the popped element)",
+    "approach": "- We use a class `MyQueue` to represent the queue.\n- The queue is implemented using an array `arr`, a front variable to keep track of the front element, and a rear variable to keep track of the next available position to insert an element.\n- The class provides two member functions: `push(int)` to push an element into the queue and `pop()` to pop an element from the front of the queue.\n- The `push(int)` function inserts the element at the rear index and increments the rear.\n- The `pop()` function checks if the queue is empty (rear == front), in which case it returns -1. Otherwise, it retrieves the element at the front index, increments the front, and returns the element.",
+    "pseudocode": "ALGORITHM  Implement queue using array\nPATTERN    Stack / queue\n\nBEGIN\n  01  We use a class MyQueue to represent the queue\n  02  The queue is implemented using an array arr, a front variable to keep track of the front element, and a rear variable to keep track of the next available position to insert an element\n  03  The class provides two member functions: push(int) to push an element into the queue and pop() to pop an element from the front of the queue\n  04  The push(int) function inserts the element at the rear index and increments the rear\n  05  The pop() function checks if the queue is empty (rear == front), in which case it returns -1\n  06  ELSE it retrieves the element at the front index, increments the front, and returns the element\n  07  RETURN the required result\nEND",
+    "time": "of both `push()` and `pop()` operations is O(1) since they involve constant-time operations like accessing/modifying array elements and incrementing/decrementing front/rear indices",
+    "space": "O(N) where N is the maximum number of elements that can be stored in the queue (in this case, 100005) since we use an array to store the queue elements",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nImplement a Queue using an Array. Queries in the Queue are of the following type:\n(i) 1 x   (a query of this type means pushing 'x' into the queue)\n(ii) 2     (a query of this type means to pop an element from the queue and print the popped element)\n\nApproach:\n- We use a class `MyQueue` to represent the queue.\n- The queue is implemented using an array `arr`, a front variable to keep track of the front element, and a rear variable to keep track of the next available position to insert an element.\n- The class provides two member functions: `push(int)` to push an element into the queue and `pop()` to pop an element from the front of the queue.\n- The `push(int)` function inserts the element at the rear index and increments the rear.\n- The `pop()` function checks if the queue is empty (rear == front), in which case it returns -1. Otherwise, it retrieves the element at the front index, increments the front, and returns the element.\n\nCode:\n*/\n\nclass MyQueue {\nprivate:\n    int arr[100005];\n    int front;\n    int rear;\n\npublic:\n    MyQueue() { front = 0; rear = 0; }\n    void push(int);\n    int pop();\n};\n\nvoid MyQueue::push(int x)\n{\n    arr[rear] = x;\n    rear++;\n}\n\nint MyQueue::pop()\n{\n    if (rear == front)\n        return -1;\n    int ans = arr[front];\n    front++;\n    return ans;\n}\n\n/*\nComplexity Analysis:\n- The time complexity of both `push()` and `pop()` operations is O(1) since they involve constant-time operations like accessing/modifying array elements and incrementing/decrementing front/rear indices.\n- The space complexity is O(N) where N is the maximum number of elements that can be stored in the queue (in this case, 100005) since we use an array to store the queue elements.\n*/\n\n",
+    "codeLines": 49,
+    "repoPath": "07.Stack and Queues/1. Learning/02. Implement queue using array.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/1.%20Learning/02.%20Implement%20queue%20using%20array.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-queue-using-stacks/",
+      "title": "Implement Queue using Stacks",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p153",
+    "index": 153,
+    "title": "Implement stack using queue",
+    "topic": "Stack and Queues",
+    "subtopic": "Learning",
+    "difficulty": "Foundation",
+    "question": "Implement a Stack using one queue.",
+    "approach": "- We use the class `QueueStack` to represent the stack.\n- The stack is implemented using one queue `q`.\n- The `push(int)` function inserts an element into `q`.\n- The `pop()` function transfers `n-1` elements from front of `q` to it's back and returns the last element from `q` as the popped element.",
+    "pseudocode": "ALGORITHM  Implement stack using queue\nPATTERN    Breadth-first search\n\nBEGIN\n  01  We use the class QueueStack to represent the stack\n  02  The stack is implemented using one queue q\n  03  The push(int) function inserts an element into q\n  04  The pop() function transfers n-1 elements from front of q to it's back and returns the last element from q as the popped element\n  05  RETURN the required result\nEND",
+    "time": "of O(1) since we only need to enqueue an element into `q`",
+    "space": "O(N), where N is the total number of elements stored in the queue",
+    "strategy": "Breadth-first search",
+    "tags": ["Stack and Queues", "Breadth-first search"],
+    "intuition": "Process states in layers. With unit-cost edges, the first time a state is reached is its shortest distance from the source.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nImplement a Stack using one queue.\n\nApproach:\n- We use the class `QueueStack` to represent the stack.\n- The stack is implemented using one queue `q`.\n- The `push(int)` function inserts an element into `q`.\n- The `pop()` function transfers `n-1` elements from front of `q` to it's back and returns the last element from `q` as the popped element.\n\n\nCode:\n*/\n\nclass QueueStack {\nprivate:\n    std::queue<int> q;\n\npublic:\n    void push(int x);\n    int pop();\n};\n\nvoid QueueStack::push(int x)\n{\n    q.push(x);\n}\n\nint QueueStack::pop()\n{\n    if (q.empty())\n        return -1;\n\n    for(int i=0; i<q.size()-1; i++){\n        int temp = q.front();\n        q.pop();\n        q.push(temp);\n    }\n\n    int popped = q.front();\n    q.pop();\n\n    return popped;\n}\n\n\n/*\nComplexity Analysis:\n- The `push()` operation has a time complexity of O(1) since we only need to enqueue an element into `q`.\n- The `pop()` operation has a time complexity of O(N) in the worst case, where N is the number of elements in `q`.\n- The space complexity is O(N), where N is the total number of elements stored in the queue.\n*/\n\n",
+    "codeLines": 53,
+    "repoPath": "07.Stack and Queues/1. Learning/03. Implement stack using queue.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/1.%20Learning/03.%20Implement%20stack%20using%20queue.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-stack-using-queues/",
+      "title": "Implement Stack using Queues",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p154",
+    "index": 154,
+    "title": "Implement queue using stacks",
+    "topic": "Stack and Queues",
+    "subtopic": "Learning",
+    "difficulty": "Foundation",
+    "question": "Implement a Queue using two stacks s1 and s2.",
+    "approach": "- We use the class `Queue` to represent the queue.\n- The queue is implemented using two stacks `input` and `output`.\n- The `enqueue(int)` function inserts an element into `input` stack.\n- The `dequeue()` function transfers elements from `input` stack to `output` stack if `output` is empty, and returns the top element from `output` stack as the dequeued element.\n- To transfer elements from `input` to `output`, we pop each element from the top of `input` and push it into `output`.\n- After transferring elements, we pop the top element from `output` as the dequeued element.",
+    "pseudocode": "ALGORITHM  Implement queue using stacks\nPATTERN    Stack / queue\n\nBEGIN\n  01  We use the class Queue to represent the queue\n  02  The queue is implemented using two stacks input and output\n  03  The enqueue(int) function inserts an element into input stack\n  04  The dequeue() function transfers elements from input stack to output stack if output is empty, and returns the top element from output stack as the dequeued element\n  05  To transfer elements from input to output, we pop each element from the top of input and push it into output\n  06  After transferring elements, we pop the top element from output as the dequeued element\n  07  RETURN the required result\nEND",
+    "time": "of O(1) since we only need to push an element into the `input` stack",
+    "space": "O(N), where N is the total number of elements stored in the two stacks",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nImplement a Queue using two stacks s1 and s2.\n\nApproach:\n- We use the class `Queue` to represent the queue.\n- The queue is implemented using two stacks `input` and `output`.\n- The `enqueue(int)` function inserts an element into `input` stack.\n- The `dequeue()` function transfers elements from `input` stack to `output` stack if `output` is empty, and returns the top element from `output` stack as the dequeued element.\n- To transfer elements from `input` to `output`, we pop each element from the top of `input` and push it into `output`.\n- After transferring elements, we pop the top element from `output` as the dequeued element.\n\nCode:\n*/\n\nclass Queue {\nprivate:\n    std::stack<int> input;\n    std::stack<int> output;\n\npublic:\n    void enqueue(int x);\n    int dequeue();\n};\n\nvoid Queue::enqueue(int x) {\n    input.push(x);\n}\n\nint Queue::dequeue() {\n    if (input.empty() && output.empty())\n        return -1;\n\n    if (output.empty()) {\n        while (!input.empty()) {\n            int temp = input.top();\n            input.pop();\n            output.push(temp);\n        }\n    }\n\n    int dequeued = output.top();\n    output.pop();\n\n    return dequeued;\n}\n\n/*\nComplexity Analysis:\n- The `enqueue()` operation has a time complexity of O(1) since we only need to push an element into the `input` stack.\n- The `dequeue()` operation has a time complexity of O(1) by amortized analysis.\n- The space complexity is O(N), where N is the total number of elements stored in the two stacks.\n*/\n\n",
+    "codeLines": 54,
+    "repoPath": "07.Stack and Queues/1. Learning/04. Implement queue using stacks.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/1.%20Learning/04.%20Implement%20queue%20using%20stacks.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-queue-using-stacks/",
+      "title": "Implement Queue using Stacks",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p155",
+    "index": 155,
+    "title": "Implement stack using linked list",
+    "topic": "Stack and Queues",
+    "subtopic": "Learning",
+    "difficulty": "Foundation",
+    "question": "You have a linked list and you have to implement the functionalities push and pop of stack using this given linked list. Your task is to use the class as shown in the comments in the code editor and complete the functions push() and pop() to implement a stack.",
+    "approach": "- We use the class `MyStack` to represent the stack implemented using a linked list.\n- The stack is implemented using a singly linked list where each node represents an element in the stack.\n- The `push(int)` function inserts an element at the top of the stack by creating a new node and updating the `next` pointer to point to the current top.\n- The `pop()` function removes the top element from the stack by updating the `top` pointer to the next node and returning the data of the removed node.",
+    "pseudocode": "ALGORITHM  Implement stack using linked list\nPATTERN    Stack / queue\n\nBEGIN\n  01  We use the class MyStack to represent the stack implemented using a linked list\n  02  The stack is implemented using a singly linked list where each node represents an element in the stack\n  03  The push(int) function inserts an element at the top of the stack by creating a new node and updating the next pointer to point to the current top\n  04  The pop() function removes the top element from the stack by updating the top pointer to the next node and returning the data of the removed node\n  05  RETURN the required result\nEND",
+    "time": "of O(1) since we only need to create a new node and update the `top` pointer",
+    "space": "O(N), where N is the total number of elements stored in the stack (linked list)",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nYou have a linked list and you have to implement the functionalities push and pop of stack using this given linked list. Your task is to use the class as shown in the comments in the code editor and complete the functions push() and pop() to implement a stack.\n\nApproach:\n- We use the class `MyStack` to represent the stack implemented using a linked list.\n- The stack is implemented using a singly linked list where each node represents an element in the stack.\n- The `push(int)` function inserts an element at the top of the stack by creating a new node and updating the `next` pointer to point to the current top.\n- The `pop()` function removes the top element from the stack by updating the `top` pointer to the next node and returning the data of the removed node.\n\nCode:\n*/\n\nclass MyStack {\nprivate:\n    struct StackNode {\n        int data;\n        StackNode* next;\n\n        StackNode(int x) : data(x), next(NULL) {}\n    };\n\n    StackNode* top;\n\npublic:\n    MyStack() : top(NULL) {}\n    void push(int x);\n    int pop();\n};\n\nvoid MyStack::push(int x) {\n    StackNode* temp = new StackNode(x);\n    temp->next = top;\n    top = temp;\n}\n\nint MyStack::pop() {\n    if (!top)\n        return -1;\n\n    int popped = top->data;\n    StackNode* temp = top;\n    top = top->next;\n\n    return popped;\n}\n\n/*\nComplexity Analysis:\n- The `push()` operation has a time complexity of O(1) since we only need to create a new node and update the `top` pointer.\n- The `pop()` operation has a time complexity of O(1) since we only need to update the `top` pointer and delete the node.\n- The space complexity is O(N), where N is the total number of elements stored in the stack (linked list).\n*/\n\n",
+    "codeLines": 54,
+    "repoPath": "07.Stack and Queues/1. Learning/05. Implement stack using linked list.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/1.%20Learning/05.%20Implement%20stack%20using%20linked%20list.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/min-stack/",
+      "title": "Min Stack",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p156",
+    "index": 156,
+    "title": "Valid Parenthesis",
+    "topic": "Stack and Queues",
+    "subtopic": "Learning",
+    "difficulty": "Foundation",
+    "question": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\nAn input string is valid if:\n- Open brackets must be closed by the same type of brackets.\n- Open brackets must be closed in the correct order.\n- Every close bracket has a corresponding open bracket of the same type.\n\nExample:\nInput: s = \"()\"\nOutput: true",
+    "approach": "- We can use a stack to keep track of the opening brackets.\n- Whenever we encounter an opening bracket, we push it onto the stack.\n- If we encounter a closing bracket, we check if it matches the top of the stack.\n- If the closing bracket matches the top of the stack, we pop the top element from the stack.\n- If at any point the closing bracket does not match the top of the stack or the stack is empty, the string is not valid.\n- Finally, if the stack is empty after processing all characters, the string is valid.",
+    "pseudocode": "ALGORITHM  Valid Parenthesis\nPATTERN    Stack / queue\n\nBEGIN\n  01  We can use a stack to keep track of the opening brackets\n  02  Whenever we encounter an opening bracket, we push it onto the stack\n  03  IF we encounter a closing bracket, we check if it matches the top of the stack\n  04  IF the closing bracket matches the top of the stack, we pop the top element from the stack\n  05  IF at any point the closing bracket does not match the top of the stack or the stack is empty, the string is not valid\n  06  Finally, if the stack is empty after processing all characters, the string is valid\n  07  RETURN the required result\nEND",
+    "time": "O(n), where n is the length of the input string",
+    "space": "O(n) as we use a stack to store the opening brackets",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue", "Strings"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\nAn input string is valid if:\n- Open brackets must be closed by the same type of brackets.\n- Open brackets must be closed in the correct order.\n- Every close bracket has a corresponding open bracket of the same type.\n\nExample:\nInput: s = \"()\"\nOutput: true\n\nAPPROACH:\n- We can use a stack to keep track of the opening brackets.\n- Whenever we encounter an opening bracket, we push it onto the stack.\n- If we encounter a closing bracket, we check if it matches the top of the stack.\n- If the closing bracket matches the top of the stack, we pop the top element from the stack.\n- If at any point the closing bracket does not match the top of the stack or the stack is empty, the string is not valid.\n- Finally, if the stack is empty after processing all characters, the string is valid.\n\nCODE:\n*/\n\nbool isValid(string& s) {\n    stack<char> st;\n    \n    for (char c : s) {\n        if (c == '(' || c == '[' || c == '{') {\n            st.push(c);\n        } \n        else {\n            if (st.empty())\n                return false;\n            \n            char open = st.top();\n            if ((open == '(' && c == ')') || (open == '[' && c == ']') || (open == '{' && c == '}')) {\n                st.pop();\n            } else {\n                return false;\n            }\n        }\n    }\n    \n    return st.empty();\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The code iterates through the input string once, so the time complexity is O(n), where n is the length of the input string.\n- The space complexity is O(n) as we use a stack to store the opening brackets.\n*/\n\n",
+    "codeLines": 53,
+    "repoPath": "07.Stack and Queues/1. Learning/06. Valid Parenthesis.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/1.%20Learning/06.%20Valid%20Parenthesis.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/valid-parentheses/",
+      "title": "Valid Parentheses",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p157",
+    "index": 157,
+    "title": "Implement min stack",
+    "topic": "Stack and Queues",
+    "subtopic": "Learning",
+    "difficulty": "Foundation",
+    "question": "Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.\nImplement the MinStack class.\nMinStack() initializes the stack object.\nvoid push(int val) pushes the element val onto the stack.\nvoid pop() removes the element on the top of the stack.\nint top() gets the top element of the stack.\nint getMin() retrieves the minimum element in the stack.\nYou must implement a solution with O(1) time complexity for each function.\n\nExample:\nInput:\n[\"MinStack\",\"push\",\"push\",\"push\",\"getMin\",\"pop\",\"top\",\"getMin\"]\n[[],[-2],[0],[-3],[],[],[],[]]\nOutput:\n[null,null,null,null,-3,null,0,-2]\nExplanation:\nMinStack minStack = new MinStack();\nminStack.push(-2);\nminStack.push(0);\nminStack.push(-3);\nminStack.getMin(); // return -3\nminStack.pop();\nminStack.top();    // return 0\nminStack.getMin(); // return -2",
+    "approach": "- We can use an auxiliary stack to keep track of the difference of an element from the minimum element at each step.\n- When pushing an element, we push the difference of an element from the minimum element at that time.\n- When popping an element, we check stack top if it's -ve it means that this element is the minimum so we update the mini as we popping the current minimum.\n- To get the top element, we add the current minimum to the top element of the main stack.\n- To get the minimum element, we simply return the current minimum.",
+    "pseudocode": "ALGORITHM  Implement min stack\nPATTERN    Stack / queue\n\nBEGIN\n  01  We can use an auxiliary stack to keep track of the difference of an element from the minimum element at each step\n  02  When pushing an element, we push the difference of an element from the minimum element at that time\n  03  When popping an element, we check stack top if it's -ve it means that this element is the minimum so we update the mini as we popping the current minimum\n  04  To get the top element, we add the current minimum to the top element of the main stack\n  05  To get the minimum element, we simply return the current minimum\n  06  RETURN the required result\nEND",
+    "time": "for each function",
+    "space": "O(n) as we use an auxiliary stack to store the minimum elements",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nDesign a stack that supports push, pop, top, and retrieving the minimum element in constant time.\nImplement the MinStack class.\nMinStack() initializes the stack object.\nvoid push(int val) pushes the element val onto the stack.\nvoid pop() removes the element on the top of the stack.\nint top() gets the top element of the stack.\nint getMin() retrieves the minimum element in the stack.\nYou must implement a solution with O(1) time complexity for each function.\n\nExample:\nInput:\n[\"MinStack\",\"push\",\"push\",\"push\",\"getMin\",\"pop\",\"top\",\"getMin\"]\n[[],[-2],[0],[-3],[],[],[],[]]\nOutput:\n[null,null,null,null,-3,null,0,-2]\nExplanation:\nMinStack minStack = new MinStack();\nminStack.push(-2);\nminStack.push(0);\nminStack.push(-3);\nminStack.getMin(); // return -3\nminStack.pop();\nminStack.top();    // return 0\nminStack.getMin(); // return -2\n\nAPPROACH:\n- We can use an auxiliary stack to keep track of the difference of an element from the minimum element at each step.\n- When pushing an element, we push the difference of an element from the minimum element at that time.\n- When popping an element, we check stack top if it's -ve it means that this element is the minimum so we update the mini as we popping the current minimum.\n- To get the top element, we add the current minimum to the top element of the main stack.\n- To get the minimum element, we simply return the current minimum.\n\nCODE:\n*/\n\nclass MinStack {\nprivate:\n    stack<long long> st;\n    int mini;\npublic:\n    MinStack() {\n        mini = -1;\n    }\n    \n    void push(int val) {\n        if (st.empty()) {\n            st.push(0);\n            mini = val;\n        } else {\n            st.push((long long)val - mini);// to handle overflow case\n            mini = min(val, mini);\n        }\n    }\n    \n    void pop() {\n        if (st.top() < 0)\n            mini = mini - st.top();\n        st.pop();\n    }\n    \n    int top() {\n        int ans = -1;\n        if (st.top() < 0)\n            ans = mini;\n        else\n            ans = mini + st.top();\n        return ans;\n    }\n    \n    int getMin() {\n        return mini;\n    }\n};\n\n/*\nCOMPLEXITY ANALYSIS:\n- All the operations (push, pop, top, getMin) have O(1) time complexity as we are performing constant-time operations on the stack.\n- The space complexity is O(n) as we use an auxiliary stack to store the minimum elements.\n*/\n",
+    "codeLines": 81,
+    "repoPath": "07.Stack and Queues/1. Learning/07. Implement min stack.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/1.%20Learning/07.%20Implement%20min%20stack.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/min-stack/",
+      "title": "Min Stack",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p158",
+    "index": 158,
+    "title": "Infix to postfix",
+    "topic": "Stack and Queues",
+    "subtopic": "Infix, Postfix, and Prefix",
+    "difficulty": "Medium",
+    "question": "Given an infix expression in the form of string str, convert it to a postfix expression.\n\nInfix expression: The expression of the form a op b. When an operator is in-between every pair of operands.\nPostfix expression: The expression of the form a b op. When an operator is followed for every pair of operands.\nNote: The order of precedence is: ^ greater than * equals to / greater than + equals to -.\n\nExample:\nInput: str = \"a+b*(c^d-e)^(f+g*h)-i\"\nOutput: abcd^e-fgh*+^*+i-\nExplanation:\nAfter converting the infix expression into postfix expression, the resultant expression will be abcd^e-fgh*+^*+i-",
+    "approach": "- We can use a stack to convert the infix expression to postfix.\n- We iterate through each character of the input string.\n- If the character is an operand (letter or digit), we append it to the output string.\n- If the character is an opening parenthesis '(', we push it onto the stack.\n- If the character is a closing parenthesis ')', we pop elements from the stack and append them to the output string until we encounter an opening parenthesis. We also discard the opening parenthesis from the stack.\n- If the character is an operator, we compare its precedence with the top element of the stack. If the top element has higher precedence, we pop it and append it to the output string. We repeat this process until we find an operator with lower precedence or an opening parenthesis. Then we push the current operator onto the stack.\n- After iterating through all characters, we pop any remaining elements from the stack and append them to the output string.",
+    "pseudocode": "ALGORITHM  Infix to postfix\nPATTERN    Hashing\n\nBEGIN\n  01  We can use a stack to convert the infix expression to postfix\n  02  We iterate through each character of the input string\n  03  IF the character is an operand (letter or digit), we append it to the output string\n  04  IF the character is an opening parenthesis '(', we push it onto the stack\n  05  IF the character is a closing parenthesis ')', we pop elements from the stack and append them to the output string until we encounter an opening parenthesis\n  06  We also discard the opening parenthesis from the stack\n  07  IF the character is an operator, we compare its precedence with the top element of the stack\n  08  IF the top element has higher precedence, we pop it and append it to the output string\n  09  We repeat this process until we find an operator with lower precedence or an opening parenthesis\n  10  Then we push the current operator onto the stack\n  11  After iterating through all characters, we pop any remaining elements from the stack and append them to the output string\n  12  RETURN the required result\nEND",
+    "time": "of the infixToPostfix function is O(N), where N is the length of the input string",
+    "space": "O(N) as we use a stack to store operators",
+    "strategy": "Hashing",
+    "tags": ["Stack and Queues", "Hashing", "Strings"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*\nQUESTION:\nGiven an infix expression in the form of string str, convert it to a postfix expression.\n\nInfix expression: The expression of the form a op b. When an operator is in-between every pair of operands.\nPostfix expression: The expression of the form a b op. When an operator is followed for every pair of operands.\nNote: The order of precedence is: ^ greater than * equals to / greater than + equals to -.\n\nExample:\nInput: str = \"a+b*(c^d-e)^(f+g*h)-i\"\nOutput: abcd^e-fgh*+^*+i-\nExplanation:\nAfter converting the infix expression into postfix expression, the resultant expression will be abcd^e-fgh*+^*+i-\n\nAPPROACH:\n- We can use a stack to convert the infix expression to postfix.\n- We iterate through each character of the input string.\n- If the character is an operand (letter or digit), we append it to the output string.\n- If the character is an opening parenthesis '(', we push it onto the stack.\n- If the character is a closing parenthesis ')', we pop elements from the stack and append them to the output string until we encounter an opening parenthesis. We also discard the opening parenthesis from the stack.\n- If the character is an operator, we compare its precedence with the top element of the stack. If the top element has higher precedence, we pop it and append it to the output string. We repeat this process until we find an operator with lower precedence or an opening parenthesis. Then we push the current operator onto the stack.\n- After iterating through all characters, we pop any remaining elements from the stack and append them to the output string.\n\nCODE:\n*/\n\nstring infixToPostfix(string s) {\n    string ans = \"\";\n    unordered_map<char, int> precedence;\n    precedence['^'] = 3;\n    precedence['*'] = 2;\n    precedence['/'] = 2;\n    precedence['+'] = 1;\n    precedence['-'] = 1;\n    \n    stack<char> st;\n    \n    for (int i = 0; i < s.size(); i++) {\n        if (('a' <= s[i] && s[i] <= 'z') || ('A' <= s[i] && s[i] <= 'Z') || ('0' <= s[i] && s[i] <= '9')) {\n            ans.push_back(s[i]);\n        } else if (s[i] == '(') {\n            st.push(s[i]);\n        } else if (s[i] == ')') {\n            while (!st.empty() && st.top() != '(') {\n                ans.push_back(st.top());\n                st.pop();\n            }\n            st.pop();\n        } else {\n            while (!st.empty() && st.top() != '(' && precedence[st.top()] >= precedence[s[i]]) {\n                ans.push_back(st.top());\n                st.pop();\n            }\n            st.push(s[i]);\n        }\n    }\n    \n    while (!st.empty()) {\n        ans.push_back(st.top());\n        st.pop();\n    }\n    \n    return ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of the infixToPostfix function is O(N), where N is the length of the input string.\n- We iterate through each character once, and the operations performed inside the loop are all constant time.\n- The space complexity is O(N) as we use a stack to store operators.\n*/\n",
+    "codeLines": 71,
+    "repoPath": "07.Stack and Queues/2. Infix, Postfix, and Prefix/01. Infix to postfix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/2.%20Infix%2C%20Postfix%2C%20and%20Prefix/01.%20Infix%20to%20postfix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+      "title": "Evaluate Reverse Polish Notation",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p159",
+    "index": 159,
+    "title": "Infix to prefix",
+    "topic": "Stack and Queues",
+    "subtopic": "Infix, Postfix, and Prefix",
+    "difficulty": "Medium",
+    "question": "Given an infix expression in the form of string str. Convert this infix expression to postfix expression.\n\nInfix expression: The expression of the form a op b. When an operator is in-between every pair of operands.\nPostfix expression: The expression of the form a b op. When an operator is followed for every pair of operands.\nNote: The order of precedence is: ^ greater than * equals to / greater than + equals to -.\n\nExample:\nInput: str = \"((A-(B/C))*((A/K)-L))\"\nOutput: \"*-A/BC-/AKL\"\nExplanation:\nAfter converting the infix expression into prefix expression, the resultant expression will be *-A/BC-/AKL.",
+    "approach": "- We can use a stack to convert the infix expression to postfix.\n- We iterate through each character of the input string from right to left.\n- If the character is an alphanumeric character, we append it to the output string.\n- If the character is an closing parenthesis '(', we push it onto the stack.\n- If the character is a opening parenthesis ')', we pop operators from the stack and append them to the output string until we encounter an closing parenthesis '('.\n- If the character is an operator, we compare its precedence with the top of the stack and pop operators with higher or equal precedence and append them to the output string. Then we push the current operator onto the stack.\n- After iterating through all characters, we pop any remaining operators from the stack and append them to the output string.",
+    "pseudocode": "ALGORITHM  Infix to prefix\nPATTERN    Two pointers\n\nBEGIN\n  01  We can use a stack to convert the infix expression to postfix\n  02  We iterate through each character of the input string from right to left\n  03  IF the character is an alphanumeric character, we append it to the output string\n  04  IF the character is an closing parenthesis '(', we push it onto the stack\n  05  IF the character is a opening parenthesis ')', we pop operators from the stack and append them to the output string until we encounter an closing parenthesis '('\n  06  IF the character is an operator, we compare its precedence with the top of the stack and pop operators with higher or equal precedence and append them to the output string\n  07  Then we push the current operator onto the stack\n  08  After iterating through all characters, we pop any remaining operators from the stack and append them to the output string\n  09  RETURN the required result\nEND",
+    "time": "of the infixToPostfix function is O(N), where N is the length of the input string",
+    "space": "O(N) as we use a stack to store operators",
+    "strategy": "Two pointers",
+    "tags": ["Stack and Queues", "Two pointers", "Strings"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an infix expression in the form of string str. Convert this infix expression to postfix expression.\n\nInfix expression: The expression of the form a op b. When an operator is in-between every pair of operands.\nPostfix expression: The expression of the form a b op. When an operator is followed for every pair of operands.\nNote: The order of precedence is: ^ greater than * equals to / greater than + equals to -.\n\nExample:\nInput: str = \"((A-(B/C))*((A/K)-L))\"\nOutput: \"*-A/BC-/AKL\"\nExplanation:\nAfter converting the infix expression into prefix expression, the resultant expression will be *-A/BC-/AKL.\n\nAPPROACH:\n- We can use a stack to convert the infix expression to postfix.\n- We iterate through each character of the input string from right to left.\n- If the character is an alphanumeric character, we append it to the output string.\n- If the character is an closing parenthesis '(', we push it onto the stack.\n- If the character is a opening parenthesis ')', we pop operators from the stack and append them to the output string until we encounter an closing parenthesis '('.\n- If the character is an operator, we compare its precedence with the top of the stack and pop operators with higher or equal precedence and append them to the output string. Then we push the current operator onto the stack.\n- After iterating through all characters, we pop any remaining operators from the stack and append them to the output string.\n\nCODE:\n*/\n\nstring infixToPostfix(string s) {\n    string ans = \"\";\n    unordered_map<char, int> precedence;\n    precedence['^'] = 3;\n    precedence['*'] = 2;\n    precedence['/'] = 2;\n    precedence['+'] = 1;\n    precedence['-'] = 1;\n\n    stack<char> st;\n\n    for (int i = s.size() - 1; i >= 0; i--) {\n        if (('a' <= s[i] && s[i] <= 'z') || ('A' <= s[i] && s[i] <= 'Z') || ('0' <= s[i] && s[i] <= '9')) {\n            ans.push_back(s[i]);\n        } else if (s[i] == ')') {\n            st.push(s[i]);\n        } else if (s[i] == '(') {\n            while (!st.empty() && st.top() != ')') {\n                ans.push_back(st.top());\n                st.pop();\n            }\n            st.pop(); // Pop the closing parenthesis ')'\n        } else {\n            while (!st.empty() && st.top() != ')' && precedence[st.top()] >= precedence[s[i]]) {\n                ans.push_back(st.top());\n                st.pop();\n            }\n            st.push(s[i]);\n        }\n    }\n\n    while (!st.empty()) {\n        ans.push_back(st.top());\n        st.pop();\n    }\n\n    reverse(ans.begin(), ans.end());\n    return ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of the infixToPostfix function is O(N), where N is the length of the input string.\n- We iterate through each character once, and the operations performed inside the loop are all constant time.\n- The space complexity is O(N) as we use a stack to store operators.\n*/\n",
+    "codeLines": 72,
+    "repoPath": "07.Stack and Queues/2. Infix, Postfix, and Prefix/02. Infix to prefix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/2.%20Infix%2C%20Postfix%2C%20and%20Prefix/02.%20Infix%20to%20prefix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+      "title": "Evaluate Reverse Polish Notation",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p160",
+    "index": 160,
+    "title": "Prefix to infix",
+    "topic": "Stack and Queues",
+    "subtopic": "Infix, Postfix, and Prefix",
+    "difficulty": "Medium",
+    "question": "You are given a string S of size N that represents the prefix form of a valid mathematical expression. Convert it to its infix form.\n\nExample:\nInput:\n-A/BC-/AKL\nOutput:\n((A-(B/C))*((A/K)-L))\nExplanation:\nThe above output is its valid infix form.",
+    "approach": "- We can use a stack to convert the prefix expression to infix.\n- We iterate through each character of the input string in reverse order.\n- If the character is an operand (letter or digit), we push it onto the stack.\n- If the character is an operator, we pop two operands from the stack, concatenate them with the operator and enclosing parentheses, and push the result back onto the stack.\n- After iterating through all characters, the top of the stack will contain the final infix expression.",
+    "pseudocode": "ALGORITHM  Prefix to infix\nPATTERN    Stack / queue\n\nBEGIN\n  01  We can use a stack to convert the prefix expression to infix\n  02  We iterate through each character of the input string in reverse order\n  03  IF the character is an operand (letter or digit), we push it onto the stack\n  04  IF the character is an operator, we pop two operands from the stack, concatenate them with the operator and enclosing parentheses, and push the result back onto the stack\n  05  After iterating through all characters, the top of the stack will contain the final infix expression\n  06  RETURN the required result\nEND",
+    "time": "of the preToInfix function is O(N), where N is the length of the input string",
+    "space": "O(N) as we use a stack to store operands",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue", "Strings"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nYou are given a string S of size N that represents the prefix form of a valid mathematical expression. Convert it to its infix form.\n\nExample:\nInput: \n*-A/BC-/AKL\nOutput: \n((A-(B/C))*((A/K)-L))\nExplanation: \nThe above output is its valid infix form.\n\nAPPROACH:\n- We can use a stack to convert the prefix expression to infix.\n- We iterate through each character of the input string in reverse order.\n- If the character is an operand (letter or digit), we push it onto the stack.\n- If the character is an operator, we pop two operands from the stack, concatenate them with the operator and enclosing parentheses, and push the result back onto the stack.\n- After iterating through all characters, the top of the stack will contain the final infix expression.\n\nCODE:\n*/\n\nstring preToInfix(string pre_exp) {\n    stack<string> st;\n    \n    for (int i = pre_exp.size() - 1; i >= 0; i--) {\n        char ch = pre_exp[i];\n        \n        if (('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z') || ('0' <= ch && ch <= '9')) {\n            string temp = \"\";\n            temp += ch;\n            st.push(temp);\n        } else {\n            string a = st.top();\n            st.pop();\n            string b = st.top();\n            st.pop();\n            \n            string temp = \"(\" + a + ch + b + \")\";\n            st.push(temp);\n        }\n    }\n    \n    return st.top();\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of the preToInfix function is O(N), where N is the length of the input string.\n- We iterate through each character once, and the operations performed inside the loop are all constant time.\n- The space complexity is O(N) as we use a stack to store operands.\n*/\n",
+    "codeLines": 52,
+    "repoPath": "07.Stack and Queues/2. Infix, Postfix, and Prefix/03. Prefix to infix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/2.%20Infix%2C%20Postfix%2C%20and%20Prefix/03.%20Prefix%20to%20infix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+      "title": "Evaluate Reverse Polish Notation",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p161",
+    "index": 161,
+    "title": "Prefix to postfix",
+    "topic": "Stack and Queues",
+    "subtopic": "Infix, Postfix, and Prefix",
+    "difficulty": "Medium",
+    "question": "You are given a string that represents the prefix form of a valid mathematical expression. Convert it to its postfix form.\n\nExample:\nInput:\n-A/BC-/AKL\nOutput:\nABC/-AK/L-*\nExplanation:\nThe above output is its valid postfix form.",
+    "approach": "- We can use a stack to convert the prefix expression to postfix.\n- We iterate through each character of the input string in reverse order.\n- If the character is an alphanumeric character, we push it onto the stack.\n- If the character is an operator, we pop two operands from the stack, concatenate them with the operator, and push the result back onto the stack.\n- After iterating through all characters, the top of the stack will contain the final postfix expression.",
+    "pseudocode": "ALGORITHM  Prefix to postfix\nPATTERN    Stack / queue\n\nBEGIN\n  01  We can use a stack to convert the prefix expression to postfix\n  02  We iterate through each character of the input string in reverse order\n  03  IF the character is an alphanumeric character, we push it onto the stack\n  04  IF the character is an operator, we pop two operands from the stack, concatenate them with the operator, and push the result back onto the stack\n  05  After iterating through all characters, the top of the stack will contain the final postfix expression\n  06  RETURN the required result\nEND",
+    "time": "of the preToPost function is O(N), where N is the length of the input string",
+    "space": "O(N) as we use a stack to store operands",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue", "Strings"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nYou are given a string that represents the prefix form of a valid mathematical expression. Convert it to its postfix form.\n\nExample:\nInput: \n*-A/BC-/AKL\nOutput: \nABC/-AK/L-*\nExplanation: \nThe above output is its valid postfix form.\n\nAPPROACH:\n- We can use a stack to convert the prefix expression to postfix.\n- We iterate through each character of the input string in reverse order.\n- If the character is an alphanumeric character, we push it onto the stack.\n- If the character is an operator, we pop two operands from the stack, concatenate them with the operator, and push the result back onto the stack.\n- After iterating through all characters, the top of the stack will contain the final postfix expression.\n\nCODE:\n*/\n\nbool isAlphaNumeric(char ch) {\n    return ('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z') || ('0' <= ch && ch <= '9');\n}\n\nstring preToPost(string pre_exp) {\n    stack<string> st;\n    \n    for (int i = pre_exp.size() - 1; i >= 0; i--) {\n        char ch = pre_exp[i];\n        \n        if (isAlphaNumeric(ch)) {\n            string temp = \"\";\n            temp += ch;\n            st.push(temp);\n        } else {\n            string a = st.top();\n            st.pop();\n            string b = st.top();\n            st.pop();\n            \n            string temp = a + b + ch;\n            st.push(temp);\n        }\n    }\n    \n    return st.top();\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of the preToPost function is O(N), where N is the length of the input string.\n- We iterate through each character once, and the operations performed inside the loop are all constant time.\n- The space complexity is O(N) as we use a stack to store operands.\n*/\n",
+    "codeLines": 56,
+    "repoPath": "07.Stack and Queues/2. Infix, Postfix, and Prefix/04. Prefix to postfix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/2.%20Infix%2C%20Postfix%2C%20and%20Prefix/04.%20Prefix%20to%20postfix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+      "title": "Evaluate Reverse Polish Notation",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p162",
+    "index": 162,
+    "title": "Postfix to infix",
+    "topic": "Stack and Queues",
+    "subtopic": "Infix, Postfix, and Prefix",
+    "difficulty": "Medium",
+    "question": "You are given a string that represents the postfix form of a valid mathematical expression. Convert it to its infix form.\n\nExample:\nInput:\nab*c+\nOutput:\n((a*b)+c)\nExplanation:\nThe above output is its valid infix form.",
+    "approach": "- We can use a stack to convert the postfix expression to infix.\n- We iterate through each character of the input string.\n- If the character is an alphanumeric character, we push it onto the stack.\n- If the character is an operator, we pop two operands from the stack, concatenate them with the operator in the proper order (operand1 + operator + operand2), and push the result back onto the stack.\n- After iterating through all characters, the top of the stack will contain the final infix expression.",
+    "pseudocode": "ALGORITHM  Postfix to infix\nPATTERN    Stack / queue\n\nBEGIN\n  01  We can use a stack to convert the postfix expression to infix\n  02  We iterate through each character of the input string\n  03  IF the character is an alphanumeric character, we push it onto the stack\n  04  IF the character is an operator, we pop two operands from the stack, concatenate them with the operator in the proper order (operand1 + operator + operand2), and push the result back onto the stack\n  05  After iterating through all characters, the top of the stack will contain the final infix expression\n  06  RETURN the required result\nEND",
+    "time": "of the postToInfix function is O(N), where N is the length of the input string",
+    "space": "O(N) as we use a stack to store operands",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue", "Strings"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nYou are given a string that represents the postfix form of a valid mathematical expression. Convert it to its infix form.\n\nExample:\nInput:\nab*c+ \nOutput: \n((a*b)+c)\nExplanation: \nThe above output is its valid infix form.\n\nAPPROACH:\n- We can use a stack to convert the postfix expression to infix.\n- We iterate through each character of the input string.\n- If the character is an alphanumeric character, we push it onto the stack.\n- If the character is an operator, we pop two operands from the stack, concatenate them with the operator in the proper order (operand1 + operator + operand2), and push the result back onto the stack.\n- After iterating through all characters, the top of the stack will contain the final infix expression.\n\nCODE:\n*/\n\nbool isAlphaNumeric(char ch) {\n    return ('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z') || ('0' <= ch && ch <= '9');\n}\n\nstring postToInfix(string exp) {\n    stack<string> st;\n    \n    for (int i = 0; i < exp.size(); i++) {\n        char ch = exp[i];\n        \n        if (isAlphaNumeric(ch)) {\n            string temp = \"\";\n            temp += ch;\n            st.push(temp);\n        } else {\n            string a = st.top();\n            st.pop();\n            string b = st.top();\n            st.pop();\n            \n            st.push(\"(\" + b + ch + a + \")\");\n        }\n    }\n    \n    return st.top();\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of the postToInfix function is O(N), where N is the length of the input string.\n- We iterate through each character once, and the operations performed inside the loop are all constant time.\n- The space complexity is O(N) as we use a stack to store operands.\n*/\n",
+    "codeLines": 55,
+    "repoPath": "07.Stack and Queues/2. Infix, Postfix, and Prefix/05. Postfix to infix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/2.%20Infix%2C%20Postfix%2C%20and%20Prefix/05.%20Postfix%20to%20infix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+      "title": "Evaluate Reverse Polish Notation",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p163",
+    "index": 163,
+    "title": "Postfix to prefix",
+    "topic": "Stack and Queues",
+    "subtopic": "Infix, Postfix, and Prefix",
+    "difficulty": "Medium",
+    "question": "You are given a string that represents the postfix form of a valid mathematical expression. Convert it to its prefix form.\n\nExample:\nInput:\nABC/-AK/L-*\nOutput:\n-A/BC-/AKL\nExplanation:\nThe above output is its valid prefix form.",
+    "approach": "- We can use a stack to convert the postfix expression to prefix.\n- We iterate through each character of the input string.\n- If the character is an alphanumeric character, we push it onto the stack.\n- If the character is an operator, we pop two operands from the stack, concatenate them with the operator in the proper order (operator + operand2 + operand1), and push the result back onto the stack.\n- After iterating through all characters, the top of the stack will contain the final prefix expression.",
+    "pseudocode": "ALGORITHM  Postfix to prefix\nPATTERN    Stack / queue\n\nBEGIN\n  01  We can use a stack to convert the postfix expression to prefix\n  02  We iterate through each character of the input string\n  03  IF the character is an alphanumeric character, we push it onto the stack\n  04  IF the character is an operator, we pop two operands from the stack, concatenate them with the operator in the proper order (operator + operand2 + operand1), and push the result back onto the stack\n  05  After iterating through all characters, the top of the stack will contain the final prefix expression\n  06  RETURN the required result\nEND",
+    "time": "of the postToPre function is O(N), where N is the length of the input string",
+    "space": "O(N) as we use a stack to store operands",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue", "Strings"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nYou are given a string that represents the postfix form of a valid mathematical expression. Convert it to its prefix form.\n\nExample:\nInput: \nABC/-AK/L-*\nOutput: \n*-A/BC-/AKL\nExplanation: \nThe above output is its valid prefix form.\n\nAPPROACH:\n- We can use a stack to convert the postfix expression to prefix.\n- We iterate through each character of the input string.\n- If the character is an alphanumeric character, we push it onto the stack.\n- If the character is an operator, we pop two operands from the stack, concatenate them with the operator in the proper order (operator + operand2 + operand1), and push the result back onto the stack.\n- After iterating through all characters, the top of the stack will contain the final prefix expression.\n\nCODE:\n*/\n\nbool isAlphaNumeric(char ch) {\n    return ('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z') || ('0' <= ch && ch <= '9');\n}\n\nstring postToPre(string post_exp) {\n    stack<string> st;\n    \n    for (int i = 0; i < post_exp.size(); i++) {\n        char ch = post_exp[i];\n        \n        if (isAlphaNumeric(ch)) {\n            string temp = \"\";\n            temp += ch;\n            st.push(temp);\n        } else {\n            string a = st.top();\n            st.pop();\n            string b = st.top();\n            st.pop();\n            \n            string temp = ch + b + a;\n            st.push(temp);\n        }\n    }\n    \n    return st.top();\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of the postToPre function is O(N), where N is the length of the input string.\n- We iterate through each character once, and the operations performed inside the loop are all constant time.\n- The space complexity is O(N) as we use a stack to store operands.\n*/\n",
+    "codeLines": 56,
+    "repoPath": "07.Stack and Queues/2. Infix, Postfix, and Prefix/06. Postfix to prefix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/2.%20Infix%2C%20Postfix%2C%20and%20Prefix/06.%20Postfix%20to%20prefix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+      "title": "Evaluate Reverse Polish Notation",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p164",
+    "index": 164,
+    "title": "Next Greater Element",
+    "topic": "Stack and Queues",
+    "subtopic": "Monotonic Stack and Queue",
+    "difficulty": "Easy",
+    "question": "The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.\nYou are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.\nFor each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. If there is no next greater element, then the answer for this query is -1.\nReturn an array ans of length nums1.length such that ans[i] is the next greater element as described above.\n\nExample:\nInput: nums1 = [4,1,2], nums2 = [1,3,4,2]\nOutput: [-1,3,-1]\nExplanation: The next greater element for each value of nums1 is as follows:\n- 4 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.\n- 1 is underlined in nums2 = [1,3,4,2]. The next greater element is 3.\n- 2 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.",
+    "approach": "- We can solve this problem using a stack and a hashmap.\n- First, we iterate through the `nums2` array from right to left.\n- For each element, we pop elements from the stack that are smaller than or equal to the current element and store the next greater element for each popped element in the hashmap.\n- Finally, we iterate through the `nums1` array and retrieve the next greater element from the hashmap if it exists, otherwise assign -1.",
+    "pseudocode": "ALGORITHM  Next Greater Element\nPATTERN    Monotonic stack\n\nBEGIN\n  01  We can solve this problem using a stack and a hashmap\n  02  First, we iterate through the nums2 array from right to left\n  03  FOR EACH element, we pop elements from the stack that are smaller than or equal to the current element and store the next greater element for each popped element in the hashmap\n  04  Finally, we iterate through the nums1 array and retrieve the next greater element from the hashmap if it exists, otherwise assign -1\n  05  RETURN the required result\nEND",
+    "time": "of the `nextGreaterElement` function is O(N + M), where N is the size of `nums1` and M is the size of `nums2`",
+    "space": "O(N), where N is the size of `nums1`, to store the result in the `ans` vector and the `mp` hashmap",
+    "strategy": "Monotonic stack",
+    "tags": ["Stack and Queues", "Monotonic stack"],
+    "intuition": "Keep only candidates that can still become an answer. Removing dominated elements turns repeated scans for a nearer greater/smaller value into a linear pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Wrong strict/non-strict comparison",
+      "Incorrect duplicate ownership",
+      "Missing remaining-stack cleanup"
+    ],
+    "code": "/*\nQuestion:\nThe next greater element of some element x in an array is the first greater element that is to the right of x in the same array.\nYou are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.\nFor each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. If there is no next greater element, then the answer for this query is -1.\nReturn an array ans of length nums1.length such that ans[i] is the next greater element as described above.\n\nExample:\nInput: nums1 = [4,1,2], nums2 = [1,3,4,2]\nOutput: [-1,3,-1]\nExplanation: The next greater element for each value of nums1 is as follows:\n- 4 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.\n- 1 is underlined in nums2 = [1,3,4,2]. The next greater element is 3.\n- 2 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.\n\nApproach:\n- We can solve this problem using a stack and a hashmap.\n- First, we iterate through the `nums2` array from right to left.\n- For each element, we pop elements from the stack that are smaller than or equal to the current element and store the next greater element for each popped element in the hashmap.\n- Finally, we iterate through the `nums1` array and retrieve the next greater element from the hashmap if it exists, otherwise assign -1.\n\nCode:\n*/\n\nvoid nextGstack(vector<int>& nums, unordered_map<int, int>& mp) {\n    stack<int> st;\n    for (int i = nums.size() - 1; i >= 0; i--) {\n        while (!st.empty() && st.top() <= nums[i]) {\n            st.pop();\n        }\n        if (!st.empty())\n            mp[nums[i]] = st.top();\n\n        st.push(nums[i]);\n    }\n}\n\nvector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {\n    unordered_map<int, int> mp;\n    nextGstack(nums2, mp);\n\n    vector<int> ans(nums1.size(), -1);\n\n    for (int i = 0; i < nums1.size(); i++) {\n        if (mp.find(nums1[i]) != mp.end())\n            ans[i] = mp[nums1[i]];\n    }\n    return ans;\n}\n\n/*\nComplexity Analysis:\n- The time complexity of the `nextGreaterElement` function is O(N + M), where N is the size of `nums1` and M is the size of `nums2`.\n- The `nextGstack` function has a time complexity of O(M), where M is the size of `nums2`.\n- The space complexity is O(N), where N is the size of `nums1`, to store the result in the `ans` vector and the `mp` hashmap.\n*/",
+    "codeLines": 56,
+    "repoPath": "07.Stack and Queues/3. Monotonic Stack and Queue/01. Next Greater Element.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/3.%20Monotonic%20Stack%20and%20Queue/01.%20Next%20Greater%20Element.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/next-greater-element-i/",
+      "title": "Next Greater Element I",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p165",
+    "index": 165,
+    "title": "Next Greater Element 2",
+    "topic": "Stack and Queues",
+    "subtopic": "Monotonic Stack and Queue",
+    "difficulty": "Medium",
+    "question": "Given a circular integer array `nums` (i.e., the next element of `nums[nums.length - 1]` is `nums[0]`), return the next greater number for every element in `nums`.\n\nThe next greater number of a number `x` is the first greater number to its traversing-order next in the array, which means you could search circularly to find its next greater number. If it doesn't exist, return -1 for this number.\n\nExample:\n\nInput: `nums = [1,2,1]`\nOutput: `[2,-1,2]`\nExplanation: The first 1's next greater number is 2. The number 2 doesn't have a next greater number. The second 1's next greater number needs to be searched circularly, which is also 2.",
+    "approach": "To find the next greater number for each element in a circular array, we can utilize a stack.\nWe iterate through the array in reverse order to handle the circular nature of the array.\nFor each element, we compare it with the elements in the stack.\nIf an element in the stack is smaller than or equal to the current element, we pop it from the stack since it cannot be the next greater number.\nThe top of the stack at each iteration will hold the next greater element for the corresponding element in the array.",
+    "pseudocode": "ALGORITHM  Next Greater Element 2\nPATTERN    Monotonic stack\n\nBEGIN\n  01  To find the next greater number for each element in a circular array, we can utilize a stack\n  02  We iterate through the array in reverse order to handle the circular nature of the array\n  03  FOR EACH element, we compare it with the elements in the stack\n  04  IF an element in the stack is smaller than or equal to the current element, we pop it from the stack since it cannot be the next greater number\n  05  The top of the stack at each iteration will hold the next greater element for the corresponding element in the array\n  06  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the size of the input array `nums`. We iterate through the array twice: once to find the next greater element in the first pass and once to handle the circular nature of the array in the second pass",
+    "space": "O(N) as we use a stack to store the indices of elements",
+    "strategy": "Monotonic stack",
+    "tags": ["Stack and Queues", "Monotonic stack"],
+    "intuition": "Keep only candidates that can still become an answer. Removing dominated elements turns repeated scans for a nearer greater/smaller value into a linear pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Wrong strict/non-strict comparison",
+      "Incorrect duplicate ownership",
+      "Missing remaining-stack cleanup"
+    ],
+    "code": "/*QUESTION:\nGiven a circular integer array `nums` (i.e., the next element of `nums[nums.length - 1]` is `nums[0]`), return the next greater number for every element in `nums`.\n\nThe next greater number of a number `x` is the first greater number to its traversing-order next in the array, which means you could search circularly to find its next greater number. If it doesn't exist, return -1 for this number.\n\nExample:\n\nInput: `nums = [1,2,1]`\nOutput: `[2,-1,2]`\nExplanation: The first 1's next greater number is 2. The number 2 doesn't have a next greater number. The second 1's next greater number needs to be searched circularly, which is also 2.\n\nAPPROACH:\nTo find the next greater number for each element in a circular array, we can utilize a stack. \nWe iterate through the array in reverse order to handle the circular nature of the array. \nFor each element, we compare it with the elements in the stack. \nIf an element in the stack is smaller than or equal to the current element, we pop it from the stack since it cannot be the next greater number.\nThe top of the stack at each iteration will hold the next greater element for the corresponding element in the array.\n\nCODE:*/\n\n// NOTE:- we could also implement this via two for loops from n-1 to 0, instead of a single loop of 2*n to 0; cause the complexity remains the same\n\nvector<int> nextGreaterElements(vector<int>& nums) {\n    vector<int> ans(nums.size(), -1);\n    stack<int> st;\n\n    for (int i = 2 * nums.size() - 1; i >= 0; i--) {\n        while (!st.empty() && nums[st.top()] <= nums[i % nums.size()])\n            st.pop();\n        \n        if (!st.empty())\n            ans[i % nums.size()] = nums[st.top()];\n        \n        st.push(i % nums.size());\n    }\n\n    return ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of this approach is O(N), where N is the size of the input array `nums`. We iterate through the array twice: once to find the next greater element in the first pass and once to handle the circular nature of the array in the second pass.\n- The space complexity is O(N) as we use a stack to store the indices of elements.\n*/\n\n",
+    "codeLines": 45,
+    "repoPath": "07.Stack and Queues/3. Monotonic Stack and Queue/02. Next Greater Element 2.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/3.%20Monotonic%20Stack%20and%20Queue/02.%20Next%20Greater%20Element%202.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/next-greater-element-ii/",
+      "title": "Next Greater Element II",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p166",
+    "index": 166,
+    "title": "Previous Smaller Element",
+    "topic": "Stack and Queues",
+    "subtopic": "Monotonic Stack and Queue",
+    "difficulty": "Medium",
+    "question": "Given an array `a` of integers of length `n`, find the nearest smaller number for every element such that the smaller element is on the left side. If no smaller element is present on the left, print -1.\n\nExample:\n\nInput: n = 3\na = {1, 6, 2}\nOutput: -1 1 1\nExplanation: There is no number at the left of 1. The smaller number than 6 and 2 is 1.",
+    "approach": "To find the nearest smaller number on the left for each element, we can utilize a stack.\nWe iterate through the array from left to right. For each element, we compare it with the elements in the stack.\nIf an element in the stack is greater than or equal to the current element, we pop it from the stack since it cannot be the nearest smaller number on the left.\nThe top of the stack at each iteration will hold the nearest smaller number on the left for the corresponding element in the array.",
+    "pseudocode": "ALGORITHM  Previous Smaller Element\nPATTERN    Monotonic stack\n\nBEGIN\n  01  To find the nearest smaller number on the left for each element, we can utilize a stack\n  02  We iterate through the array from left to right. For each element, we compare it with the elements in the stack\n  03  IF an element in the stack is greater than or equal to the current element, we pop it from the stack since it cannot be the nearest smaller number on the left\n  04  The top of the stack at each iteration will hold the nearest smaller number on the left for the corresponding element in the array\n  05  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the length of the input array `a`. We iterate through the array once",
+    "space": "O(N) as we use a stack to store the elements",
+    "strategy": "Monotonic stack",
+    "tags": ["Stack and Queues", "Monotonic stack"],
+    "intuition": "Keep only candidates that can still become an answer. Removing dominated elements turns repeated scans for a nearer greater/smaller value into a linear pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Wrong strict/non-strict comparison",
+      "Incorrect duplicate ownership",
+      "Missing remaining-stack cleanup"
+    ],
+    "code": "/*QUESTION:\nGiven an array `a` of integers of length `n`, find the nearest smaller number for every element such that the smaller element is on the left side. If no smaller element is present on the left, print -1.\n\nExample:\n\nInput: n = 3\na = {1, 6, 2}\nOutput: -1 1 1\nExplanation: There is no number at the left of 1. The smaller number than 6 and 2 is 1.\n\nAPPROACH:\nTo find the nearest smaller number on the left for each element, we can utilize a stack. \nWe iterate through the array from left to right. For each element, we compare it with the elements in the stack. \nIf an element in the stack is greater than or equal to the current element, we pop it from the stack since it cannot be the nearest smaller number on the left. \nThe top of the stack at each iteration will hold the nearest smaller number on the left for the corresponding element in the array.\n\nCODE:*/\n\nvector<int> leftSmaller(int n, int arr[]) {\n    stack<int> st;\n    vector<int> ans(n, -1);\n\n    for (int i = 0; i < n; i++) {\n        while (!st.empty() && st.top() >= arr[i])\n            st.pop();\n\n        if (!st.empty())\n            ans[i] = st.top();\n\n        st.push(arr[i]);\n    }\n\n    return ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of this approach is O(N), where N is the length of the input array `a`. We iterate through the array once.\n- The space complexity is O(N) as we use a stack to store the elements.\n*/\n\n",
+    "codeLines": 41,
+    "repoPath": "07.Stack and Queues/3. Monotonic Stack and Queue/03. Previous Smaller Element.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/3.%20Monotonic%20Stack%20and%20Queue/03.%20Previous%20Smaller%20Element.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/next-greater-element-i/",
+      "title": "Next Greater Element I",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p167",
+    "index": 167,
+    "title": "Trapping Rainwater",
+    "topic": "Stack and Queues",
+    "subtopic": "Monotonic Stack and Queue",
+    "difficulty": "Hard",
+    "question": "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+    "approach": "To calculate the trapped water, we can use the two-pointer approach. We initialize two pointers, one at the beginning of the array (`left`) and another at the end of the array (`right`). We also maintain two variables, `leftMax` and `rightMax`, to keep track of the maximum bar height encountered from the left and right side, respectively.\n\n1. Initialize `left` to 0 and `right` to the last index of the array.\n2. Initialize `leftMax` and `rightMax` to the minimum integer value (`INT_MIN`).\n3. Initialize `ans` (trapped water) to 0.\n4. Iterate while `left` is less than or equal to `right`:\n    a. If `height[left]` is less than `height[right]`:\n        - Update `leftMax` if `height[left]` is greater than the current `leftMax`.\n        - Calculate the amount of water trapped at the current `left` index by subtracting `height[left]` from `leftMax` and add it to `ans`.\n        - Increment `left` by 1.\n    b. Else:\n        - Update `rightMax` if `height[right]` is greater than the current `rightMax`.\n        - Calculate the amount of water trapped at the current `right` index by subtracting `height[right]` from `rightMax` and add it to `ans`.\n        - Decrement `right` by 1.\n5. Return the final value of `ans`.",
+    "pseudocode": "ALGORITHM  Trapping Rainwater\nPATTERN    Monotonic stack\n\nBEGIN\n  01  To calculate the trapped water, we can use the two-pointer approach\n  02  We initialize two pointers, one at the beginning of the array (left) and another at the end of the array (right)\n  03  We also maintain two variables, leftMax and rightMax, to keep track of the maximum bar height encountered from the left and right side, respectively\n  04  SET left to 0 and right to the last index of the array\n  05  SET leftMax and rightMax to the minimum integer value (INT_MIN)\n  06  SET ans (trapped water) to 0\n  07  Iterate while left is less than or equal to right:\n  08  a. If height[left] is less than height[right]:\n  09  UPDATE leftMax if height[left] is greater than the current leftMax\n  10  Calculate the amount of water trapped at the current left index by subtracting height[left] from leftMax and add it to ans\n  11  Increment left by 1\n  12  b. Else:\n  13  UPDATE rightMax if height[right] is greater than the current rightMax\n  14  Calculate the amount of water trapped at the current right index by subtracting height[right] from rightMax and add it to ans\n  15  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of elements in the `height` array. We iterate through the array once",
+    "space": "O(1) as we only use a constant amount of extra space to store variables",
+    "strategy": "Monotonic stack",
+    "tags": ["Stack and Queues", "Monotonic stack"],
+    "intuition": "Keep only candidates that can still become an answer. Removing dominated elements turns repeated scans for a nearer greater/smaller value into a linear pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Wrong strict/non-strict comparison",
+      "Incorrect duplicate ownership",
+      "Missing remaining-stack cleanup"
+    ],
+    "code": "/*QUESTION:\nGiven n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.\n\nAPPROACH:\nTo calculate the trapped water, we can use the two-pointer approach. We initialize two pointers, one at the beginning of the array (`left`) and another at the end of the array (`right`). We also maintain two variables, `leftMax` and `rightMax`, to keep track of the maximum bar height encountered from the left and right side, respectively.\n\n1. Initialize `left` to 0 and `right` to the last index of the array.\n2. Initialize `leftMax` and `rightMax` to the minimum integer value (`INT_MIN`).\n3. Initialize `ans` (trapped water) to 0.\n4. Iterate while `left` is less than or equal to `right`:\n    a. If `height[left]` is less than `height[right]`:\n        - Update `leftMax` if `height[left]` is greater than the current `leftMax`.\n        - Calculate the amount of water trapped at the current `left` index by subtracting `height[left]` from `leftMax` and add it to `ans`.\n        - Increment `left` by 1.\n    b. Else:\n        - Update `rightMax` if `height[right]` is greater than the current `rightMax`.\n        - Calculate the amount of water trapped at the current `right` index by subtracting `height[right]` from `rightMax` and add it to `ans`.\n        - Decrement `right` by 1.\n5. Return the final value of `ans`.\n\nCODE:*/\nint trap(vector<int>& height) {\n    int leftMax = INT_MIN;\n    int rightMax = INT_MIN;\n    int left = 0, right = height.size()-1;\n    int ans = 0;\n\n    while(left <= right) {\n        if(height[left] < height[right]) {\n            if(height[left] > leftMax)\n                leftMax = height[left];\n            else\n                ans += leftMax - height[left];\n            left++;\n        } else {\n            if(height[right] > rightMax)\n                rightMax = height[right];\n            else\n                ans += rightMax - height[right];\n            right--;\n        }\n    }\n\n    return ans;\n}\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of this approach is O(N), where N is the number of elements in the `height` array. We iterate through the array once.\n- The space complexity is O(1) as we only use a constant amount of extra space to store variables.\n*/\n\n\n",
+    "codeLines": 52,
+    "repoPath": "07.Stack and Queues/3. Monotonic Stack and Queue/04. Trapping Rainwater.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/3.%20Monotonic%20Stack%20and%20Queue/04.%20Trapping%20Rainwater.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/trapping-rain-water/",
+      "title": "Trapping Rain Water",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p168",
+    "index": 168,
+    "title": "Sum of subarray minimum",
+    "topic": "Stack and Queues",
+    "subtopic": "Monotonic Stack and Queue",
+    "difficulty": "Medium",
+    "question": "Given an array of integers arr, find the sum of min(b), where b ranges over every (contiguous) subarray of arr. Since the answer may be large, return the answer modulo 109 + 7.",
+    "approach": "To find the sum of the minimums of all subarrays, we can use the concept of previous smaller and next smaller elements for each element in the array.\n1. Define two helper functions:\n   - `prevSmaller(arr)`: Returns an array that contains the index of the previous smaller element for each element in `arr`. If no smaller element exists, the index is set to -1.\n   - `nextSmaller(arr)`: Returns an array that contains the index of the next smaller element for each element in `arr`. If no smaller element exists, the index is set to the length of the array.\n2. Initialize a variable `ans` to 0 to store the final sum.\n3. Iterate over each element `arr[i]` in the array:\n   a. Calculate the number of subarrays in which `arr[i]` is the minimum element.\n      - The number of subarrays with `arr[i]` as the minimum element on the left side is `i - prevS[i]`.\n      - The number of subarrays with `arr[i]` as the minimum element on the right side is `nextS[i] - i`.\n   b. Add `(leftElements * rightElements * arr[i]) % mod` to `ans`, where `mod` is `1e9 + 7`.\n4. Return the final value of `ans` as the sum of minimums of all subarrays modulo `1e9 + 7`.",
+    "pseudocode": "ALGORITHM  Sum of subarray minimum\nPATTERN    Monotonic stack\n\nBEGIN\n  01  To find the sum of the minimums of all subarrays, we can use the concept of previous smaller and next smaller elements for each element in the array\n  02  Define two helper functions:\n  03  prevSmaller(arr): Returns an array that contains the index of the previous smaller element for each element in arr. If no smaller element exists, the index is set to -1\n  04  nextSmaller(arr): Returns an array that contains the index of the next smaller element for each element in arr\n  05  IF no smaller element exists, the index is set to the length of the array\n  06  SET a variable ans to 0 to store the final sum\n  07  Iterate over each element arr[i] in the array:\n  08  a. Calculate the number of subarrays in which arr[i] is the minimum element\n  09  The number of subarrays with arr[i] as the minimum element on the left side is i - prevS[i]\n  10  The number of subarrays with arr[i] as the minimum element on the right side is nextS[i] - i\n  11  b. Add (leftElements * rightElements * arr[i]) % mod to ans, where mod is 1e9 + 7\n  12  RETURN the final value of ans as the sum of minimums of all subarrays modulo 1e9 + 7\nEND",
+    "time": "of this approach is O(N), where N is the number of elements in the array `arr`. We iterate through the array twice to calculate the previous smaller and next smaller elements",
+    "space": "O(N) as we use additional space to store the previous smaller and next smaller elements",
+    "strategy": "Monotonic stack",
+    "tags": ["Stack and Queues", "Monotonic stack"],
+    "intuition": "Keep only candidates that can still become an answer. Removing dominated elements turns repeated scans for a nearer greater/smaller value into a linear pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Wrong strict/non-strict comparison",
+      "Incorrect duplicate ownership",
+      "Missing remaining-stack cleanup"
+    ],
+    "code": "/*QUESTION:\nGiven an array of integers arr, find the sum of min(b), where b ranges over every (contiguous) subarray of arr. Since the answer may be large, return the answer modulo 109 + 7.\n\nAPPROACH:\nTo find the sum of the minimums of all subarrays, we can use the concept of previous smaller and next smaller elements for each element in the array.\n1. Define two helper functions:\n   - `prevSmaller(arr)`: Returns an array that contains the index of the previous smaller element for each element in `arr`. If no smaller element exists, the index is set to -1.\n   - `nextSmaller(arr)`: Returns an array that contains the index of the next smaller element for each element in `arr`. If no smaller element exists, the index is set to the length of the array.\n2. Initialize a variable `ans` to 0 to store the final sum.\n3. Iterate over each element `arr[i]` in the array:\n   a. Calculate the number of subarrays in which `arr[i]` is the minimum element.\n      - The number of subarrays with `arr[i]` as the minimum element on the left side is `i - prevS[i]`.\n      - The number of subarrays with `arr[i]` as the minimum element on the right side is `nextS[i] - i`.\n   b. Add `(leftElements * rightElements * arr[i]) % mod` to `ans`, where `mod` is `1e9 + 7`.\n4. Return the final value of `ans` as the sum of minimums of all subarrays modulo `1e9 + 7`.\n\nCODE:*/\nvector<int> prevSmaller(vector<int>& arr){\n    stack<int> st;\n    vector<int> ans(arr.size(), -1);\n    for(int i = 0; i < arr.size(); i++){\n        while(!st.empty() && arr[st.top()] > arr[i])\n            st.pop();\n        if(!st.empty())\n            ans[i] = st.top();\n        st.push(i);\n    }\n    return ans;\n}\n\nvector<int> nextSmaller(vector<int>& arr){\n    stack<int> st;\n    vector<int> ans(arr.size(), arr.size());\n    for(int i = arr.size()-1; i >= 0; i--){\n        while(!st.empty() && arr[st.top()] >= arr[i])\n            st.pop();\n        if(!st.empty())\n            ans[i] = st.top();\n        st.push(i);\n    }\n    return ans;\n}\n\nint sumSubarrayMins(vector<int>& arr) {\n    vector<int> prevS = prevSmaller(arr);\n    vector<int> nextS = nextSmaller(arr);\n    long long ans = 0;\n    int mod = 1e9 + 7;\n\n    for(int i = 0; i < arr.size(); i++){\n        long long leftElements = i - prevS[i];\n        long long rightElements = nextS[i] - i;\n        // this formula is arrived by mathematical calculation\n        ans += ((leftElements % mod) * (rightElements % mod) * (arr[i] % mod)) % mod;\n    }\n\n    return (int)ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of this approach is O(N), where N is the number of elements in the array `arr`. We iterate through the array twice to calculate the previous smaller and next smaller elements.\n- The space complexity is O(N) as we use additional space to store the previous smaller and next smaller elements.\n*/\n",
+    "codeLines": 64,
+    "repoPath": "07.Stack and Queues/3. Monotonic Stack and Queue/05. Sum of subarray minimum.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/3.%20Monotonic%20Stack%20and%20Queue/05.%20Sum%20of%20subarray%20minimum.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sum-of-subarray-minimums/",
+      "title": "Sum of Subarray Minimums",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p169",
+    "index": 169,
+    "title": "Sum of range of all subarray",
+    "topic": "Stack and Queues",
+    "subtopic": "Monotonic Stack and Queue",
+    "difficulty": "Medium",
+    "question": "You are given an integer array nums. The range of a subarray of nums is the difference between the largest and smallest element in the subarray. Return the sum of all subarray ranges of nums.",
+    "approach": "To find the sum of all subarray ranges, we can use the concept of previous smaller, next smaller, previous greater, and next greater elements for each element in the array.\n1. Define four helper functions:\n   - `prevSmaller(arr)`: Returns an array that contains the index of the previous smaller element for each element in `arr`. If no smaller element exists, the index is set to -1.\n   - `nextSmaller(arr)`: Returns an array that contains the index of the next smaller element for each element in `arr`. If no smaller element exists, the index is set to the length of the array.\n   - `prevGreater(arr)`: Returns an array that contains the index of the previous greater element for each element in `arr`. If no greater element exists, the index is set to -1.\n   - `nextGreater(arr)`: Returns an array that contains the index of the next greater element for each element in `arr`. If no greater element exists, the index is set to the length of the array.\n2. Initialize a variable `ans` to 0 to store the final sum.\n3. Iterate over each element `arr[i]` in the array:\n   a. Calculate the number of subarrays where `arr[i]` is the minimum element:\n      - The number of subarrays with `arr[i]` as the minimum element on the left side is `i - prevS[i]`.\n      - The number of subarrays with `arr[i]` as the minimum element on the right side is `nextS[i] - i`.\n   b. Calculate the number of subarrays where `arr[i]` is the maximum element:\n      - The number of subarrays with `arr[i]` as the maximum element on the left side is `i - prevG[i]`.\n      - The number of subarrays with `arr[i]` as the maximum element on the right side is `nextG[i] - i`.\n   c. Update `ans` by adding `(maxleftElements * maxrightElements * arr[i]) - (minleftElements * minrightElements * arr[i])`.\n4. Return the final value of `ans` as the sum of all subarray ranges.",
+    "pseudocode": "ALGORITHM  Sum of range of all subarray\nPATTERN    Monotonic stack\n\nBEGIN\n  01  To find the sum of all subarray ranges, we can use the concept of previous smaller, next smaller, previous greater, and next greater elements for each element in the array\n  02  Define four helper functions:\n  03  prevSmaller(arr): Returns an array that contains the index of the previous smaller element for each element in arr. If no smaller element exists, the index is set to -1\n  04  nextSmaller(arr): Returns an array that contains the index of the next smaller element for each element in arr\n  05  IF no smaller element exists, the index is set to the length of the array\n  06  prevGreater(arr): Returns an array that contains the index of the previous greater element for each element in arr. If no greater element exists, the index is set to -1\n  07  nextGreater(arr): Returns an array that contains the index of the next greater element for each element in arr\n  08  IF no greater element exists, the index is set to the length of the array\n  09  SET a variable ans to 0 to store the final sum\n  10  Iterate over each element arr[i] in the array:\n  11  a. Calculate the number of subarrays where arr[i] is the minimum element:\n  12  The number of subarrays with arr[i] as the minimum element on the left side is i - prevS[i]\n  13  The number of subarrays with arr[i] as the minimum element on the right side is nextS[i] - i\n  14  b. Calculate the number of subarrays where arr[i] is the maximum element:\n  15  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of elements in the array `arr`. We iterate through the array multiple times to calculate the previous smaller, next smaller, previous greater, and next greater elements",
+    "space": "O(N) as we use additional space to store the previous smaller, next smaller, previous greater, and next greater elements",
+    "strategy": "Monotonic stack",
+    "tags": ["Stack and Queues", "Monotonic stack"],
+    "intuition": "Keep only candidates that can still become an answer. Removing dominated elements turns repeated scans for a nearer greater/smaller value into a linear pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Wrong strict/non-strict comparison",
+      "Incorrect duplicate ownership",
+      "Missing remaining-stack cleanup"
+    ],
+    "code": "/*QUESTION:\nYou are given an integer array nums. The range of a subarray of nums is the difference between the largest and smallest element in the subarray. Return the sum of all subarray ranges of nums.\n\nAPPROACH:\nTo find the sum of all subarray ranges, we can use the concept of previous smaller, next smaller, previous greater, and next greater elements for each element in the array.\n1. Define four helper functions:\n   - `prevSmaller(arr)`: Returns an array that contains the index of the previous smaller element for each element in `arr`. If no smaller element exists, the index is set to -1.\n   - `nextSmaller(arr)`: Returns an array that contains the index of the next smaller element for each element in `arr`. If no smaller element exists, the index is set to the length of the array.\n   - `prevGreater(arr)`: Returns an array that contains the index of the previous greater element for each element in `arr`. If no greater element exists, the index is set to -1.\n   - `nextGreater(arr)`: Returns an array that contains the index of the next greater element for each element in `arr`. If no greater element exists, the index is set to the length of the array.\n2. Initialize a variable `ans` to 0 to store the final sum.\n3. Iterate over each element `arr[i]` in the array:\n   a. Calculate the number of subarrays where `arr[i]` is the minimum element:\n      - The number of subarrays with `arr[i]` as the minimum element on the left side is `i - prevS[i]`.\n      - The number of subarrays with `arr[i]` as the minimum element on the right side is `nextS[i] - i`.\n   b. Calculate the number of subarrays where `arr[i]` is the maximum element:\n      - The number of subarrays with `arr[i]` as the maximum element on the left side is `i - prevG[i]`.\n      - The number of subarrays with `arr[i]` as the maximum element on the right side is `nextG[i] - i`.\n   c. Update `ans` by adding `(maxleftElements * maxrightElements * arr[i]) - (minleftElements * minrightElements * arr[i])`.\n4. Return the final value of `ans` as the sum of all subarray ranges.\n\nCODE:*/\n\n// NOTE:- The code could be more concise if done in double traversal but I find this more intuitive\nvector<int> prevSmaller(vector<int>& arr){\n    stack<int> st;\n    vector<int> ans(arr.size(), -1);\n    for(int i = 0; i < arr.size(); i++){\n        while(!st.empty() && arr[st.top()] > arr[i])\n            st.pop();\n        if(!st.empty())\n            ans[i] = st.top();\n        st.push(i);\n    }\n    return ans;\n}\n\nvector<int> nextSmaller(vector<int>& arr){\n    stack<int> st;\n    vector<int> ans(arr.size(), arr.size());\n    for(int i = arr.size()-1; i >= 0; i--){\n        while(!st.empty() && arr[st.top()] >= arr[i])\n            st.pop();\n        if(!st.empty())\n            ans[i] = st.top();\n        st.push(i);\n    }\n    return ans;\n}\n\nvector<int> prevGreater(vector<int>& arr){\n    stack<int> st;\n    vector<int> ans(arr.size(), -1);\n    for(int i = 0; i < arr.size(); i++){\n        while(!st.empty() && arr[st.top()] < arr[i])\n            st.pop();\n        if(!st.empty())\n            ans[i] = st.top();\n        st.push(i);\n    }\n    return ans;\n}\n\nvector<int> nextGreater(vector<int>& arr){\n    stack<int> st;\n    vector<int> ans(arr.size(), arr.size());\n    for(int i = arr.size()-1; i >= 0; i--){\n        while(!st.empty() && arr[st.top()] <= arr[i])\n            st.pop();\n        if(!st.empty())\n            ans[i] = st.top();\n        st.push(i);\n    }\n    return ans;\n}\n\nlong long subArrayRanges(vector<int>& arr) {\n    vector<int> prevS = prevSmaller(arr);\n    vector<int> nextS = nextSmaller(arr);\n    vector<int> prevG = prevGreater(arr);\n    vector<int> nextG = nextGreater(arr);\n    long long ans = 0;\n\n    for(int i = 0; i < arr.size(); i++){\n        long long minleftElements = i - prevS[i];\n        long long minrightElements = nextS[i] - i;\n        long long maxleftElements = i - prevG[i];\n        long long maxrightElements = nextG[i] - i;\n        ans += (maxleftElements * maxrightElements * arr[i]) - (minleftElements * minrightElements * arr[i]);\n    }\n    return ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of this approach is O(N), where N is the number of elements in the array `arr`. We iterate through the array multiple times to calculate the previous smaller, next smaller, previous greater, and next greater elements.\n- The space complexity is O(N) as we use additional space to store the previous smaller, next smaller, previous greater, and next greater elements.\n*/\n\n",
+    "codeLines": 99,
+    "repoPath": "07.Stack and Queues/3. Monotonic Stack and Queue/06. Sum of range of all subarray.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/3.%20Monotonic%20Stack%20and%20Queue/06.%20Sum%20of%20range%20of%20all%20subarray.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sum-of-subarray-ranges/",
+      "title": "Sum of Subarray Ranges",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p170",
+    "index": 170,
+    "title": "Remove K elements",
+    "topic": "Stack and Queues",
+    "subtopic": "Monotonic Stack and Queue",
+    "difficulty": "Medium",
+    "question": "Given string num representing a non-negative integer num, and an integer k,\nreturn the smallest possible integer after removing k digits from num.\n\nExample:\nInput: num = \"1432219\", k = 3\nOutput: \"1219\"\nExplanation: Remove the three digits 4, 3, and 2 to form the new number 1219 which is the smallest.",
+    "approach": "The idea is to use a stack to build the smallest number by removing larger digits.\nWe iterate through each digit in num and compare it with the digits in the stack.\nIf the current digit is smaller than the top of the stack, we pop elements from the stack\nuntil either the stack is empty or the top of the stack is smaller than or equal to the current digit.\nAfter processing all the digits, we remove any remaining digits from the stack to satisfy the required k digits to remove.\nFinally, we construct the result by popping elements from the stack and reverse it to get the correct order.\n\nstring removeKdigits(string num, int k) {\n    stack<char> st;\n\n    for (char c : num) {\n        while (!st.empty() && k > 0 && st.top() > c) {\n            st.pop();\n            k--;\n        }\n        st.push(c);\n    }\n\nRemove remaining digits from the back if k is still greater than 0\n    while (!st.empty() && k > 0) {\n        st.pop();\n        k--;\n    }\n\nConstruct the result by popping elements from the stack\n    string ans;\n    while (!st.empty()) {\n        ans.push_back(st.top());\n        st.pop();\n    }\n\nRemove leading zeros\n    reverse(ans.begin(), ans.end());\n    while (!ans.empty() && ans.back() == '0') {\n        ans.pop_back();\n    }\n\n    return ans.empty() ? \"0\" : ans;\n}",
+    "pseudocode": "ALGORITHM  Remove K elements\nPATTERN    Monotonic stack\n\nBEGIN\n  01  The idea is to use a stack to build the smallest number by removing larger digits\n  02  We iterate through each digit in num and compare it with the digits in the stack\n  03  IF the current digit is smaller than the top of the stack, we pop elements from the stack\n  04  until either the stack is empty or the top of the stack is smaller than or equal to the current digit\n  05  After processing all the digits, we remove any remaining digits from the stack to satisfy the required k digits to remove\n  06  Finally, we construct the result by popping elements from the stack and reverse it to get the correct order\n  07  string removeKdigits(string num, int k) {\n  08  stack<char> st;\n  09  for (char c : num) {\n  10  WHILE (!st.empty() && k > 0 && st.top() > c) {\n  11  st.pop();\n  12  k--;\n  13  }\n  14  st.push(c);\n  15  RETURN the required result\nEND",
+    "time": "O(n),",
+    "space": "O(n) as well since the stack can potentially store all the digits in the input string",
+    "strategy": "Monotonic stack",
+    "tags": ["Stack and Queues", "Monotonic stack", "Strings"],
+    "intuition": "Keep only candidates that can still become an answer. Removing dominated elements turns repeated scans for a nearer greater/smaller value into a linear pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Wrong strict/non-strict comparison",
+      "Incorrect duplicate ownership",
+      "Missing remaining-stack cleanup"
+    ],
+    "code": "/*\nQUESTION:\nGiven string num representing a non-negative integer num, and an integer k,\nreturn the smallest possible integer after removing k digits from num.\n\nExample:\nInput: num = \"1432219\", k = 3\nOutput: \"1219\"\nExplanation: Remove the three digits 4, 3, and 2 to form the new number 1219 which is the smallest.\n*/\n\n/*\nAPPROACH:\nThe idea is to use a stack to build the smallest number by removing larger digits.\nWe iterate through each digit in num and compare it with the digits in the stack.\nIf the current digit is smaller than the top of the stack, we pop elements from the stack\nuntil either the stack is empty or the top of the stack is smaller than or equal to the current digit.\nAfter processing all the digits, we remove any remaining digits from the stack to satisfy the required k digits to remove.\nFinally, we construct the result by popping elements from the stack and reverse it to get the correct order.\n*/\n\nstring removeKdigits(string num, int k) {\n    stack<char> st;\n    \n    for (char c : num) {\n        while (!st.empty() && k > 0 && st.top() > c) {\n            st.pop();\n            k--;\n        }\n        st.push(c);\n    }\n    \n    // Remove remaining digits from the back if k is still greater than 0\n    while (!st.empty() && k > 0) {\n        st.pop();\n        k--;\n    }\n    \n    // Construct the result by popping elements from the stack\n    string ans;\n    while (!st.empty()) {\n        ans.push_back(st.top());\n        st.pop();\n    }\n    \n    // Remove leading zeros\n    reverse(ans.begin(), ans.end());\n    while (!ans.empty() && ans.back() == '0') {\n        ans.pop_back();\n    }\n    \n    return ans.empty() ? \"0\" : ans;\n}\n\n/*\nComplexity Analysis:\n- The code iterates through each digit in the input string, so the time complexity is O(n),\n  where n is the length of the input string.\n- The space complexity is O(n) as well since the stack can potentially store all the digits in the input string.\n*/\n",
+    "codeLines": 60,
+    "repoPath": "07.Stack and Queues/3. Monotonic Stack and Queue/07. Remove K elements.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/3.%20Monotonic%20Stack%20and%20Queue/07.%20Remove%20K%20elements.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/remove-k-digits/",
+      "title": "Remove K Digits",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p171",
+    "index": 171,
+    "title": "Largest Rectangle in Histogram",
+    "topic": "Stack and Queues",
+    "subtopic": "Monotonic Stack and Queue",
+    "difficulty": "Hard",
+    "question": "Given an array of integers heights representing the histogram's bar height where the width of each bar is 1,\nreturn the area of the largest rectangle in the histogram.\n\nExample:\nInput: heights = [2,1,5,6,2,3]\nOutput: 10\nExplanation: The above is a histogram where the width of each bar is 1.\nThe largest rectangle is shown in the red area, which has an area = 10 units.",
+    "approach": "To find the largest rectangle area, we can use the concept of a stack.\nThe idea is to maintain a stack of indices of the heights in non-decreasing order.\nFor each height, we compare it with the top of the stack.\nIf the current height is greater than the top of the stack, we push its index onto the stack.\nOtherwise, we keep popping elements from the stack and calculate the area using the popped index as the right boundary.\nThe left boundary can be obtained from the new top of the stack.\nBy doing this, we ensure that the heights in the stack are always in non-decreasing order.\nFinally, we calculate the area for each popped element and update the maximum area found so far.",
+    "pseudocode": "ALGORITHM  Largest Rectangle in Histogram\nPATTERN    Monotonic stack\n\nBEGIN\n  01  To find the largest rectangle area, we can use the concept of a stack\n  02  The idea is to maintain a stack of indices of the heights in non-decreasing order\n  03  FOR EACH height, we compare it with the top of the stack\n  04  IF the current height is greater than the top of the stack, we push its index onto the stack\n  05  ELSE we keep popping elements from the stack and calculate the area using the popped index as the right boundary\n  06  The left boundary can be obtained from the new top of the stack\n  07  By doing this, we ensure that the heights in the stack are always in non-decreasing order\n  08  Finally, we calculate the area for each popped element and update the maximum area found so far\n  09  RETURN the required result\nEND",
+    "time": "of the solution is O(n), where n is the number of elements in the heights array",
+    "space": "O(n) as well since we use two additional arrays to store the previous and next smaller elements",
+    "strategy": "Monotonic stack",
+    "tags": ["Stack and Queues", "Monotonic stack"],
+    "intuition": "Keep only candidates that can still become an answer. Removing dominated elements turns repeated scans for a nearer greater/smaller value into a linear pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Wrong strict/non-strict comparison",
+      "Incorrect duplicate ownership",
+      "Missing remaining-stack cleanup"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array of integers heights representing the histogram's bar height where the width of each bar is 1,\nreturn the area of the largest rectangle in the histogram.\n\nExample:\nInput: heights = [2,1,5,6,2,3]\nOutput: 10\nExplanation: The above is a histogram where the width of each bar is 1.\nThe largest rectangle is shown in the red area, which has an area = 10 units.\n*/\n\n/*\nAPPROACH:\nTo find the largest rectangle area, we can use the concept of a stack.\nThe idea is to maintain a stack of indices of the heights in non-decreasing order.\nFor each height, we compare it with the top of the stack.\nIf the current height is greater than the top of the stack, we push its index onto the stack.\nOtherwise, we keep popping elements from the stack and calculate the area using the popped index as the right boundary.\nThe left boundary can be obtained from the new top of the stack.\nBy doing this, we ensure that the heights in the stack are always in non-decreasing order.\nFinally, we calculate the area for each popped element and update the maximum area found so far.\n\nCODE:\n*/\n\n\nvector<int> prevSmaller(vector<int>& arr) {\n    stack<int> st;\n    vector<int> ans(arr.size(), -1);\n    for (int i = 0; i < arr.size(); i++) {\n        while (!st.empty() && arr[st.top()] > arr[i])\n            st.pop();\n        if (!st.empty())\n            ans[i] = st.top();\n        st.push(i);\n    }\n    return ans;\n}\n\nvector<int> nextSmaller(vector<int>& arr) {\n    stack<int> st;\n    vector<int> ans(arr.size(), arr.size());\n    for (int i = arr.size() - 1; i >= 0; i--) {\n        while (!st.empty() && arr[st.top()] >= arr[i])\n            st.pop();\n        if (!st.empty())\n            ans[i] = st.top();\n        st.push(i);\n    }\n    return ans;\n}\n\nint largestRectangleArea(vector<int>& heights) {\n    vector<int> prev = prevSmaller(heights);\n    vector<int> next = nextSmaller(heights);\n\n    int ans = INT_MIN;\n    for (int i = 0; i < heights.size(); i++) {\n        ans = max(ans, (next[i] - prev[i] - 1) * heights[i]);\n    }\n    return ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of the solution is O(n), where n is the number of elements in the heights array.\n  This is because we iterate through the array once to calculate the previous and next smaller elements.\n- The space complexity is O(n) as well since we use two additional arrays to store the previous and next smaller elements.\n*/\n\n",
+    "codeLines": 71,
+    "repoPath": "07.Stack and Queues/3. Monotonic Stack and Queue/08. Largest Rectangle in Histogram.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/3.%20Monotonic%20Stack%20and%20Queue/08.%20Largest%20Rectangle%20in%20Histogram.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
+      "title": "Largest Rectangle in Histogram",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p172",
+    "index": 172,
+    "title": "Maximal Rectangle in binary matrix",
+    "topic": "Stack and Queues",
+    "subtopic": "Monotonic Stack and Queue",
+    "difficulty": "Hard",
+    "question": "Given a binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.",
+    "approach": "To solve this problem, we can use a variation of the Largest Rectangle in Histogram problem.\n1. First, we will calculate the heights of the histogram for each row in the matrix.\n   - If the current element is '1', we increment the height of the histogram at that column by 1.\n   - If the current element is '0', we reset the height of the histogram at that column to 0.\n2. For each row, we calculate the largest rectangle area using the heights calculated in step 1.\n   - We use the largestRectangleArea function, which calculates the largest rectangle area in a histogram.\n   - The histogram heights are the heights of the current row up to that column.\n3. Finally, we return the maximum area obtained from step 2.\n\nExample:\nInput: matrix = [[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]\nOutput: 6\nExplanation: The maximal rectangle is shown in the above picture.",
+    "pseudocode": "ALGORITHM  Maximal Rectangle in binary matrix\nPATTERN    Monotonic stack\n\nBEGIN\n  01  To solve this problem, we can use a variation of the Largest Rectangle in Histogram problem\n  02  First, we will calculate the heights of the histogram for each row in the matrix\n  03  IF the current element is '1', we increment the height of the histogram at that column by 1\n  04  IF the current element is '0', we reset the height of the histogram at that column to 0\n  05  FOR EACH row, we calculate the largest rectangle area using the heights calculated in step 1\n  06  We use the largestRectangleArea function, which calculates the largest rectangle area in a histogram\n  07  The histogram heights are the heights of the current row up to that column\n  08  Finally, we return the maximum area obtained from step 2\n  09  Example:\n  10  Input: matrix = [[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]\n  11  Output: 6\n  12  Explanation: The maximal rectangle is shown in the above picture\n  13  RETURN the required result\nEND",
+    "time": "of the solution is O(n*m) because we iterate through each element of the matrix once",
+    "space": "O(m) since we use additional arrays to store the heights and indices during the calculation",
+    "strategy": "Monotonic stack",
+    "tags": ["Stack and Queues", "Monotonic stack", "Matrix / grid"],
+    "intuition": "Keep only candidates that can still become an answer. Removing dominated elements turns repeated scans for a nearer greater/smaller value into a linear pass.",
+    "constraints": [
+      "1 ≤ rows, columns ≤ 10³",
+      "Total cells should fit memory for the chosen O(R × C) representation",
+      "Cell values fit a signed 32-bit integer unless path sums require 64-bit"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Wrong strict/non-strict comparison",
+      "Incorrect duplicate ownership",
+      "Missing remaining-stack cleanup"
+    ],
+    "code": "/*\nQUESTION:\nGiven a binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.\n\nAPPROACH:\nTo solve this problem, we can use a variation of the Largest Rectangle in Histogram problem.\n1. First, we will calculate the heights of the histogram for each row in the matrix.\n   - If the current element is '1', we increment the height of the histogram at that column by 1.\n   - If the current element is '0', we reset the height of the histogram at that column to 0.\n2. For each row, we calculate the largest rectangle area using the heights calculated in step 1.\n   - We use the largestRectangleArea function, which calculates the largest rectangle area in a histogram.\n   - The histogram heights are the heights of the current row up to that column.\n3. Finally, we return the maximum area obtained from step 2.\n\nExample:\nInput: matrix = [[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]\nOutput: 6\nExplanation: The maximal rectangle is shown in the above picture.\n\nCODE:\n*/\n\n// Helper function to calculate the previous smaller element index for each element in an array\nvector<int> prevSmaller(vector<int>& arr) {\n    stack<int> st;\n    vector<int> ans(arr.size(), -1);\n    for (int i = 0; i < arr.size(); i++) {\n        while (!st.empty() && arr[st.top()] > arr[i])\n            st.pop();\n        if (!st.empty())\n            ans[i] = st.top();\n        st.push(i);\n    }\n    return ans;\n}\n\n// Helper function to calculate the next smaller element index for each element in an array\nvector<int> nextSmaller(vector<int>& arr) {\n    stack<int> st;\n    vector<int> ans(arr.size(), arr.size());\n    for (int i = arr.size() - 1; i >= 0; i--) {\n        while (!st.empty() && arr[st.top()] >= arr[i])\n            st.pop();\n        if (!st.empty())\n            ans[i] = st.top();\n        st.push(i);\n    }\n    return ans;\n}\n\n// Function to calculate the largest rectangle area in a histogram represented by heights\nint largestRectangleArea(vector<int>& heights) {\n    vector<int> prev = prevSmaller(heights);\n    vector<int> next = nextSmaller(heights);\n\n    int ans = INT_MIN;\n    for (int i = 0; i < heights.size(); i++) {\n        ans = max(ans, (next[i] - prev[i] - 1) * heights[i]);\n    }\n    return ans;\n}\n\n// Function to find the largest rectangle area in a binary matrix\nint maximalRectangle(vector<vector<char>>& matrix) {\n    if (matrix.empty() || matrix[0].empty())\n        return 0;\n\n    int rows = matrix.size();\n    int cols = matrix[0].size();\n    vector<int> prev(cols, 0);\n    int maxArea = 0;\n\n    for (int i = 0; i < rows; i++) {\n        vector<int> curr(cols, 0);\n        for (int j = 0; j < cols; j++) {\n            if (matrix[i][j] == '1')\n                curr[j] = prev[j] + 1;\n        }\n\n        int rowArea = largestRectangleArea(curr);\n        maxArea = max(maxArea, rowArea);\n\n        prev = curr;\n    }\n\n    return maxArea;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- Let n be the total number of elements in the matrix, and m be the number of columns.\n- The time complexity of the solution is O(n*m) because we iterate through each element of the matrix once.\n- The space complexity is O(m) since we use additional arrays to store the heights and indices during the calculation.\n  However, the space complexity can be considered O(1) if we modify the input matrix directly.\n*/\n\n",
+    "codeLines": 96,
+    "repoPath": "07.Stack and Queues/3. Monotonic Stack and Queue/09. Maximal Rectangle in binary matrix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/3.%20Monotonic%20Stack%20and%20Queue/09.%20Maximal%20Rectangle%20in%20binary%20matrix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximal-rectangle/",
+      "title": "Maximal Rectangle",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p173",
+    "index": 173,
+    "title": "Asteroids Collision",
+    "topic": "Stack and Queues",
+    "subtopic": "Monotonic Stack and Queue",
+    "difficulty": "Medium",
+    "question": "We are given an array of integers representing asteroids in a row. Each asteroid moves at the same speed.\nIf two asteroids meet, the smaller one will explode. If both are the same size, both will explode.\nFind out the state of the asteroids after all collisions.",
+    "approach": "To solve this problem, we can use a stack to simulate the asteroid collisions.\n1. We iterate through each asteroid in the given array.\n2. For each asteroid, we check if it will collide with the asteroids in the stack.\n   - If the current asteroid is moving to the right (positive direction), we simply push it onto the stack.\n   - If the current asteroid is moving to the left (negative direction), we compare its size with the asteroids in the stack.\n     - If the stack is empty or the top asteroid in the stack is also moving to the left, we push the current asteroid onto the stack.\n     - If the top asteroid in the stack is moving to the right and its size is smaller than the current asteroid, we pop the top asteroid from the stack and continue the comparison.\n     - If the top asteroid in the stack is moving to the right and its size is equal to or greater than the current asteroid, we do not push the current asteroid onto the stack and continue to the next asteroid.\n3. After processing all the asteroids, the remaining asteroids in the stack represent the final state after collisions.\n\nExample:\nInput: asteroids = [5,10,-5]\nOutput: [5,10]\nExplanation: The 10 and -5 collide resulting in 10. The 5 and 10 never collide.",
+    "pseudocode": "ALGORITHM  Asteroids Collision\nPATTERN    Monotonic stack\n\nBEGIN\n  01  To solve this problem, we can use a stack to simulate the asteroid collisions\n  02  We iterate through each asteroid in the given array\n  03  FOR EACH asteroid, we check if it will collide with the asteroids in the stack\n  04  IF the current asteroid is moving to the right (positive direction), we simply push it onto the stack\n  05  IF the current asteroid is moving to the left (negative direction), we compare its size with the asteroids in the stack\n  06  IF the stack is empty or the top asteroid in the stack is also moving to the left, we push the current asteroid onto the stack\n  07  IF the top asteroid in the stack is moving to the right and its size is smaller than the current asteroid, we pop the top asteroid from the stack and continue the comparison\n  08  IF the top asteroid in the stack is moving to the right and its size is equal to or greater than the current asteroid, we do not push the current asteroid onto the stack and continue to the next asteroid\n  09  After processing all the asteroids, the remaining asteroids in the stack represent the final state after collisions\n  10  Example:\n  11  Input: asteroids = [5,10,-5]\n  12  Output: [5,10]\n  13  Explanation: The 10 and -5 collide resulting in 10. The 5 and 10 never collide\n  14  RETURN the required result\nEND",
+    "time": "of the solution is O(n) because we iterate through each asteroid once",
+    "space": "O(n) because in the worst case, all asteroids can be stored in the stack",
+    "strategy": "Monotonic stack",
+    "tags": ["Stack and Queues", "Monotonic stack"],
+    "intuition": "Keep only candidates that can still become an answer. Removing dominated elements turns repeated scans for a nearer greater/smaller value into a linear pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Wrong strict/non-strict comparison",
+      "Incorrect duplicate ownership",
+      "Missing remaining-stack cleanup"
+    ],
+    "code": "/*\nQUESTION:\nWe are given an array of integers representing asteroids in a row. Each asteroid moves at the same speed.\nIf two asteroids meet, the smaller one will explode. If both are the same size, both will explode.\nFind out the state of the asteroids after all collisions.\n\nAPPROACH:\nTo solve this problem, we can use a stack to simulate the asteroid collisions.\n1. We iterate through each asteroid in the given array.\n2. For each asteroid, we check if it will collide with the asteroids in the stack.\n   - If the current asteroid is moving to the right (positive direction), we simply push it onto the stack.\n   - If the current asteroid is moving to the left (negative direction), we compare its size with the asteroids in the stack.\n     - If the stack is empty or the top asteroid in the stack is also moving to the left, we push the current asteroid onto the stack.\n     - If the top asteroid in the stack is moving to the right and its size is smaller than the current asteroid, we pop the top asteroid from the stack and continue the comparison.\n     - If the top asteroid in the stack is moving to the right and its size is equal to or greater than the current asteroid, we do not push the current asteroid onto the stack and continue to the next asteroid.\n3. After processing all the asteroids, the remaining asteroids in the stack represent the final state after collisions.\n\nExample:\nInput: asteroids = [5,10,-5]\nOutput: [5,10]\nExplanation: The 10 and -5 collide resulting in 10. The 5 and 10 never collide.\n\nCODE:\n*/\n\nvector<int> asteroidCollision(vector<int>& asteroids) {\n    stack<int> st;\n    for (int i = 0; i < asteroids.size(); i++) {\n        int siz = abs(asteroids[i]);\n        while (!st.empty() && (st.top() > 0 && asteroids[i] < 0) && (st.top() < siz)) {\n            st.pop();\n        }\n        // Check if same size asteroids collide\n        if (!st.empty() && (st.top() > 0 && asteroids[i] < 0) && st.top() == siz) {\n            st.pop();\n        }\n        else if (st.empty() || !(st.top() > 0 && asteroids[i] < 0)) {\n            st.push(asteroids[i]);\n        }\n    }\n    vector<int> ans;\n    while (!st.empty()) {\n        ans.push_back(st.top());\n        st.pop();\n    }\n    reverse(ans.begin(), ans.end());\n    return ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- Let n be the number of asteroids in the given array.\n- The time complexity of the solution is O(n) because we iterate through each asteroid once.\n- The space complexity is O(n) because in the worst case, all asteroids can be stored in the stack.\n*/\n",
+    "codeLines": 55,
+    "repoPath": "07.Stack and Queues/3. Monotonic Stack and Queue/10. Asteroids Collision.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/3.%20Monotonic%20Stack%20and%20Queue/10.%20Asteroids%20Collision.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/asteroid-collision/",
+      "title": "Asteroid Collision",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p174",
+    "index": 174,
+    "title": "Sliding window maximum",
+    "topic": "Stack and Queues",
+    "subtopic": "Implementation",
+    "difficulty": "Hard",
+    "question": "Given an array of integers nums and a sliding window of size k, we need to find the maximum element in each sliding window as it moves from left to right.",
+    "approach": "To solve this problem, we can use a deque (double-ended queue) to store the indices of elements in the current sliding window.\n1. We iterate through the first k elements and keep track of the maximum element by maintaining the following property:\n   - The deque stores the indices of elements in non-increasing order of their corresponding values in the nums array.\n   - If the current element is greater than or equal to the element at the back of the deque, we remove elements from the back until this condition is satisfied.\n   - This ensures that the front element of the deque is always the maximum element in the sliding window.\n2. After processing the first k elements, we start from the (k+1)th element and continue the following steps:\n   - If the index at the front of the deque is less than or equal to i-k, it means the maximum element in the previous sliding window is no longer valid. So, we remove it from the deque.\n   - Similar to step 1, we remove elements from the back of the deque until the current element is greater than or equal to the element at the back.\n   - Add the index of the current element to the deque.\n   - Add the maximum element (front of the deque) to the result for the current sliding window.\n3. Repeat step 2 until we process all elements in the nums array.\n\nExample:\nInput: nums = [1,3,-1,-3,5,3,6,7], k = 3\nOutput: [3,3,5,5,6,7]",
+    "pseudocode": "ALGORITHM  Sliding window maximum\nPATTERN    Sliding window\n\nBEGIN\n  01  To solve this problem, we can use a deque (double-ended queue) to store the indices of elements in the current sliding window\n  02  We iterate through the first k elements and keep track of the maximum element by maintaining the following property:\n  03  The deque stores the indices of elements in non-increasing order of their corresponding values in the nums array\n  04  IF the current element is greater than or equal to the element at the back of the deque, we remove elements from the back until this condition is satisfied\n  05  This ensures that the front element of the deque is always the maximum element in the sliding window\n  06  After processing the first k elements, we start from the (k+1)th element and continue the following steps:\n  07  IF the index at the front of the deque is less than or equal to i-k, it means the maximum element in the previous sliding window is no longer valid\n  08  So, we remove it from the deque\n  09  Similar to step 1, we remove elements from the back of the deque until the current element is greater than or equal to the element at the back\n  10  Add the index of the current element to the deque\n  11  Add the maximum element (front of the deque) to the result for the current sliding window\n  12  REPEAT step 2 until we process all elements in the nums array\n  13  Example:\n  14  Input: nums = [1,3,-1,-3,5,3,6,7], k = 3\n  15  RETURN the required result\nEND",
+    "time": "of the solution is O(n) because we iterate through each element once",
+    "space": "O(k) because the deque stores at most k elements at any given time",
+    "strategy": "Sliding window",
+    "tags": ["Stack and Queues", "Sliding window"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array of integers nums and a sliding window of size k, we need to find the maximum element in each sliding window as it moves from left to right.\n\nAPPROACH:\nTo solve this problem, we can use a deque (double-ended queue) to store the indices of elements in the current sliding window.\n1. We iterate through the first k elements and keep track of the maximum element by maintaining the following property:\n   - The deque stores the indices of elements in non-increasing order of their corresponding values in the nums array.\n   - If the current element is greater than or equal to the element at the back of the deque, we remove elements from the back until this condition is satisfied.\n   - This ensures that the front element of the deque is always the maximum element in the sliding window.\n2. After processing the first k elements, we start from the (k+1)th element and continue the following steps:\n   - If the index at the front of the deque is less than or equal to i-k, it means the maximum element in the previous sliding window is no longer valid. So, we remove it from the deque.\n   - Similar to step 1, we remove elements from the back of the deque until the current element is greater than or equal to the element at the back.\n   - Add the index of the current element to the deque.\n   - Add the maximum element (front of the deque) to the result for the current sliding window.\n3. Repeat step 2 until we process all elements in the nums array.\n\nExample:\nInput: nums = [1,3,-1,-3,5,3,6,7], k = 3\nOutput: [3,3,5,5,6,7]\n\nCODE:\n*/\n\nvector<int> maxSlidingWindow(vector<int>& nums, int k) {\n    deque<int> dq;\n    vector<int> ans;\n    \n    for (int i = 0; i < k; i++) {\n        while (!dq.empty() && nums[dq.back()] <= nums[i])\n            dq.pop_back();\n        dq.push_back(i);\n    }\n    \n    ans.push_back(nums[dq.front()]);\n    \n    for (int i = k; i < nums.size(); i++) {\n        if (dq.front() <= i - k)\n            dq.pop_front();\n        \n        while (!dq.empty() && nums[dq.back()] <= nums[i])\n            dq.pop_back();\n        \n        dq.push_back(i);\n        ans.push_back(nums[dq.front()]);\n    }\n    \n    return ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- Let n be the number of elements in the nums array.\n- The time complexity of the solution is O(n) because we iterate through each element once.\n- The space complexity is O(k) because the deque stores at most k elements at any given time.\n*/\n",
+    "codeLines": 56,
+    "repoPath": "07.Stack and Queues/4. Implementation/01. Sliding window maximum.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/4.%20Implementation/01.%20Sliding%20window%20maximum.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sliding-window-maximum/",
+      "title": "Sliding Window Maximum",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p175",
+    "index": 175,
+    "title": "Stock span problem",
+    "topic": "Stack and Queues",
+    "subtopic": "Implementation",
+    "difficulty": "Medium",
+    "question": "Design an algorithm to calculate the span of a stock's price for the current day based on the price history.",
+    "approach": "To solve this problem, we can use a stack to store the prices along with their corresponding spans.\n1. Initialize an empty stack and a variable to keep track of the current day (let's call it 'cnt').\n2. For each price, do the following:\n   - While the stack is not empty and the price at the top of the stack is less than or equal to the current price, pop elements from the stack.\n   - Calculate the span for the current price using the following formula:\n     - If the stack is empty, the span is cnt + 1.\n     - Otherwise, the span is cnt - stack.top().second, where stack.top().second represents the day corresponding to the price at the top of the stack.\n   - Push the current price along with its span (pair<int, int>) onto the stack.\n   - Increment the 'cnt' variable.\n3. Return the calculated spans.\n\nExample:\nInput: [100, 80, 60, 70, 60, 75, 85]\nOutput: [1, 1, 1, 2, 1, 4, 6]",
+    "pseudocode": "ALGORITHM  Stock span problem\nPATTERN    Stack / queue\n\nBEGIN\n  01  To solve this problem, we can use a stack to store the prices along with their corresponding spans\n  02  SET an empty stack and a variable to keep track of the current day (let's call it 'cnt')\n  03  FOR EACH price, do the following:\n  04  WHILE the stack is not empty and the price at the top of the stack is less than or equal to the current price, pop elements from the stack\n  05  Calculate the span for the current price using the following formula:\n  06  IF the stack is empty, the span is cnt + 1\n  07  ELSE the span is cnt - stack.top().second, where stack.top().second represents the day corresponding to the price at the top of the stack\n  08  Push the current price along with its span (pair<int, int>) onto the stack\n  09  Increment the 'cnt' variable\n  10  RETURN the calculated spans\n  11  Example:\n  12  Input: [100, 80, 60, 70, 60, 75, 85]\n  13  Output: [1, 1, 1, 2, 1, 4, 6]\nEND",
+    "time": "for each 'next' operation is O(1) on average because each price is pushed and popped from the stack at most once",
+    "space": "O(n), where n is the number of prices, because the stack can store at most n elements",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nDesign an algorithm to calculate the span of a stock's price for the current day based on the price history.\n\nAPPROACH:\nTo solve this problem, we can use a stack to store the prices along with their corresponding spans.\n1. Initialize an empty stack and a variable to keep track of the current day (let's call it 'cnt').\n2. For each price, do the following:\n   - While the stack is not empty and the price at the top of the stack is less than or equal to the current price, pop elements from the stack.\n   - Calculate the span for the current price using the following formula:\n     - If the stack is empty, the span is cnt + 1.\n     - Otherwise, the span is cnt - stack.top().second, where stack.top().second represents the day corresponding to the price at the top of the stack.\n   - Push the current price along with its span (pair<int, int>) onto the stack.\n   - Increment the 'cnt' variable.\n3. Return the calculated spans.\n\nExample:\nInput: [100, 80, 60, 70, 60, 75, 85]\nOutput: [1, 1, 1, 2, 1, 4, 6]\n\nCODE:\n*/\n\nclass StockSpanner {\npublic:\n    stack<pair<int, int>> st;\n    int cnt;\n\n    StockSpanner() {\n        cnt = 0;\n    }\n    \n    int next(int price) {\n        while (!st.empty() && st.top().first <= price)\n            st.pop();\n        \n        int ans = 1;\n        \n        if (!st.empty())\n            ans = cnt - st.top().second;\n        else\n            ans = cnt + 1;\n        \n        st.push({price, cnt});\n        cnt++;\n        \n        return ans;\n    }\n};\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity for each 'next' operation is O(1) on average because each price is pushed and popped from the stack at most once.\n- The space complexity is O(n), where n is the number of prices, because the stack can store at most n elements.\n*/\n\n",
+    "codeLines": 56,
+    "repoPath": "07.Stack and Queues/4. Implementation/02. Stock span problem.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/4.%20Implementation/02.%20Stock%20span%20problem.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/online-stock-span/",
+      "title": "Online Stock Span",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p176",
+    "index": 176,
+    "title": "Celebrity Problem",
+    "topic": "Stack and Queues",
+    "subtopic": "Implementation",
+    "difficulty": "Medium",
+    "question": "Given a square NxN matrix representing people at a party, determine if there is a celebrity in the party. A celebrity is defined as a person who is known to all but does not know anyone at the party.",
+    "approach": "To solve this problem, we can use a stack to keep track of potential celebrity candidates.\n1. Initially, push all the people (indices) onto the stack.\n2. While the stack size is greater than 1, do the following:\n   - Pop two people 'a' and 'b' from the stack.\n   - Check if 'a' knows 'b' and 'b' does not know 'a'. If true, push 'b' back onto the stack.\n   - Check if 'b' knows 'a' and 'a' does not know 'b'. If true, push 'a' back onto the stack.\n3. After the above loop, if the stack is empty, there is no celebrity, so return -1.\n4. Otherwise, get the potential celebrity from the top of the stack.\n5. Check if the potential celebrity is known by everyone else and does not know anyone else.\n   - If true, return the potential celebrity index.\n   - If false, return -1.\n\nExample:\nInput: N = 3, M[][] = {{0, 1, 0}, {0, 0, 0}, {0, 1, 0}}\nOutput: 1\nExplanation: Both person 0 and person 2 know person 1. Therefore, person 1 is the celebrity.",
+    "pseudocode": "ALGORITHM  Celebrity Problem\nPATTERN    Stack / queue\n\nBEGIN\n  01  To solve this problem, we can use a stack to keep track of potential celebrity candidates\n  02  Initially, push all the people (indices) onto the stack\n  03  WHILE the stack size is greater than 1, do the following:\n  04  Pop two people 'a' and 'b' from the stack\n  05  Check if 'a' knows 'b' and 'b' does not know 'a'. If true, push 'b' back onto the stack\n  06  Check if 'b' knows 'a' and 'a' does not know 'b'. If true, push 'a' back onto the stack\n  07  After the above loop, if the stack is empty, there is no celebrity, so return -1\n  08  ELSE get the potential celebrity from the top of the stack\n  09  Check if the potential celebrity is known by everyone else and does not know anyone else\n  10  IF true, return the potential celebrity index\n  11  IF false, return -1\n  12  Example:\n  13  Input: N = 3, M[][] = {{0, 1, 0}, {0, 0, 0}, {0, 1, 0}}\n  14  Output: 1\n  15  RETURN the required result\nEND",
+    "time": "O(N) because each person is pushed onto and popped from the stack at most once",
+    "space": "O(N) because the stack can store at most N elements",
+    "strategy": "Stack / queue",
+    "tags": ["Stack and Queues", "Stack / queue", "Matrix / grid"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven a square NxN matrix representing people at a party, determine if there is a celebrity in the party. A celebrity is defined as a person who is known to all but does not know anyone at the party.\n\nAPPROACH:\nTo solve this problem, we can use a stack to keep track of potential celebrity candidates.\n1. Initially, push all the people (indices) onto the stack.\n2. While the stack size is greater than 1, do the following:\n   - Pop two people 'a' and 'b' from the stack.\n   - Check if 'a' knows 'b' and 'b' does not know 'a'. If true, push 'b' back onto the stack.\n   - Check if 'b' knows 'a' and 'a' does not know 'b'. If true, push 'a' back onto the stack.\n3. After the above loop, if the stack is empty, there is no celebrity, so return -1.\n4. Otherwise, get the potential celebrity from the top of the stack.\n5. Check if the potential celebrity is known by everyone else and does not know anyone else.\n   - If true, return the potential celebrity index.\n   - If false, return -1.\n\nExample:\nInput: N = 3, M[][] = {{0, 1, 0}, {0, 0, 0}, {0, 1, 0}}\nOutput: 1\nExplanation: Both person 0 and person 2 know person 1. Therefore, person 1 is the celebrity.\n\nCODE:\n*/\n\nbool knows(int a, int b, vector<vector<int>>& M) {\n    return M[a][b];\n}\n\nint celebrity(vector<vector<int>>& M, int n) {\n    stack<int> st;\n    for (int i = 0; i < n; i++) {\n        st.push(i);\n    }\n\n    while (st.size() > 1) {\n        int a = st.top();\n        st.pop();\n        int b = st.top();\n        st.pop();\n\n        if (knows(a, b, M) && !knows(b, a, M))\n            st.push(b);\n        else if (knows(b, a, M) && !knows(a, b, M))\n            st.push(a);\n    }\n\n    if (st.empty())\n        return -1;\n\n    int potentialCeleb = st.top();\n\n    // Check if the potential celebrity is known by everyone else and does not know anyone else\n    for (int i = 0; i < n; i++) {\n        if (i != potentialCeleb && (M[i][potentialCeleb] == 0 || M[potentialCeleb][i] == 1))\n            return -1;\n    }\n\n    return potentialCeleb;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity is O(N) because each person is pushed onto and popped from the stack at most once.\n- The space complexity is O(N) because the stack can store at most N elements.\n*/\n",
+    "codeLines": 66,
+    "repoPath": "07.Stack and Queues/4. Implementation/03. Celebrity Problem.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/4.%20Implementation/03.%20Celebrity%20Problem.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-the-celebrity/",
+      "title": "Find the Celebrity",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": true
+    }
+  },
+  {
+    "id": "p177",
+    "index": 177,
+    "title": "LRU Cache",
+    "topic": "Stack and Queues",
+    "subtopic": "Implementation",
+    "difficulty": "Medium",
+    "question": "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.\n\nExample:\nLRUCache lRUCache = new LRUCache(2);\nlRUCache.put(1, 1); // cache is {1=1}\nlRUCache.put(2, 2); // cache is {1=1, 2=2}\nlRUCache.get(1);    // return 1\nlRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}\nlRUCache.get(2);    // returns -1 (not found)\nlRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}\nlRUCache.get(1);    // return -1 (not found)\nlRUCache.get(3);    // return 3\nlRUCache.get(4);    // return 4",
+    "approach": "To implement the LRU cache, we can use a combination of a hash map and a doubly linked list.\n- The hash map will store the key-value pairs, where the key is the cache key and the value is a pointer to the corresponding node in the linked list.\n- The doubly linked list will maintain the order of the recently used keys, where the front of the list represents the most recently used key and the back of the list represents the least recently used key.\n\nIMPLEMENTATION:\n1. Initialize the LRU cache with the given capacity.\n2. Implement the get(key) function:\n   - If the key exists in the cache, move the corresponding node to the front of the list (indicating it is the most recently used).\n   - Return the value of the key if it exists, otherwise return -1.\n3. Implement the put(key, value) function:\n   - If the key already exists in the cache, update its value and move the corresponding node to the front of the list.\n   - If the key does not exist:\n     - If the cache is full, remove the least recently used key (from the back of the list) and remove its entry from the hash map.\n     - Add the new key-value pair to the front of the list and insert its entry into the hash map.",
+    "pseudocode": "ALGORITHM  LRU Cache\nPATTERN    Hashing\n\nBEGIN\n  01  To implement the LRU cache, we can use a combination of a hash map and a doubly linked list\n  02  The hash map will store the key-value pairs, where the key is the cache key and the value is a pointer to the corresponding node in the linked list\n  03  The doubly linked list will maintain the order of the recently used keys, where the front of the list represents the most recently used key and the back of the list represents the least recently used key\n  04  IMPLEMENTATION:\n  05  SET the LRU cache with the given capacity\n  06  Implement the get(key) function:\n  07  IF the key exists in the cache, move the corresponding node to the front of the list (indicating it is the most recently used)\n  08  RETURN the value of the key if it exists, otherwise return -1\n  09  Implement the put(key, value) function:\n  10  IF the key already exists in the cache, update its value and move the corresponding node to the front of the list\n  11  IF the key does not exist:\n  12  IF the cache is full, remove the least recently used key (from the back of the list) and remove its entry from the hash map\n  13  Add the new key-value pair to the front of the list and insert its entry into the hash map\nEND",
+    "time": "of both the get() and put() operations is O(1) since we use a hash map to achieve constant time access and update",
+    "space": "O(capacity) since the cache can store at most 'capacity' key-value pairs",
+    "strategy": "Hashing",
+    "tags": ["Stack and Queues", "Hashing"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*\nQUESTION:\nDesign a data structure that follows the constraints of a Least Recently Used (LRU) cache.\n\n\nExample:\nLRUCache lRUCache = new LRUCache(2);\nlRUCache.put(1, 1); // cache is {1=1}\nlRUCache.put(2, 2); // cache is {1=1, 2=2}\nlRUCache.get(1);    // return 1\nlRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}\nlRUCache.get(2);    // returns -1 (not found)\nlRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}\nlRUCache.get(1);    // return -1 (not found)\nlRUCache.get(3);    // return 3\nlRUCache.get(4);    // return 4\n\n\nAPPROACH:\nTo implement the LRU cache, we can use a combination of a hash map and a doubly linked list.\n- The hash map will store the key-value pairs, where the key is the cache key and the value is a pointer to the corresponding node in the linked list.\n- The doubly linked list will maintain the order of the recently used keys, where the front of the list represents the most recently used key and the back of the list represents the least recently used key.\n\nIMPLEMENTATION:\n1. Initialize the LRU cache with the given capacity.\n2. Implement the get(key) function:\n   - If the key exists in the cache, move the corresponding node to the front of the list (indicating it is the most recently used).\n   - Return the value of the key if it exists, otherwise return -1.\n3. Implement the put(key, value) function:\n   - If the key already exists in the cache, update its value and move the corresponding node to the front of the list.\n   - If the key does not exist:\n     - If the cache is full, remove the least recently used key (from the back of the list) and remove its entry from the hash map.\n     - Add the new key-value pair to the front of the list and insert its entry into the hash map.\n\nCODE:\n*/\n\nclass LRUCache {\nprivate:\n    int capacity;\n    unordered_map<int, list<pair<int, int>>::iterator> addr;\n    list<pair<int, int>> lru;\n\npublic:\n    LRUCache(int capacity) {\n        this->capacity = capacity;\n    }\n\n    int get(int key) {\n        if (addr.find(key) == addr.end())\n            return -1; // Key not found\n\n        auto keyPos = addr[key];\n        lru.splice(lru.begin(), lru, keyPos);\n        return lru.front().second;\n    }\n\n    void put(int key, int value) {\n        // If the key already exists, update its value and move it to the front\n        if (addr.find(key) != addr.end()) {\n            auto keyPos = addr[key];\n            lru.splice(lru.begin(), lru, keyPos);\n            lru.front().second = value;\n            return;\n        }\n\n        // If the capacity is full, remove the least recently used key\n        if (addr.size() == capacity) {\n            int backKey = lru.back().first;\n            lru.pop_back();\n            addr.erase(backKey);\n        }\n\n        lru.push_front({key, value});\n        addr[key] = lru.begin();\n    }\n};\n\n/*\nCOMPLEXITY ANALYSIS:\n- The time complexity of both the get() and put() operations is O(1) since we use a hash map to achieve constant time access and update.\n- The space complexity is O(capacity) since the cache can store at most 'capacity' key-value pairs.\n*/\n",
+    "codeLines": 83,
+    "repoPath": "07.Stack and Queues/4. Implementation/04. LRU Cache.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/07.Stack%20and%20Queues/4.%20Implementation/04.%20LRU%20Cache.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/lru-cache/",
+      "title": "LRU Cache",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  }
+]

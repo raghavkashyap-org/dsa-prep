@@ -1,0 +1,690 @@
+[
+  {
+    "id": "p189",
+    "index": 189,
+    "title": "Implement min heap",
+    "topic": "Heaps",
+    "subtopic": "Learning",
+    "difficulty": "Foundation",
+    "question": "Implement a min heap with all the required methods.",
+    "approach": "A min heap is a binary tree-based data structure where the value of each parent node is less than or equal to the values of its children. The heapify operation is used to maintain the heap property, where a node is compared with its children and swapped if necessary.\n\nIn the given code, the minHeap class is implemented using a vector to store the elements. The heapify function is used to maintain the heap property by comparing the node with its left and right children and swapping if necessary. The bottomUpHeapify function is used to fix the heap property from a child node to its parent node.\n\nThe insert function adds an element to the heap by appending it to the vector and performing bottom-up heapification. The removeMin function removes the minimum element from the heap by replacing it with the last element, removing the last element, and then performing heapify. The minElement function returns the minimum element of the heap.",
+    "pseudocode": "ALGORITHM  Implement min heap\nPATTERN    Heap / priority queue\n\nBEGIN\n  01  A min heap is a binary tree-based data structure where the value of each parent node is less than or equal to the values of its children\n  02  The heapify operation is used to maintain the heap property, where a node is compared with its children and swapped if necessary\n  03  In the given code, the minHeap class is implemented using a vector to store the elements\n  04  The heapify function is used to maintain the heap property by comparing the node with its left and right children and swapping if necessary\n  05  The bottomUpHeapify function is used to fix the heap property from a child node to its parent node\n  06  The insert function adds an element to the heap by appending it to the vector and performing bottom-up heapification\n  07  The removeMin function removes the minimum element from the heap by replacing it with the last element, removing the last element, and then performing heapify\n  08  The minElement function returns the minimum element of the heap\n  09  RETURN the required result\nEND",
+    "time": ", where n is the number of elements in the heap",
+    "space": "Not explicitly stated in the source file",
+    "strategy": "Heap / priority queue",
+    "tags": ["Heaps", "Heap / priority queue"],
+    "intuition": "Keep the most relevant candidate at the top while avoiding a full sort. Bound the heap when only the best k values matter.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nImplement a min heap with all the required methods.\n\nAPPROACH:\nA min heap is a binary tree-based data structure where the value of each parent node is less than or equal to the values of its children. The heapify operation is used to maintain the heap property, where a node is compared with its children and swapped if necessary.\n\nIn the given code, the minHeap class is implemented using a vector to store the elements. The heapify function is used to maintain the heap property by comparing the node with its left and right children and swapping if necessary. The bottomUpHeapify function is used to fix the heap property from a child node to its parent node.\n\nThe insert function adds an element to the heap by appending it to the vector and performing bottom-up heapification. The removeMin function removes the minimum element from the heap by replacing it with the last element, removing the last element, and then performing heapify. The minElement function returns the minimum element of the heap.\n\nCOMPLEXITY ANALYSIS:\n- The heapify operation takes O(log n) time complexity, where n is the number of elements in the heap.\n- The bottomUpHeapify operation also takes O(log n) time complexity.\n- The insert operation takes O(log n) time complexity.\n- The removeMin operation takes O(log n) time complexity.\n- The minElement operation takes O(1) time complexity.\n\nOverall, the time complexity of the minHeap class methods is O(log n), where n is the number of elements in the heap.\n\nCODE:-\n*/\n\n\nclass minHeap {\npublic:\n    vector<int> pq;\n\n    // Function to heapify the heap.\n    void heapify(int node) {\n        int leftChild = (2 * node) + 1;\n        int rightChild = (2 * node) + 2;\n        int smallest = node;\n\n        if (leftChild < pq.size() && pq[leftChild] < pq[smallest])\n            smallest = leftChild;\n\n        if (rightChild < pq.size() && pq[rightChild] < pq[smallest])\n            smallest = rightChild;\n\n        if (smallest != node) {\n            swap(pq[node], pq[smallest]);\n            heapify(smallest);\n        }\n    }\n\n    void bottomUpHeapify(int node) {\n        int parent = (node - 1) / 2;\n        if (parent >= 0 && pq[parent] > pq[node]) {\n            swap(pq[parent], pq[node]);\n            bottomUpHeapify(parent);\n        }\n    }\n\n    // Function to insert 'val' in the heap.\n    void insert(int val) {\n        pq.push_back(val);\n        bottomUpHeapify(pq.size() - 1);\n    }\n\n    // Function to remove the minimum element.\n    void removeMin() {\n        pq[0] = pq.back();\n        pq.pop_back();\n        heapify(0);\n    }\n\n    // Function to return the minimum element.\n    int minElement() {\n        return (pq.empty()) ? -1 : pq[0];\n    }\n};\n",
+    "codeLines": 72,
+    "repoPath": "09. Heaps/1. Learning/01. Implement min heap.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/1.%20Learning/01.%20Implement%20min%20heap.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/last-stone-weight/",
+      "title": "Last Stone Weight",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p190",
+    "index": 190,
+    "title": "Check if array is heap",
+    "topic": "Heaps",
+    "subtopic": "Learning",
+    "difficulty": "Foundation",
+    "question": "Given an array A of size N, the task is to check if the given array represents a Binary Max Heap.",
+    "approach": "1. Start from the root node and recursively check if the current node satisfies the max-heap property.\n2. The max-heap property states that every node should be greater than all of its descendants.\n3. Check if the current node is greater than its left and right children.\n4. Recursively check the max-heap property for the left and right subtrees.\n5. If the current node is greater and the left and right subtrees also satisfy the max-heap property, then the array represents a binary max heap.\n\nThe solve function is implemented to recursively check the max-heap property for each node. It checks if the current node is greater than its left and right children. If the current node is greater and the left and right subtrees also satisfy the max-heap property, then the array represents a binary max heap.\n\nThe isMaxHeap function is the main function that calls the solve function with the root node (index 0) and the size of the array. It returns true if the array represents a binary max heap, and false otherwise.",
+    "pseudocode": "ALGORITHM  Check if array is heap\nPATTERN    Heap / priority queue\n\nBEGIN\n  01  Start from the root node and recursively check if the current node satisfies the max-heap property\n  02  The max-heap property states that every node should be greater than all of its descendants\n  03  Check if the current node is greater than its left and right children\n  04  Recursively check the max-heap property for the left and right subtrees\n  05  IF the current node is greater and the left and right subtrees also satisfy the max-heap property, then the array represents a binary max heap\n  06  The solve function is implemented to recursively check the max-heap property for each node\n  07  It checks if the current node is greater than its left and right children\n  08  IF the current node is greater and the left and right subtrees also satisfy the max-heap property, then the array represents a binary max heap\n  09  The isMaxHeap function is the main function that calls the solve function with the root node (index 0) and the size of the array\n  10  It returns true if the array represents a binary max heap, and false otherwise\n  11  RETURN the required result\nEND",
+    "time": "The time complexity of the isMaxHeap function is O(N), where N is the size of the array. This is because we need to check the max-heap property for each node in the array",
+    "space": "The space complexity is O(N) due to the recursive calls in the solve function",
+    "strategy": "Heap / priority queue",
+    "tags": ["Heaps", "Heap / priority queue"],
+    "intuition": "Keep the most relevant candidate at the top while avoiding a full sort. Bound the heap when only the best k values matter.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array A of size N, the task is to check if the given array represents a Binary Max Heap.\n\nAPPROACH:\n1. Start from the root node and recursively check if the current node satisfies the max-heap property.\n2. The max-heap property states that every node should be greater than all of its descendants.\n3. Check if the current node is greater than its left and right children.\n4. Recursively check the max-heap property for the left and right subtrees.\n5. If the current node is greater and the left and right subtrees also satisfy the max-heap property, then the array represents a binary max heap.\n\nThe solve function is implemented to recursively check the max-heap property for each node. It checks if the current node is greater than its left and right children. If the current node is greater and the left and right subtrees also satisfy the max-heap property, then the array represents a binary max heap.\n\nThe isMaxHeap function is the main function that calls the solve function with the root node (index 0) and the size of the array. It returns true if the array represents a binary max heap, and false otherwise.\n\nTIME COMPLEXITY:\nThe time complexity of the isMaxHeap function is O(N), where N is the size of the array. This is because we need to check the max-heap property for each node in the array.\n\nSPACE COMPLEXITY:\nThe space complexity is O(N) due to the recursive calls in the solve function.\n*/\n\nbool solve(int a[], int node, int n) {\n    if (node >= n)\n        return true;\n\n    int left = (2 * node) + 1;\n    int right = (2 * node) + 2;\n\n    return (solve(a, left, n) && solve(a, right, n) && (a[node] > a[left] && a[node] > a[right]));\n}\n\nbool isMaxHeap(int a[], int n) {\n    return solve(a, 0, n);\n}\n",
+    "codeLines": 35,
+    "repoPath": "09. Heaps/1. Learning/02. Check if array is heap.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/1.%20Learning/02.%20Check%20if%20array%20is%20heap.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/last-stone-weight/",
+      "title": "Last Stone Weight",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p191",
+    "index": 191,
+    "title": "Convert min heap to max heap",
+    "topic": "Heaps",
+    "subtopic": "Learning",
+    "difficulty": "Foundation",
+    "question": "You are given an array arr of N integers representing a min Heap. The task is to convert it to a max Heap.\n\nA max-heap is a complete binary tree in which the value in each internal node is greater than or equal to the values in the children of that node.",
+    "approach": "To convert a min-heap to a max-heap, we need to rearrange the elements of the array in such a way that the max-heap property is satisfied.\n1. Start from the last internal node of the heap (N/2 - 1) and perform heapify on each internal node.\n2. Heapify a node by comparing it with its left and right children and swapping if necessary.\n3. Continue this process for all internal nodes until the entire heap is converted to a max-heap.\n\nThe heapify function is implemented to compare a node with its left and right children and swap if necessary to satisfy the max-heap property.\n\nThe convertMinToMaxHeap function is the main function that converts the given min-heap to a max-heap. It starts from the last internal node (N/2 - 1) and performs heapify on each internal node.",
+    "pseudocode": "ALGORITHM  Convert min heap to max heap\nPATTERN    Heap / priority queue\n\nBEGIN\n  01  To convert a min-heap to a max-heap, we need to rearrange the elements of the array in such a way that the max-heap property is satisfied\n  02  Start from the last internal node of the heap (N/2 - 1) and perform heapify on each internal node\n  03  Heapify a node by comparing it with its left and right children and swapping if necessary\n  04  Continue this process for all internal nodes until the entire heap is converted to a max-heap\n  05  The heapify function is implemented to compare a node with its left and right children and swap if necessary to satisfy the max-heap property\n  06  The convertMinToMaxHeap function is the main function that converts the given min-heap to a max-heap\n  07  It starts from the last internal node (N/2 - 1) and performs heapify on each internal node\n  08  RETURN the required result\nEND",
+    "time": "The time complexity of the convertMinToMaxHeap function is O(N), where N is the size of the array. This is because we need to perform heapify on each internal node of the heap",
+    "space": "The space complexity is O(1) as no extra space is used in the conversion process",
+    "strategy": "Heap / priority queue",
+    "tags": ["Heaps", "Heap / priority queue"],
+    "intuition": "Keep the most relevant candidate at the top while avoiding a full sort. Bound the heap when only the best k values matter.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nYou are given an array arr of N integers representing a min Heap. The task is to convert it to a max Heap.\n\nA max-heap is a complete binary tree in which the value in each internal node is greater than or equal to the values in the children of that node.\n\nAPPROACH:\nTo convert a min-heap to a max-heap, we need to rearrange the elements of the array in such a way that the max-heap property is satisfied.\n1. Start from the last internal node of the heap (N/2 - 1) and perform heapify on each internal node.\n2. Heapify a node by comparing it with its left and right children and swapping if necessary.\n3. Continue this process for all internal nodes until the entire heap is converted to a max-heap.\n\nThe heapify function is implemented to compare a node with its left and right children and swap if necessary to satisfy the max-heap property.\n\nThe convertMinToMaxHeap function is the main function that converts the given min-heap to a max-heap. It starts from the last internal node (N/2 - 1) and performs heapify on each internal node.\n\nTIME COMPLEXITY:\nThe time complexity of the convertMinToMaxHeap function is O(N), where N is the size of the array. This is because we need to perform heapify on each internal node of the heap.\n\nSPACE COMPLEXITY:\nThe space complexity is O(1) as no extra space is used in the conversion process.\n*/\n\nvoid heapify(vector<int>& arr, int node) {\n    int left = (2 * node) + 1;\n    int right = (2 * node) + 2;\n    int largest = node;\n    int n = arr.size();\n\n    if (left < n && arr[left] > arr[largest])\n        largest = left;\n\n    if (right < n && arr[right] > arr[largest])\n        largest = right;\n\n    if (largest != node) {\n        swap(arr[node], arr[largest]);\n        heapify(arr, largest);\n    }\n}\n\nvoid convertMinToMaxHeap(vector<int>& arr, int N) {\n    for (int i = (N / 2) - 1; i >= 0; i--) {\n        heapify(arr, i);\n    }\n}\n",
+    "codeLines": 46,
+    "repoPath": "09. Heaps/1. Learning/03. Convert min heap to max heap.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/1.%20Learning/03.%20Convert%20min%20heap%20to%20max%20heap.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/last-stone-weight/",
+      "title": "Last Stone Weight",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p192",
+    "index": 192,
+    "title": "Kth largest element",
+    "topic": "Heaps",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given an integer array nums and an integer k, return the kth largest element in the array.",
+    "approach": "To find the kth largest element in the array, we can use a min-heap of size k.\n1. Initialize a min-heap (priority queue) of size k.\n2. Insert the first k elements of the array into the min-heap.\n3. For the remaining elements in the array, if an element is larger than the top element of the min-heap, replace the top element with the current element and heapify to maintain the min-heap property.\n4. After processing all the elements, the top element of the min-heap will be the kth largest element in the array.\n\nThe findKthLargest function implements this approach. It uses a min-heap (priority queue) to find the kth largest element in the array without sorting the entire array.",
+    "pseudocode": "ALGORITHM  Kth largest element\nPATTERN    Dijkstra / shortest path\n\nBEGIN\n  01  To find the kth largest element in the array, we can use a min-heap of size k\n  02  SET a min-heap (priority queue) of size k\n  03  Insert the first k elements of the array into the min-heap\n  04  For the remaining elements in the array, if an element is larger than the top element of the min-heap, replace the top element with the current element and heapify to maintain the min-heap property\n  05  After processing all the elements, the top element of the min-heap will be the kth largest element in the array\n  06  The findKthLargest function implements this approach. It uses a min-heap (priority queue) to find the kth largest element in the array without sorting the entire array\n  07  RETURN the required result\nEND",
+    "time": "The time complexity of the findKthLargest function is O(N log k), where N is the size of the array. Inserting elements into the min-heap and heapifying take O(log k) time, and we do this for N-k elements. The overall time complexity is dominated by the heap op",
+    "space": "The space complexity is O(k) as we need to store k elements in the min-heap",
+    "strategy": "Dijkstra / shortest path",
+    "tags": ["Heaps", "Dijkstra / shortest path"],
+    "intuition": "Always expand the not-yet-finalized state with minimum known distance, then relax outgoing edges. Stale priority-queue entries can be skipped safely.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Using Dijkstra with negative edges",
+      "Not skipping stale heap entries",
+      "Using int for large distances"
+    ],
+    "code": "/*\nQUESTION:\nGiven an integer array nums and an integer k, return the kth largest element in the array.\n\nAPPROACH:\nTo find the kth largest element in the array, we can use a min-heap of size k.\n1. Initialize a min-heap (priority queue) of size k.\n2. Insert the first k elements of the array into the min-heap.\n3. For the remaining elements in the array, if an element is larger than the top element of the min-heap, replace the top element with the current element and heapify to maintain the min-heap property.\n4. After processing all the elements, the top element of the min-heap will be the kth largest element in the array.\n\nThe findKthLargest function implements this approach. It uses a min-heap (priority queue) to find the kth largest element in the array without sorting the entire array.\n\nTIME COMPLEXITY:\nThe time complexity of the findKthLargest function is O(N log k), where N is the size of the array. Inserting elements into the min-heap and heapifying take O(log k) time, and we do this for N-k elements. The overall time complexity is dominated by the heap operations.\n\nSPACE COMPLEXITY:\nThe space complexity is O(k) as we need to store k elements in the min-heap.\n*/\n\nint findKthLargest(vector<int>& nums, int k) {\n    priority_queue<int, vector<int>, greater<int>> pq;\n    for (int i = 0; i < k; i++) {\n        pq.push(nums[i]);\n    }\n    for (int i = k; i < nums.size(); i++) {\n        if (nums[i] > pq.top()) {\n            pq.pop();\n            pq.push(nums[i]);\n        }\n    }\n    return pq.top();\n}\n",
+    "codeLines": 33,
+    "repoPath": "09. Heaps/2. Medium Problems/01. Kth largest element.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/2.%20Medium%20Problems/01.%20Kth%20largest%20element.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+      "title": "Kth Largest Element in an Array",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p193",
+    "index": 193,
+    "title": "Kth smallest element",
+    "topic": "Heaps",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given an array arr[] and an integer K, where K is smaller than the size of the array, the task is to find the Kth smallest element in the given array. It is given that all array elements are distinct.",
+    "approach": "To find the Kth smallest element in the array, we can use a max-heap of size K.\n1. Initialize a max-heap (priority queue) of size K.\n2. Insert the first K elements of the array into the max-heap.\n3. For the remaining elements in the array, if an element is smaller than the top element of the max-heap, replace the top element with the current element and heapify to maintain the max-heap property.\n4. After processing all the elements, the top element of the max-heap will be the Kth smallest element in the array.\n\nThe findKthLargest function implements this approach. It uses a max-heap (priority queue) to find the Kth smallest element in the array without sorting the entire array.",
+    "pseudocode": "ALGORITHM  Kth smallest element\nPATTERN    Dijkstra / shortest path\n\nBEGIN\n  01  To find the Kth smallest element in the array, we can use a max-heap of size K\n  02  SET a max-heap (priority queue) of size K\n  03  Insert the first K elements of the array into the max-heap\n  04  For the remaining elements in the array, if an element is smaller than the top element of the max-heap, replace the top element with the current element and heapify to maintain the max-heap property\n  05  After processing all the elements, the top element of the max-heap will be the Kth smallest element in the array\n  06  The findKthLargest function implements this approach. It uses a max-heap (priority queue) to find the Kth smallest element in the array without sorting the entire array\n  07  RETURN the required result\nEND",
+    "time": "The time complexity of the findKthLargest function is O(N log K), where N is the size of the array. Inserting elements into the max-heap and heapifying take O(log K) time, and we do this for N-K elements. The overall time complexity is dominated by the heap op",
+    "space": "The space complexity is O(K) as we need to store K elements in the max-heap",
+    "strategy": "Dijkstra / shortest path",
+    "tags": ["Heaps", "Dijkstra / shortest path"],
+    "intuition": "Always expand the not-yet-finalized state with minimum known distance, then relax outgoing edges. Stale priority-queue entries can be skipped safely.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Using Dijkstra with negative edges",
+      "Not skipping stale heap entries",
+      "Using int for large distances"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array arr[] and an integer K, where K is smaller than the size of the array, the task is to find the Kth smallest element in the given array. It is given that all array elements are distinct.\n\nAPPROACH:\nTo find the Kth smallest element in the array, we can use a max-heap of size K.\n1. Initialize a max-heap (priority queue) of size K.\n2. Insert the first K elements of the array into the max-heap.\n3. For the remaining elements in the array, if an element is smaller than the top element of the max-heap, replace the top element with the current element and heapify to maintain the max-heap property.\n4. After processing all the elements, the top element of the max-heap will be the Kth smallest element in the array.\n\nThe findKthLargest function implements this approach. It uses a max-heap (priority queue) to find the Kth smallest element in the array without sorting the entire array.\n\nTIME COMPLEXITY:\nThe time complexity of the findKthLargest function is O(N log K), where N is the size of the array. Inserting elements into the max-heap and heapifying take O(log K) time, and we do this for N-K elements. The overall time complexity is dominated by the heap operations.\n\nSPACE COMPLEXITY:\nThe space complexity is O(K) as we need to store K elements in the max-heap.\n*/\n\nint findKthSmallest(vector<int>& arr, int K) {\n    priority_queue<int> pq;\n    for (int i = 0; i < K; i++) {\n        pq.push(arr[i]);\n    }\n    for (int i = K; i < arr.size(); i++) {\n        if (arr[i] < pq.top()) {\n            pq.pop();\n            pq.push(arr[i]);\n        }\n    }\n    return pq.top();\n}\n",
+    "codeLines": 33,
+    "repoPath": "09. Heaps/2. Medium Problems/02. Kth smallest element.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/2.%20Medium%20Problems/02.%20Kth%20smallest%20element.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/",
+      "title": "Kth Smallest Element in a Sorted Matrix",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p194",
+    "index": 194,
+    "title": "Merge K sorted arrays",
+    "topic": "Heaps",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given K sorted arrays arranged in the form of a matrix of size K*K, the task is to merge them into one sorted array.",
+    "approach": "To merge K sorted arrays, we can use a min-heap (priority queue) to store the smallest elements from each array.\n1. Create a min-heap of size K to store the current smallest elements from each array.\n2. Initialize the min-heap with the first element from each array.\n3. While the min-heap is not empty, extract the smallest element from the min-heap, add it to the merged array, and replace it with the next element from the same array.\n4. Repeat step 3 until all elements from all arrays are processed.\n\nThe mergeKArrays function implements this approach. It uses a min-heap (priority queue) to merge K sorted arrays into one sorted array.",
+    "pseudocode": "ALGORITHM  Merge K sorted arrays\nPATTERN    Dijkstra / shortest path\n\nBEGIN\n  01  To merge K sorted arrays, we can use a min-heap (priority queue) to store the smallest elements from each array\n  02  SET a min-heap of size K to store the current smallest elements from each array\n  03  SET the min-heap with the first element from each array\n  04  WHILE the min-heap is not empty, extract the smallest element from the min-heap, add it to the merged array, and replace it with the next element from the same array\n  05  REPEAT step 3 until all elements from all arrays are processed\n  06  The mergeKArrays function implements this approach. It uses a min-heap (priority queue) to merge K sorted arrays into one sorted array\n  07  RETURN the required result\nEND",
+    "time": "The time complexity of the mergeKArrays function is O(K^2 log K), where K is the size of each array. Inserting elements into the min-heap and extracting the minimum element take O(log K) time, and we do this for K^2 elements. The overall time complexity is dom",
+    "space": "The space complexity is O(K) as we need to store K elements in the min-heap",
+    "strategy": "Dijkstra / shortest path",
+    "tags": ["Heaps", "Dijkstra / shortest path", "Matrix / grid"],
+    "intuition": "Always expand the not-yet-finalized state with minimum known distance, then relax outgoing edges. Stale priority-queue entries can be skipped safely.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Using Dijkstra with negative edges",
+      "Not skipping stale heap entries",
+      "Using int for large distances"
+    ],
+    "code": "/*\nQUESTION:\nGiven K sorted arrays arranged in the form of a matrix of size K*K, the task is to merge them into one sorted array.\n\nAPPROACH:\nTo merge K sorted arrays, we can use a min-heap (priority queue) to store the smallest elements from each array.\n1. Create a min-heap of size K to store the current smallest elements from each array.\n2. Initialize the min-heap with the first element from each array.\n3. While the min-heap is not empty, extract the smallest element from the min-heap, add it to the merged array, and replace it with the next element from the same array.\n4. Repeat step 3 until all elements from all arrays are processed.\n\nThe mergeKArrays function implements this approach. It uses a min-heap (priority queue) to merge K sorted arrays into one sorted array.\n\nTIME COMPLEXITY:\nThe time complexity of the mergeKArrays function is O(K^2 log K), where K is the size of each array. Inserting elements into the min-heap and extracting the minimum element take O(log K) time, and we do this for K^2 elements. The overall time complexity is dominated by the heap operations.\n\nSPACE COMPLEXITY:\nThe space complexity is O(K) as we need to store K elements in the min-heap.\n*/\n\ntypedef pair<int, pair<int, int>> triplet;\n\nvector<int> mergeKArrays(vector<vector<int>>& arr, int K) {\n    priority_queue<triplet, vector<triplet>, greater<triplet>> pq;\n    \n    for (int i = 0; i < K; i++) {\n        pq.push({arr[i][0], {i, 0}});\n    }\n    \n    vector<int> mergedArray;\n    \n    while (!pq.empty()) {\n        triplet mini = pq.top();\n        pq.pop();\n        \n        mergedArray.push_back(mini.first);\n        \n        int row = mini.second.first;\n        int col = mini.second.second;\n        \n        if (col + 1 < K) {\n            pq.push({arr[row][col + 1], {row, col + 1}});\n        }\n    }\n    \n    return mergedArray;\n}\n",
+    "codeLines": 47,
+    "repoPath": "09. Heaps/2. Medium Problems/03. Merge K sorted arrays.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/2.%20Medium%20Problems/03.%20Merge%20K%20sorted%20arrays.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-sorted-array/",
+      "title": "Merge Sorted Array",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p195",
+    "index": 195,
+    "title": "Merge K sorted Lists",
+    "topic": "Heaps",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.",
+    "approach": "To merge K sorted linked lists, we can use a min-heap (priority queue) to store the smallest nodes from each list.\n1. Create a min-heap of size K to store the current smallest nodes from each list.\n2. Initialize the min-heap with the head node from each list.\n3. While the min-heap is not empty, extract the smallest node from the min-heap, add it to the merged linked list, and replace it with the next node from the same list.\n4. Repeat step 3 until all nodes from all lists are processed.\n\nThe mergeKLists function implements this approach. It uses a min-heap (priority queue) to merge K sorted linked lists into one sorted linked list.",
+    "pseudocode": "ALGORITHM  Merge K sorted Lists\nPATTERN    Dijkstra / shortest path\n\nBEGIN\n  01  To merge K sorted linked lists, we can use a min-heap (priority queue) to store the smallest nodes from each list\n  02  SET a min-heap of size K to store the current smallest nodes from each list\n  03  SET the min-heap with the head node from each list\n  04  WHILE the min-heap is not empty, extract the smallest node from the min-heap, add it to the merged linked list, and replace it with the next node from the same list\n  05  REPEAT step 3 until all nodes from all lists are processed\n  06  The mergeKLists function implements this approach. It uses a min-heap (priority queue) to merge K sorted linked lists into one sorted linked list\n  07  RETURN the required result\nEND",
+    "time": "The time complexity of the mergeKLists function is O(N log K), where N is the total number of nodes across all lists and K is the number of linked lists. Inserting nodes into the min-heap and extracting the minimum node take O(log K) time, and we do this for N",
+    "space": "The space complexity is O(K) as we need to store K nodes in the min-heap",
+    "strategy": "Dijkstra / shortest path",
+    "tags": ["Heaps", "Dijkstra / shortest path"],
+    "intuition": "Always expand the not-yet-finalized state with minimum known distance, then relax outgoing edges. Stale priority-queue entries can be skipped safely.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Using Dijkstra with negative edges",
+      "Not skipping stale heap entries",
+      "Using int for large distances"
+    ],
+    "code": "/*\nQUESTION:\nYou are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.\n\nAPPROACH:\nTo merge K sorted linked lists, we can use a min-heap (priority queue) to store the smallest nodes from each list.\n1. Create a min-heap of size K to store the current smallest nodes from each list.\n2. Initialize the min-heap with the head node from each list.\n3. While the min-heap is not empty, extract the smallest node from the min-heap, add it to the merged linked list, and replace it with the next node from the same list.\n4. Repeat step 3 until all nodes from all lists are processed.\n\nThe mergeKLists function implements this approach. It uses a min-heap (priority queue) to merge K sorted linked lists into one sorted linked list.\n\nTIME COMPLEXITY:\nThe time complexity of the mergeKLists function is O(N log K), where N is the total number of nodes across all lists and K is the number of linked lists. Inserting nodes into the min-heap and extracting the minimum node take O(log K) time, and we do this for N nodes. The overall time complexity is dominated by the heap operations.\n\nSPACE COMPLEXITY:\nThe space complexity is O(K) as we need to store K nodes in the min-heap.\n*/\n\nListNode* mergeKLists(vector<ListNode*>& lists) {\n    priority_queue<pair<int, ListNode*>, vector<pair<int, ListNode*>>, greater<pair<int, ListNode*>>> pq;\n\n    for (int i = 0; i < lists.size(); i++) {\n        if (lists[i]) {\n            pq.push({lists[i]->val, lists[i]});\n        }\n    }\n\n    ListNode* dummy = new ListNode();\n    ListNode* ans = dummy;\n\n    while (!pq.empty()) {\n        auto top = pq.top();\n        pq.pop();\n        dummy->next = new ListNode(top.first);\n        dummy = dummy->next;\n        ListNode* nxt = top.second->next;\n        if (nxt) {\n            pq.push({nxt->val, nxt});\n        }\n    }\n\n    return ans->next;\n}\n",
+    "codeLines": 45,
+    "repoPath": "09. Heaps/2. Medium Problems/04. Merge K sorted Lists.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/2.%20Medium%20Problems/04.%20Merge%20K%20sorted%20Lists.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-k-sorted-lists/",
+      "title": "Merge k Sorted Lists",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p196",
+    "index": 196,
+    "title": "Arrange by rank",
+    "topic": "Heaps",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given an array of integers arr, replace each element with its rank.",
+    "approach": "To assign ranks to the elements in the array, we can use a min-heap (priority queue) to sort the elements in ascending order along with their indices.\n1. Create a min-heap to store pairs of (element, index) in ascending order.\n2. Push each element along with its index into the min-heap.\n3. Initialize the rank as 0 and the previous element as INT_MIN (an arbitrary value that never matches any element).\n4. While the min-heap is not empty, extract the minimum element from the min-heap.\n5. If the current element is different from the previous element, increment the rank.\n6. Assign the rank to the element at its corresponding index in the result array.\n7. Repeat steps 4-6 until all elements are processed.\n\nThe arrayRankTransform function implements this approach. It uses a min-heap to assign ranks to the elements in the array.",
+    "pseudocode": "ALGORITHM  Arrange by rank\nPATTERN    Dijkstra / shortest path\n\nBEGIN\n  01  To assign ranks to the elements in the array, we can use a min-heap (priority queue) to sort the elements in ascending order along with their indices\n  02  SET a min-heap to store pairs of (element, index) in ascending order\n  03  Push each element along with its index into the min-heap\n  04  SET the rank as 0 and the previous element as INT_MIN (an arbitrary value that never matches any element)\n  05  WHILE the min-heap is not empty, extract the minimum element from the min-heap\n  06  IF the current element is different from the previous element, increment the rank\n  07  Assign the rank to the element at its corresponding index in the result array\n  08  REPEAT steps 4-6 until all elements are processed\n  09  The arrayRankTransform function implements this approach. It uses a min-heap to assign ranks to the elements in the array\n  10  RETURN the required result\nEND",
+    "time": "The time complexity of the arrayRankTransform function is O(N log N), where N is the size of the array. Inserting elements into the min-heap and extracting the minimum element take O(log N) time, and we do this for N elements. The overall time complexity is do",
+    "space": "The space complexity is O(N) as we need to store N elements in the min-heap and the result array",
+    "strategy": "Dijkstra / shortest path",
+    "tags": ["Heaps", "Dijkstra / shortest path"],
+    "intuition": "Always expand the not-yet-finalized state with minimum known distance, then relax outgoing edges. Stale priority-queue entries can be skipped safely.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Using Dijkstra with negative edges",
+      "Not skipping stale heap entries",
+      "Using int for large distances"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array of integers arr, replace each element with its rank.\n\nAPPROACH:\nTo assign ranks to the elements in the array, we can use a min-heap (priority queue) to sort the elements in ascending order along with their indices.\n1. Create a min-heap to store pairs of (element, index) in ascending order.\n2. Push each element along with its index into the min-heap.\n3. Initialize the rank as 0 and the previous element as INT_MIN (an arbitrary value that never matches any element).\n4. While the min-heap is not empty, extract the minimum element from the min-heap.\n5. If the current element is different from the previous element, increment the rank.\n6. Assign the rank to the element at its corresponding index in the result array.\n7. Repeat steps 4-6 until all elements are processed.\n\nThe arrayRankTransform function implements this approach. It uses a min-heap to assign ranks to the elements in the array.\n\nTIME COMPLEXITY:\nThe time complexity of the arrayRankTransform function is O(N log N), where N is the size of the array. Inserting elements into the min-heap and extracting the minimum element take O(log N) time, and we do this for N elements. The overall time complexity is dominated by the heap operations.\n\nSPACE COMPLEXITY:\nThe space complexity is O(N) as we need to store N elements in the min-heap and the result array.\n*/\n\nvector<int> arrayRankTransform(vector<int>& arr) {\n    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;\n    for (int i = 0; i < arr.size(); i++) {\n        pq.push({arr[i], i});\n    }\n    vector<int> ans(arr.size());\n    int rank = 0;\n    int prev = INT_MIN; // an arbitrary value which never matches\n    while (!pq.empty()) {\n        auto top = pq.top();\n        pq.pop();\n        if (top.first != prev) {\n            rank++;\n        }\n        ans[top.second] = rank;\n        prev = top.first;\n    }\n    return ans;\n}\n",
+    "codeLines": 42,
+    "repoPath": "09. Heaps/2. Medium Problems/05. Arrange by rank.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/2.%20Medium%20Problems/05.%20Arrange%20by%20rank.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/rank-transform-of-an-array/",
+      "title": "Rank Transform of an Array",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p197",
+    "index": 197,
+    "title": "Task Scheduler",
+    "topic": "Heaps",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given a characters array tasks, representing the tasks a CPU needs to do, where each letter represents a different task. Tasks could be done in any order. Each task is done in one unit of time. For each unit of time, the CPU could complete either one task or just be idle.",
+    "approach": "To minimize the total time, we need to consider the task with the maximum frequency. Let's assume the maximum frequency is maxfreq. The CPU will need at least (maxfreq - 1) intervals of cooldown time between the executions of the tasks with the maximum frequency.\n\n1. Create a frequency map to count the occurrences of each task.\n2. Find the maximum frequency maxfreq.\n3. Calculate the total number of intervals required by multiplying (maxfreq - 1) with the cooldown period n.\n4. Iterate through the frequency map and count the number of tasks with the maximum frequency. Add this count to the total number of intervals.\n5. Return the maximum of the total number of intervals and the total number of tasks.\n\nThe leastInterval function implements this approach.",
+    "pseudocode": "ALGORITHM  Task Scheduler\nPATTERN    Heap / priority queue\n\nBEGIN\n  01  To minimize the total time, we need to consider the task with the maximum frequency\n  02  Let's assume the maximum frequency is maxfreq\n  03  The CPU will need at least (maxfreq - 1) intervals of cooldown time between the executions of the tasks with the maximum frequency\n  04  SET a frequency map to count the occurrences of each task\n  05  Find the maximum frequency maxfreq\n  06  Calculate the total number of intervals required by multiplying (maxfreq - 1) with the cooldown period n\n  07  FOR EACH element while traversing the frequency map and count the number of tasks with the maximum frequency. Add this count to the total number of intervals\n  08  RETURN the maximum of the total number of intervals and the total number of tasks\n  09  The leastInterval function implements this approach\nEND",
+    "time": "The time complexity of the leastInterval function is O(N), where N is the number of tasks. We iterate through the tasks twice: once to calculate the frequencies and find the maximum frequency, and once to count the number of tasks with the maximum frequency. B",
+    "space": "The space complexity is O(1) because the frequency map has a fixed number of unique tasks (26 lowercase letters)",
+    "strategy": "Heap / priority queue",
+    "tags": ["Heaps", "Heap / priority queue"],
+    "intuition": "Keep the most relevant candidate at the top while avoiding a full sort. Bound the heap when only the best k values matter.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven a characters array tasks, representing the tasks a CPU needs to do, where each letter represents a different task. Tasks could be done in any order. Each task is done in one unit of time. For each unit of time, the CPU could complete either one task or just be idle.\n\nAPPROACH:\nTo minimize the total time, we need to consider the task with the maximum frequency. Let's assume the maximum frequency is maxfreq. The CPU will need at least (maxfreq - 1) intervals of cooldown time between the executions of the tasks with the maximum frequency.\n\n1. Create a frequency map to count the occurrences of each task.\n2. Find the maximum frequency maxfreq.\n3. Calculate the total number of intervals required by multiplying (maxfreq - 1) with the cooldown period n.\n4. Iterate through the frequency map and count the number of tasks with the maximum frequency. Add this count to the total number of intervals.\n5. Return the maximum of the total number of intervals and the total number of tasks.\n\nThe leastInterval function implements this approach.\n\nTIME COMPLEXITY:\nThe time complexity of the leastInterval function is O(N), where N is the number of tasks. We iterate through the tasks twice: once to calculate the frequencies and find the maximum frequency, and once to count the number of tasks with the maximum frequency. Both iterations take O(N) time.\n\nSPACE COMPLEXITY:\nThe space complexity is O(1) because the frequency map has a fixed number of unique tasks (26 lowercase letters).\n*/\n\nint leastInterval(vector<char>& tasks, int n) {\n    int siz = tasks.size();\n    unordered_map<char, int> mp;\n    for (auto it : tasks)\n        mp[it]++;\n    int maxfreq = INT_MIN;\n    for (auto it : mp)\n        maxfreq = max(maxfreq, it.second);\n    int ans = (maxfreq - 1) * (n + 1);\n    // number of elements having maxfreq\n    for (auto it : mp) {\n        if (it.second == maxfreq)\n            ans++;\n    }\n    return max(ans, siz);\n}\n",
+    "codeLines": 38,
+    "repoPath": "09. Heaps/2. Medium Problems/06. Task Scheduler.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/2.%20Medium%20Problems/06.%20Task%20Scheduler.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/task-scheduler/",
+      "title": "Task Scheduler",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p198",
+    "index": 198,
+    "title": "Divide array into sets of K consecutive number",
+    "topic": "Heaps",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given an array of integers nums and a positive integer k, check whether it is possible to divide this array into sets of k consecutive numbers.\n\nReturn true if it is possible. Otherwise, return false.\n\nExample:\n\nInput: nums = [1,2,3,3,4,4,5,6], k = 4\nOutput: true\nExplanation: Array can be divided into [1,2,3,4] and [3,4,5,6].",
+    "approach": "1. First, we check if the array size is divisible by k. If not, it is not possible to divide the array into sets of k consecutive numbers.\n2. We use a frequency map mp to count the occurrences of each element in the array.\n3. We sort the array nums in ascending order.\n4. For each number num in nums, we check if it is still available (mp[num] > 0).\n5. If num is available, we iterate from num + 1 to num + k - 1 and check if each number is available in mp as well. If any number is not available, we return false.\n6. If all numbers are available, we decrement the counts in mp accordingly.\n7. If we reach the end of the loop, it means it is possible to divide the array into sets of k consecutive numbers, and we return true.",
+    "pseudocode": "ALGORITHM  Divide array into sets of K consecutive number\nPATTERN    Heap / priority queue\n\nBEGIN\n  01  First, we check if the array size is divisible by k. If not, it is not possible to divide the array into sets of k consecutive numbers\n  02  We use a frequency map mp to count the occurrences of each element in the array\n  03  We sort the array nums in ascending order\n  04  FOR EACH number num in nums, we check if it is still available (mp[num] > 0)\n  05  IF num is available, we iterate from num + 1 to num + k - 1 and check if each number is available in mp as well. If any number is not available, we return false\n  06  IF all numbers are available, we decrement the counts in mp accordingly\n  07  IF we reach the end of the loop, it means it is possible to divide the array into sets of k consecutive numbers, and we return true\n  08  RETURN the required result\nEND",
+    "time": "O(n log n), where n is the size of the input array nums. The complexity is dominated by the sorting step",
+    "space": "O(n), to store the frequency map mp",
+    "strategy": "Heap / priority queue",
+    "tags": ["Heaps", "Heap / priority queue"],
+    "intuition": "Keep the most relevant candidate at the top while avoiding a full sort. Bound the heap when only the best k values matter.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array of integers nums and a positive integer k, check whether it is possible to divide this array into sets of k consecutive numbers.\n\nReturn true if it is possible. Otherwise, return false.\n\nExample:\n\nInput: nums = [1,2,3,3,4,4,5,6], k = 4\nOutput: true\nExplanation: Array can be divided into [1,2,3,4] and [3,4,5,6].\n*/\n\n/*\nAPPROACH:\n1. First, we check if the array size is divisible by k. If not, it is not possible to divide the array into sets of k consecutive numbers.\n2. We use a frequency map mp to count the occurrences of each element in the array.\n3. We sort the array nums in ascending order.\n4. For each number num in nums, we check if it is still available (mp[num] > 0).\n5. If num is available, we iterate from num + 1 to num + k - 1 and check if each number is available in mp as well. If any number is not available, we return false.\n6. If all numbers are available, we decrement the counts in mp accordingly.\n7. If we reach the end of the loop, it means it is possible to divide the array into sets of k consecutive numbers, and we return true.\n*/\n\n/*\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(n log n), where n is the size of the input array nums. The complexity is dominated by the sorting step.\n- Space complexity: O(n), to store the frequency map mp.\n*/\n\nbool isPossibleDivide(vector<int>& nums, int k) {\n    if (nums.size() % k != 0) {\n        return false;\n    }\n    unordered_map<int, int> mp;\n    for (auto it : nums)\n        mp[it]++;\n    sort(nums.begin(), nums.end());\n\n    for (auto num : nums) {\n        if (mp[num] > 0) {\n            for (int i = num + 1; i < num + k; i++) {\n                if (mp[i] == 0)\n                    return false;\n                mp[i]--;\n            }\n            mp[num]--;\n        }\n    }\n    return true;\n}\n\n",
+    "codeLines": 52,
+    "repoPath": "09. Heaps/2. Medium Problems/07. Divide array into sets of K consecutive number.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/2.%20Medium%20Problems/07.%20Divide%20array%20into%20sets%20of%20K%20consecutive%20number.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/hand-of-straights/",
+      "title": "Hand of Straights",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p199",
+    "index": 199,
+    "title": "Design Twitter",
+    "topic": "Heaps",
+    "subtopic": "Hard Problems",
+    "difficulty": "Hard",
+    "question": "Design a simplified version of Twitter where users can post tweets, follow/unfollow another user, and is able to see the 10 most recent tweets in the user's news feed.",
+    "approach": "To design the Twitter class, we can use the following data structures:\n\n1. unordered_map<int, vector<int>> following: This map stores the users and the list of users they are following. Each user follows themselves initially.\n2. unordered_map<int, deque<pair<int, int>>> posts: This map stores the tweets of each user. Each tweet is represented by a pair of (timestamp, tweetId). We use a deque to maintain the most recent 10 tweets for each user.\n3. int time: This variable keeps track of the timestamp for tweets.\n\nThe Twitter class provides the following methods:\n\n1. Twitter(): Initializes the Twitter object.\n2. void postTweet(int userId, int tweetId): Composes a new tweet with ID tweetId by the user userId. The tweet is added to the posts map with the current timestamp. If the size of the user's tweets exceeds 10, the oldest tweet is removed.\n3. vector<int> getNewsFeed(int userId): Retrieves the 10 most recent tweet IDs in the user's news feed. It iterates through the users that the given user follows and adds their tweets to a set. The set is sorted in descending order of timestamps. The first 10 tweets are returned.\n4. void follow(int followerId, int followeeId): The user with ID followerId starts following the user with ID followeeId. The followeeId is added to the followerId's following list.\n5. void unfollow(int followerId, int followeeId): The user with ID followerId stops following the user with ID followeeId. The followeeId is removed from the followerId's following list.\n\nThe code provided implements the Twitter class with the above approach.",
+    "pseudocode": "ALGORITHM  Design Twitter\nPATTERN    Heap / priority queue\n\nBEGIN\n  01  To design the Twitter class, we can use the following data structures:\n  02  unordered_map<int, vector<int>> following: This map stores the users and the list of users they are following. Each user follows themselves initially\n  03  unordered_map<int, deque<pair<int, int>>> posts: This map stores the tweets of each user\n  04  Each tweet is represented by a pair of (timestamp, tweetId)\n  05  We use a deque to maintain the most recent 10 tweets for each user\n  06  int time: This variable keeps track of the timestamp for tweets\n  07  The Twitter class provides the following methods:\n  08  Twitter(): Initializes the Twitter object\n  09  void postTweet(int userId, int tweetId): Composes a new tweet with ID tweetId by the user userId\n  10  The tweet is added to the posts map with the current timestamp\n  11  IF the size of the user's tweets exceeds 10, the oldest tweet is removed\n  12  vector<int> getNewsFeed(int userId): Retrieves the 10 most recent tweet IDs in the user's news feed\n  13  It iterates through the users that the given user follows and adds their tweets to a set\n  14  The set is sorted in descending order of timestamps\n  15  RETURN the required result\nEND",
+    "time": "The time complexity of the postTweet method is O(1) for adding a tweet to the user's posts",
+    "space": "The space complexity is O(U + P) where U is the number of users and P is the total number of posts. The posts map stores the tweets of each user, and the size of the posts map is bounded by the number of users. The maximum size of the posts deque for each user",
+    "strategy": "Heap / priority queue",
+    "tags": ["Heaps", "Heap / priority queue"],
+    "intuition": "Keep the most relevant candidate at the top while avoiding a full sort. Bound the heap when only the best k values matter.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nDesign a simplified version of Twitter where users can post tweets, follow/unfollow another user, and is able to see the 10 most recent tweets in the user's news feed.\n\nAPPROACH:\nTo design the Twitter class, we can use the following data structures:\n\n1. unordered_map<int, vector<int>> following: This map stores the users and the list of users they are following. Each user follows themselves initially.\n2. unordered_map<int, deque<pair<int, int>>> posts: This map stores the tweets of each user. Each tweet is represented by a pair of (timestamp, tweetId). We use a deque to maintain the most recent 10 tweets for each user.\n3. int time: This variable keeps track of the timestamp for tweets.\n\nThe Twitter class provides the following methods:\n\n1. Twitter(): Initializes the Twitter object.\n2. void postTweet(int userId, int tweetId): Composes a new tweet with ID tweetId by the user userId. The tweet is added to the posts map with the current timestamp. If the size of the user's tweets exceeds 10, the oldest tweet is removed.\n3. vector<int> getNewsFeed(int userId): Retrieves the 10 most recent tweet IDs in the user's news feed. It iterates through the users that the given user follows and adds their tweets to a set. The set is sorted in descending order of timestamps. The first 10 tweets are returned.\n4. void follow(int followerId, int followeeId): The user with ID followerId starts following the user with ID followeeId. The followeeId is added to the followerId's following list.\n5. void unfollow(int followerId, int followeeId): The user with ID followerId stops following the user with ID followeeId. The followeeId is removed from the followerId's following list.\n\nThe code provided implements the Twitter class with the above approach.\n\nTIME COMPLEXITY:\nThe time complexity of the postTweet method is O(1) for adding a tweet to the user's posts.\nThe time complexity of the getNewsFeed method is O(F * P * log(P)) where F is the number of users the given user follows and P is the maximum number of posts by any user. The method iterates through the posts of each followed user, which takes O(F * P) time, and sorts the tweets, which takes O(P * log(P)) time.\nThe time complexity of the follow and unfollow methods is O(1) for adding or removing a user from the following list.\n\nSPACE COMPLEXITY:\nThe space complexity is O(U + P) where U is the number of users and P is the total number of posts. The posts map stores the tweets of each user, and the size of the posts map is bounded by the number of users. The maximum size of the posts deque for each user is 10.\n*/\n\nunordered_map<int, vector<int>> following; // key = userId, value = followeeIds\nunordered_map<int, deque<pair<int, int>>> posts; // key = userId, value = posts corresponding to that userId\nint time;\n\nTwitter() {\n    time = 0;\n}\n\nvoid postTweet(int userId, int tweetId) {\n    following[userId].push_back(userId); // each user will follow themselves\n\n    if (posts.find(userId) != posts.end() && posts[userId].size() > 10)\n        posts[userId].pop_back();\n\n    posts[userId].push_front({time, tweetId});\n    time++;\n}\n\nvector<int> getNewsFeed(int userId) {\n    vector<int> ans;\n    set<pair<int, int>, greater<pair<int, int>>> allposts;\n    for (int i = 0; i < following[userId].size(); i++) {\n        int followe = following[userId][i];\n        for (int i = 0; i < posts[followe].size(); i++) {\n            allposts.insert(posts[followe][i]);\n        }\n    }\n    int siz = allposts.size();\n    int n = min(10, siz);\n    for (auto it = allposts.begin(); it != allposts.end() && n; it++) {\n        ans.push_back(it->second);\n        n--;\n    }\n    return ans;\n}\n\nvoid follow(int followerId, int followeeId) {\n    following[followerId].push_back(followeeId);\n}\n\nvoid unfollow(int followerId, int followeeId) {\n    for (int i = 0; i < following[followerId].size(); i++) {\n        if (following[followerId][i] == followeeId) {\n            following[followerId].erase(following[followerId].begin() + i);\n            return;\n        }\n    }\n}\n",
+    "codeLines": 78,
+    "repoPath": "09. Heaps/3. Hard Problems/01. Design Twitter.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/3.%20Hard%20Problems/01.%20Design%20Twitter.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-twitter/",
+      "title": "Design Twitter",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p200",
+    "index": 200,
+    "title": "Minimum Cost to join n ropes",
+    "topic": "Heaps",
+    "subtopic": "Hard Problems",
+    "difficulty": "Hard",
+    "question": "There are given N ropes of different lengths, we need to connect these ropes into one rope. The cost to connect two ropes is equal to the sum of their lengths. The task is to connect the ropes with the minimum cost. Given an array arr[] containing the lengths of the ropes.\n\nExample:\nInput: arr[] = {4, 3, 2, 6}\nOutput: 29\nExplanation: The minimum cost is obtained by connecting ropes in the following order:\n1. Connect ropes of length 2 and 3, cost = 2 + 3 = 5, resulting array = {4, 5, 6}\n2. Connect ropes of length 4 and 5, cost = 4 + 5 = 9, resulting array = {9, 6}\n3. Connect ropes of length 6 and 9, cost = 6 + 9 = 15, resulting array = {15}\nTotal cost = 5 + 9 + 15 = 29",
+    "approach": "1. Use a priority queue (min heap) to store the lengths of the ropes.\n2. Push all the rope lengths into the priority queue.\n3. While the priority queue has more than one element:\n   - Extract the two smallest ropes from the priority queue.\n   - Add their lengths together to get the cost.\n   - Push the sum back into the priority queue.\n   - Update the total cost.\n4. Return the total cost as the minimum cost of connecting the ropes.",
+    "pseudocode": "ALGORITHM  Minimum Cost to join n ropes\nPATTERN    Dijkstra / shortest path\n\nBEGIN\n  01  Use a priority queue (min heap) to store the lengths of the ropes\n  02  Push all the rope lengths into the priority queue\n  03  WHILE the priority queue has more than one element:\n  04  Extract the two smallest ropes from the priority queue\n  05  Add their lengths together to get the cost\n  06  Push the sum back into the priority queue\n  07  UPDATE the total cost\n  08  RETURN the total cost as the minimum cost of connecting the ropes\nEND",
+    "time": "O(n log n), where n is the number of ropes. Inserting and extracting elements from the priority queue take O(log n) time, and the loop runs for (n-1) iterations",
+    "space": "O(n) to store the rope lengths in the priority queue",
+    "strategy": "Dijkstra / shortest path",
+    "tags": ["Heaps", "Dijkstra / shortest path"],
+    "intuition": "Always expand the not-yet-finalized state with minimum known distance, then relax outgoing edges. Stale priority-queue entries can be skipped safely.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Using Dijkstra with negative edges",
+      "Not skipping stale heap entries",
+      "Using int for large distances"
+    ],
+    "code": "/*\nQuestion:\nThere are given N ropes of different lengths, we need to connect these ropes into one rope. The cost to connect two ropes is equal to the sum of their lengths. The task is to connect the ropes with the minimum cost. Given an array arr[] containing the lengths of the ropes.\n\nExample:\nInput: arr[] = {4, 3, 2, 6}\nOutput: 29\nExplanation: The minimum cost is obtained by connecting ropes in the following order:\n1. Connect ropes of length 2 and 3, cost = 2 + 3 = 5, resulting array = {4, 5, 6}\n2. Connect ropes of length 4 and 5, cost = 4 + 5 = 9, resulting array = {9, 6}\n3. Connect ropes of length 6 and 9, cost = 6 + 9 = 15, resulting array = {15}\nTotal cost = 5 + 9 + 15 = 29\n\nApproach:\n1. Use a priority queue (min heap) to store the lengths of the ropes.\n2. Push all the rope lengths into the priority queue.\n3. While the priority queue has more than one element:\n   - Extract the two smallest ropes from the priority queue.\n   - Add their lengths together to get the cost.\n   - Push the sum back into the priority queue.\n   - Update the total cost.\n4. Return the total cost as the minimum cost of connecting the ropes.\n\nComplexity Analysis:\n- Time complexity: O(n log n), where n is the number of ropes. Inserting and extracting elements from the priority queue take O(log n) time, and the loop runs for (n-1) iterations.\n- Space complexity: O(n) to store the rope lengths in the priority queue.\n\nCode:\n*/\n\nlong long connectRopes(int* arr, int n)\n{\n    long long ans = 0;\n    priority_queue<int, vector<int>, greater<int>> pq;\n    \n    // Push all rope lengths into the priority queue\n    for (int i = 0; i < n; i++) {\n        pq.push(arr[i]);\n    }\n    \n    // Connect ropes until only one rope remains\n    while (pq.size() > 1) {\n        int a = pq.top(); pq.pop();\n        int b = pq.top(); pq.pop();\n        int sum = a + b;\n        ans += sum;\n        \n        // Push the sum back into the priority queue if there are more than one rope remaining\n        if (!pq.empty()) {\n            pq.push(sum);\n        }\n    }\n    \n    return ans;\n}\n",
+    "codeLines": 55,
+    "repoPath": "09. Heaps/3. Hard Problems/02. Minimum Cost to join n ropes.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/3.%20Hard%20Problems/02.%20Minimum%20Cost%20to%20join%20n%20ropes.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-cost-to-connect-sticks/",
+      "title": "Minimum Cost to Connect Sticks",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": true
+    }
+  },
+  {
+    "id": "p201",
+    "index": 201,
+    "title": "Kth largest element in stream",
+    "topic": "Heaps",
+    "subtopic": "Hard Problems",
+    "difficulty": "Hard",
+    "question": "Design a class to find the kth largest element in a stream. Note that it is the kth largest element in the sorted order, not the kth distinct element.\n\nImplement KthLargest class:\n- KthLargest(int k, int[] nums): Initializes the object with the integer k and the stream of integers nums.\n- int add(int val): Appends the integer val to the stream and returns the element representing the kth largest element in the stream.\n\nExample:\nInput:\n[\"KthLargest\", \"add\", \"add\", \"add\", \"add\", \"add\"]\n[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]\nOutput:\n[null, 4, 5, 5, 8, 8]\n\nExplanation:\nKthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);\nkthLargest.add(3);   // return 4\nkthLargest.add(5);   // return 5\nkthLargest.add(10);  // return 5\nkthLargest.add(9);   // return 8\nkthLargest.add(4);   // return 8",
+    "approach": "- Use a min heap (priority queue) to store the k largest elements.\n- Initialize the min heap with the first k elements from the stream (nums) in the constructor.\n- For each subsequent element in the stream, add it to the min heap.\n- If the size of the min heap exceeds k, remove the smallest element.\n- The top element of the min heap represents the kth largest element.",
+    "pseudocode": "ALGORITHM  Kth largest element in stream\nPATTERN    Dijkstra / shortest path\n\nBEGIN\n  01  Use a min heap (priority queue) to store the k largest elements\n  02  SET the min heap with the first k elements from the stream (nums) in the constructor\n  03  FOR EACH subsequent element in the stream, add it to the min heap\n  04  IF the size of the min heap exceeds k, remove the smallest element\n  05  The top element of the min heap represents the kth largest element\n  06  RETURN the required result\nEND",
+    "time": "of adding an element is O(log k) due to the insertion and removal operations in the min heap",
+    "space": "O(k) to store the k largest elements in the min heap",
+    "strategy": "Dijkstra / shortest path",
+    "tags": ["Heaps", "Dijkstra / shortest path"],
+    "intuition": "Always expand the not-yet-finalized state with minimum known distance, then relax outgoing edges. Stale priority-queue entries can be skipped safely.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Using Dijkstra with negative edges",
+      "Not skipping stale heap entries",
+      "Using int for large distances"
+    ],
+    "code": "/*\nQuestion:\nDesign a class to find the kth largest element in a stream. Note that it is the kth largest element in the sorted order, not the kth distinct element.\n\nImplement KthLargest class:\n- KthLargest(int k, int[] nums): Initializes the object with the integer k and the stream of integers nums.\n- int add(int val): Appends the integer val to the stream and returns the element representing the kth largest element in the stream.\n\nExample:\nInput:\n[\"KthLargest\", \"add\", \"add\", \"add\", \"add\", \"add\"]\n[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]\nOutput:\n[null, 4, 5, 5, 8, 8]\n\nExplanation:\nKthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);\nkthLargest.add(3);   // return 4\nkthLargest.add(5);   // return 5\nkthLargest.add(10);  // return 5\nkthLargest.add(9);   // return 8\nkthLargest.add(4);   // return 8\n\nApproach:\n- Use a min heap (priority queue) to store the k largest elements.\n- Initialize the min heap with the first k elements from the stream (nums) in the constructor.\n- For each subsequent element in the stream, add it to the min heap.\n- If the size of the min heap exceeds k, remove the smallest element.\n- The top element of the min heap represents the kth largest element.\n\nComplexity Analysis:\n- The time complexity of adding an element is O(log k) due to the insertion and removal operations in the min heap.\n- The space complexity is O(k) to store the k largest elements in the min heap.\n\nCode:\n*/\n\nclass KthLargest {\nprivate:\n    priority_queue<int, vector<int>, greater<int>> pq;\n    int k;\n    \npublic:\n    KthLargest(int k, vector<int>& nums) {\n        this->k = k;\n        for (int i = 0; i < nums.size(); i++) {\n            pq.push(nums[i]);\n            if (pq.size() > k) {\n                pq.pop();\n            }\n        }\n    }\n    \n    int add(int val) {\n        pq.push(val);//* this is amazing to use\n        if (pq.size() > k) {\n            pq.pop();\n        }\n        return pq.top();\n    }\n};\n\n",
+    "codeLines": 62,
+    "repoPath": "09. Heaps/3. Hard Problems/03. Kth largest element in stream.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/3.%20Hard%20Problems/03.%20Kth%20largest%20element%20in%20stream.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
+      "title": "Kth Largest Element in a Stream",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p202",
+    "index": 202,
+    "title": "Maximum K sum combinations",
+    "topic": "Heaps",
+    "subtopic": "Hard Problems",
+    "difficulty": "Hard",
+    "question": "Given two integer arrays A and B of size N each. A sum combination is made by adding one element from array A and another element from array B. Return the maximum K valid distinct sum combinations from all the possible sum combinations. Output array must be sorted in non-increasing order.\n\nExample:\nInput:\nN = 2\nK = 2\nA[] = {3, 2}\nB[] = {1, 4}\nOutput: {7, 6}\nExplanation:\n7 -> (A: 3) + (B: 4)\n6 -> (A: 2) + (B: 4)",
+    "approach": "1. Sort arrays A and B in non-increasing order.\n2. Initialize a min-heap (priority_queue) to store the sum combinations.\n3. Iterate over each element in array A.\n4. For each element in A, iterate over each element in array B.\n5. Calculate the sum of the current pair (A[i] + B[j]).\n6. If the heap size is less than K, push the sum into the heap.\n7. If the heap size is already K and the current sum is greater than the smallest element in the heap, pop the smallest element and push the current sum into the heap.\n8. After iterating over all elements, the heap will contain the K maximum valid sum combinations in non-increasing order.\n9. Store the elements of the heap in a vector and return it as the result.",
+    "pseudocode": "ALGORITHM  Maximum K sum combinations\nPATTERN    Dijkstra / shortest path\n\nBEGIN\n  01  Sort arrays A and B in non-increasing order\n  02  SET a min-heap (priority_queue) to store the sum combinations\n  03  Iterate over each element in array A\n  04  FOR EACH element in A, iterate over each element in array B\n  05  Calculate the sum of the current pair (A[i] + B[j])\n  06  IF the heap size is less than K, push the sum into the heap\n  07  IF the heap size is already K and the current sum is greater than the smallest element in the heap, pop the smallest element and push the current sum into the heap\n  08  After iterating over all elements, the heap will contain the K maximum valid sum combinations in non-increasing order\n  09  Store the elements of the heap in a vector and return it as the result\n  10  RETURN the required result\nEND",
+    "time": "Sorting the arrays A and B takes O(N log N) time",
+    "space": "Not explicitly stated in the source file",
+    "strategy": "Dijkstra / shortest path",
+    "tags": ["Heaps", "Dijkstra / shortest path"],
+    "intuition": "Always expand the not-yet-finalized state with minimum known distance, then relax outgoing edges. Stale priority-queue entries can be skipped safely.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Using Dijkstra with negative edges",
+      "Not skipping stale heap entries",
+      "Using int for large distances"
+    ],
+    "code": "/*\nQuestion:\nGiven two integer arrays A and B of size N each. A sum combination is made by adding one element from array A and another element from array B. Return the maximum K valid distinct sum combinations from all the possible sum combinations. Output array must be sorted in non-increasing order.\n\nExample:\nInput:\nN = 2\nK = 2\nA[] = {3, 2}\nB[] = {1, 4}\nOutput: {7, 6}\nExplanation: \n7 -> (A: 3) + (B: 4)\n6 -> (A: 2) + (B: 4)\n*/\n\n/*\nApproach:\n1. Sort arrays A and B in non-increasing order.\n2. Initialize a min-heap (priority_queue) to store the sum combinations.\n3. Iterate over each element in array A.\n4. For each element in A, iterate over each element in array B.\n5. Calculate the sum of the current pair (A[i] + B[j]).\n6. If the heap size is less than K, push the sum into the heap.\n7. If the heap size is already K and the current sum is greater than the smallest element in the heap, pop the smallest element and push the current sum into the heap.\n8. After iterating over all elements, the heap will contain the K maximum valid sum combinations in non-increasing order.\n9. Store the elements of the heap in a vector and return it as the result.\n\nCOMPLEXITY ANALYSIS:-\nTIME COMPLEXITY - \nSorting the arrays A and B takes O(N log N) time.\nBuilding the max heap takes O(N) time.\nExtracting the maximum sum K times takes O(K log N) time.\nOverall, the time complexity of the solution is O(N log N + K log N).\nCODE:-\n*/\n\nvector<int> maxCombinations(int N, int K, vector<int> &A, vector<int> &B) {\n    priority_queue<pair<int,pair<int,int>>> pq;\n    sort(A.begin(),A.end());\n    sort(B.begin(),B.end());\n    for(int i=0;i<N;i++){\n        pq.push({A[i]+B[N-1],{i,N-1}});\n    }\n    vector<int> ans;\n    while(!pq.empty() && K--)\n    {\n        auto it=pq.top();\n        pq.pop();\n        int data=it.first;\n        int x=it.second.first;\n        int y=it.second.second;\n        ans.push_back(data);\n        if(y!=0){\n            pq.push({A[x]+B[y-1],{x,y-1}});\n        }\n    }\n    return ans;\n}",
+    "codeLines": 59,
+    "repoPath": "09. Heaps/3. Hard Problems/04. Maximum K sum combinations.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/3.%20Hard%20Problems/04.%20Maximum%20K%20sum%20combinations.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-k-pairs-with-smallest-sums/",
+      "title": "Find K Pairs with Smallest Sums",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p203",
+    "index": 203,
+    "title": "Median in a stream",
+    "topic": "Heaps",
+    "subtopic": "Hard Problems",
+    "difficulty": "Hard",
+    "question": "The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.\n\nImplement the MedianFinder class:\n\nMedianFinder() initializes the MedianFinder object.\nvoid addNum(int num) adds the integer num from the data stream to the data structure.\ndouble findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.",
+    "approach": "1. Use two priority queues: a max heap to store the smaller half of the numbers and a min heap to store the larger half of the numbers.\n2. When adding a new number:\n   - If the max heap is empty or the number is smaller than the top element of the max heap, push it into the max heap.\n   - Otherwise, push it into the min heap.\n   - Balance the heaps by transferring the top element of the larger heap to the smaller heap if the size difference between the heaps exceeds 1.\n3. When finding the median:\n   - If the sizes of the heaps are equal, calculate the average of the top elements of both heaps.\n   - Otherwise, return the top element of the heap with a larger size.",
+    "pseudocode": "ALGORITHM  Median in a stream\nPATTERN    Heap / priority queue\n\nBEGIN\n  01  Use two priority queues: a max heap to store the smaller half of the numbers and a min heap to store the larger half of the numbers\n  02  When adding a new number:\n  03  IF the max heap is empty or the number is smaller than the top element of the max heap, push it into the max heap\n  04  ELSE push it into the min heap\n  05  Balance the heaps by transferring the top element of the larger heap to the smaller heap if the size difference between the heaps exceeds 1\n  06  When finding the median:\n  07  IF the sizes of the heaps are equal, calculate the average of the top elements of both heaps\n  08  ELSE return the top element of the heap with a larger size\n  09  RETURN the required result\nEND",
+    "time": "for adding a number to the MedianFinder is O(log N), where N is the total number of elements added so far. This is because we need to maintain the two heaps and balance them if necessary, which takes logarithmic time",
+    "space": "O(N), where N is the total number of elements added. This is because we need to store the elements in the two priority queues",
+    "strategy": "Heap / priority queue",
+    "tags": ["Heaps", "Heap / priority queue"],
+    "intuition": "Keep the most relevant candidate at the top while avoiding a full sort. Bound the heap when only the best k values matter.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nThe median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.\n\nImplement the MedianFinder class:\n\nMedianFinder() initializes the MedianFinder object.\nvoid addNum(int num) adds the integer num from the data stream to the data structure.\ndouble findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.\n*/\n\n/*\nApproach:\n1. Use two priority queues: a max heap to store the smaller half of the numbers and a min heap to store the larger half of the numbers.\n2. When adding a new number:\n   - If the max heap is empty or the number is smaller than the top element of the max heap, push it into the max heap.\n   - Otherwise, push it into the min heap.\n   - Balance the heaps by transferring the top element of the larger heap to the smaller heap if the size difference between the heaps exceeds 1.\n3. When finding the median:\n   - If the sizes of the heaps are equal, calculate the average of the top elements of both heaps.\n   - Otherwise, return the top element of the heap with a larger size.\nComplexity Analysis:\n\nThe time complexity for adding a number to the MedianFinder is O(log N), where N is the total number of elements added so far. This is because we need to maintain the two heaps and balance them if necessary, which takes logarithmic time.\nThe time complexity for finding the median using the findMedian() function is O(1). This is because we directly access the top elements of the heaps, which takes constant time.\nThe space complexity is O(N), where N is the total number of elements added. This is because we need to store the elements in the two priority queues.\n\nCODE:-\n\n*/\n    \npublic:\n    MedianFinder() {}\n    \n    void addNum(int num) {\n        if (maxpq.empty() || num < maxpq.top())\n            maxpq.push(num);\n        else\n            minpq.push(num);\n        \n        // Balancing the heaps\n        int a = maxpq.size();\n        int b = minpq.size();\n        if (abs(a - b) > 1) {\n            if (a > b) {\n                int temp = maxpq.top();\n                maxpq.pop();\n                minpq.push(temp);\n            }\n            else {\n                int temp = minpq.top();\n                minpq.pop();\n                maxpq.push(temp);\n            }\n        }\n    }\n    \n    double findMedian() {\n        int a = maxpq.size();\n        int b = minpq.size();\n        if (a == b)\n            return (static_cast<double>(maxpq.top() + minpq.top()) / 2);\n        if (a > b)\n            return maxpq.top();\n        return minpq.top();\n    }\n};\n\n",
+    "codeLines": 68,
+    "repoPath": "09. Heaps/3. Hard Problems/05. Median in a stream.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/3.%20Hard%20Problems/05.%20Median%20in%20a%20stream.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-median-from-data-stream/",
+      "title": "Find Median from Data Stream",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p204",
+    "index": 204,
+    "title": "Top K frequent elements",
+    "topic": "Heaps",
+    "subtopic": "Hard Problems",
+    "difficulty": "Hard",
+    "question": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.",
+    "approach": "1. Create a frequency map to count the occurrences of each element in the array.\n2. Use a min heap to store the k most frequent elements based on their frequencies.\n3. Iterate through the frequency map and push elements into the min heap.\n4. If the size of the min heap exceeds k, remove the element with the lowest frequency.\n5. Finally, extract the elements from the min heap and return them in reverse order to get the k most frequent elements.",
+    "pseudocode": "ALGORITHM  Top K frequent elements\nPATTERN    Dijkstra / shortest path\n\nBEGIN\n  01  SET a frequency map to count the occurrences of each element in the array\n  02  Use a min heap to store the k most frequent elements based on their frequencies\n  03  FOR EACH element while traversing the frequency map and push elements into the min heap\n  04  IF the size of the min heap exceeds k, remove the element with the lowest frequency\n  05  Finally, extract the elements from the min heap and return them in reverse order to get the k most frequent elements\n  06  RETURN the required result\nEND",
+    "time": "O(N log K), where N is the size of the input array nums. Building the frequency map takes O(N) time, and inserting and removing elements from the min heap take O(log K) time, which is done for each element in nums",
+    "space": "O(N) to store the frequency map and O(K) for the min heap, resulting in a total of O(N + K) space",
+    "strategy": "Dijkstra / shortest path",
+    "tags": ["Heaps", "Dijkstra / shortest path"],
+    "intuition": "Always expand the not-yet-finalized state with minimum known distance, then relax outgoing edges. Stale priority-queue entries can be skipped safely.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Using Dijkstra with negative edges",
+      "Not skipping stale heap entries",
+      "Using int for large distances"
+    ],
+    "code": "/*\nQuestion:\nGiven an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.\n*/\n\n/*\nApproach:\n1. Create a frequency map to count the occurrences of each element in the array.\n2. Use a min heap to store the k most frequent elements based on their frequencies.\n3. Iterate through the frequency map and push elements into the min heap.\n4. If the size of the min heap exceeds k, remove the element with the lowest frequency.\n5. Finally, extract the elements from the min heap and return them in reverse order to get the k most frequent elements.\n*/\n\n/*\nComplexity Analysis:\n- The time complexity is O(N log K), where N is the size of the input array nums. Building the frequency map takes O(N) time, and inserting and removing elements from the min heap take O(log K) time, which is done for each element in nums.\n- The space complexity is O(N) to store the frequency map and O(K) for the min heap, resulting in a total of O(N + K) space.\n\nCODE:-\n*/\n\nvector<int> topKFrequent(vector<int>& nums, int k) {\n    unordered_map<int, int> mp;\n    for (auto it : nums)\n        mp[it]++;\n    \n    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;\n    for (auto it : mp) {\n        pq.push({ it.second, it.first });\n        if (pq.size() > k)\n            pq.pop();\n    }\n    \n    vector<int> ans;\n    while (!pq.empty()) {\n        ans.push_back(pq.top().second);\n        pq.pop();\n    }\n    \n    reverse(ans.begin(), ans.end());\n    return ans;\n}\n\n",
+    "codeLines": 44,
+    "repoPath": "09. Heaps/3. Hard Problems/06. Top K frequent elements.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/09.%20Heaps/3.%20Hard%20Problems/06.%20Top%20K%20frequent%20elements.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/top-k-frequent-elements/",
+      "title": "Top K Frequent Elements",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  }
+]

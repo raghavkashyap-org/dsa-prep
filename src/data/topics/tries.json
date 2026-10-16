@@ -1,0 +1,260 @@
+[
+  {
+    "id": "p359",
+    "index": 359,
+    "title": "Implement Trie (Prefix Tree)",
+    "topic": "Tries",
+    "subtopic": "Theory",
+    "difficulty": "Foundation",
+    "question": "Implement the Trie class, which supports insertion, search, and startsWith operations.",
+    "approach": "- Create a TrieNode class with an array of child nodes, each representing a letter.\n- The Trie class maintains a root TrieNode.\n- For insertion, traverse the trie, creating new nodes as necessary for each character.\n- For search, traverse the trie, checking if nodes exist for each character and if the final node is marked as a complete word.\n- For startsWith, traverse the trie similarly to search, but don't require the final node to be marked as a complete word.",
+    "pseudocode": "ALGORITHM  Implement Trie (Prefix Tree)\nPATTERN    Trie\n\nBEGIN\n  01  SET a TrieNode class with an array of child nodes, each representing a letter\n  02  The Trie class maintains a root TrieNode\n  03  For insertion, traverse the trie, creating new nodes as necessary for each character\n  04  For search, traverse the trie, checking if nodes exist for each character and if the final node is marked as a complete word\n  05  For startsWith, traverse the trie similarly to search, but don't require the final node to be marked as a complete word\n  06  RETURN the required result\nEND",
+    "time": "Not explicitly stated in the source file",
+    "space": "O(N * M), where N is the number of words and M is the average length of the words",
+    "strategy": "Trie",
+    "tags": ["Tries", "Trie", "Strings"],
+    "intuition": "Store shared prefixes once. Every edge represents a character or bit, so lookup and insertion depend on key length rather than the number of stored keys.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nImplement the Trie class, which supports insertion, search, and startsWith operations.\n\nApproach:\n- Create a TrieNode class with an array of child nodes, each representing a letter.\n- The Trie class maintains a root TrieNode.\n- For insertion, traverse the trie, creating new nodes as necessary for each character.\n- For search, traverse the trie, checking if nodes exist for each character and if the final node is marked as a complete word.\n- For startsWith, traverse the trie similarly to search, but don't require the final node to be marked as a complete word.\n\nComplexity Analysis:\n- Insertion, search, and startsWith operations take O(L) time, where L is the length of the word or prefix.\n- Space complexity is O(N * M), where N is the number of words and M is the average length of the words.\n\nCODE:-\n*/\n\nclass TrieNode{\npublic:\n    TrieNode* child[26];\n    bool isWord;\n\n    TrieNode(){\n        this->isWord = false;\n        for(int i=0; i<26; i++){\n            this->child[i] = NULL;\n        }\n    }\n};\n\nclass Trie {\npublic:\n    TrieNode* root;\n\n    Trie() {\n        root = new TrieNode();\n    }\n    \n    void insert(string word) {\n        TrieNode* curr = root;\n        for(int i=0; i<word.size(); i++){\n            int ltr = word[i] - 'a';\n            if(!curr->child[ltr])\n                curr->child[ltr] = new TrieNode();\n            curr = curr->child[ltr];\n        }\n        curr->isWord = true;\n    }\n    \n    bool search(string word) {\n        TrieNode* curr = root;\n        for(int i=0; i<word.size(); i++){\n            int ltr = word[i]-'a';\n            if(!curr->child[ltr]) return false;\n            curr = curr->child[ltr];\n        }\n        return curr && curr->isWord;\n    }\n    \n    bool startsWith(string prefix) {\n        TrieNode* curr = root;\n        for(int i=0; i<prefix.size(); i++){\n            int ltr = prefix[i]-'a';\n            if(!curr->child[ltr]) return false;\n            curr = curr->child[ltr];\n        }\n        return curr;\n    }\n};",
+    "codeLines": 70,
+    "repoPath": "15. Tries/1. Theory/01. Implement Trie (Prefix Tree).cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/15.%20Tries/1.%20Theory/01.%20Implement%20Trie%20%28Prefix%20Tree%29.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+      "title": "Implement Trie (Prefix Tree)",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p360",
+    "index": 360,
+    "title": "Implement Trie 2",
+    "topic": "Tries",
+    "subtopic": "Problems",
+    "difficulty": "Medium",
+    "question": "Ninja has to implement a data structure \"TRIE\" from scratch. Implement the functions as follows:\n1) Trie(): Initializes the trie object.\n2) insert(\"WORD\"): Inserts the string \"WORD\" into the trie.\n3) countWordsEqualTo(\"WORD\"): Returns how many times the string \"WORD\" is present in the trie.\n4) countWordsStartingWith(\"PREFIX\"): Returns how many words in the trie have the string \"PREFIX\" as a prefix.\n5) erase(\"WORD\"): Deletes one occurrence of the string \"WORD\" from the trie.",
+    "approach": "- Create a TrieNode class with an array of child nodes, each representing a letter.\n- Maintain the count of words with a specific prefix (cntPre) and the count of words (cntWord) at each node.\n- Implement insert, countWordsEqualTo, countWordsStartingWith, and erase functions using TrieNode operations.",
+    "pseudocode": "ALGORITHM  Implement Trie 2\nPATTERN    Trie\n\nBEGIN\n  01  SET a TrieNode class with an array of child nodes, each representing a letter\n  02  Maintain the count of words with a specific prefix (cntPre) and the count of words (cntWord) at each node\n  03  Implement insert, countWordsEqualTo, countWordsStartingWith, and erase functions using TrieNode operations\n  04  RETURN the required result\nEND",
+    "time": "Not explicitly stated in the source file",
+    "space": "O(N * M), where N is the number of words and M is the average length of the words",
+    "strategy": "Trie",
+    "tags": ["Tries", "Trie", "Strings"],
+    "intuition": "Store shared prefixes once. Every edge represents a character or bit, so lookup and insertion depend on key length rather than the number of stored keys.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nNinja has to implement a data structure \"TRIE\" from scratch. Implement the functions as follows:\n1) Trie(): Initializes the trie object.\n2) insert(\"WORD\"): Inserts the string \"WORD\" into the trie.\n3) countWordsEqualTo(\"WORD\"): Returns how many times the string \"WORD\" is present in the trie.\n4) countWordsStartingWith(\"PREFIX\"): Returns how many words in the trie have the string \"PREFIX\" as a prefix.\n5) erase(\"WORD\"): Deletes one occurrence of the string \"WORD\" from the trie.\n\nApproach:\n- Create a TrieNode class with an array of child nodes, each representing a letter.\n- Maintain the count of words with a specific prefix (cntPre) and the count of words (cntWord) at each node.\n- Implement insert, countWordsEqualTo, countWordsStartingWith, and erase functions using TrieNode operations.\n\nComplexity Analysis:\n- All operations take O(L) time, where L is the length of the word or prefix.\n- Space complexity is O(N * M), where N is the number of words and M is the average length of the words.\n*/\n\nclass TrieNode {\npublic:\n    int cntWord, cntPre;\n    TrieNode* child[26];\n    \n    TrieNode() {\n        this->cntPre = 0;\n        this->cntWord = 0;\n        for (int i = 0; i < 26; i++) {\n            this->child[i] = NULL;\n        }\n    }\n};\n\nclass Trie {\npublic:\n    TrieNode* root;\n\n    Trie() {\n        root = new TrieNode();\n    }\n\n    void insert(string &word) {\n        TrieNode* curr = root;\n        for (int i = 0; i < word.size(); i++) {\n            int ltr = word[i] - 'a';\n            if (!curr->child[ltr])\n                curr->child[ltr] = new TrieNode();\n            curr = curr->child[ltr];\n            curr->cntPre++;\n        }\n        curr->cntWord++;\n    }\n\n    int countWordsEqualTo(string &word) {\n        TrieNode* curr = root;\n        for (int i = 0; i < word.size(); i++) {\n            int ltr = word[i] - 'a';\n            if (!curr->child[ltr])\n                return 0;\n            curr = curr->child[ltr];\n        }\n        return curr->cntWord;\n    }\n\n    int countWordsStartingWith(string &prefix) {\n        TrieNode* curr = root;\n        for (int i = 0; i < prefix.size(); i++) {\n            int ltr = prefix[i] - 'a';\n            if (!curr->child[ltr])\n                return 0;\n            curr = curr->child[ltr];\n        }\n        return curr->cntPre;\n    }\n\n    void erase(string &word) {\n        TrieNode* curr = root;\n        for (int i = 0; i < word.size(); i++) {\n            int ltr = word[i] - 'a';\n            curr = curr->child[ltr];\n            curr->cntPre--;\n        }\n        curr->cntWord--;\n    }\n};\n\n",
+    "codeLines": 86,
+    "repoPath": "15. Tries/2. Problems/01. Implement Trie 2.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/15.%20Tries/2.%20Problems/01.%20Implement%20Trie%202.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+      "title": "Implement Trie (Prefix Tree)",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p361",
+    "index": 361,
+    "title": "Complete String",
+    "topic": "Tries",
+    "subtopic": "Problems",
+    "difficulty": "Medium",
+    "question": "Ninja developed a fascination for arrays and strings, so this time his teacher gave him an array of strings 'A' of size 'N'. Each element of this array is a string. A string is called a complete string if every prefix of this string is also present in the array 'A'. Ninja is challenged to find the longest complete string in the array 'A'. If there are multiple strings with the same length, return the lexicographically smallest one, and if no string exists, return \"None\".\n\nExample:\nN = 4\nA = [\"ab\", \"abc\", \"a\", \"bp\"]\nExplanation:\n- Only prefix of the string \"a\" is \"a\", which is present in array 'A'. So, it is one of the possible strings.\n- Prefixes of the string \"ab\" are \"a\" and \"ab\", both of which are present in array 'A'. So, it is one of the possible strings.\n- Prefixes of the string \"bp\" are \"b\" and \"bp\". \"b\" is not present in array 'A'. So, it cannot be a valid string.\n- Prefixes of the string \"abc\" are \"a\", \"ab\", and \"abc\", all of which are present in array 'A'. So, it is one of the possible strings.\n- We need to find the maximum length string, so \"abc\" is the required string.",
+    "approach": "- Create a Trie data structure to store the strings in the array 'A'.\n- Insert all the strings into the Trie.\n- Iterate through each string in array 'A':\n  - Check if the string is a valid complete string using the Trie.\n  - If it is valid, update the answer string based on the length and lexicographical order.",
+    "pseudocode": "ALGORITHM  Complete String\nPATTERN    Trie\n\nBEGIN\n  01  SET a Trie data structure to store the strings in the array 'A'\n  02  Insert all the strings into the Trie\n  03  FOR EACH element while traversing each string in array 'A':\n  04  Check if the string is a valid complete string using the Trie\n  05  IF it is valid, update the answer string based on the length and lexicographical order\n  06  RETURN the required result\nEND",
+    "time": "O(N*K) and the space complexity is O(N*K), where N is the number of strings and K is the average length of strings",
+    "space": "O(N*K), where N is the number of strings and K is the average length of strings",
+    "strategy": "Trie",
+    "tags": ["Tries", "Trie", "Strings", "Graph"],
+    "intuition": "Store shared prefixes once. Every edge represents a character or bit, so lookup and insertion depend on key length rather than the number of stored keys.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nNinja developed a fascination for arrays and strings, so this time his teacher gave him an array of strings 'A' of size 'N'. Each element of this array is a string. A string is called a complete string if every prefix of this string is also present in the array 'A'. Ninja is challenged to find the longest complete string in the array 'A'. If there are multiple strings with the same length, return the lexicographically smallest one, and if no string exists, return \"None\".\n\nExample:\nN = 4\nA = [\"ab\", \"abc\", \"a\", \"bp\"]\nExplanation:\n- Only prefix of the string \"a\" is \"a\", which is present in array 'A'. So, it is one of the possible strings.\n- Prefixes of the string \"ab\" are \"a\" and \"ab\", both of which are present in array 'A'. So, it is one of the possible strings.\n- Prefixes of the string \"bp\" are \"b\" and \"bp\". \"b\" is not present in array 'A'. So, it cannot be a valid string.\n- Prefixes of the string \"abc\" are \"a\", \"ab\", and \"abc\", all of which are present in array 'A'. So, it is one of the possible strings.\n- We need to find the maximum length string, so \"abc\" is the required string.\n\nApproach:\n- Create a Trie data structure to store the strings in the array 'A'.\n- Insert all the strings into the Trie.\n- Iterate through each string in array 'A':\n  - Check if the string is a valid complete string using the Trie.\n  - If it is valid, update the answer string based on the length and lexicographical order.\n\nComplexity Analysis:\n- Inserting each string into the Trie takes O(N*K) time and space, where N is the number of strings and K is the average length of strings.\n- Validating each string takes O(K) time.\n- The overall time complexity is O(N*K) and the space complexity is O(N*K), where N is the number of strings and K is the average length of strings.\n*/\n\nclass TrieNode {\npublic:\n    TrieNode* children[26];\n    bool end;\n\n    TrieNode() {\n        this->end = false;\n        for (int i = 0; i < 26; i++) {\n            this->children[i] = NULL;\n        }\n    }\n};\n\nclass Trie {\npublic:\n    TrieNode* root;\n\n    Trie() {\n        root = new TrieNode();\n    }\n\n    void insert(string& word) {\n        TrieNode* curr = root;\n        int n = word.size();\n        for (int i = 0; i < n; i++) {\n            int key = word[i] - 'a';\n            if (curr->children[key] == NULL) {\n                curr->children[key] = new TrieNode();\n            }\n            curr = curr->children[key];\n        }\n        curr->end = true;\n    }\n\n    bool isvalid(string& word) {\n        TrieNode* curr = root;\n        int n = word.size();\n        for (int i = 0; i < n; i++) {\n            int key = word[i] - 'a';\n            if (curr->children[key] == NULL || curr->children[key]->end == false) {\n                return false;\n            }\n            curr = curr->children[key];\n        }\n        return curr != NULL && curr->end;\n    }\n};\n\nstring completeString(int n, vector<string>& a) {\n\n    Trie tr;\n\n    for (auto it : a) {\n        tr.insert(it);\n    }\n\n    string ans = \"\";\n\n    for (auto it : a) {\n        if (tr.isvalid(it)) {\n            if (ans.size() < it.size())\n                ans = it;\n            else if (ans.size() == it.size() && it < ans)\n                ans = it;\n        }\n    }\n    if (ans.size() == 0)\n        return \"None\";\n    return ans;\n\n}\n",
+    "codeLines": 98,
+    "repoPath": "15. Tries/2. Problems/02. Complete String.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/15.%20Tries/2.%20Problems/02.%20Complete%20String.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+      "title": "Implement Trie (Prefix Tree)",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p362",
+    "index": 362,
+    "title": "Count distinct substrings",
+    "topic": "Tries",
+    "subtopic": "Problems",
+    "difficulty": "Medium",
+    "question": "Given a string of length N of lowercase alphabet characters. Implement the function countDistinctSubstring() to return the count of total distinct substrings of the given string.",
+    "approach": "- Create a Trie data structure to efficiently store and count distinct substrings.\n- For each character in the string, insert its suffixes into the Trie, and each insertion increases the count of distinct substrings.\n- Return the total count of distinct substrings.",
+    "pseudocode": "ALGORITHM  Count distinct substrings\nPATTERN    Trie\n\nBEGIN\n  01  SET a Trie data structure to efficiently store and count distinct substrings\n  02  FOR EACH character in the string, insert its suffixes into the Trie, and each insertion increases the count of distinct substrings\n  03  RETURN the total count of distinct substrings\nEND",
+    "time": "O(N^2) since there are O(N^2) substrings in total",
+    "space": "O(N) to store the Trie",
+    "strategy": "Trie",
+    "tags": ["Tries", "Trie", "Strings"],
+    "intuition": "Store shared prefixes once. Every edge represents a character or bit, so lookup and insertion depend on key length rather than the number of stored keys.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven a string of length N of lowercase alphabet characters. Implement the function countDistinctSubstring() to return the count of total distinct substrings of the given string.\n\nApproach:\n- Create a Trie data structure to efficiently store and count distinct substrings.\n- For each character in the string, insert its suffixes into the Trie, and each insertion increases the count of distinct substrings.\n- Return the total count of distinct substrings.\n\nComplexity Analysis:\n- Inserting each substring into the Trie takes O(N) time and O(N) space.\n- Overall time complexity is O(N^2) since there are O(N^2) substrings in total.\n- Space complexity is O(N) to store the Trie.\n*/\n\nclass TrieNode {\npublic:\n    TrieNode* child[26];\n    \n    TrieNode() {\n        for (int i = 0; i < 26; i++) {\n            this->child[i] = NULL;\n        }\n    }\n};\n\nclass Trie {\npublic:\n    TrieNode* root;\n    Trie() {\n        root = new TrieNode();\n    }\n    \n    void insert(string word, int& cnt) {\n        TrieNode* curr = root;\n        for (int i = 0; i < word.size(); i++) {\n            int ltr = word[i] - 'a';\n            if (!curr->child[ltr]) {\n                cnt++;\n                curr->child[ltr] = new TrieNode();\n            }\n            curr = curr->child[ltr];\n        }\n    }\n};\n\nint countDistinctSubstring(string s) {\n    int cnt = 0;\n    Trie* tr = new Trie();\n    for (int i = 0; i < s.size(); i++) {\n        tr->insert(s.substr(i), cnt);\n    }\n    return cnt + 1; // Adding 1 for the empty string itself\n}\n",
+    "codeLines": 54,
+    "repoPath": "15. Tries/2. Problems/03. Count distinct subsitrings.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/15.%20Tries/2.%20Problems/03.%20Count%20distinct%20subsitrings.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+      "title": "Implement Trie (Prefix Tree)",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p363",
+    "index": 363,
+    "title": "Bitwise basic operations",
+    "topic": "Tries",
+    "subtopic": "Problems",
+    "difficulty": "Medium",
+    "question": "You are given six positive integers: 'a', 'b', 'c', 'd', 'e', and 'f'.\nYou will be given three functions: 'getXOR', 'getBit', and 'setBit'.\nYour task is to do the following:\n1. In the function 'getXOR', you will be given two parameters, 'a', and 'b'. Your task is to return the XOR of 'a' and 'b'.\n2. In the function 'getBit', you will be given two parameters, 'c' and 'd'. Your task is to return 1 if the 'c'th bit of 'd' is set. Otherwise, return 0.\n3. In the function 'setBit', you will be given two parameters, 'e' and 'f'. Your task is to set the 'e'th bit in 'f' if it is not set. At last, return the integer 'f'. The expected time complexity is 'O(1)', and the expected space complexity is 'O(1').",
+    "approach": "1. For the 'getXOR' function, simply use the XOR (^) operator to get the XOR of 'a' and 'b'.\n2. For the 'getBit' function, use the right shift (>>) and bitwise AND (&) operators to check if the 'c'th bit of 'd' is set or not.\n3. For the 'setBit' function, use the bitwise OR (|) operator and left shift (<<) to set the 'e'th bit in 'f'.",
+    "pseudocode": "ALGORITHM  Bitwise basic operations\nPATTERN    Dynamic programming\n\nBEGIN\n  01  For the 'getXOR' function, simply use the XOR (^) operator to get the XOR of 'a' and 'b'\n  02  For the 'getBit' function, use the right shift (>>) and bitwise AND (&) operators to check if the 'c'th bit of 'd' is set or not\n  03  For the 'setBit' function, use the bitwise OR (|) operator and left shift (<<) to set the 'e'th bit in 'f'\n  04  RETURN the required result\nEND",
+    "time": "'O(1)', and the expected space complexity is 'O(1')",
+    "space": "'O(1')",
+    "strategy": "Dynamic programming",
+    "tags": ["Tries", "Dynamic programming"],
+    "intuition": "Define a state that captures the smallest information needed to finish the problem. Write the transition first, lock down base cases, then choose memoization or tabulation.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Smallest base case",
+      "Impossible state",
+      "Repeated values",
+      "Overflow/modulo behavior"
+    ],
+    "pitfalls": [
+      "Ambiguous state meaning",
+      "Wrong iteration order",
+      "Missing impossible-state initialization"
+    ],
+    "code": "/*\nQUESTION:\nYou are given six positive integers: 'a', 'b', 'c', 'd', 'e', and 'f'.\nYou will be given three functions: 'getXOR', 'getBit', and 'setBit'.\nYour task is to do the following:\n1. In the function 'getXOR', you will be given two parameters, 'a', and 'b'. Your task is to return the XOR of 'a' and 'b'.\n2. In the function 'getBit', you will be given two parameters, 'c' and 'd'. Your task is to return 1 if the 'c'th bit of 'd' is set. Otherwise, return 0.\n3. In the function 'setBit', you will be given two parameters, 'e' and 'f'. Your task is to set the 'e'th bit in 'f' if it is not set. At last, return the integer 'f'. The expected time complexity is 'O(1)', and the expected space complexity is 'O(1').\n\nCODE:\n\nApproach:\n1. For the 'getXOR' function, simply use the XOR (^) operator to get the XOR of 'a' and 'b'.\n2. For the 'getBit' function, use the right shift (>>) and bitwise AND (&) operators to check if the 'c'th bit of 'd' is set or not.\n3. For the 'setBit' function, use the bitwise OR (|) operator and left shift (<<) to set the 'e'th bit in 'f'.\n\nComplexity Analysis:\n- All three functions have a time complexity of O(1) as they involve simple bitwise operations.\n- All three functions have a space complexity of O(1) as they do not require additional memory allocation.\n*/\n\nint getXOR(int a, int b) {\n    return a ^ b;\n}\n\nint getBit(int c, int d) {\n    return (d >> c) & 1;\n}\n\nint setBit(int e, int f) {\n    return f | (1 << e);\n}\n",
+    "codeLines": 32,
+    "repoPath": "15. Tries/2. Problems/04. Bitwise basic operations.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/15.%20Tries/2.%20Problems/04.%20Bitwise%20basic%20operations.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/",
+      "title": "Maximum XOR of Two Numbers in an Array",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p364",
+    "index": 364,
+    "title": "Maximum XOR of two numbers",
+    "topic": "Tries",
+    "subtopic": "Problems",
+    "difficulty": "Medium",
+    "question": "Given an integer array nums, return the maximum result of nums[i] XOR nums[j], where 0 <= i <= j < n.\n\nExample:\n\nInput: nums = [3,10,5,25,2,8]\nOutput: 28\nExplanation: The maximum result is 5 XOR 25 = 28.",
+    "approach": "1. Create a Trie data structure that stores binary representations of the given numbers.\n2. For each number, insert its binary representation into the Trie.\n3. For each number, find the maximum XOR that can be obtained with any other number using the Trie.\n   - Traverse the Trie for each bit of the number and try to find a bit in the other number's binary representation that gives the maximum XOR.\n   - If a complementary bit is found, set the corresponding bit in the result.\n4. Return the maximum XOR found.",
+    "pseudocode": "ALGORITHM  Maximum XOR of two numbers\nPATTERN    Trie\n\nBEGIN\n  01  SET a Trie data structure that stores binary representations of the given numbers\n  02  FOR EACH number, insert its binary representation into the Trie\n  03  FOR EACH number, find the maximum XOR that can be obtained with any other number using the Trie\n  04  FOR EACH element while traversing the Trie for each bit of the number and try to find a bit in the other number's binary representation that gives the maximum XOR\n  05  IF a complementary bit is found, set the corresponding bit in the result\n  06  RETURN the maximum XOR found\nEND",
+    "time": "of the solution is O(n * 32), which simplifies to O(n)",
+    "space": "also O(n) since we are storing the Trie",
+    "strategy": "Trie",
+    "tags": ["Tries", "Trie"],
+    "intuition": "Store shared prefixes once. Every edge represents a character or bit, so lookup and insertion depend on key length rather than the number of stored keys.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an integer array nums, return the maximum result of nums[i] XOR nums[j], where 0 <= i <= j < n.\n\nExample:\n\nInput: nums = [3,10,5,25,2,8]\nOutput: 28\nExplanation: The maximum result is 5 XOR 25 = 28.\n\nApproach:\n1. Create a Trie data structure that stores binary representations of the given numbers.\n2. For each number, insert its binary representation into the Trie.\n3. For each number, find the maximum XOR that can be obtained with any other number using the Trie.\n   - Traverse the Trie for each bit of the number and try to find a bit in the other number's binary representation that gives the maximum XOR.\n   - If a complementary bit is found, set the corresponding bit in the result.\n4. Return the maximum XOR found.\n\nComplexity Analysis:\n- The Trie insertion and search operations both take O(32) time since we are dealing with 32 bits (maximum). Therefore, the time complexity of the solution is O(n * 32), which simplifies to O(n).\n- The space complexity is also O(n) since we are storing the Trie.\n\nCODE:\n*/\n\nclass TrieNode {\npublic:\n    TrieNode* child[2];\n    \n    TrieNode() {\n        for(int i = 0; i < 2; i++) {\n            this->child[i] = NULL;\n        }\n    }\n};\n\nclass Trie {\npublic:\n    TrieNode* root;\n    \n    Trie() {\n        root = new TrieNode();\n    }\n    \n    void insert(int num) {\n        TrieNode* curr = root;\n        for(int i = 31; i >= 0; i--) {\n            int bit = (num >> i) & 1;\n            if(!curr->child[bit]) {\n                curr->child[bit] = new TrieNode();\n            }\n            curr = curr->child[bit];\n        }\n    }\n    \n    int findMax(int num) {\n        TrieNode* curr = root;\n        int maxNum = 0;\n        for(int i = 31; i >= 0; i--) {\n            int bit = (num >> i) & 1;\n            if(curr->child[1 - bit]) {\n                maxNum = maxNum | (1 << i);\n                curr = curr->child[1 - bit];\n            } else {\n                curr = curr->child[bit];\n            }\n        }\n        return maxNum;\n    }\n};\n\nclass Solution {\npublic:\n    int findMaximumXOR(vector<int>& nums) {\n        Trie* tr = new Trie();\n        for(auto i : nums) {\n            tr->insert(i);\n        }\n        int ans = 0;\n        for(auto i : nums) {\n            int temp = tr->findMax(i);\n            ans = max(ans, temp);\n        }\n        return ans;\n    }\n};\n\n",
+    "codeLines": 87,
+    "repoPath": "15. Tries/2. Problems/05. Maximum XOR of two numbers.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/15.%20Tries/2.%20Problems/05.%20Maximum%20XOR%20of%20two%20numbers.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/",
+      "title": "Maximum XOR of Two Numbers in an Array",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  }
+]

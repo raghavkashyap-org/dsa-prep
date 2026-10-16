@@ -1,0 +1,647 @@
+[
+  {
+    "id": "p252",
+    "index": 252,
+    "title": "Intro to BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Concept",
+    "difficulty": "Foundation",
+    "question": "Given an array `order`, which represents the inorder traversal of a binary search tree (BST), the task is to check if it's valid or not.",
+    "approach": "A binary search tree is considered valid if its inorder traversal is in non-decreasing order. We can simply iterate through the `order` array and check if each element is smaller than the next element. If we find any element that is greater than or equal to the next element, the BST is not valid, and we return `false`. Otherwise, we return `true`.",
+    "pseudocode": "ALGORITHM  Intro to BST\nPATTERN    Binary search\n\nBEGIN\n  01  A binary search tree is considered valid if its inorder traversal is in non-decreasing order\n  02  We can simply iterate through the order array and check if each element is smaller than the next element\n  03  IF we find any element that is greater than or equal to the next element, the BST is not valid, and we return false\n  04  ELSE we return true\n  05  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "of our approach:",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/**Question:**\n\nGiven an array `order`, which represents the inorder traversal of a binary search tree (BST), the task is to check if it's valid or not.\n\n**Approach:**\n\nA binary search tree is considered valid if its inorder traversal is in non-decreasing order. We can simply iterate through the `order` array and check if each element is smaller than the next element. If we find any element that is greater than or equal to the next element, the BST is not valid, and we return `false`. Otherwise, we return `true`.\n\n**Complexity Analysis:**\n\nLet's analyze the time and space complexity of our approach:\n\n- Time Complexity: O(N)\n  - In the worst case, we need to iterate through the entire `order` array once, where N is the number of elements in the array.\n\n- Space Complexity: O(1)\n  - We are not using any additional space that grows with the input size, so the space complexity is constant.\n\n**Code:**/\n\n\nbool isValidBST(vector<int> &order) {\n    for (int i = 1; i < order.size(); i++) {\n        if (order[i - 1] >= order[i]) {\n            return false;\n        }\n    }\n    return true;\n}\n",
+    "codeLines": 29,
+    "repoPath": "12. Binary Search Trees/1. Concept/01. Intro to BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/1.%20Concept/01.%20Intro%20to%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/validate-binary-search-tree/",
+      "title": "Validate Binary Search Tree",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p253",
+    "index": 253,
+    "title": "Search in BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Concept",
+    "difficulty": "Foundation",
+    "question": "You are given the root of a binary search tree (BST) and an integer `val`. You need to find the node in the BST whose value equals `val` and return the subtree rooted with that node. If such a node does not exist, return `NULL`.",
+    "approach": "Since the given binary tree is a binary search tree, we can utilize its property to efficiently find the node with the value `val`. We start from the root and compare its value with `val`. If the current node's value is equal to `val`, we return the current node as it is the node we are looking for. If the current node's value is greater than `val`, we need to search in the left subtree because all nodes in the left subtree have smaller values. Similarly, if the current node's value is smaller than `val`, we need to search in the right subtree. We recursively perform this process until we find the desired node or reach a leaf node (where the node is not present).",
+    "pseudocode": "ALGORITHM  Search in BST\nPATTERN    Binary search\n\nBEGIN\n  01  Since the given binary tree is a binary search tree, we can utilize its property to efficiently find the node with the value val\n  02  We start from the root and compare its value with val\n  03  IF the current node's value is equal to val, we return the current node as it is the node we are looking for\n  04  IF the current node's value is greater than val, we need to search in the left subtree because all nodes in the left subtree have smaller values\n  05  Similarly, if the current node's value is smaller than val, we need to search in the right subtree\n  06  We recursively perform this process until we find the desired node or reach a leaf node (where the node is not present)\n  07  RETURN the required result\nEND",
+    "time": "O(log N) on average for balanced BST, O(N) in the worst case for skewed BST",
+    "space": "of our approach:",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/**Question:**\n\nYou are given the root of a binary search tree (BST) and an integer `val`. You need to find the node in the BST whose value equals `val` and return the subtree rooted with that node. If such a node does not exist, return `NULL`.\n\n**Approach:**\n\nSince the given binary tree is a binary search tree, we can utilize its property to efficiently find the node with the value `val`. We start from the root and compare its value with `val`. If the current node's value is equal to `val`, we return the current node as it is the node we are looking for. If the current node's value is greater than `val`, we need to search in the left subtree because all nodes in the left subtree have smaller values. Similarly, if the current node's value is smaller than `val`, we need to search in the right subtree. We recursively perform this process until we find the desired node or reach a leaf node (where the node is not present).\n\n**Complexity Analysis:**\n\nLet's analyze the time and space complexity of our approach:\n\n- Time Complexity: O(log N) on average for balanced BST, O(N) in the worst case for skewed BST.\n  - In a balanced binary search tree, each level reduces the search space by half, so the time complexity is logarithmic. However, in the worst case, the BST can be skewed, and we may need to traverse all nodes in one path, leading to linear time complexity.\n\n- Space Complexity: O(H), where H is the height of the BST.\n  - The space complexity is determined by the recursion stack. In the average case, the height of a balanced BST is logarithmic, resulting in a logarithmic space complexity. In the worst case, when the tree is skewed, the height is N, resulting in a space complexity of O(N).\n\n**Code:**/\n\n\nTreeNode* searchBST(TreeNode* root, int val) {\n    if (!root) return NULL;\n    if (root->val == val) return root;\n    if (root->val > val) return searchBST(root->left, val);\n    else return searchBST(root->right, val);\n}\n",
+    "codeLines": 27,
+    "repoPath": "12. Binary Search Trees/1. Concept/02. Search in BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/1.%20Concept/02.%20Search%20in%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/search-in-a-binary-search-tree/",
+      "title": "Search in a Binary Search Tree",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p254",
+    "index": 254,
+    "title": "Minimum value in BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Concept",
+    "difficulty": "Foundation",
+    "question": "Given a Binary Search Tree (BST), find the minimum value in it.\n\nExample:\n\n    8\n   /\n  5\n / \\\n3   6\n\nBST for the given input looks like the above. The minimum value in this BST is `3`.",
+    "approach": "To find the minimum value in a BST, we can traverse the left child nodes until we reach the leftmost leaf node, which will have the minimum value.",
+    "pseudocode": "ALGORITHM  Minimum value in BST\nPATTERN    Binary search\n\nBEGIN\n  01  To find the minimum value in a BST, we can traverse the left child nodes until we reach the leftmost leaf node, which will have the minimum value\n  02  RETURN the required result\nEND",
+    "time": "The time complexity of finding the minimum value in a BST is O(h), where 'h' is the height of the BST. In the worst case, the height of a skewed BST could be 'n', but in a balanced BST, the height is log(n), making the average time complexity O(log n)",
+    "space": "The space complexity is O(1) as we are not using any extra space",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/**QUESTION:**\n\nGiven a Binary Search Tree (BST), find the minimum value in it.\n\nExample:\n\n\n    8\n   / \n  5\n / \\\n3   6 \n\n\nBST for the given input looks like the above. The minimum value in this BST is `3`.\n\n**APPROACH:**\n\nTo find the minimum value in a BST, we can traverse the left child nodes until we reach the leftmost leaf node, which will have the minimum value.\n\n**COMPLEXITY ANALYSIS:**\n\nLet 'n' be the number of nodes in the BST.\n\n- Time Complexity: The time complexity of finding the minimum value in a BST is O(h), where 'h' is the height of the BST. In the worst case, the height of a skewed BST could be 'n', but in a balanced BST, the height is log(n), making the average time complexity O(log n).\n- Space Complexity: The space complexity is O(1) as we are not using any extra space.\n\n**CODE:**/\n\nint minVal(Node* root) {\n    if (!root) return -1;\n    while (root->left)\n        root = root->left;\n    return root->data;\t\n}\n",
+    "codeLines": 35,
+    "repoPath": "12. Binary Search Trees/1. Concept/03. Minimum value in BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/1.%20Concept/03.%20Minimum%20value%20in%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-absolute-difference-in-bst/",
+      "title": "Minimum Absolute Difference in BST",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p255",
+    "index": 255,
+    "title": "Ceil in BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "Given a Binary Search Tree (BST) and a number `X`, find the Ceil of `X`. Ceil(X) is a number that is either equal to `X` or is immediately greater than `X` in the BST.\n\nIf the Ceil of `X` could not be found, return `-1`.\n\n*Example 1:**\n\nInput:\n\n      5\n    /   \\\n   1     7\n    \\\n     2\n      \\\n       3\nX = 3\n\nOutput: 3\n\nExplanation: We find 3 in the BST, so the ceil of 3 is 3.",
+    "approach": "To find the Ceil of a given number `X`, we can perform a traversal of the BST and keep track of the node with the smallest value that is greater than or equal to `X`.\nWe can use a recursive function to traverse the BST while updating the answer (`ans`) whenever we find a node with a greater value than `X`. If we find an exact match for `X`, we can directly set `ans` to `X`.",
+    "pseudocode": "ALGORITHM  Ceil in BST\nPATTERN    Binary search\n\nBEGIN\n  01  To find the Ceil of a given number X, we can perform a traversal of the BST and keep track of the node with the smallest value that is greater than or equal to X\n  02  We can use a recursive function to traverse the BST while updating the answer (ans) whenever we find a node with a greater value than X\n  03  IF we find an exact match for X, we can directly set ans to X\n  04  RETURN the required result\nEND",
+    "time": "of this approach is O(h), where `h` is the height of the BST. In the worst case, the height of the BST can be `N` (for a skewed tree), where `N` is the number of nodes in the BST",
+    "space": "O(1) since we are using a constant amount of extra space (variables) to store the intermediate results",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/**QUESTION:**\n\nGiven a Binary Search Tree (BST) and a number `X`, find the Ceil of `X`. Ceil(X) is a number that is either equal to `X` or is immediately greater than `X` in the BST.\n\nIf the Ceil of `X` could not be found, return `-1`.\n\n**Example 1:**\n\nInput:\n\n      5\n    /   \\\n   1     7\n    \\\n     2 \n      \\\n       3\nX = 3\n\nOutput: 3\n\nExplanation: We find 3 in the BST, so the ceil of 3 is 3.\n\n**APPROACH:**\n\nTo find the Ceil of a given number `X`, we can perform a traversal of the BST and keep track of the node with the smallest value that is greater than or equal to `X`. \nWe can use a recursive function to traverse the BST while updating the answer (`ans`) whenever we find a node with a greater value than `X`. If we find an exact match for `X`, we can directly set `ans` to `X`.\n\n**COMPLEXITY ANALYSIS:**\n\nThe time complexity of this approach is O(h), where `h` is the height of the BST. In the worst case, the height of the BST can be `N` (for a skewed tree), where `N` is the number of nodes in the BST. \nIn the average case, the height is usually log(N) for a balanced BST.\n\nThe space complexity is O(1) since we are using a constant amount of extra space (variables) to store the intermediate results.\n\n**CODE:**/\n\n\nvoid solve(Node* root, int x, int& ans) {\n    if (!root) return;\n    if (root->data == x) {\n        ans = root->data;\n        return;\n    } \n    if (root->data > x) {\n        ans = root->data;\n        return solve(root->left, x, ans);\n    }\n    return solve(root->right, x, ans);\n}\n\nint findCeil(Node* root, int input) {\n    if (root == NULL) return -1;\n    int ans = -1;\n    solve(root, input, ans);\n    return ans;\n}",
+    "codeLines": 57,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/01. Ceil in BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/01.%20Ceil%20in%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-absolute-difference-in-bst/",
+      "title": "Minimum Absolute Difference in BST",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p256",
+    "index": 256,
+    "title": "Floor in BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "Given a Binary Search Tree (BST) with `n` number of nodes and a value `x`, find the greatest value node of the BST which is smaller than or equal to `x`.\nNote: If `x` is smaller than the smallest node of the BST, then return -1.",
+    "approach": "To find the floor of `x` in the BST, we can perform a recursive traversal of the tree starting from the root. While traversing, we compare the value of the current node with `x` to find the largest value in the tree that is smaller than or equal to `x`. We update the `ans` variable with the current node's value if it is smaller than or equal to `x` and continue the traversal in the left or right subtree.",
+    "pseudocode": "ALGORITHM  Floor in BST\nPATTERN    Binary search\n\nBEGIN\n  01  To find the floor of x in the BST, we can perform a recursive traversal of the tree starting from the root\n  02  WHILE traversing, we compare the value of the current node with x to find the largest value in the tree that is smaller than or equal to x\n  03  We update the ans variable with the current node's value if it is smaller than or equal to x and continue the traversal in the left or right subtree\n  04  RETURN the required result\nEND",
+    "time": "O(h), where h is the height of the BST. In the worst case, the function needs to traverse the entire height of the BST",
+    "space": "O(1), as the function uses a single integer variable (`ans`) to store the result",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "// QUESTION:\n// Given a Binary Search Tree (BST) with `n` number of nodes and a value `x`, find the greatest value node of the BST which is smaller than or equal to `x`.\n// Note: If `x` is smaller than the smallest node of the BST, then return -1.\n\n// APPROACH:\n// To find the floor of `x` in the BST, we can perform a recursive traversal of the tree starting from the root. While traversing, we compare the value of the current node with `x` to find the largest value in the tree that is smaller than or equal to `x`. We update the `ans` variable with the current node's value if it is smaller than or equal to `x` and continue the traversal in the left or right subtree.\n\n// Complexity Analysis\n// Time complexity: O(h), where h is the height of the BST. In the worst case, the function needs to traverse the entire height of the BST.\n// Space complexity: O(1), as the function uses a single integer variable (`ans`) to store the result.\n\n// CODE:-\n\nint findFloor(Node* root, int x) {\n    if (!root) return -1;\n    int ans = -1;\n    while (root) {\n        if (root->data == x) {\n            ans = root->data;\n            break;\n        } else if (root->data < x) {\n            ans = root->data;\n            root = root->right;\n        } else {\n            root = root->left;\n        }\n    }\n    return ans;\n}\n\n\n",
+    "codeLines": 31,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/02. Floor in BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/02.%20Floor%20in%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-absolute-difference-in-bst/",
+      "title": "Minimum Absolute Difference in BST",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p257",
+    "index": 257,
+    "title": "Insert into BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "You are given the root node of a binary search tree (BST) and a value to insert into the tree. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.\n\nNotice that there may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.\n\nExample 1:\nInput: root = [4,2,7,1,3], val = 5\nOutput: [4,2,7,1,3,5]",
+    "approach": "1. To insert a value 'val' into the BST, we start from the root node and traverse down the tree to find the appropriate position for insertion.\n2. If the BST is empty (i.e., root is null), we create a new node with value 'val' and make it the root of the BST.\n3. If the value of the current node is less than 'val', we move to the right subtree, as the value to be inserted will be greater than the current node.\n4. If the value of the current node is greater than or equal to 'val', we move to the left subtree, as the value to be inserted will be less than or equal to the current node.\n5. We continue this process of traversing down the tree until we reach a leaf node where we can insert the new value 'val'.",
+    "pseudocode": "ALGORITHM  Insert into BST\nPATTERN    Binary search\n\nBEGIN\n  01  To insert a value 'val' into the BST, we start from the root node and traverse down the tree to find the appropriate position for insertion\n  02  IF the BST is empty (i.e., root is null), we create a new node with value 'val' and make it the root of the BST\n  03  IF the value of the current node is less than 'val', we move to the right subtree, as the value to be inserted will be greater than the current node\n  04  IF the value of the current node is greater than or equal to 'val', we move to the left subtree, as the value to be inserted will be less than or equal to the current node\n  05  We continue this process of traversing down the tree until we reach a leaf node where we can insert the new value 'val'\n  06  RETURN the required result\nEND",
+    "time": "O(h), where h is the height of the BST. In the worst case, the function needs to traverse the entire height of the BST to find the appropriate position for insertion",
+    "space": "O(h), where h is the height of the BST. In the worst case, the function may have to traverse the entire height of the BST, leading to h recursive calls in the call stack",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nYou are given the root node of a binary search tree (BST) and a value to insert into the tree. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.\n\nNotice that there may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.\n\nExample 1:\nInput: root = [4,2,7,1,3], val = 5\nOutput: [4,2,7,1,3,5]\n*/\n\n/*\nApproach:\n1. To insert a value 'val' into the BST, we start from the root node and traverse down the tree to find the appropriate position for insertion.\n2. If the BST is empty (i.e., root is null), we create a new node with value 'val' and make it the root of the BST.\n3. If the value of the current node is less than 'val', we move to the right subtree, as the value to be inserted will be greater than the current node.\n4. If the value of the current node is greater than or equal to 'val', we move to the left subtree, as the value to be inserted will be less than or equal to the current node.\n5. We continue this process of traversing down the tree until we reach a leaf node where we can insert the new value 'val'.\n\nComplexity Analysis\nTime complexity: O(h), where h is the height of the BST. In the worst case, the function needs to traverse the entire height of the BST to find the appropriate position for insertion.\nSpace complexity: O(h), where h is the height of the BST. In the worst case, the function may have to traverse the entire height of the BST, leading to h recursive calls in the call stack.\n\nCODE:-\n\n*/\n\nTreeNode* insertIntoBST(TreeNode* root, int val) {\n    if (!root) return new TreeNode(val);\n    if (root->val < val) root->right = insertIntoBST(root->right, val); \n    else root->left =  insertIntoBST(root->left, val);\n    return root;\n}\n",
+    "codeLines": 33,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/03. Insert into BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/03.%20Insert%20into%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/insert-into-a-binary-search-tree/",
+      "title": "Insert into a Binary Search Tree",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p258",
+    "index": 258,
+    "title": "Delete from BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.\n\nBasically, the deletion can be divided into two stages:\n\n1. Search for a node to remove.\n2. If the node is found, delete the node.",
+    "approach": "To delete a node with a given key from the BST, we need to search for the node first. If the node is found, there are three possible cases:\n1. The node to be deleted is a leaf node (no children).\n2. The node to be deleted has only one child (left or right child).\n3. The node to be deleted has both left and right children.\n\nFor the first case, we simply remove the node from the tree and return NULL as the new root.\nFor the second case, we return the non-NULL child of the node to be deleted as the new root.\nFor the third case, we find the maximum value node in the left subtree of the node to be deleted (the rightmost node of the left subtree), copy its value to the node to be deleted, and then recursively delete the maximum value node in the left subtree.\n\nExample:\nInput: root = [5,3,6,2,4,null,7], key = 3\nOutput: [5,4,6,2,null,null,7]",
+    "pseudocode": "ALGORITHM  Delete from BST\nPATTERN    Binary search\n\nBEGIN\n  01  To delete a node with a given key from the BST, we need to search for the node first. If the node is found, there are three possible cases:\n  02  The node to be deleted is a leaf node (no children)\n  03  The node to be deleted has only one child (left or right child)\n  04  The node to be deleted has both left and right children\n  05  For the first case, we simply remove the node from the tree and return NULL as the new root\n  06  For the second case, we return the non-NULL child of the node to be deleted as the new root\n  07  For the third case, we find the maximum value node in the left subtree of the node to be deleted (the rightmost node of the left subtree), copy its value to the node to be deleted, and then recursively delete the maximum value node in the left subtree\n  08  Example:\n  09  Input: root = [5,3,6,2,4,null,7], key = 3\n  10  Output: [5,4,6,2,null,null,7]\n  11  RETURN the required result\nEND",
+    "time": "O(log n) on average, O(n) in the worst case, where n is the number of nodes in the BST",
+    "space": "O(log n) on average, O(n) in the worst case",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nGiven a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.\n\nBasically, the deletion can be divided into two stages:\n\n1. Search for a node to remove.\n2. If the node is found, delete the node.\n\nApproach:\nTo delete a node with a given key from the BST, we need to search for the node first. If the node is found, there are three possible cases:\n1. The node to be deleted is a leaf node (no children).\n2. The node to be deleted has only one child (left or right child).\n3. The node to be deleted has both left and right children.\n\nFor the first case, we simply remove the node from the tree and return NULL as the new root.\nFor the second case, we return the non-NULL child of the node to be deleted as the new root.\nFor the third case, we find the maximum value node in the left subtree of the node to be deleted (the rightmost node of the left subtree), copy its value to the node to be deleted, and then recursively delete the maximum value node in the left subtree.\n\nExample:\nInput: root = [5,3,6,2,4,null,7], key = 3\nOutput: [5,4,6,2,null,null,7]\n*/\n\n// Time Complexity: O(log n) on average, O(n) in the worst case, where n is the number of nodes in the BST.\n// The time complexity of the delete operation in a BST depends on the height of the tree, which is log n on average for a balanced BST. However, in the worst case, when the BST is skewed (all nodes have only one child), the time complexity becomes O(n).\n\n// Space Complexity: O(log n) on average, O(n) in the worst case.\n// The space complexity is determined by the recursion stack during the delete operation. In the average case, the maximum recursion depth is log n for a balanced BST. In the worst case, when the BST is skewed, the recursion depth becomes n.\n\n// CODE:-\n\nTreeNode* deleteNode(TreeNode* root, int key) {\n    if (!root) return NULL;\n    if (root->val == key) {\n        if (!root->left && !root->right) return NULL; // Case: Node to be deleted is a leaf node\n        if (!root->left || !root->right) return root->left ? root->left : root->right; // Case: Node to be deleted has only one child\n        TreeNode* temp = root->left; // Case: Node to be deleted has both left and right children\n        while (temp->right != NULL) temp = temp->right;\n        root->val = temp->val;\n        root->left = deleteNode(root->left, temp->val); // Delete the node that was copied into the current node\n    } \n    if (root->val < key) root->right = deleteNode(root->right, key);\n    root->left = deleteNode(root->left, key);\n    return root;\n}\n",
+    "codeLines": 46,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/04. Delete from BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/04.%20Delete%20from%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/delete-node-in-a-bst/",
+      "title": "Delete Node in a BST",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p259",
+    "index": 259,
+    "title": "Kth smallest element in BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.\n\nExample:\nInput: root = [3,1,4,null,2], k = 1\nOutput: 1",
+    "approach": "To find the kth smallest value in a binary search tree (BST), we can perform an in-order traversal of the BST and keep track of the count of nodes visited so far. When the count becomes equal to k, we have found the kth smallest value.\n\n1. Perform in-order traversal of the BST.\n2. While traversing, keep track of the count of nodes visited and compare it with k.\n3. When count becomes equal to k, store the value of the current node as the answer.\n\nExample:\nConsider the BST [3, 1, 4, null, 2].\n\n          3\n         / \\\n        1   4\n         \\\n          2\n\nIn-order traversal of this BST gives: 1, 2, 3, 4. The 1st smallest value is 1, 2nd smallest value is 2, 3rd smallest value is 3, and so on.",
+    "pseudocode": "ALGORITHM  Kth smallest element in BST\nPATTERN    Binary search\n\nBEGIN\n  01  To find the kth smallest value in a binary search tree (BST), we can perform an in-order traversal of the BST and keep track of the count of nodes visited so far\n  02  When the count becomes equal to k, we have found the kth smallest value\n  03  Perform in-order traversal of the BST\n  04  WHILE traversing, keep track of the count of nodes visited and compare it with k\n  05  When count becomes equal to k, store the value of the current node as the answer\n  06  Example:\n  07  Consider the BST [3, 1, 4, null, 2]\n  08  3\n  09  / \\\n  10  1   4\n  11  \\\n  12  2\n  13  In-order traversal of this BST gives: 1, 2, 3, 4. The 1st smallest value is 1, 2nd smallest value is 2, 3rd smallest value is 3, and so on\n  14  RETURN the required result\nEND",
+    "time": "O(log n + k)",
+    "space": "O(log n)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.\n\nExample:\nInput: root = [3,1,4,null,2], k = 1\nOutput: 1\n\nApproach:\nTo find the kth smallest value in a binary search tree (BST), we can perform an in-order traversal of the BST and keep track of the count of nodes visited so far. When the count becomes equal to k, we have found the kth smallest value.\n\n1. Perform in-order traversal of the BST.\n2. While traversing, keep track of the count of nodes visited and compare it with k.\n3. When count becomes equal to k, store the value of the current node as the answer.\n\nExample:\nConsider the BST [3, 1, 4, null, 2].\n\n          3\n         / \\\n        1   4\n         \\\n          2\n\nIn-order traversal of this BST gives: 1, 2, 3, 4. The 1st smallest value is 1, 2nd smallest value is 2, 3rd smallest value is 3, and so on.\n\nTime Complexity: O(log n + k)\n- The in-order traversal of a balanced BST takes O(log n) time on average.\n- Finding the kth smallest value takes O(k) time in the worst case when k is close to n (the number of nodes in the BST).\n- In the worst case, the total time complexity becomes O(log n + k).\n\nSpace Complexity: O(log n)\n- The space complexity is determined by the recursion stack during the in-order traversal, which has a maximum depth of log n for a balanced BST.\n\nCODE:-\n\n*/\n\nvoid inorder(TreeNode* root, int k, int& cnt, int& ans) {\n    if (!root) return;\n    inorder(root->left, k, cnt, ans);\n    cnt++;\n    if (cnt == k) {\n        ans = root->val;\n        return;\n    }\n    inorder(root->right, k, cnt, ans);\n}\n\nint kthSmallest(TreeNode* root, int k) {\n    int ans = -1, cnt = 0;\n    inorder(root, k, cnt, ans);\n    return ans;\n}\n",
+    "codeLines": 54,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/05. Kth smallest element in BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/05.%20Kth%20smallest%20element%20in%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/kth-smallest-element-in-a-bst/",
+      "title": "Kth Smallest Element in a BST",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p260",
+    "index": 260,
+    "title": "Validate BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "Given the root of a binary tree, determine if it is a valid binary search tree (BST).\n\nA valid BST is defined as follows:\n- The left subtree of a node contains only nodes with keys less than the node's key.\n- The right subtree of a node contains only nodes with keys greater than the node's key.\n- Both the left and right subtrees must also be binary search trees.\n\nExample:\nInput: root = [5,1,4,null,null,3,6]\nOutput: false\nExplanation: The root node's value is 5 but its right child's value is 4.",
+    "approach": "- Initialize the range with LONG_MIN and LONG_MAX values.\n- Now, if a node->val is out of the range then it's not a BST\n- And, then check for the left and right subtrees with modified range",
+    "pseudocode": "ALGORITHM  Validate BST\nPATTERN    Binary search\n\nBEGIN\n  01  SET the range with LONG_MIN and LONG_MAX values\n  02  Now, if a node->val is out of the range then it's not a BST\n  03  And, then check for the left and right subtrees with modified range\n  04  RETURN the required result\nEND",
+    "time": "O(n)",
+    "space": "O(h)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, determine if it is a valid binary search tree (BST).\n\nA valid BST is defined as follows:\n- The left subtree of a node contains only nodes with keys less than the node's key.\n- The right subtree of a node contains only nodes with keys greater than the node's key.\n- Both the left and right subtrees must also be binary search trees.\n\nExample:\nInput: root = [5,1,4,null,null,3,6]\nOutput: false\nExplanation: The root node's value is 5 but its right child's value is 4.\n\nApproach:\n- Initialize the range with LONG_MIN and LONG_MAX values.\n- Now, if a node->val is out of the range then it's not a BST\n- And, then check for the left and right subtrees with modified range \n\nTime Complexity: O(n)\n- The in-order traversal visits each node exactly once, where n is the number of nodes in the binary tree.\n\nSpace Complexity: O(h)\n- The space complexity is determined by the recursion stack during the in-order traversal, where h is the height of the binary tree.\n- In the worst case, the height of the binary tree can be n for a skewed tree, so the space complexity becomes O(n).\n- However, for a balanced BST, the height is log n, so the space complexity becomes O(log n).\n\n*/\n\nbool solve(TreeNode* root, long low, long high){\n    if(!root) return true;\n    if(root->val >= high || root->val <= low) return false;\n    return solve(root->left,low,(long)root->val) && solve(root->right,(long)root->val,high); \n}\n\nbool isValidBST(TreeNode* root) {\n    if(!root) return true;\n    return solve(root,LONG_MIN,LONG_MAX);\n}\n",
+    "codeLines": 39,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/06. Validate BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/06.%20Validate%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/validate-binary-search-tree/",
+      "title": "Validate Binary Search Tree",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p261",
+    "index": 261,
+    "title": "LCA in BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.\n\nAccording to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”\n\nExample:\nInput: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8\nOutput: 6\nExplanation: The LCA of nodes 2 and 8 is 6.",
+    "approach": "- Traverse the BST from the root.\n- If both the nodes p and q are smaller than the current node's value, then the LCA must be in the left subtree. So, recursively call the function on the left subtree.\n- If both the nodes p and q are greater than the current node's value, then the LCA must be in the right subtree. So, recursively call the function on the right subtree.\n- If the current node's value is between the values of nodes p and q, then the current node is the LCA.",
+    "pseudocode": "ALGORITHM  LCA in BST\nPATTERN    Binary search\n\nBEGIN\n  01  FOR EACH element while traversing the BST from the root\n  02  IF both the nodes p and q are smaller than the current node's value, then the LCA must be in the left subtree. So, recursively call the function on the left subtree\n  03  IF both the nodes p and q are greater than the current node's value, then the LCA must be in the right subtree. So, recursively call the function on the right subtree\n  04  IF the current node's value is between the values of nodes p and q, then the current node is the LCA\n  05  RETURN the required result\nEND",
+    "time": "O(h)",
+    "space": "O(h)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nGiven a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.\n\nAccording to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”\n\nExample:\nInput: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8\nOutput: 6\nExplanation: The LCA of nodes 2 and 8 is 6.\n\nApproach:\n- Traverse the BST from the root.\n- If both the nodes p and q are smaller than the current node's value, then the LCA must be in the left subtree. So, recursively call the function on the left subtree.\n- If both the nodes p and q are greater than the current node's value, then the LCA must be in the right subtree. So, recursively call the function on the right subtree.\n- If the current node's value is between the values of nodes p and q, then the current node is the LCA.\n\nTime Complexity: O(h)\n- h is the height of the BST.\n- In the worst case, the height of the BST can be n for a skewed tree, so the time complexity becomes O(n).\n- However, for a balanced BST, the height is log n, so the time complexity becomes O(log n).\n\nSpace Complexity: O(h)\n- The space complexity is determined by the recursion stack during the function call.\n- In the worst case, the height of the BST can be n for a skewed tree, so the space complexity becomes O(n).\n- However, for a balanced BST, the height is log n, so the space complexity becomes O(log n).\n*/\n\nTreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {\n    if ((p->val < root->val) && (q->val < root->val)) {\n        return lowestCommonAncestor(root->left, p, q);\n    }\n    if ((p->val > root->val) && (q->val > root->val)) {\n        return lowestCommonAncestor(root->right, p, q);\n    }\n    return root;\n}\n",
+    "codeLines": 37,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/07. LCA in BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/07.%20LCA%20in%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
+      "title": "Lowest Common Ancestor of a Binary Search Tree",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p262",
+    "index": 262,
+    "title": "Build BST from Preorder Traversal",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "Given an array of integers preorder, which represents the preorder traversal of a BST (i.e., binary search tree), construct the tree and return its root.\n\nIt is guaranteed that there is always possible to find a binary search tree with the given requirements for the given test cases.\n\nA binary search tree is a binary tree where for every node, any descendant of Node.left has a value strictly less than Node.val, and any descendant of Node.right has a value strictly greater than Node.val.\n\nA preorder traversal of a binary tree displays the value of the node first, then traverses Node.left, then traverses Node.right.\n\nExample:\nInput: preorder = [8,5,1,7,10,12]\nOutput: [8,5,10,1,7,null,12]",
+    "approach": "- The first element of the preorder traversal is the root of the BST.\n- We start with the first element of the preorder traversal and recursively build the BST as follows:\n    - If the current element is greater than the previous element, it must be the right child of the previous element. We build the right subtree of the previous element using this information and recursively move forward in the preorder array.\n    - If the current element is smaller than the previous element, it must be a left child of one of the previous elements. We keep on traversing the preorder array until we find an element greater than the current element. This element will be the right child of one of the ancestors of the current element.",
+    "pseudocode": "ALGORITHM  Build BST from Preorder Traversal\nPATTERN    Binary search\n\nBEGIN\n  01  The first element of the preorder traversal is the root of the BST\n  02  We start with the first element of the preorder traversal and recursively build the BST as follows:\n  03  IF the current element is greater than the previous element, it must be the right child of the previous element\n  04  We build the right subtree of the previous element using this information and recursively move forward in the preorder array\n  05  IF the current element is smaller than the previous element, it must be a left child of one of the previous elements\n  06  We keep on traversing the preorder array until we find an element greater than the current element\n  07  This element will be the right child of one of the ancestors of the current element\n  08  RETURN the required result\nEND",
+    "time": "O(n)",
+    "space": "O(h)",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nGiven an array of integers preorder, which represents the preorder traversal of a BST (i.e., binary search tree), construct the tree and return its root.\n\nIt is guaranteed that there is always possible to find a binary search tree with the given requirements for the given test cases.\n\nA binary search tree is a binary tree where for every node, any descendant of Node.left has a value strictly less than Node.val, and any descendant of Node.right has a value strictly greater than Node.val.\n\nA preorder traversal of a binary tree displays the value of the node first, then traverses Node.left, then traverses Node.right.\n\nExample:\nInput: preorder = [8,5,1,7,10,12]\nOutput: [8,5,10,1,7,null,12]\n\nApproach:\n- The first element of the preorder traversal is the root of the BST.\n- We start with the first element of the preorder traversal and recursively build the BST as follows:\n    - If the current element is greater than the previous element, it must be the right child of the previous element. We build the right subtree of the previous element using this information and recursively move forward in the preorder array.\n    - If the current element is smaller than the previous element, it must be a left child of one of the previous elements. We keep on traversing the preorder array until we find an element greater than the current element. This element will be the right child of one of the ancestors of the current element.\n\nTime Complexity: O(n)\n- In the worst case, we might need to traverse the entire preorder array to construct the BST.\n\nSpace Complexity: O(h)\n- The space complexity is determined by the recursion stack during the function call.\n- In the worst case, the height of the BST can be n for a skewed tree, so the space complexity becomes O(n).\n- However, for a balanced BST, the height is log n, so the space complexity becomes O(log n).\n*/\n\nTreeNode* solve(int& index, vector<int>& pre, int bound) {\n    if (index >= pre.size() || pre[index] > bound) {\n        return NULL;\n    }\n    TreeNode* root = new TreeNode(pre[index++]);\n    root->left = solve(index, pre, root->val);\n    root->right = solve(index, pre, bound);\n    return root;\n}\n\nTreeNode* bstFromPreorder(vector<int>& preorder) {\n    int i = 0;\n    return solve(i, preorder, INT_MAX);\n}\n",
+    "codeLines": 43,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/08. Build BST from Preorder Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/08.%20Build%20BST%20from%20Preorder%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/",
+      "title": "Construct Binary Search Tree from Preorder Traversal",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p263",
+    "index": 263,
+    "title": "BST Iterator",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "Implement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):\n\nBSTIterator(TreeNode root) Initializes an object of the BSTIterator class. The root of the BST is given as part of the constructor. The pointer should be initialized to a non-existent number smaller than any element in the BST.\n\nboolean hasNext() Returns true if there exists a number in the traversal to the right of the pointer, otherwise returns false.\n\nint next() Moves the pointer to the right, then returns the number at the pointer.",
+    "approach": "- We are using a stack to keep track of the nodes during the in-order traversal of the BST.\n- In the constructor, we initialize the stack by pushing all the leftmost nodes in the BST to the stack.\n- The next() function returns the top element of the stack (which will be the next smallest element in the BST) and pops it from the stack.\n- If the node has a right child, we push all the leftmost nodes in the right subtree to the stack before returning the node's value.\n- The hasNext() function simply checks if the stack is empty or not.",
+    "pseudocode": "ALGORITHM  BST Iterator\nPATTERN    Binary search\n\nBEGIN\n  01  We are using a stack to keep track of the nodes during the in-order traversal of the BST\n  02  In the constructor, we initialize the stack by pushing all the leftmost nodes in the BST to the stack\n  03  The next() function returns the top element of the stack (which will be the next smallest element in the BST) and pops it from the stack\n  04  IF the node has a right child, we push all the leftmost nodes in the right subtree to the stack before returning the node's value\n  05  The hasNext() function simply checks if the stack is empty or not\n  06  RETURN the required result\nEND",
+    "time": "The constructor takes O(h) time, where h is the height of the BST, as it traverses the leftmost path in the BST",
+    "space": "The space complexity is O(h), where h is the height of the BST, as the stack stores the nodes in the leftmost path of the BST",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nImplement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):\n\nBSTIterator(TreeNode root) Initializes an object of the BSTIterator class. The root of the BST is given as part of the constructor. The pointer should be initialized to a non-existent number smaller than any element in the BST.\n\nboolean hasNext() Returns true if there exists a number in the traversal to the right of the pointer, otherwise returns false.\n\nint next() Moves the pointer to the right, then returns the number at the pointer.\n\nApproach:\n- We are using a stack to keep track of the nodes during the in-order traversal of the BST.\n- In the constructor, we initialize the stack by pushing all the leftmost nodes in the BST to the stack.\n- The next() function returns the top element of the stack (which will be the next smallest element in the BST) and pops it from the stack.\n- If the node has a right child, we push all the leftmost nodes in the right subtree to the stack before returning the node's value.\n- The hasNext() function simply checks if the stack is empty or not.\n\nTime Complexity:\n- The constructor takes O(h) time, where h is the height of the BST, as it traverses the leftmost path in the BST.\n- The next() and hasNext() functions take O(1) time as they only perform stack operations.\n\nSpace Complexity:\n- The space complexity is O(h), where h is the height of the BST, as the stack stores the nodes in the leftmost path of the BST.\n\n*/\n\nstack<TreeNode*> st;\n\nBSTIterator(TreeNode* root) {\n    pushLeft(root);\n}\n\nvoid pushLeft(TreeNode* root) {\n    while (root) {\n        st.push(root);\n        root = root->left;\n    }\n}\n\nint next() {\n    TreeNode* ans = st.top();\n    st.pop();\n    if (ans->right) {\n        pushLeft(ans->right);\n    }\n    return ans->val;\n}\n\nbool hasNext() {\n    return (!st.empty());\n}\n",
+    "codeLines": 51,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/09. BST Iterator.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/09.%20BST%20Iterator.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-search-tree-iterator/",
+      "title": "Binary Search Tree Iterator",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p264",
+    "index": 264,
+    "title": "Two Sum in BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Easy",
+    "question": "Given the root of a binary search tree and an integer k, return true if there exist two elements in the BST such that their sum is equal to k, or false otherwise.\n\nExplanation:\n- We are using two stacks, one for the left traversal and one for the right traversal of the BST.\n- The next() function returns the next smallest element in the BST by popping the top element from the left stack and pushing all the leftmost nodes in its right subtree to the stack.\n- The before() function returns the next largest element in the BST by popping the top element from the right stack and pushing all the rightmost nodes in its left subtree to the stack.\n- We use the two pointer approach with the next() and before() functions to find the pair of elements in the BST whose sum is equal to k.",
+    "approach": "- We are using two stacks, one for the left traversal and one for the right traversal of the BST.\n- The next() function returns the next smallest element in the BST by popping the top element from the left stack and pushing all the leftmost nodes in its right subtree to the stack.\n- The before() function returns the next largest element in the BST by popping the top element from the right stack and pushing all the rightmost nodes in its left subtree to the stack.\n- We use the two pointer approach with the next() and before() functions to find the pair of elements in the BST whose sum is equal to k.",
+    "pseudocode": "ALGORITHM  Two Sum in BST\nPATTERN    Binary search\n\nBEGIN\n  01  We are using two stacks, one for the left traversal and one for the right traversal of the BST\n  02  The next() function returns the next smallest element in the BST by popping the top element from the left stack and pushing all the leftmost nodes in its right subtree to the stack\n  03  The before() function returns the next largest element in the BST by popping the top element from the right stack and pushing all the rightmost nodes in its left subtree to the stack\n  04  We use the two pointer approach with the next() and before() functions to find the pair of elements in the BST whose sum is equal to k\n  05  RETURN the required result\nEND",
+    "time": "The findTarget() function uses two pointers (one for the left and one for the right traversal of the BST) and performs a two pointer traversal of the BST, taking O(n) time, where n is the number of nodes in the BST",
+    "space": "The space complexity is O(h), where h is the height of the BST, as the stacks store the nodes in the leftmost and rightmost paths of the BST",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary search tree and an integer k, return true if there exist two elements in the BST such that their sum is equal to k, or false otherwise.\n\nExplanation:\n- We are using two stacks, one for the left traversal and one for the right traversal of the BST.\n- The next() function returns the next smallest element in the BST by popping the top element from the left stack and pushing all the leftmost nodes in its right subtree to the stack.\n- The before() function returns the next largest element in the BST by popping the top element from the right stack and pushing all the rightmost nodes in its left subtree to the stack.\n- We use the two pointer approach with the next() and before() functions to find the pair of elements in the BST whose sum is equal to k.\n\nTime Complexity:\n- The findTarget() function uses two pointers (one for the left and one for the right traversal of the BST) and performs a two pointer traversal of the BST, taking O(n) time, where n is the number of nodes in the BST.\n- The next() and before() functions take O(h) time each, where h is the height of the BST, as they traverse the leftmost and rightmost paths in the BST.\n\nSpace Complexity:\n- The space complexity is O(h), where h is the height of the BST, as the stacks store the nodes in the leftmost and rightmost paths of the BST.\n\n*/\n\nstack<TreeNode*> stl;\nstack<TreeNode*> str;\n\nvoid pushLeft(TreeNode* root) {\n    while (root) {\n        stl.push(root);\n        root = root->left;\n    }\n}\n\nvoid pushRight(TreeNode* root) {\n    while (root) {\n        str.push(root);\n        root = root->right;\n    }\n}\n\nint next() {\n    if (stl.empty()) return 1e9;\n    TreeNode* ans = stl.top();\n    stl.pop();\n    if (ans->right) {\n        pushLeft(ans->right);\n    }\n    return ans->val;\n}\n\nint before() {\n    if (str.empty()) return 1e9;\n    TreeNode* ans = str.top();\n    str.pop();\n    if (ans->left) {\n        pushRight(ans->left);\n    }\n    return ans->val;\n}\n\nbool findTarget(TreeNode* root, int k) {\n    pushLeft(root);\n    pushRight(root);\n\n    int l = next();\n    int r = before();\n    while (l < r) {\n        if (l == 1e9 || r == 1e9) return false;\n        if (l + r == k) return true;\n        else if (l + r < k) l = next();\n        else r = before();\n    }\n\n    return false;\n}\n",
+    "codeLines": 71,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/10. Two Sum in BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/10.%20Two%20Sum%20in%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/two-sum-iv-input-is-a-bst/",
+      "title": "Two Sum IV - Input is a BST",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p265",
+    "index": 265,
+    "title": "Recover BST",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "You are given the root of a binary search tree (BST), where the values of exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.\n\nExplanation:\n- We perform an in-order traversal of the BST to find the two nodes that are swapped.\n- During the in-order traversal, we keep track of the previous node and compare it with the current node. If the current node is less than the previous node, then we have found the two swapped nodes.\n- We swap the values of the two nodes to recover the BST.",
+    "approach": "- We perform an in-order traversal of the BST to find the two nodes that are swapped.\n- During the in-order traversal, we keep track of the previous node and compare it with the current node. If the current node is less than the previous node, then we have found the two swapped nodes.\n- We swap the values of the two nodes to recover the BST.",
+    "pseudocode": "ALGORITHM  Recover BST\nPATTERN    Binary search\n\nBEGIN\n  01  We perform an in-order traversal of the BST to find the two nodes that are swapped\n  02  During the in-order traversal, we keep track of the previous node and compare it with the current node\n  03  IF the current node is less than the previous node, then we have found the two swapped nodes\n  04  We swap the values of the two nodes to recover the BST\n  05  RETURN the required result\nEND",
+    "time": "The in-order traversal takes O(n) time, where n is the number of nodes in the BST",
+    "space": "The space complexity is O(h), where h is the height of the BST, as the recursion stack stores the nodes in the leftmost path of the BST",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nYou are given the root of a binary search tree (BST), where the values of exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.\n\nExplanation:\n- We perform an in-order traversal of the BST to find the two nodes that are swapped.\n- During the in-order traversal, we keep track of the previous node and compare it with the current node. If the current node is less than the previous node, then we have found the two swapped nodes.\n- We swap the values of the two nodes to recover the BST.\n\nTime Complexity:\n- The in-order traversal takes O(n) time, where n is the number of nodes in the BST.\n\nSpace Complexity:\n- The space complexity is O(h), where h is the height of the BST, as the recursion stack stores the nodes in the leftmost path of the BST.\n\n*/\n\nTreeNode* prev = NULL;\nTreeNode* first = NULL;\nTreeNode* last = NULL;\n\nvoid traversal(TreeNode* root) {\n    if (!root) return;\n    traversal(root->left);\n    if (prev && root->val < prev->val) {\n        if (!first)\n            first = prev;\n        last = root;\n    }\n    prev = root;\n    traversal(root->right);\n}\n\nvoid recoverTree(TreeNode* root) {\n    if (!root) return;\n    traversal(root);\n    int temp = first->val;\n    first->val = last->val;\n    last->val = temp;\n}\n",
+    "codeLines": 40,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/11. Recover BST.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/11.%20Recover%20BST.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/recover-binary-search-tree/",
+      "title": "Recover Binary Search Tree",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p266",
+    "index": 266,
+    "title": "Largest BST in Binary Tree",
+    "topic": "Binary Search Trees",
+    "subtopic": "Practice Problems",
+    "difficulty": "Medium",
+    "question": "Given a binary tree. Find the size of its largest subtree that is a Binary Search Tree.\n\nExplanation:\n- We use a recursive function to traverse the binary tree in a bottom-up manner.\n- At each node, we check if the left and right subtrees are binary search trees.\n- If the current node satisfies the binary search tree condition (i.e., the value of the current node is greater than the maximum value in the left subtree and less than the minimum value in the right subtree), then we update the size of the largest subtree.\n- We return a triplet containing the size of the subtree, the minimum value in the subtree, and the maximum value in the subtree.",
+    "approach": "- We use a recursive function to traverse the binary tree in a bottom-up manner.\n- At each node, we check if the left and right subtrees are binary search trees.\n- If the current node satisfies the binary search tree condition (i.e., the value of the current node is greater than the maximum value in the left subtree and less than the minimum value in the right subtree), then we update the size of the largest subtree.\n- We return a triplet containing the size of the subtree, the minimum value in the subtree, and the maximum value in the subtree.",
+    "pseudocode": "ALGORITHM  Largest BST in Binary Tree\nPATTERN    Binary search\n\nBEGIN\n  01  We use a recursive function to traverse the binary tree in a bottom-up manner\n  02  At each node, we check if the left and right subtrees are binary search trees\n  03  IF the current node satisfies the binary search tree condition (i.e., the value of the current node is greater than the maximum value in the left subtree and less than the minimum value in the right subtree), then we update the size of the largest subtree\n  04  We return a triplet containing the size of the subtree, the minimum value in the subtree, and the maximum value in the subtree\n  05  RETURN the required result\nEND",
+    "time": "The recursive function visits each node once, so the time complexity is O(n), where n is the number of nodes in the binary tree",
+    "space": "The space complexity is O(h), where h is the height of the binary tree, as the recursion stack stores the nodes in the path from the root to the deepest leaf node",
+    "strategy": "Binary search",
+    "tags": ["Binary Search Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/*\nQuestion:\nGiven a binary tree. Find the size of its largest subtree that is a Binary Search Tree.\n\nExplanation:\n- We use a recursive function to traverse the binary tree in a bottom-up manner.\n- At each node, we check if the left and right subtrees are binary search trees.\n- If the current node satisfies the binary search tree condition (i.e., the value of the current node is greater than the maximum value in the left subtree and less than the minimum value in the right subtree), then we update the size of the largest subtree.\n- We return a triplet containing the size of the subtree, the minimum value in the subtree, and the maximum value in the subtree.\n\nTime Complexity:\n- The recursive function visits each node once, so the time complexity is O(n), where n is the number of nodes in the binary tree.\n\nSpace Complexity:\n- The space complexity is O(h), where h is the height of the binary tree, as the recursion stack stores the nodes in the path from the root to the deepest leaf node.\n\n*/\n\ntypedef pair<int,pair<int,int>> triplet;\n\ntriplet solve(Node* root) {\n    if (!root) return {0, {INT_MAX, INT_MIN}};\n    auto lef = solve(root->left);\n    auto rig = solve(root->right);\n    if (lef.second.second < root->data && root->data < rig.second.first)\n        return {lef.first + rig.first + 1, {min(lef.second.first, root->data), max(rig.second.second, root->data)}};\n    // here we are returning such values so that it bst condition doesn't satisfy upwards\n    return {max(lef.first, rig.first), {INT_MIN, INT_MAX}};\n}\n\nint largestBst(Node *root) {\n    auto ans = solve(root);\n    return ans.first;\n}\n",
+    "codeLines": 34,
+    "repoPath": "12. Binary Search Trees/2. Practice Problems/12. Largest BST in Binary Tree.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/12.%20Binary%20Search%20Trees/2.%20Practice%20Problems/12.%20Largest%20BST%20in%20Binary%20Tree.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/largest-bst-subtree/",
+      "title": "Largest BST Subtree",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": true
+    }
+  }
+]

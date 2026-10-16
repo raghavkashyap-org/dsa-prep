@@ -1,0 +1,1392 @@
+[
+  {
+    "id": "p217",
+    "index": 217,
+    "title": "Introduction to trees",
+    "topic": "Binary Trees",
+    "subtopic": "Traversals",
+    "difficulty": "Foundation",
+    "question": "Given an integer 'N', determine the maximum number of nodes present on 'Nth' level in a binary tree.",
+    "approach": "- The number of nodes on each level of a binary tree follows a pattern.\n- The number of nodes on the Nth level is equal to 2^(N-1).\n- We can use the pow function from the cmath library to calculate the power of 2.",
+    "pseudocode": "ALGORITHM  Introduction to trees\nPATTERN    Tree traversal\n\nBEGIN\n  01  The number of nodes on each level of a binary tree follows a pattern\n  02  The number of nodes on the Nth level is equal to 2^(N-1)\n  03  We can use the pow function from the cmath library to calculate the power of 2\n  04  RETURN the required result\nEND",
+    "time": "of this approach is O(1) as we are using a simple mathematical formula",
+    "space": "also O(1) as we are not using any additional space",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven an integer 'N', determine the maximum number of nodes present on 'Nth' level in a binary tree.\n\nApproach:\n- The number of nodes on each level of a binary tree follows a pattern.\n- The number of nodes on the Nth level is equal to 2^(N-1).\n- We can use the pow function from the cmath library to calculate the power of 2.\n\nComplexity Analysis:\n- The time complexity of this approach is O(1) as we are using a simple mathematical formula.\n- The space complexity is also O(1) as we are not using any additional space.\n\nCode:\n*/\n\nint numberOfNodes(int N) {\n    if(N <= 1) {\n        return 1;\n    }\n    return pow(2, N - 1);\n}\n",
+    "codeLines": 22,
+    "repoPath": "11. Binary Trees/1. Traversals/01. Introduction to trees.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/1.%20Traversals/01.%20Introduction%20to%20trees.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
+      "title": "Binary Tree Inorder Traversal",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p218",
+    "index": 218,
+    "title": "Binary Tree representation",
+    "topic": "Binary Trees",
+    "subtopic": "Traversals",
+    "difficulty": "Foundation",
+    "question": "You are given an array nodes. It contains 7 integers, which represents the value of nodes of the binary tree in level order traversal. You are also given a root of the tree which has a value equal to nodes[0].\nYour task to construct a binary tree by creating nodes for the remaining 6 nodes.",
+    "approach": "- We can solve this problem recursively by performing a level-order traversal of the tree.\n- Starting from the root node, we can recursively create the left and right child nodes using the given array of values.\n- The position of each child node in the array can be calculated based on the index of its parent node.",
+    "pseudocode": "ALGORITHM  Binary Tree representation\nPATTERN    Breadth-first search\n\nBEGIN\n  01  We can solve this problem recursively by performing a level-order traversal of the tree\n  02  Starting from the root node, we can recursively create the left and right child nodes using the given array of values\n  03  The position of each child node in the array can be calculated based on the index of its parent node\n  04  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N) as we are using the call stack for recursion",
+    "strategy": "Breadth-first search",
+    "tags": ["Binary Trees", "Breadth-first search"],
+    "intuition": "Process states in layers. With unit-cost edges, the first time a state is reached is its shortest distance from the source.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nYou are given an array nodes. It contains 7 integers, which represents the value of nodes of the binary tree in level order traversal. You are also given a root of the tree which has a value equal to nodes[0].\nYour task to construct a binary tree by creating nodes for the remaining 6 nodes.\n\nApproach:\n- We can solve this problem recursively by performing a level-order traversal of the tree.\n- Starting from the root node, we can recursively create the left and right child nodes using the given array of values.\n- The position of each child node in the array can be calculated based on the index of its parent node.\n\nComplexity Analysis:\n- Since we are visiting each node once, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N) as we are using the call stack for recursion.\n\nCode:\n*/\n\nstruct node {\n    int data;\n    node* left;\n    node* right;\n};\n\nnode* newNode(int data) {\n    node* newNode = new node();\n    newNode->data = data;\n    newNode->left = NULL;\n    newNode->right = NULL;\n    return newNode;\n}\n\nnode* solve(vector<int>& vec, int i) {\n    if(i >= 7) {\n        return NULL;\n    }\n    \n    node* root = newNode(vec[i]);\n    i = 2 * i;\n    root->left = solve(vec, i + 1);\n    root->right = solve(vec, i + 2);\n    \n    return root;\n}\n\nvoid create_tree(node*& root0, vector<int>& vec) {\n    root0 = solve(vec, 0);\n}\n",
+    "codeLines": 47,
+    "repoPath": "11. Binary Trees/1. Traversals/02. Binary Tree representation.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/1.%20Traversals/02.%20Binary%20Tree%20representation.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
+      "title": "Binary Tree Inorder Traversal",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p219",
+    "index": 219,
+    "title": "Preorder Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Traversals",
+    "difficulty": "Foundation",
+    "question": "Given the root of a binary tree, return the preorder traversal of its nodes' values.",
+    "approach": "- Preorder traversal visits the root node first, followed by the left subtree, and then the right subtree.\n- We can solve this problem recursively by following the preorder traversal order.\n- Starting from the root node, we can add the node's value to the result vector, then recursively traverse the left subtree and right subtree.",
+    "pseudocode": "ALGORITHM  Preorder Traversal\nPATTERN    Tree traversal\n\nBEGIN\n  01  Preorder traversal visits the root node first, followed by the left subtree, and then the right subtree\n  02  We can solve this problem recursively by following the preorder traversal order\n  03  Starting from the root node, we can add the node's value to the result vector, then recursively traverse the left subtree and right subtree\n  04  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N) as we are using the call stack for recursion",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, return the preorder traversal of its nodes' values.\n\nApproach:\n- Preorder traversal visits the root node first, followed by the left subtree, and then the right subtree.\n- We can solve this problem recursively by following the preorder traversal order.\n- Starting from the root node, we can add the node's value to the result vector, then recursively traverse the left subtree and right subtree.\n\nComplexity Analysis:\n- Since we are visiting each node once, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N) as we are using the call stack for recursion.\n\nCode:\n*/\n\nvector<int> preorderTraversal(TreeNode* root) {\n    vector<int> ans;\n    solve(root, ans);\n    return ans;\n}\n\nvoid solve(TreeNode* root, vector<int>& ans) {\n    if (!root) {\n        return;\n    }\n    ans.push_back(root->val);\n    solve(root->left, ans);\n    solve(root->right, ans);\n}\n",
+    "codeLines": 30,
+    "repoPath": "11. Binary Trees/1. Traversals/03. Preorder Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/1.%20Traversals/03.%20Preorder%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-preorder-traversal/",
+      "title": "Binary Tree Preorder Traversal",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p220",
+    "index": 220,
+    "title": "Inorder Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Traversals",
+    "difficulty": "Foundation",
+    "question": "Given the root of a binary tree, return the inorder traversal of its nodes' values.",
+    "approach": "- inorder traversal visits the left subtree first, followed by the root node, and then the right subtree.\n- We can solve this problem recursively by following the inorder traversal order.",
+    "pseudocode": "ALGORITHM  Inorder Traversal\nPATTERN    Tree traversal\n\nBEGIN\n  01  inorder traversal visits the left subtree first, followed by the root node, and then the right subtree\n  02  We can solve this problem recursively by following the inorder traversal order\n  03  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N) as we are using the call stack for recursion",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, return the inorder traversal of its nodes' values.\n\nApproach:\n- inorder traversal visits the left subtree first, followed by the root node, and then the right subtree.\n- We can solve this problem recursively by following the inorder traversal order.\n\nComplexity Analysis:\n- Since we are visiting each node once, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N) as we are using the call stack for recursion.\n\nCode:\n*/\n\nvector<int> inorderTraversal(TreeNode* root) {\n    vector<int> ans;\n    solve(root, ans);\n    return ans;\n}\n\nvoid solve(TreeNode* root, vector<int>& ans) {\n    if (!root) {\n        return;\n    }\n    solve(root->left, ans);\n    ans.push_back(root->val);\n    solve(root->right, ans);\n}\n",
+    "codeLines": 29,
+    "repoPath": "11. Binary Trees/1. Traversals/04. Inorder Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/1.%20Traversals/04.%20Inorder%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
+      "title": "Binary Tree Inorder Traversal",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p221",
+    "index": 221,
+    "title": "Postorder Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Traversals",
+    "difficulty": "Foundation",
+    "question": "Given the root of a binary tree, return the postorder traversal of its nodes' values.",
+    "approach": "- postorder traversal visits the left subtree first, followed by the right subtree, and then the root node.\n- We can solve this problem recursively by following the postorder traversal order.",
+    "pseudocode": "ALGORITHM  Postorder Traversal\nPATTERN    Tree traversal\n\nBEGIN\n  01  postorder traversal visits the left subtree first, followed by the right subtree, and then the root node\n  02  We can solve this problem recursively by following the postorder traversal order\n  03  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N) as we are using the call stack for recursion",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, return the postorder traversal of its nodes' values.\n\nApproach:\n- postorder traversal visits the left subtree first, followed by the right subtree, and then the root node.\n- We can solve this problem recursively by following the postorder traversal order.\n\nComplexity Analysis:\n- Since we are visiting each node once, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N) as we are using the call stack for recursion.\n\nCode:\n*/\n\nvector<int> postorderTraversal(TreeNode* root) {\n    vector<int> ans;\n    solve(root, ans);\n    return ans;\n}\n\nvoid solve(TreeNode* root, vector<int>& ans) {\n    if (!root) {\n        return;\n    }\n    solve(root->left, ans);\n    ans.push_back(root->val);\n    solve(root->right, ans);\n}\n",
+    "codeLines": 29,
+    "repoPath": "11. Binary Trees/1. Traversals/05. Postorder Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/1.%20Traversals/05.%20Postorder%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-postorder-traversal/",
+      "title": "Binary Tree Postorder Traversal",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p222",
+    "index": 222,
+    "title": "Level Order Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Traversals",
+    "difficulty": "Foundation",
+    "question": "Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).",
+    "approach": "- We can perform a level order traversal using a queue.\n- We start by pushing the root node into the queue.\n- Then, while the queue is not empty, we process each level by taking the size of the queue and iterating over the nodes at that level.\n- For each node, we add its value to the current level's vector and push its left and right child nodes into the queue if they exist.\n- After processing each level, we add the level's vector to the result vector.",
+    "pseudocode": "ALGORITHM  Level Order Traversal\nPATTERN    Breadth-first search\n\nBEGIN\n  01  We can perform a level order traversal using a queue\n  02  We start by pushing the root node into the queue\n  03  Then, while the queue is not empty, we process each level by taking the size of the queue and iterating over the nodes at that level\n  04  FOR EACH node, we add its value to the current level's vector and push its left and right child nodes into the queue if they exist\n  05  After processing each level, we add the level's vector to the result vector\n  06  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N) as we store the node values in the result vector",
+    "strategy": "Breadth-first search",
+    "tags": ["Binary Trees", "Breadth-first search"],
+    "intuition": "Process states in layers. With unit-cost edges, the first time a state is reached is its shortest distance from the source.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).\n\nApproach:\n- We can perform a level order traversal using a queue.\n- We start by pushing the root node into the queue.\n- Then, while the queue is not empty, we process each level by taking the size of the queue and iterating over the nodes at that level.\n- For each node, we add its value to the current level's vector and push its left and right child nodes into the queue if they exist.\n- After processing each level, we add the level's vector to the result vector.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N) as we store the node values in the result vector.\n\nCode:\n*/\n\nvector<vector<int>> levelOrder(TreeNode* root) {\n    vector<vector<int>> ans;\n    if (!root) {\n        return ans;\n    }\n    queue<TreeNode*> q;\n    q.push(root);\n\n    while (!q.empty()) {\n        vector<int> level;\n        int n = q.size();\n        for (int i = 0; i < n; i++) {\n            TreeNode* curr = q.front();\n            q.pop();\n            level.push_back(curr->val);\n            if (curr->left) {\n                q.push(curr->left);\n            }\n            if (curr->right) {\n                q.push(curr->right);\n            }\n        }\n        ans.push_back(level);\n    }\n\n    return ans;\n}\n",
+    "codeLines": 45,
+    "repoPath": "11. Binary Trees/1. Traversals/06. Level Order Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/1.%20Traversals/06.%20Level%20Order%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+      "title": "Binary Tree Level Order Traversal",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p223",
+    "index": 223,
+    "title": "Iterative Preorder Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Traversals",
+    "difficulty": "Foundation",
+    "question": "Given the root of a binary tree, return the preorder traversal of its nodes' values.",
+    "approach": "- We can perform a preorder traversal iteratively using a stack.\n- We start by pushing the root node into the stack.\n- Then, while the stack is not empty, we pop a node from the stack, add its value to the result vector, and push its right child (if it exists) followed by its left child (if it exists) into the stack.\n- By pushing the right child before the left child, we ensure that the left child is processed first during the traversal.",
+    "pseudocode": "ALGORITHM  Iterative Preorder Traversal\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can perform a preorder traversal iteratively using a stack\n  02  We start by pushing the root node into the stack\n  03  Then, while the stack is not empty, we pop a node from the stack, add its value to the result vector, and push its right child (if it exists) followed by its left child (if it exists) into the stack\n  04  By pushing the right child before the left child, we ensure that the left child is processed first during the traversal\n  05  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N) as we store the node values in the result vector",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, return the preorder traversal of its nodes' values.\n\nApproach:\n- We can perform a preorder traversal iteratively using a stack.\n- We start by pushing the root node into the stack.\n- Then, while the stack is not empty, we pop a node from the stack, add its value to the result vector, and push its right child (if it exists) followed by its left child (if it exists) into the stack.\n- By pushing the right child before the left child, we ensure that the left child is processed first during the traversal.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N) as we store the node values in the result vector.\n\nCode:\n*/\n\nvector<int> preorderTraversal(TreeNode* root) {\n    if (!root) {\n        return {};\n    }\n    stack<TreeNode*> st;\n    st.push(root);\n    vector<int> ans;\n    while (!st.empty()) {\n        TreeNode* curr = st.top();\n        st.pop();\n        ans.push_back(curr->val);\n        if (curr->right) {\n            st.push(curr->right);\n        }\n        if (curr->left) {\n            st.push(curr->left);\n        }\n    }\n    return ans;\n}\n",
+    "codeLines": 37,
+    "repoPath": "11. Binary Trees/1. Traversals/07. Iterative Preorder Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/1.%20Traversals/07.%20Iterative%20Preorder%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-preorder-traversal/",
+      "title": "Binary Tree Preorder Traversal",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p224",
+    "index": 224,
+    "title": "Iterative Inorder Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Traversals",
+    "difficulty": "Foundation",
+    "question": "Given the root of a binary tree, return the inorder traversal of its nodes' values.",
+    "approach": "- We can perform an inorder traversal iteratively using a stack.\n- The idea is to push all the left children of a node into the stack until we reach a node with no left child.\n- Then, we pop a node from the stack, add its value to the result vector, and move to its right child (if it exists).\n- We repeat this process until the stack is empty and all nodes are traversed.",
+    "pseudocode": "ALGORITHM  Iterative Inorder Traversal\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can perform an inorder traversal iteratively using a stack\n  02  The idea is to push all the left children of a node into the stack until we reach a node with no left child\n  03  Then, we pop a node from the stack, add its value to the result vector, and move to its right child (if it exists)\n  04  We repeat this process until the stack is empty and all nodes are traversed\n  05  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N) as we store the node values in the result vector and use a stack to keep track of the nodes",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, return the inorder traversal of its nodes' values.\n\nApproach:\n- We can perform an inorder traversal iteratively using a stack.\n- The idea is to push all the left children of a node into the stack until we reach a node with no left child.\n- Then, we pop a node from the stack, add its value to the result vector, and move to its right child (if it exists).\n- We repeat this process until the stack is empty and all nodes are traversed.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N) as we store the node values in the result vector and use a stack to keep track of the nodes.\n\nCode:\n*/\n\nvoid pushLeft(TreeNode* curr, stack<TreeNode*>& st) {\n    while (curr) {\n        st.push(curr);\n        curr = curr->left;\n    }\n}\n\nvector<int> inorderTraversal(TreeNode* root) {\n    if (!root) {\n        return {};\n    }\n    stack<TreeNode*> st;\n    TreeNode* curr = root;\n    pushLeft(curr, st);\n    vector<int> ans;\n    while (!st.empty()) {\n        curr = st.top();\n        st.pop();\n        ans.push_back(curr->val);\n        curr = curr->right;\n        if (curr) {\n            pushLeft(curr, st);\n        }\n    }\n    return ans;\n}\n",
+    "codeLines": 43,
+    "repoPath": "11. Binary Trees/1. Traversals/08. Iterative Inorder Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/1.%20Traversals/08.%20Iterative%20Inorder%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
+      "title": "Binary Tree Inorder Traversal",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p225",
+    "index": 225,
+    "title": "Iterative Postorder",
+    "topic": "Binary Trees",
+    "subtopic": "Traversals",
+    "difficulty": "Foundation",
+    "question": "Given the root of a binary tree, return the postorder traversal of its nodes' values.",
+    "approach": "- We can perform a postorder traversal iteratively using a stack and a map.\n- The idea is to push all the left children of a node into the stack until we reach a node with no left child.\n- Then, we check if the right child of the node exists or has already been visited (using the map).\n    - If it does not exist or has been visited, we add the node's value to the result vector and pop the node from the stack.\n    - Otherwise, we push the right child into the stack and mark it as visited in the map.\n- We repeat this process until the stack is empty and all nodes are traversed.",
+    "pseudocode": "ALGORITHM  Iterative Postorder\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can perform a postorder traversal iteratively using a stack and a map\n  02  The idea is to push all the left children of a node into the stack until we reach a node with no left child\n  03  Then, we check if the right child of the node exists or has already been visited (using the map)\n  04  IF it does not exist or has been visited, we add the node's value to the result vector and pop the node from the stack\n  05  ELSE we push the right child into the stack and mark it as visited in the map\n  06  We repeat this process until the stack is empty and all nodes are traversed\n  07  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "also O(N) as we store the node values in the result vector and use a stack and a map to keep track of the nodes",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, return the postorder traversal of its nodes' values.\n\nApproach:\n- We can perform a postorder traversal iteratively using a stack and a map.\n- The idea is to push all the left children of a node into the stack until we reach a node with no left child.\n- Then, we check if the right child of the node exists or has already been visited (using the map).\n    - If it does not exist or has been visited, we add the node's value to the result vector and pop the node from the stack.\n    - Otherwise, we push the right child into the stack and mark it as visited in the map.\n- We repeat this process until the stack is empty and all nodes are traversed.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is also O(N) as we store the node values in the result vector and use a stack and a map to keep track of the nodes.\n\nCode:\n*/\n\nvoid pushLeft(TreeNode* curr, stack<TreeNode*>& st, unordered_map<TreeNode*, bool>& mp) {\n    while (curr) {\n        mp[curr] = true;\n        st.push(curr);\n        curr = curr->left;\n    }\n}\n\nvector<int> postorderTraversal(TreeNode* root) {\n    if (!root) {\n        return {};\n    }\n    vector<int> ans;\n    stack<TreeNode*> st;\n    TreeNode* curr = root;\n    unordered_map<TreeNode*, bool> mp;\n    pushLeft(curr, st, mp);\n    while (!st.empty()) {\n        curr = st.top();\n        if (!curr->right || mp[curr->right]) {\n            ans.push_back(curr->val);\n            st.pop();\n        }\n        else {\n            pushLeft(curr->right, st, mp);\n        }\n    }\n    return ans;\n}\n",
+    "codeLines": 48,
+    "repoPath": "11. Binary Trees/1. Traversals/09. Iterative Postorder.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/1.%20Traversals/09.%20Iterative%20Postorder.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-postorder-traversal/",
+      "title": "Binary Tree Postorder Traversal",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p226",
+    "index": 226,
+    "title": "All in one traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Traversals",
+    "difficulty": "Foundation",
+    "question": "You have been given a Binary Tree of 'N' nodes, where the nodes have integer values.\nYour task is to find the In-Order, Pre-Order, and Post-Order traversals of the given binary tree.",
+    "approach": "- We can perform the tree traversals recursively using three functions:\n    - In-Order Traversal: Visit the left subtree, visit the current node, visit the right subtree.\n    - Pre-Order Traversal: Visit the current node, visit the left subtree, visit the right subtree.\n    - Post-Order Traversal: Visit the left subtree, visit the right subtree, visit the current node.\n- For each traversal, we can maintain a vector to store the values of the visited nodes in the respective order.",
+    "pseudocode": "ALGORITHM  All in one traversal\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can perform the tree traversals recursively using three functions:\n  02  In-Order Traversal: Visit the left subtree, visit the current node, visit the right subtree\n  03  Pre-Order Traversal: Visit the current node, visit the left subtree, visit the right subtree\n  04  Post-Order Traversal: Visit the left subtree, visit the right subtree, visit the current node\n  05  FOR EACH traversal, we can maintain a vector to store the values of the visited nodes in the respective order\n  06  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N) as we store the values of the nodes in vectors for each traversal",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nYou have been given a Binary Tree of 'N' nodes, where the nodes have integer values.\nYour task is to find the In-Order, Pre-Order, and Post-Order traversals of the given binary tree.\n\nApproach:\n- We can perform the tree traversals recursively using three functions:\n    - In-Order Traversal: Visit the left subtree, visit the current node, visit the right subtree.\n    - Pre-Order Traversal: Visit the current node, visit the left subtree, visit the right subtree.\n    - Post-Order Traversal: Visit the left subtree, visit the right subtree, visit the current node.\n- For each traversal, we can maintain a vector to store the values of the visited nodes in the respective order.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N) as we store the values of the nodes in vectors for each traversal.\n\nCode:\n*/\n\nvoid traversal(BinaryTreeNode<int>* root, vector<int>& pre, vector<int>& ino, vector<int>& pos) {\n    if (root == NULL) {\n        return;\n    }\n\n    // Pre-Order Traversal\n    pre.push_back(root->data);\n    traversal(root->left, pre, ino, pos);\n    // In-Order Traversal\n    ino.push_back(root->data);\n    traversal(root->right, pre, ino, pos);\n    // Post-Order Traversal\n    pos.push_back(root->data);\n}\n\nvector<vector<int>> getTreeTraversal(BinaryTreeNode<int>* root) {\n    vector<vector<int>> ans;\n    vector<int> pre;\n    vector<int> ino;\n    vector<int> pos;\n\n    traversal(root, pre, ino, pos);\n\n    ans.push_back(ino);\n    ans.push_back(pre);\n    ans.push_back(pos);\n\n    return ans;\n}\n",
+    "codeLines": 48,
+    "repoPath": "11. Binary Trees/1. Traversals/10. All in one traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/1.%20Traversals/10.%20All%20in%20one%20traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
+      "title": "Binary Tree Inorder Traversal",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p227",
+    "index": 227,
+    "title": "Height of binary tree",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given the root of a binary tree, return its maximum depth.\nA binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.",
+    "approach": "- We can calculate the maximum depth of a binary tree recursively by traversing its left and right subtrees.\n- The maximum depth of a tree is equal to the maximum of the maximum depths of its left and right subtrees, plus 1 for the root node.",
+    "pseudocode": "ALGORITHM  Height of binary tree\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can calculate the maximum depth of a binary tree recursively by traversing its left and right subtrees\n  02  The maximum depth of a tree is equal to the maximum of the maximum depths of its left and right subtrees, plus 1 for the root node\n  03  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(H), where H is the height of the binary tree. In the worst case, the tree can be skewed and have a height of N, resulting in O(N) space complexity. In the best case, the tree is balanced and has a height of log(N), resulting in O(log(N)) space complexity",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, return its maximum depth.\nA binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.\n\nApproach:\n- We can calculate the maximum depth of a binary tree recursively by traversing its left and right subtrees.\n- The maximum depth of a tree is equal to the maximum of the maximum depths of its left and right subtrees, plus 1 for the root node.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(H), where H is the height of the binary tree. In the worst case, the tree can be skewed and have a height of N, resulting in O(N) space complexity. In the best case, the tree is balanced and has a height of log(N), resulting in O(log(N)) space complexity.\n\nCode:\n*/\n\nint maxDepth(TreeNode* root) {\n    if (!root) {\n        return 0;\n    }\n    return max(maxDepth(root->left), maxDepth(root->right)) + 1;\n}\n",
+    "codeLines": 22,
+    "repoPath": "11. Binary Trees/2. Medium Problems/01. Height of binary tree.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/01.%20Height%20of%20binary%20tree.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+      "title": "Maximum Depth of Binary Tree",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p228",
+    "index": 228,
+    "title": "Balanced Binary Tree",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given a binary tree, determine if it is height-balanced.",
+    "approach": "- We can solve this problem recursively by checking if the left and right subtrees of each node are height-balanced.\n- For each node, we calculate the height of its left and right subtrees, and check if the absolute difference of their heights is at most 1.\n- If both subtrees are height-balanced, and the absolute difference of their heights is at most 1, then the current node and its subtree are height-balanced.\n- We can use a pair of values to represent the result of the recursion: the first value indicates if the subtree is height-balanced, and the second value represents the height of the subtree.",
+    "pseudocode": "ALGORITHM  Balanced Binary Tree\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can solve this problem recursively by checking if the left and right subtrees of each node are height-balanced\n  02  FOR EACH node, we calculate the height of its left and right subtrees, and check if the absolute difference of their heights is at most 1\n  03  IF both subtrees are height-balanced, and the absolute difference of their heights is at most 1, then the current node and its subtree are height-balanced\n  04  We can use a pair of values to represent the result of the recursion: the first value indicates if the subtree is height-balanced, and the second value represents the height of the subtree\n  05  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(H), where H is the height of the binary tree. In the worst case, the tree can be skewed and have a height of N, resulting in O(N) space complexity. In the best case, the tree is balanced and has a height of log(N), resulting in O(log(N)) space complexity",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven a binary tree, determine if it is height-balanced.\n\nApproach:\n- We can solve this problem recursively by checking if the left and right subtrees of each node are height-balanced.\n- For each node, we calculate the height of its left and right subtrees, and check if the absolute difference of their heights is at most 1.\n- If both subtrees are height-balanced, and the absolute difference of their heights is at most 1, then the current node and its subtree are height-balanced.\n- We can use a pair of values to represent the result of the recursion: the first value indicates if the subtree is height-balanced, and the second value represents the height of the subtree.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(H), where H is the height of the binary tree. In the worst case, the tree can be skewed and have a height of N, resulting in O(N) space complexity. In the best case, the tree is balanced and has a height of log(N), resulting in O(log(N)) space complexity.\n\nCode:\n*/\n\npair<bool, int> solve(TreeNode* root) {\n    if (!root) {\n        return {true, 0};\n    }\n    auto left = solve(root->left);\n    auto right = solve(root->right);\n    int height = max(left.second, right.second) + 1;\n    bool balanced = left.first && right.first && abs(left.second - right.second) <= 1;\n    return {balanced, height};\n}\n\nbool isBalanced(TreeNode* root) {\n    auto result = solve(root);\n    return result.first;\n}\n",
+    "codeLines": 32,
+    "repoPath": "11. Binary Trees/2. Medium Problems/02. Balanced Binary Tree.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/02.%20Balanced%20Binary%20Tree.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/balanced-binary-tree/",
+      "title": "Balanced Binary Tree",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p229",
+    "index": 229,
+    "title": "Diameter of Binary Tree",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given the root of a binary tree, return the length of the diameter of the tree.",
+    "approach": "- The diameter of a binary tree is the length of the longest path between any two nodes in the tree.\n- This path may or may not pass through the root.\n- To find the diameter of the tree, we can recursively calculate the height of each node's left and right subtrees.\n- At each node, we calculate the diameter as the maximum of the following three values:\n  - The diameter of the left subtree.\n  - The diameter of the right subtree.\n  - The sum of the heights of the left and right subtrees plus one (for the current node).\n- We update the diameter variable with the maximum diameter encountered during the traversal.",
+    "pseudocode": "ALGORITHM  Diameter of Binary Tree\nPATTERN    Tree traversal\n\nBEGIN\n  01  The diameter of a binary tree is the length of the longest path between any two nodes in the tree\n  02  This path may or may not pass through the root\n  03  To find the diameter of the tree, we can recursively calculate the height of each node's left and right subtrees\n  04  At each node, we calculate the diameter as the maximum of the following three values:\n  05  The diameter of the left subtree\n  06  The diameter of the right subtree\n  07  The sum of the heights of the left and right subtrees plus one (for the current node)\n  08  We update the diameter variable with the maximum diameter encountered during the traversal\n  09  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(H), where H is the height of the binary tree. In the worst case, the tree can be skewed and have a height of N, resulting in O(N) space complexity. In the best case, the tree is balanced and has a height of log(N), resulting in O(log(N)) space complexity",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, return the length of the diameter of the tree.\n\nApproach:\n- The diameter of a binary tree is the length of the longest path between any two nodes in the tree.\n- This path may or may not pass through the root.\n- To find the diameter of the tree, we can recursively calculate the height of each node's left and right subtrees.\n- At each node, we calculate the diameter as the maximum of the following three values:\n  - The diameter of the left subtree.\n  - The diameter of the right subtree.\n  - The sum of the heights of the left and right subtrees plus one (for the current node).\n- We update the diameter variable with the maximum diameter encountered during the traversal.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(H), where H is the height of the binary tree. In the worst case, the tree can be skewed and have a height of N, resulting in O(N) space complexity. In the best case, the tree is balanced and has a height of log(N), resulting in O(log(N)) space complexity.\n\nCode:\n*/\n\nint maxDepth(TreeNode* root, int& diameter) {\n    if (!root) {\n        return 0;\n    }\n    int left = maxDepth(root->left, diameter);\n    int right = maxDepth(root->right, diameter);\n    diameter = max(diameter, left + right);\n    return max(left, right) + 1;\n}\n\nint diameterOfBinaryTree(TreeNode* root) {\n    int diameter = 0;\n    maxDepth(root, diameter);\n    return diameter;\n}\n",
+    "codeLines": 36,
+    "repoPath": "11. Binary Trees/2. Medium Problems/03. Diameter of Binary Tree.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/03.%20Diameter%20of%20Binary%20Tree.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/diameter-of-binary-tree/",
+      "title": "Diameter of Binary Tree",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p230",
+    "index": 230,
+    "title": "Maximum Path Sum",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them.\nA node can only appear in the sequence at most once. Note that the path does not need to pass through the root.\nThe path sum of a path is the sum of the node's values in the path.\nGiven the root of a binary tree, return the maximum path sum of any non-empty path.",
+    "approach": "- The maximum path sum can be calculated using a recursive approach.\n- For each node, we calculate the maximum path sum that includes the node as the root.\n- The maximum path sum that includes the current node is the maximum of the following values:\n  - The value of the current node.\n  - The maximum path sum of the left subtree plus the value of the current node.\n  - The maximum path sum of the right subtree plus the value of the current node.\n  - The maximum path sum of the left subtree plus the maximum path sum of the right subtree plus the value of the current node.\n- During the calculation, we keep track of the maximum path sum encountered so far and update it if necessary.\n- We return the maximum path sum encountered overall.",
+    "pseudocode": "ALGORITHM  Maximum Path Sum\nPATTERN    Tree traversal\n\nBEGIN\n  01  The maximum path sum can be calculated using a recursive approach\n  02  FOR EACH node, we calculate the maximum path sum that includes the node as the root\n  03  The maximum path sum that includes the current node is the maximum of the following values:\n  04  The value of the current node\n  05  The maximum path sum of the left subtree plus the value of the current node\n  06  The maximum path sum of the right subtree plus the value of the current node\n  07  The maximum path sum of the left subtree plus the maximum path sum of the right subtree plus the value of the current node\n  08  During the calculation, we keep track of the maximum path sum encountered so far and update it if necessary\n  09  We return the maximum path sum encountered overall\n  10  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(H), where H is the height of the binary tree. In the worst case, the tree can be skewed and have a height of N, resulting in O(N) space complexity. In the best case, the tree is balanced and has a height of log(N), resulting in O(log(N)) space complexity",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nA path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them.\nA node can only appear in the sequence at most once. Note that the path does not need to pass through the root.\nThe path sum of a path is the sum of the node's values in the path.\nGiven the root of a binary tree, return the maximum path sum of any non-empty path.\n\nApproach:\n- The maximum path sum can be calculated using a recursive approach.\n- For each node, we calculate the maximum path sum that includes the node as the root.\n- The maximum path sum that includes the current node is the maximum of the following values:\n  - The value of the current node.\n  - The maximum path sum of the left subtree plus the value of the current node.\n  - The maximum path sum of the right subtree plus the value of the current node.\n  - The maximum path sum of the left subtree plus the maximum path sum of the right subtree plus the value of the current node.\n- During the calculation, we keep track of the maximum path sum encountered so far and update it if necessary.\n- We return the maximum path sum encountered overall.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(H), where H is the height of the binary tree. In the worst case, the tree can be skewed and have a height of N, resulting in O(N) space complexity. In the best case, the tree is balanced and has a height of log(N), resulting in O(log(N)) space complexity.\n\nCode:\n*/\n\nint solve(TreeNode* root, int& maxSum) {\n    if (!root) {\n        return 0;\n    }\n    int leftSum = max(0, solve(root->left, maxSum));\n    int rightSum = max(0, solve(root->right, maxSum));\n    int currentSum = root->val + leftSum + rightSum;\n    maxSum = max(maxSum, currentSum);\n    return root->val + max(leftSum, rightSum);\n}\n\nint maxPathSum(TreeNode* root) {\n    int maxSum = INT_MIN;\n    solve(root, maxSum);\n    return maxSum;\n}\n",
+    "codeLines": 41,
+    "repoPath": "11. Binary Trees/2. Medium Problems/04. Maximum Path Sum.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/04.%20Maximum%20Path%20Sum.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
+      "title": "Binary Tree Maximum Path Sum",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p231",
+    "index": 231,
+    "title": "Same Tree",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given the roots of two binary trees p and q, write a function to check if they are the same or not.\nTwo binary trees are considered the same if they are structurally identical, and the nodes have the same value.",
+    "approach": "- The trees are considered the same if they have the same structure (i.e., same nodes in the same arrangement) and the corresponding nodes have the same values.\n- We can use a recursive approach to check if the trees are the same.\n- The trees are the same if both trees are empty (reached the end of the tree) or both trees are non-empty and the current nodes have the same value, and the left subtrees and right subtrees are the same.\n- We can check if the trees are the same by comparing the values of the current nodes and recursively checking the left subtrees and right subtrees.",
+    "pseudocode": "ALGORITHM  Same Tree\nPATTERN    Tree traversal\n\nBEGIN\n  01  The trees are considered the same if they have the same structure (i.e., same nodes in the same arrangement) and the corresponding nodes have the same values\n  02  We can use a recursive approach to check if the trees are the same\n  03  The trees are the same if both trees are empty (reached the end of the tree) or both trees are non-empty and the current nodes have the same value, and the left subtrees and right subtrees are the same\n  04  We can check if the trees are the same by comparing the values of the current nodes and recursively checking the left subtrees and right subtrees\n  05  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(H), where H is the height of the binary tree. In the worst case, the tree can be skewed and have a height of N, resulting in O(N) space complexity. In the best case, the tree is balanced and has a height of log(N), resulting in O(log(N)) space complexity",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the roots of two binary trees p and q, write a function to check if they are the same or not.\nTwo binary trees are considered the same if they are structurally identical, and the nodes have the same value.\n\nApproach:\n- The trees are considered the same if they have the same structure (i.e., same nodes in the same arrangement) and the corresponding nodes have the same values.\n- We can use a recursive approach to check if the trees are the same.\n- The trees are the same if both trees are empty (reached the end of the tree) or both trees are non-empty and the current nodes have the same value, and the left subtrees and right subtrees are the same.\n- We can check if the trees are the same by comparing the values of the current nodes and recursively checking the left subtrees and right subtrees.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(H), where H is the height of the binary tree. In the worst case, the tree can be skewed and have a height of N, resulting in O(N) space complexity. In the best case, the tree is balanced and has a height of log(N), resulting in O(log(N)) space complexity.\n\nCode:\n*/\n\nbool isSameTree(TreeNode* p, TreeNode* q) {\n    if (!p && !q) {\n        return true; // Both trees are empty, they are the same\n    }\n    if (!p || !q) {\n        return false; // One tree is empty and the other is not, they are different\n    }\n    return (p->val == q->val) && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);\n}\n",
+    "codeLines": 27,
+    "repoPath": "11. Binary Trees/2. Medium Problems/05. Same Tree.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/05.%20Same%20Tree.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/same-tree/",
+      "title": "Same Tree",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p232",
+    "index": 232,
+    "title": "Zig-Zag Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).",
+    "approach": "- We can use a queue to perform a level order traversal of the binary tree.\n- To achieve the zigzag order, we can use a flag variable to keep track of the current direction (left to right or right to left) for each level.\n- Initialize a boolean variable `ltor` to true, where true represents the left to right direction.\n- While traversing each level, we store the values of the nodes in a temporary vector.\n- If `ltor` is true, we push the left child first and then the right child into the queue for the next level.\n- If `ltor` is false, we push the right child first and then the left child into the queue for the next level.\n- After processing all the nodes in the current level, if `ltor` is false, we reverse the temporary vector to achieve the right to left direction for the next level.\n- We alternate the value of `ltor` after processing each level to switch between left to right and right to left directions.\n- Finally, we return the vector containing the zigzag level order traversal.",
+    "pseudocode": "ALGORITHM  Zig-Zag Traversal\nPATTERN    Breadth-first search\n\nBEGIN\n  01  We can use a queue to perform a level order traversal of the binary tree\n  02  To achieve the zigzag order, we can use a flag variable to keep track of the current direction (left to right or right to left) for each level\n  03  SET a boolean variable ltor to true, where true represents the left to right direction\n  04  WHILE traversing each level, we store the values of the nodes in a temporary vector\n  05  IF ltor is true, we push the left child first and then the right child into the queue for the next level\n  06  IF ltor is false, we push the right child first and then the left child into the queue for the next level\n  07  After processing all the nodes in the current level, if ltor is false, we reverse the temporary vector to achieve the right to left direction for the next level\n  08  We alternate the value of ltor after processing each level to switch between left to right and right to left directions\n  09  Finally, we return the vector containing the zigzag level order traversal\n  10  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(M), where M is the maximum number of nodes at any level in the binary tree. In the worst case, the maximum number of nodes at any level can be N/2 (in a complete binary tree), resulting in O(N) space complexity",
+    "strategy": "Breadth-first search",
+    "tags": ["Binary Trees", "Breadth-first search"],
+    "intuition": "Process states in layers. With unit-cost edges, the first time a state is reached is its shortest distance from the source.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).\n\nApproach:\n- We can use a queue to perform a level order traversal of the binary tree.\n- To achieve the zigzag order, we can use a flag variable to keep track of the current direction (left to right or right to left) for each level.\n- Initialize a boolean variable `ltor` to true, where true represents the left to right direction.\n- While traversing each level, we store the values of the nodes in a temporary vector.\n- If `ltor` is true, we push the left child first and then the right child into the queue for the next level.\n- If `ltor` is false, we push the right child first and then the left child into the queue for the next level.\n- After processing all the nodes in the current level, if `ltor` is false, we reverse the temporary vector to achieve the right to left direction for the next level.\n- We alternate the value of `ltor` after processing each level to switch between left to right and right to left directions.\n- Finally, we return the vector containing the zigzag level order traversal.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(M), where M is the maximum number of nodes at any level in the binary tree. In the worst case, the maximum number of nodes at any level can be N/2 (in a complete binary tree), resulting in O(N) space complexity.\n\nCode:\n*/\n\nvector<vector<int>> zigzagLevelOrder(TreeNode* root) {\n    if (!root) return {}; // Empty tree, return an empty vector\n\n    vector<vector<int>> ans; // Vector to store the zigzag level order traversal\n    queue<TreeNode*> q; // Queue for level order traversal\n    q.push(root);\n    bool ltor = true; // Flag variable to track the current direction (left to right or right to left)\n\n    while (!q.empty()) {\n        int n = q.size(); // Number of nodes at the current level\n        vector<int> levelValues; // Temporary vector to store the values of nodes at the current level\n\n        for (int i = 0; i < n; i++) {\n            TreeNode* curr = q.front();\n            q.pop();\n\n            levelValues.push_back(curr->val);\n\n            if (curr->left) q.push(curr->left);\n            if (curr->right) q.push(curr->right);\n        }\n\n        if (!ltor) {\n            reverse(levelValues.begin(), levelValues.end()); // Reverse the values to achieve right to left direction\n        }\n\n        ans.push_back(levelValues);\n\n        ltor = !ltor; // Alternate the direction for the next level\n    }\n\n    return ans;\n}\n",
+    "codeLines": 55,
+    "repoPath": "11. Binary Trees/2. Medium Problems/06. Zig-Zag Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/06.%20Zig-Zag%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/",
+      "title": "Binary Tree Zigzag Level Order Traversal",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p233",
+    "index": 233,
+    "title": "Boundary Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given a Binary Tree, find its Boundary Traversal. The traversal should be in the following order:\n\nLeft boundary nodes: defined as the path from the root to the left-most node, i.e., the leaf node you could reach when you always travel preferring the left subtree over the right subtree.\nLeaf nodes: All the leaf nodes except for the ones that are part of the left or right boundary.\nReverse right boundary nodes: defined as the path from the right-most node to the root. The right-most node is the leaf node you could reach when you always travel preferring the right subtree over the left subtree. Exclude the root from this as it was already included in the traversal of left boundary nodes.\nNote: If the root doesn't have a left subtree or right subtree, then the root itself is the left or right boundary.",
+    "approach": "- We can divide the boundary traversal into three parts: left boundary nodes, leaf nodes, and reverse right boundary nodes.\n- To find the left boundary nodes, we can traverse the left subtree from the root to the leftmost leaf node. We add the values of the nodes to the answer vector during this traversal.\n- To find the leaf nodes, we can perform a separate recursive traversal of the binary tree and add the values of the leaf nodes (excluding the ones already included in the left boundary or right boundary) to the answer vector.\n- To find the reverse right boundary nodes, we can traverse the right subtree from the root to the rightmost leaf node (excluding the root). We add the values of the nodes to the answer vector during this traversal.\n- Finally, we return the answer vector containing the boundary traversal.",
+    "pseudocode": "ALGORITHM  Boundary Traversal\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can divide the boundary traversal into three parts: left boundary nodes, leaf nodes, and reverse right boundary nodes\n  02  To find the left boundary nodes, we can traverse the left subtree from the root to the leftmost leaf node\n  03  We add the values of the nodes to the answer vector during this traversal\n  04  To find the leaf nodes, we can perform a separate recursive traversal of the binary tree and add the values of the leaf nodes (excluding the ones already included in the left boundary or right boundary) to the answer vector\n  05  To find the reverse right boundary nodes, we can traverse the right subtree from the root to the rightmost leaf node (excluding the root)\n  06  We add the values of the nodes to the answer vector during this traversal\n  07  Finally, we return the answer vector containing the boundary traversal\n  08  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(H), where H is the height of the binary tree. In the worst case, the height of the binary tree can be N, resulting in O(N) space complexity",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven a Binary Tree, find its Boundary Traversal. The traversal should be in the following order:\n\nLeft boundary nodes: defined as the path from the root to the left-most node, i.e., the leaf node you could reach when you always travel preferring the left subtree over the right subtree.\nLeaf nodes: All the leaf nodes except for the ones that are part of the left or right boundary.\nReverse right boundary nodes: defined as the path from the right-most node to the root. The right-most node is the leaf node you could reach when you always travel preferring the right subtree over the left subtree. Exclude the root from this as it was already included in the traversal of left boundary nodes.\nNote: If the root doesn't have a left subtree or right subtree, then the root itself is the left or right boundary.\n\nApproach:\n- We can divide the boundary traversal into three parts: left boundary nodes, leaf nodes, and reverse right boundary nodes.\n- To find the left boundary nodes, we can traverse the left subtree from the root to the leftmost leaf node. We add the values of the nodes to the answer vector during this traversal.\n- To find the leaf nodes, we can perform a separate recursive traversal of the binary tree and add the values of the leaf nodes (excluding the ones already included in the left boundary or right boundary) to the answer vector.\n- To find the reverse right boundary nodes, we can traverse the right subtree from the root to the rightmost leaf node (excluding the root). We add the values of the nodes to the answer vector during this traversal.\n- Finally, we return the answer vector containing the boundary traversal.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(H), where H is the height of the binary tree. In the worst case, the height of the binary tree can be N, resulting in O(N) space complexity.\n\nCode:\n*/\n\nvoid leftTraversal(TreeNode<int>* root, vector<int>& ans) {\n    if (!root) return;\n    if (!root->left && !root->right) return;\n\n    ans.push_back(root->val);\n\n    if (root->left)\n        leftTraversal(root->left, ans);\n    else\n        leftTraversal(root->right, ans);\n}\n\nvoid leafTraversal(TreeNode<int>* root, vector<int>& ans) {\n    if (!root) return;\n    if (!root->left && !root->right) {\n        ans.push_back(root->val);\n    }\n    leafTraversal(root->left, ans);\n    leafTraversal(root->right, ans);\n}\n\nvoid rightTraversal(TreeNode<int>* root, vector<int>& ans) {\n    if (!root) return;\n    if (!root->left && !root->right) return;\n\n    int temp = root->val;\n\n    if (root->right)\n        rightTraversal(root->right, ans);\n    else\n        rightTraversal(root->left, ans);\n\n    ans.push_back(temp);\n}\n\nvector<int> boundaryTraversal(TreeNode<int>* root) {\n    if (!root) return {};\n    vector<int> ans;\n\n    ans.push_back(root->val);\n    leftTraversal(root->left, ans);\n    leafTraversal(root->left, ans);\n    leafTraversal(root->right, ans);\n    rightTraversal(root->right, ans);\n\n    return ans;\n}\n",
+    "codeLines": 70,
+    "repoPath": "11. Binary Trees/2. Medium Problems/07. Boundary Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/07.%20Boundary%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-right-side-view/",
+      "title": "Binary Tree Right Side View",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p234",
+    "index": 234,
+    "title": "Vertical Order Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given the root of a binary tree, calculate the vertical order traversal of the binary tree.\nThere may be multiple nodes in the same row and same column. In such a case, sort these nodes by their values.",
+    "approach": "- We can perform a level order traversal of the binary tree while keeping track of the horizontal distance (hd) of each node from the root.\n- For each node at position (row, col), its left and right children will be at positions (row + 1, col - 1) and (row + 1, col + 1) respectively.\n- We can use a queue to perform the level order traversal. The queue will store pairs of (hd, node), where hd represents the horizontal distance and node represents the current node being processed.\n- During the traversal, we maintain an unordered_map to store the nodes at each horizontal distance. The key in the map is the horizontal distance (hd), and the value is a vector of pairs representing the level and value of the nodes at that horizontal distance.\n- After the traversal, we iterate over the keys in the map in ascending order and sort the nodes within each horizontal distance based on their levels. We then extract the values and add them to the result vector.\n- Finally, we return the result vector containing the vertical order traversal.",
+    "pseudocode": "ALGORITHM  Vertical Order Traversal\nPATTERN    Breadth-first search\n\nBEGIN\n  01  We can perform a level order traversal of the binary tree while keeping track of the horizontal distance (hd) of each node from the root\n  02  FOR EACH node at position (row, col), its left and right children will be at positions (row + 1, col - 1) and (row + 1, col + 1) respectively\n  03  We can use a queue to perform the level order traversal\n  04  The queue will store pairs of (hd, node), where hd represents the horizontal distance and node represents the current node being processed\n  05  During the traversal, we maintain an unordered_map to store the nodes at each horizontal distance\n  06  The key in the map is the horizontal distance (hd), and the value is a vector of pairs representing the level and value of the nodes at that horizontal distance\n  07  After the traversal, we iterate over the keys in the map in ascending order and sort the nodes within each horizontal distance based on their levels\n  08  We then extract the values and add them to the result vector\n  09  Finally, we return the result vector containing the vertical order traversal\n  10  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N), where N is the number of nodes in the binary tree. This space is used to store the nodes in the unordered_map during the traversal",
+    "strategy": "Breadth-first search",
+    "tags": ["Binary Trees", "Breadth-first search"],
+    "intuition": "Process states in layers. With unit-cost edges, the first time a state is reached is its shortest distance from the source.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven the root of a binary tree, calculate the vertical order traversal of the binary tree.\nThere may be multiple nodes in the same row and same column. In such a case, sort these nodes by their values.\n\nApproach:\n- We can perform a level order traversal of the binary tree while keeping track of the horizontal distance (hd) of each node from the root.\n- For each node at position (row, col), its left and right children will be at positions (row + 1, col - 1) and (row + 1, col + 1) respectively.\n- We can use a queue to perform the level order traversal. The queue will store pairs of (hd, node), where hd represents the horizontal distance and node represents the current node being processed.\n- During the traversal, we maintain an unordered_map to store the nodes at each horizontal distance. The key in the map is the horizontal distance (hd), and the value is a vector of pairs representing the level and value of the nodes at that horizontal distance.\n- After the traversal, we iterate over the keys in the map in ascending order and sort the nodes within each horizontal distance based on their levels. We then extract the values and add them to the result vector.\n- Finally, we return the result vector containing the vertical order traversal.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N), where N is the number of nodes in the binary tree. This space is used to store the nodes in the unordered_map during the traversal.\n\nCode:\n*/\n\n// NOTE:- we are keeping track of levels because of the question condition but if no such condition exists, then no need of level only hd will work.\n\nvector<vector<int>> verticalTraversal(TreeNode* root) {\n    if (!root) return {};\n\n    unordered_map<int, vector<pair<int, int>>> mp;\n    int mini = 0, maxi = 0;\n    queue<pair<int, TreeNode*>> q;\n    q.push({0, root});\n\n    int lvl = 0;\n    while (!q.empty()) {\n        int n = q.size();\n        for (int i = 0; i < n; i++) {\n            auto p = q.front();\n            q.pop();\n            TreeNode* curr = p.second;\n            int hd = p.first;\n            if (curr->left) {\n                mini = min(mini, hd - 1);\n                q.push({hd - 1, curr->left});\n            }\n            if (curr->right) {\n                maxi = max(maxi, hd + 1);\n                q.push({hd + 1, curr->right});\n            }\n            mp[hd].push_back({lvl, curr->val});\n        }\n        lvl++;\n    }\n\n    vector<vector<int>> ans;\n    for (int i = mini; i <= maxi; i++) {\n        sort(mp[i].begin(), mp[i].end());\n        vector<int> temp;\n        for (auto it : mp[i])\n            temp.push_back(it.second);\n        ans.push_back(temp);\n    }\n\n    return ans;\n}\n",
+    "codeLines": 62,
+    "repoPath": "11. Binary Trees/2. Medium Problems/08. Vertical Order Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/08.%20Vertical%20Order%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/",
+      "title": "Vertical Order Traversal of a Binary Tree",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p235",
+    "index": 235,
+    "title": "Top View",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given a binary tree, print its top view.",
+    "approach": "- We can perform a level order traversal of the binary tree while keeping track of the horizontal distance (hd) of each node from the root.\n- For each node, if the horizontal distance is not present in the map, we add it to the map along with its value.\n- Since we want to print the nodes in the order of their horizontal distance, we maintain the minimum and maximum horizontal distances (`mini` and `maxi`) during the traversal.\n- Finally, we iterate over the range from `mini` to `maxi` and retrieve the corresponding values from the map, and add them to the result vector.",
+    "pseudocode": "ALGORITHM  Top View\nPATTERN    Breadth-first search\n\nBEGIN\n  01  We can perform a level order traversal of the binary tree while keeping track of the horizontal distance (hd) of each node from the root\n  02  FOR EACH node, if the horizontal distance is not present in the map, we add it to the map along with its value\n  03  Since we want to print the nodes in the order of their horizontal distance, we maintain the minimum and maximum horizontal distances (mini and maxi) during the traversal\n  04  Finally, we iterate over the range from mini to maxi and retrieve the corresponding values from the map, and add them to the result vector\n  05  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N), where N is the number of nodes in the binary tree. This space is used to store the nodes in the map during the traversal",
+    "strategy": "Breadth-first search",
+    "tags": ["Binary Trees", "Breadth-first search"],
+    "intuition": "Process states in layers. With unit-cost edges, the first time a state is reached is its shortest distance from the source.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven a binary tree, print its top view.\n\nApproach:\n- We can perform a level order traversal of the binary tree while keeping track of the horizontal distance (hd) of each node from the root.\n- For each node, if the horizontal distance is not present in the map, we add it to the map along with its value.\n- Since we want to print the nodes in the order of their horizontal distance, we maintain the minimum and maximum horizontal distances (`mini` and `maxi`) during the traversal.\n- Finally, we iterate over the range from `mini` to `maxi` and retrieve the corresponding values from the map, and add them to the result vector.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N), where N is the number of nodes in the binary tree. This space is used to store the nodes in the map during the traversal.\n\nCode:\n*/\n\nvector<int> getTopView(TreeNode<int> *root) {\n    if (!root) return {};\n\n    unordered_map<int, int> mp;\n    int mini = 0, maxi = 0;\n    queue<pair<int, TreeNode<int>*>> q;\n    q.push({0, root});\n\n    while (!q.empty()) {\n        auto p = q.front();\n        q.pop();\n        TreeNode<int>* curr = p.second;\n        int hd = p.first;\n        if (curr->left) {\n            mini = min(mini, hd - 1);\n            q.push({hd - 1, curr->left});\n        }\n        if (curr->right) {\n            maxi = max(maxi, hd + 1);\n            q.push({hd + 1, curr->right});\n        }\n        if (mp.find(hd) == mp.end())\n            mp[hd] = curr->data;\n    }\n\n    vector<int> ans;\n    for (int i = mini; i <= maxi; i++) {\n        ans.push_back(mp[i]);\n    }\n\n    return ans;\n}\n",
+    "codeLines": 49,
+    "repoPath": "11. Binary Trees/2. Medium Problems/09. Top View.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/09.%20Top%20View.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-right-side-view/",
+      "title": "Binary Tree Right Side View",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p236",
+    "index": 236,
+    "title": "Bottom View",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given a binary tree, print its bottom view.",
+    "approach": "- We can perform a level order traversal of the binary tree while keeping track of the horizontal distance (hd) and the level of each node from the root.\n- For each node, we update its horizontal distance and level in the map.\n- Since we want to print the nodes in the order of their horizontal distance, we maintain the minimum and maximum horizontal distances (`mini` and `maxi`) during the traversal.\n- Finally, we iterate over the range from `mini` to `maxi` and retrieve the corresponding values from the map, and add them to the result vector.",
+    "pseudocode": "ALGORITHM  Bottom View\nPATTERN    Breadth-first search\n\nBEGIN\n  01  We can perform a level order traversal of the binary tree while keeping track of the horizontal distance (hd) and the level of each node from the root\n  02  FOR EACH node, we update its horizontal distance and level in the map\n  03  Since we want to print the nodes in the order of their horizontal distance, we maintain the minimum and maximum horizontal distances (mini and maxi) during the traversal\n  04  Finally, we iterate over the range from mini to maxi and retrieve the corresponding values from the map, and add them to the result vector\n  05  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the binary tree",
+    "space": "O(N), where N is the number of nodes in the binary tree. This space is used to store the nodes in the map during the traversal",
+    "strategy": "Breadth-first search",
+    "tags": ["Binary Trees", "Breadth-first search"],
+    "intuition": "Process states in layers. With unit-cost edges, the first time a state is reached is its shortest distance from the source.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven a binary tree, print its bottom view.\n\nApproach:\n- We can perform a level order traversal of the binary tree while keeping track of the horizontal distance (hd) and the level of each node from the root.\n- For each node, we update its horizontal distance and level in the map.\n- Since we want to print the nodes in the order of their horizontal distance, we maintain the minimum and maximum horizontal distances (`mini` and `maxi`) during the traversal.\n- Finally, we iterate over the range from `mini` to `maxi` and retrieve the corresponding values from the map, and add them to the result vector.\n\nComplexity Analysis:\n- Since we visit each node once and perform constant time operations for each node, the time complexity of this approach is O(N), where N is the number of nodes in the binary tree.\n- The space complexity is O(N), where N is the number of nodes in the binary tree. This space is used to store the nodes in the map during the traversal.\n\nCode:\n*/\n\nvector<int> getBottomView(TreeNode<int> *root) {\n    if (!root) return {};\n\n    unordered_map<int, pair<int, int>> mp;\n    int mini = 0, maxi = 0;\n    queue<pair<TreeNode<int>*, pair<int, int>>> q;\n    q.push({root, {0, 0}});\n\n    while (!q.empty()) {\n        auto p = q.front();\n        q.pop();\n        TreeNode<int>* curr = p.first;\n        int hd = p.second.first;\n        int level = p.second.second;\n\n        mp[hd] = {curr->data, level};\n        mini = min(mini, hd);\n        maxi = max(maxi, hd);\n\n        if (curr->left) {\n            q.push({curr->left, {hd - 1, level + 1}});\n        }\n        if (curr->right) {\n            q.push({curr->right, {hd + 1, level + 1}});\n        }\n    }\n\n    vector<int> ans;\n    for (int i = mini; i <= maxi; i++) {\n        ans.push_back(mp[i].first);\n    }\n\n    return ans;\n}\n",
+    "codeLines": 51,
+    "repoPath": "11. Binary Trees/2. Medium Problems/10. Bottom View.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/10.%20Bottom%20View.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-right-side-view/",
+      "title": "Binary Tree Right Side View",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p237",
+    "index": 237,
+    "title": "Left or Right View",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given the root of a binary tree, imagine yourself standing on the right side of it,\nreturn the values of the nodes you can see ordered from top to bottom.",
+    "approach": "- Perform a level order traversal of the binary tree.\n- For each level, keep track of the last node encountered (the rightmost node from the viewer's perspective).\n- Add the value of the last node at each level to the result.",
+    "pseudocode": "ALGORITHM  Left or Right View\nPATTERN    Breadth-first search\n\nBEGIN\n  01  Perform a level order traversal of the binary tree\n  02  FOR EACH level, keep track of the last node encountered (the rightmost node from the viewer's perspective)\n  03  Add the value of the last node at each level to the result\n  04  RETURN the required result\nEND",
+    "time": "O(N), where N is the number of nodes in the binary tree",
+    "space": "O(M), where M is the maximum number of nodes at any level in the tree",
+    "strategy": "Breadth-first search",
+    "tags": ["Binary Trees", "Breadth-first search"],
+    "intuition": "Process states in layers. With unit-cost edges, the first time a state is reached is its shortest distance from the source.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion: Given the root of a binary tree, imagine yourself standing on the right side of it,\nreturn the values of the nodes you can see ordered from top to bottom.\n*/\n\n/*\nApproach:\n- Perform a level order traversal of the binary tree.\n- For each level, keep track of the last node encountered (the rightmost node from the viewer's perspective).\n- Add the value of the last node at each level to the result.\n\nComplexity Analysis:\n- Time complexity: O(N), where N is the number of nodes in the binary tree.\n- Space complexity: O(M), where M is the maximum number of nodes at any level in the tree.\n\nCODE:-\n*/\nvector<int> rightSideView(TreeNode* root) {\n    if (!root) return {};\n\n    vector<int> ans;\n    queue<TreeNode*> q;\n    q.push(root);\n\n    while (!q.empty()) {\n        int n = q.size();\n        for (int i = 0; i < n; i++) {\n            TreeNode* curr = q.front();\n            q.pop();\n            if (curr->left) {\n                q.push(curr->left);\n            }\n            if (curr->right) {\n                q.push(curr->right);\n            }\n            // Add only the last node of the level to the answer for right view in case of left view push only the first element\n            if (i == n - 1) {\n                ans.push_back(curr->val);\n            }\n        }\n    }\n\n    return ans;\n}\n",
+    "codeLines": 44,
+    "repoPath": "11. Binary Trees/2. Medium Problems/11. Left or Right View.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/11.%20Left%20or%20Right%20View.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-right-side-view/",
+      "title": "Binary Tree Right Side View",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p238",
+    "index": 238,
+    "title": "Symmetric Tree",
+    "topic": "Binary Trees",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given the root of a binary tree, check whether it is a mirror of itself\n (i.e., symmetric around its center).\n\n Example:\n Input: root = [1,2,2,3,4,4,3]\n Output: true",
+    "approach": "We can solve this problem using a recursive approach.\n 1. Define a helper function \"isMirror\" that takes two tree nodes as input.\n 2. Base case:\n    - If both nodes are NULL, return true.\n    - If either node is NULL, return false.\n 3. Check if the values of the two nodes are equal.\n 4. Recursively call \"isMirror\" on the left and right children of the two nodes:\n    - isMirror(node1->left, node2->right)\n    - isMirror(node1->right, node2->left)\n 5. Return the logical AND of the above two recursive calls.\n 6. In the main \"isSymmetric\" function, return the result of calling \"isMirror\" on the root's left and right children.",
+    "pseudocode": "ALGORITHM  Symmetric Tree\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can solve this problem using a recursive approach\n  02  Define a helper function \"isMirror\" that takes two tree nodes as input\n  03  Base case:\n  04  IF both nodes are NULL, return true\n  05  IF either node is NULL, return false\n  06  Check if the values of the two nodes are equal\n  07  Recursively call \"isMirror\" on the left and right children of the two nodes:\n  08  isMirror(node1->left, node2->right)\n  09  isMirror(node1->right, node2->left)\n  10  RETURN the logical AND of the above two recursive calls\n  11  In the main \"isSymmetric\" function, return the result of calling \"isMirror\" on the root's left and right children\nEND",
+    "time": "O(N), where N is the number of nodes in the binary tree, as we need to visit all the nodes once",
+    "space": "O(H), where H is the height of the tree, due to the recursive function calls on the stack",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/**\n QUESTION:\n Given the root of a binary tree, check whether it is a mirror of itself\n (i.e., symmetric around its center).\n \n Example:\n Input: root = [1,2,2,3,4,4,3]\n Output: true\n */\n\n/**\n APPROACH:\n We can solve this problem using a recursive approach.\n 1. Define a helper function \"isMirror\" that takes two tree nodes as input.\n 2. Base case:\n    - If both nodes are NULL, return true.\n    - If either node is NULL, return false.\n 3. Check if the values of the two nodes are equal.\n 4. Recursively call \"isMirror\" on the left and right children of the two nodes:\n    - isMirror(node1->left, node2->right)\n    - isMirror(node1->right, node2->left)\n 5. Return the logical AND of the above two recursive calls.\n 6. In the main \"isSymmetric\" function, return the result of calling \"isMirror\" on the root's left and right children.\n \n COMPLEXITY ANALYSIS:\n - The time complexity is O(N), where N is the number of nodes in the binary tree, as we need to visit all the nodes once.\n - The space complexity is O(H), where H is the height of the tree, due to the recursive function calls on the stack.\n   In the worst case, the height of the tree can be equal to the number of nodes, resulting in O(N) space complexity.\n\nCODE:-\n*/\n\nbool isMirror(TreeNode* node1, TreeNode* node2) {\n    if (!node1 && !node2)\n        return true;\n    if (!node1 || !node2)\n        return false;\n    return (node1->val == node2->val) &&\n           isMirror(node1->left, node2->right) &&\n           isMirror(node1->right, node2->left);\n}\n\nbool isSymmetric(TreeNode* root) {\n    return isMirror(root->left, root->right);\n}\n",
+    "codeLines": 45,
+    "repoPath": "11. Binary Trees/2. Medium Problems/12. Symmetric Tree.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/2.%20Medium%20Problems/12.%20Symmetric%20Tree.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/symmetric-tree/",
+      "title": "Symmetric Tree",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p239",
+    "index": 239,
+    "title": "All root to leaf paths",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Write a program to print the path from the root to a given node in a binary tree. You are given a binary tree and a node value. You need to find and print the path from the root to the node.",
+    "approach": "To find the path from the root to the given node, we can use a recursive function. The idea is to traverse the tree from the root and keep track of the path in a vector. If the target node is found, add the node's value to the path vector, and return true. Otherwise, recursively search for the target node in the left and right subtrees. If the target node is not found, remove the last node from the path vector before returning false.",
+    "pseudocode": "ALGORITHM  All root to leaf paths\nPATTERN    Tree traversal\n\nBEGIN\n  01  To find the path from the root to the given node, we can use a recursive function\n  02  The idea is to traverse the tree from the root and keep track of the path in a vector\n  03  IF the target node is found, add the node's value to the path vector, and return true\n  04  ELSE recursively search for the target node in the left and right subtrees\n  05  IF the target node is not found, remove the last node from the path vector before returning false\n  06  RETURN the required result\nEND",
+    "time": "The time complexity of the recursive function is O(N) as we may visit all nodes in the worst case",
+    "space": "The space complexity is O(N) due to the space used by the recursion stack and the path vector",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/**Question:**\n\nWrite a program to print the path from the root to a given node in a binary tree. You are given a binary tree and a node value. You need to find and print the path from the root to the node.\n\n**Approach:**\n\nTo find the path from the root to the given node, we can use a recursive function. The idea is to traverse the tree from the root and keep track of the path in a vector. If the target node is found, add the node's value to the path vector, and return true. Otherwise, recursively search for the target node in the left and right subtrees. If the target node is not found, remove the last node from the path vector before returning false.\n\n**Complexity Analysis:**\n\nLet N be the number of nodes in the binary tree.\n\n- Time Complexity: The time complexity of the recursive function is O(N) as we may visit all nodes in the worst case.\n- Space Complexity: The space complexity is O(N) due to the space used by the recursion stack and the path vector.\n\n**Code:**/\n\nbool findPath(TreeNode* root, int target, vector<int>& path) {\n    if (!root) return false;\n\n    path.push_back(root->val);\n\n    if (root->val == target) {\n        return true;\n    }\n\n    if (findPath(root->left, target, path) || findPath(root->right, target, path)) {\n        return true;\n    }\n\n    path.pop_back();\n    return false;\n}\n\nvector<int> getPathFromRootToNode(TreeNode* root, int target) {\n    vector<int> path;\n    findPath(root, target, path);\n    return path;\n}\n\n\n",
+    "codeLines": 41,
+    "repoPath": "11. Binary Trees/3. Hard/01. All root to leaf paths.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/01.%20All%20root%20to%20leaf%20paths.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-paths/",
+      "title": "Binary Tree Paths",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p240",
+    "index": 240,
+    "title": "Lowest Common Ancestor",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.\n\nAccording to the definition of LCA on Wikipedia: \"The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).\"\n\nExample 1:\nInput: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1\nOutput: 3\nExplanation: The LCA of nodes 5 and 1 is 3.",
+    "approach": "To find the lowest common ancestor (LCA) of two nodes `p` and `q` in a binary tree, we can use a recursive approach. We start from the root of the tree and check if either `p` or `q` matches the current node. If one of them matches, it means that the current node is the LCA. Otherwise, we recursively search for `p` and `q` in the left and right subtrees.",
+    "pseudocode": "ALGORITHM  Lowest Common Ancestor\nPATTERN    Tree traversal\n\nBEGIN\n  01  To find the lowest common ancestor (LCA) of two nodes p and q in a binary tree, we can use a recursive approach\n  02  We start from the root of the tree and check if either p or q matches the current node\n  03  IF one of them matches, it means that the current node is the LCA\n  04  ELSE we recursively search for p and q in the left and right subtrees\n  05  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(n) since we may have to visit all nodes of the binary tree in the worst case",
+    "space": "The space complexity is O(h) for the recursive call stack, where `h` is the height of the binary tree. In the worst case, when the binary tree is skewed, the space complexity becomes O(n)",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/* QUESTION:\n\nGiven a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.\n\nAccording to the definition of LCA on Wikipedia: \"The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).\"\n\nExample 1:\nInput: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1\nOutput: 3\nExplanation: The LCA of nodes 5 and 1 is 3.\n\n\nAPPROACH:\n\nTo find the lowest common ancestor (LCA) of two nodes `p` and `q` in a binary tree, we can use a recursive approach. We start from the root of the tree and check if either `p` or `q` matches the current node. If one of them matches, it means that the current node is the LCA. Otherwise, we recursively search for `p` and `q` in the left and right subtrees.\n\nCOMPLEXITY ANALYSIS:\n\nLet `n` be the number of nodes in the binary tree.\n- Time Complexity: The time complexity of this approach is O(n) since we may have to visit all nodes of the binary tree in the worst case.\n- Space Complexity: The space complexity is O(h) for the recursive call stack, where `h` is the height of the binary tree. In the worst case, when the binary tree is skewed, the space complexity becomes O(n).\n\n\nCODE:\n*/\n\nTreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {\n    if (!root) return NULL;\n    if (root->val == p->val || root->val == q->val) return root;\n\n    TreeNode* lef = lowestCommonAncestor(root->left, p, q);\n    TreeNode* rig = lowestCommonAncestor(root->right, p, q);\n\n    if (!lef)\n        return rig;\n    if (!rig)\n        return lef;\n    return root;\n}\n",
+    "codeLines": 39,
+    "repoPath": "11. Binary Trees/3. Hard/02. Lowest Common Ancestor.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/02.%20Lowest%20Common%20Ancestor.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/",
+      "title": "Lowest Common Ancestor of a Binary Tree",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p241",
+    "index": 241,
+    "title": "Max width of binary tree",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given the root of a binary tree, return the maximum width of the given tree.\n\nThe maximum width of a tree is the maximum width among all levels.\n\nThe width of one level is defined as the length between the end-nodes (the leftmost and rightmost non-null nodes), where the null nodes between the end-nodes that would be present in a complete binary tree extending down to that level are also counted into the length calculation.\n\nIt is guaranteed that the answer will be in the range of a 32-bit signed integer.\n\nExample 1:\nInput: root = [1,3,2,5,3,null,9]\nOutput: 4\nExplanation: The maximum width exists in the third level with length 4 (5,3,null,9).",
+    "approach": "To find the maximum width, we can perform a level-order traversal (BFS) of the binary tree while keeping track of the indices of nodes at each level. For each level, we calculate the width by finding the difference between the indices of the leftmost and rightmost non-null nodes. The maximum width among all levels will be the answer.",
+    "pseudocode": "ALGORITHM  Max width of binary tree\nPATTERN    Breadth-first search\n\nBEGIN\n  01  To find the maximum width, we can perform a level-order traversal (BFS) of the binary tree while keeping track of the indices of nodes at each level\n  02  FOR EACH level, we calculate the width by finding the difference between the indices of the leftmost and rightmost non-null nodes\n  03  The maximum width among all levels will be the answer\n  04  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(n) since we need to traverse all nodes in the binary tree using BFS",
+    "space": "The space complexity is O(w) for the queue, where `w` is the maximum width of the binary tree at any level",
+    "strategy": "Breadth-first search",
+    "tags": ["Binary Trees", "Breadth-first search"],
+    "intuition": "Process states in layers. With unit-cost edges, the first time a state is reached is its shortest distance from the source.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/* QUESTION:\n\nGiven the root of a binary tree, return the maximum width of the given tree.\n\nThe maximum width of a tree is the maximum width among all levels.\n\nThe width of one level is defined as the length between the end-nodes (the leftmost and rightmost non-null nodes), where the null nodes between the end-nodes that would be present in a complete binary tree extending down to that level are also counted into the length calculation.\n\nIt is guaranteed that the answer will be in the range of a 32-bit signed integer.\n\nExample 1:\nInput: root = [1,3,2,5,3,null,9]\nOutput: 4\nExplanation: The maximum width exists in the third level with length 4 (5,3,null,9).\n\n\nAPPROACH:\n\nTo find the maximum width, we can perform a level-order traversal (BFS) of the binary tree while keeping track of the indices of nodes at each level. For each level, we calculate the width by finding the difference between the indices of the leftmost and rightmost non-null nodes. The maximum width among all levels will be the answer.\n\nCOMPLEXITY ANALYSIS:\n\nLet `n` be the number of nodes in the binary tree.\n- Time Complexity: The time complexity of this approach is O(n) since we need to traverse all nodes in the binary tree using BFS.\n- Space Complexity: The space complexity is O(w) for the queue, where `w` is the maximum width of the binary tree at any level.\n\nCODE:\n*/\n\nint widthOfBinaryTree(TreeNode* root) {\n    if (!root) return 0;\n    long long ans = 0;\n    queue<pair<long long, TreeNode*>> q;\n    q.push({0, root});\n\n    while (!q.empty()) {\n        int n = q.size();\n        long long start = q.front().first;\n        long long end = q.back().first;\n\n        for (int i = 0; i < n; i++) {\n            auto p = q.front();\n            q.pop();\n            // note we are doing -start because we don't need previous value\n            long long index = p.first - start;\n            TreeNode* curr = p.second;\n\n            if (curr->left) q.push({2 * index + 1, curr->left});\n            if (curr->right) q.push({2 * index + 2, curr->right});\n        }\n\n        ans = max(ans, end - start + 1);\n    }\n\n    return (int)ans;\n}\n",
+    "codeLines": 56,
+    "repoPath": "11. Binary Trees/3. Hard/03. Max width of binary tree.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/03.%20Max%20width%20of%20binary%20tree.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-width-of-binary-tree/",
+      "title": "Maximum Width of Binary Tree",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p242",
+    "index": 242,
+    "title": "Check children sum property",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given a Binary Tree. Return true if, for every node X in the tree other than the leaves, its value is equal to the sum of its left subtree's value and its right subtree's value. Else return false.\n\nAn empty tree is also a Sum Tree as the sum of an empty tree can be considered to be 0. A leaf node is also considered a Sum Tree.\n\nExample 1:\nInput:\n    3\n  /   \\\n 1     2\n\nOutput: 1\nExplanation:\nThe sum of left subtree and right subtree is 1 + 2 = 3, which is the value of the root node.\nTherefore, the given binary tree is a sum tree.",
+    "approach": "To determine if a binary tree is a Sum Tree, we can perform a post-order traversal of the tree and check if each node satisfies the condition of being a Sum Tree.\n\nFor each node in the tree, we will calculate the sum of its left subtree and right subtree. If both subtrees are Sum Trees and the value of the current node is equal to the sum of its subtrees, then the current node is also a Sum Tree. Otherwise, it is not a Sum Tree.\n\nTo indicate that the current node is not a Sum Tree, we return a special value (e.g., INT_MIN) from the recursive function. If the result is INT_MIN, then the binary tree is not a Sum Tree. Otherwise, it is a Sum Tree.",
+    "pseudocode": "ALGORITHM  Check children sum property\nPATTERN    Tree traversal\n\nBEGIN\n  01  To determine if a binary tree is a Sum Tree, we can perform a post-order traversal of the tree and check if each node satisfies the condition of being a Sum Tree\n  02  FOR EACH node in the tree, we will calculate the sum of its left subtree and right subtree\n  03  IF both subtrees are Sum Trees and the value of the current node is equal to the sum of its subtrees, then the current node is also a Sum Tree\n  04  ELSE it is not a Sum Tree\n  05  To indicate that the current node is not a Sum Tree, we return a special value (e.g., INT_MIN) from the recursive function\n  06  IF the result is INT_MIN, then the binary tree is not a Sum Tree\n  07  ELSE it is a Sum Tree\n  08  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(n) as we visit each node in the binary tree once during the post-order traversal",
+    "space": "The space complexity is O(h) due to the recursion stack, where h is the height of the binary tree",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/* QUESTION:\n\nGiven a Binary Tree. Return true if, for every node X in the tree other than the leaves, its value is equal to the sum of its left subtree's value and its right subtree's value. Else return false.\n\nAn empty tree is also a Sum Tree as the sum of an empty tree can be considered to be 0. A leaf node is also considered a Sum Tree.\n\n\nExample 1:\nInput:\n    3\n  /   \\    \n 1     2\n\nOutput: 1\nExplanation:\nThe sum of left subtree and right subtree is 1 + 2 = 3, which is the value of the root node.\nTherefore, the given binary tree is a sum tree.\n\n\nAPPROACH:\n\nTo determine if a binary tree is a Sum Tree, we can perform a post-order traversal of the tree and check if each node satisfies the condition of being a Sum Tree.\n\nFor each node in the tree, we will calculate the sum of its left subtree and right subtree. If both subtrees are Sum Trees and the value of the current node is equal to the sum of its subtrees, then the current node is also a Sum Tree. Otherwise, it is not a Sum Tree.\n\nTo indicate that the current node is not a Sum Tree, we return a special value (e.g., INT_MIN) from the recursive function. If the result is INT_MIN, then the binary tree is not a Sum Tree. Otherwise, it is a Sum Tree.\n\nCOMPLEXITY ANALYSIS:\n\nLet `n` be the number of nodes in the binary tree.\n- Time Complexity: The time complexity of this approach is O(n) as we visit each node in the binary tree once during the post-order traversal.\n- Space Complexity: The space complexity is O(h) due to the recursion stack, where h is the height of the binary tree.\n\nCODE:\n*/\n\nint solve(Node* root) {\n    if (!root) return 0;\n    if (!root->left && !root->right) return root->data;\n    \n    int lef = solve(root->left);\n    int rig = solve(root->right);\n    \n    return (lef + rig == root->data) ? 2 * root->data : INT_MIN;\n}\n\nbool isSumTree(Node* root) {\n    int ans = solve(root);\n    return (ans == INT_MIN) ? false : true;\n}\n",
+    "codeLines": 50,
+    "repoPath": "11. Binary Trees/3. Hard/04. Check children sum property.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/04.%20Check%20children%20sum%20property.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-pruning/",
+      "title": "Binary Tree Pruning",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p243",
+    "index": 243,
+    "title": "All nodes at distance K",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given the root of a binary tree, the value of a target node target, and an integer k, return an array of the values of all nodes that have a distance k from the target node.\n\nYou can return the answer in any order.\n\nExample 1:\nInput: root = [3,5,1,6,2,0,8,null,null,7,4], target = 5, k = 2\nOutput: [7,4,1]\nExplanation: The nodes that are a distance 2 from the target node (with value 5) have values 7, 4, and 1.",
+    "approach": "To find the nodes that are at a distance k from the target node, we can perform a two-step process:\n1. First, traverse the binary tree to build a map of each node to its parent node using BFS. This map will help us later to backtrack from the target node to its ancestors.\n2. Next, perform a BFS from the target node to find all nodes at a distance k from it. While doing this, we also mark visited nodes to avoid revisiting the same nodes.",
+    "pseudocode": "ALGORITHM  All nodes at distance K\nPATTERN    Backtracking\n\nBEGIN\n  01  To find the nodes that are at a distance k from the target node, we can perform a two-step process:\n  02  First, traverse the binary tree to build a map of each node to its parent node using BFS. This map will help us later to backtrack from the target node to its ancestors\n  03  Next, perform a BFS from the target node to find all nodes at a distance k from it. While doing this, we also mark visited nodes to avoid revisiting the same nodes\n  04  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(n) since we need to traverse the entire binary tree to build the parent map and perform BFS from the target node",
+    "space": "The space complexity is O(n) for the parent map and O(k) for the queue used in BFS. In the worst case, when k approaches n, the space complexity becomes O(n)",
+    "strategy": "Backtracking",
+    "tags": ["Binary Trees", "Backtracking"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/* QUESTION:\n\nGiven the root of a binary tree, the value of a target node target, and an integer k, return an array of the values of all nodes that have a distance k from the target node.\n\nYou can return the answer in any order.\n\nExample 1:\nInput: root = [3,5,1,6,2,0,8,null,null,7,4], target = 5, k = 2\nOutput: [7,4,1]\nExplanation: The nodes that are a distance 2 from the target node (with value 5) have values 7, 4, and 1.\n\n\nAPPROACH:\n\nTo find the nodes that are at a distance k from the target node, we can perform a two-step process:\n1. First, traverse the binary tree to build a map of each node to its parent node using BFS. This map will help us later to backtrack from the target node to its ancestors.\n2. Next, perform a BFS from the target node to find all nodes at a distance k from it. While doing this, we also mark visited nodes to avoid revisiting the same nodes.\n\nCOMPLEXITY ANALYSIS:\n\nLet `n` be the number of nodes in the binary tree.\n- Time Complexity: The time complexity of this approach is O(n) since we need to traverse the entire binary tree to build the parent map and perform BFS from the target node.\n- Space Complexity: The space complexity is O(n) for the parent map and O(k) for the queue used in BFS. In the worst case, when k approaches n, the space complexity becomes O(n).\n\nCODE:\n*/\n\nvector<int> distanceK(TreeNode* root, TreeNode* target, int k) {\n    vector<int> ans;\n    unordered_map<int, TreeNode*> parent;\n    queue<TreeNode*> q;\n    q.push(root);\n\n    while (!q.empty()) {\n        int si = q.size();\n        for (int i = 0; i < si; i++) {\n            auto top = q.front();\n            q.pop();\n\n            if (top->left) {\n                parent[top->left->val] = top;\n                q.push(top->left);\n            }\n\n            if (top->right) {\n                parent[top->right->val] = top;\n                q.push(top->right);\n            }\n        }\n    }\n\n    unordered_map<int, int> visited;\n    q.push(target);\n    while (k-- && !q.empty()) {\n        int size = q.size();\n\n        for (int i = 0; i < size; i++) {\n            auto top = q.front();\n            q.pop();\n\n            visited[top->val] = 1;\n\n            if (top->left && !visited[top->left->val]) {\n                q.push(top->left);\n            }\n\n            if (top->right && !visited[top->right->val]) {\n                q.push(top->right);\n            }\n\n            if (parent[top->val] && !visited[parent[top->val]->val]) {\n                q.push(parent[top->val]);\n            }\n        }\n    }\n\n    while (!q.empty()) {\n        ans.push_back(q.front()->val);\n        q.pop();\n    }\n    return ans;\n}\n",
+    "codeLines": 82,
+    "repoPath": "11. Binary Trees/3. Hard/05. All nodes at distance K.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/05.%20All%20nodes%20at%20distance%20K.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/",
+      "title": "All Nodes Distance K in Binary Tree",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p244",
+    "index": 244,
+    "title": "Min time to burn binary tree",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given a binary tree and a node data called target. Find the minimum time required to burn the complete binary tree if the target is set on fire. It is known that in 1 second, all nodes connected to a given node get burned. That is its left child, right child, and parent.\nNote: The tree contains unique values.\n\nExample 1:\nInput:\n          1\n        /   \\\n      2      3\n    /  \\      \\\n   4    5      6\n       / \\      \\\n      7   8      9\n                   \\\n                   10\n\nTarget Node = 8\nOutput: 7\nExplanation: If the leaf with the value 8 is set on fire:\nAfter 1 sec: 5 is set on fire.\nAfter 2 sec: 2, 7 are set to fire.\nAfter 3 sec: 4, 1 are set to fire.\nAfter 4 sec: 3 is set to fire.\nAfter 5 sec: 6 is set to fire.\nAfter 6 sec: 9 is set to fire.\nAfter 7 sec: 10 is set to fire.\nIt takes 7s to burn the complete tree.",
+    "approach": "To find the minimum time required to burn the complete binary tree, we need to perform a BFS (level-order traversal) starting from the target node. While doing BFS, we will also keep track of the parent node for each node using a hash map. The parent node will be used to traverse upward from the target node in the BFS process.\n\nWe will burn the target node and its adjacent nodes (left child, right child, and parent) one by one in each second. By the time we burn all nodes in the last level, all other nodes in the binary tree would have been burned as well.\n\nFinally, we will count the number of seconds it took to burn the complete binary tree.",
+    "pseudocode": "ALGORITHM  Min time to burn binary tree\nPATTERN    Breadth-first search\n\nBEGIN\n  01  To find the minimum time required to burn the complete binary tree, we need to perform a BFS (level-order traversal) starting from the target node\n  02  WHILE doing BFS, we will also keep track of the parent node for each node using a hash map\n  03  The parent node will be used to traverse upward from the target node in the BFS process\n  04  We will burn the target node and its adjacent nodes (left child, right child, and parent) one by one in each second\n  05  By the time we burn all nodes in the last level, all other nodes in the binary tree would have been burned as well\n  06  Finally, we will count the number of seconds it took to burn the complete binary tree\n  07  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(n) since we perform a BFS starting from the target node, visiting all nodes in the binary tree once",
+    "space": "The space complexity is O(n) for the queue and the hash map",
+    "strategy": "Breadth-first search",
+    "tags": ["Binary Trees", "Breadth-first search"],
+    "intuition": "Process states in layers. With unit-cost edges, the first time a state is reached is its shortest distance from the source.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/* QUESTION:\n\nGiven a binary tree and a node data called target. Find the minimum time required to burn the complete binary tree if the target is set on fire. It is known that in 1 second, all nodes connected to a given node get burned. That is its left child, right child, and parent.\nNote: The tree contains unique values.\n\nExample 1:\nInput:\n          1\n        /   \\\n      2      3\n    /  \\      \\\n   4    5      6\n       / \\      \\\n      7   8      9\n                   \\\n                   10\n\nTarget Node = 8\nOutput: 7\nExplanation: If the leaf with the value 8 is set on fire:\nAfter 1 sec: 5 is set on fire.\nAfter 2 sec: 2, 7 are set to fire.\nAfter 3 sec: 4, 1 are set to fire.\nAfter 4 sec: 3 is set to fire.\nAfter 5 sec: 6 is set to fire.\nAfter 6 sec: 9 is set to fire.\nAfter 7 sec: 10 is set to fire.\nIt takes 7s to burn the complete tree.\n\n\nAPPROACH:\n\nTo find the minimum time required to burn the complete binary tree, we need to perform a BFS (level-order traversal) starting from the target node. While doing BFS, we will also keep track of the parent node for each node using a hash map. The parent node will be used to traverse upward from the target node in the BFS process.\n\nWe will burn the target node and its adjacent nodes (left child, right child, and parent) one by one in each second. By the time we burn all nodes in the last level, all other nodes in the binary tree would have been burned as well.\n\nFinally, we will count the number of seconds it took to burn the complete binary tree.\n\nCOMPLEXITY ANALYSIS:\n\nLet `n` be the number of nodes in the binary tree.\n- Time Complexity: The time complexity of this approach is O(n) since we perform a BFS starting from the target node, visiting all nodes in the binary tree once.\n- Space Complexity: The space complexity is O(n) for the queue and the hash map.\n\nCODE:\n*/\n\nvoid setParent(BinaryTreeNode<int>* root, unordered_map<BinaryTreeNode<int>*, BinaryTreeNode<int>*>& parent) {\n    if (!root) return;\n    if (root->data == start->data) s = root;\n\n    if (root->left) parent[root->left] = root;\n    if (root->right) parent[root->right] = root;\n\n    setParent(root->left, parent);\n    setParent(root->right, parent);\n}\n\nint timeToBurnTree(BinaryTreeNode<int>* root, BinaryTreeNode<int>* start) {\n    unordered_map<BinaryTreeNode<int>*, BinaryTreeNode<int>*> parent;\n    setParent(root, parent);\n\n    queue<BinaryTreeNode<int>*> q;\n    q.push(start);\n    int time = 0;\n    unordered_map<BinaryTreeNode<int>*, bool> vis;\n\n    while (!q.empty()) {\n        int n = q.size();\n        for (int i = 0; i < n; i++) {\n            auto curr = q.front();\n            q.pop();\n\n            if (curr->left && !vis[curr->left]) q.push(curr->left);\n            if (curr->right && !vis[curr->right]) q.push(curr->right);\n            if (parent[curr] && !vis[parent[curr]]) q.push(parent[curr]);\n            \n            vis[curr] = true;\n        }\n        time++;\n    }\n    return time - 1;\n}\n",
+    "codeLines": 83,
+    "repoPath": "11. Binary Trees/3. Hard/06. Min time to burn binary tree.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/06.%20Min%20time%20to%20burn%20binary%20tree.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/amount-of-time-for-binary-tree-to-be-infected/",
+      "title": "Amount of Time for Binary Tree to Be Infected",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p245",
+    "index": 245,
+    "title": "Count nodes in complete binary tree",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given the root of a complete binary tree, return the number of nodes in the tree.\n\nAccording to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.\n\nDesign an algorithm that runs in less than O(n) time complexity.",
+    "approach": "To count the number of nodes in the complete binary tree efficiently, we can make use of the property of complete binary trees. Since all levels of the tree, except possibly the last level, are completely filled, we can perform binary search on the last level to find the number of nodes.\n\n1. First, we calculate the height of the left and right subtrees starting from the root.\n2. If the height of the left subtree is equal to the height of the right subtree, it means that the last level is completely filled, and the number of nodes in the tree is 2^h - 1, where h is the height of the tree.\n3. If the heights are not equal, it means that the last level is not completely filled. In this case, we recursively calculate the number of nodes in the left and right subtrees and add 1 (for the root node) to get the total number of nodes in the tree.",
+    "pseudocode": "ALGORITHM  Count nodes in complete binary tree\nPATTERN    Binary search\n\nBEGIN\n  01  To count the number of nodes in the complete binary tree efficiently, we can make use of the property of complete binary trees\n  02  Since all levels of the tree, except possibly the last level, are completely filled, we can perform binary search on the last level to find the number of nodes\n  03  First, we calculate the height of the left and right subtrees starting from the root\n  04  IF the height of the left subtree is equal to the height of the right subtree, it means that the last level is completely filled, and the number of nodes in the tree is 2^h - 1, where h is the height of the tree\n  05  IF the heights are not equal, it means that the last level is not completely filled\n  06  In this case, we recursively calculate the number of nodes in the left and right subtrees and add 1 (for the root node) to get the total number of nodes in the tree\n  07  RETURN the required result\nEND",
+    "time": "APPROACH:",
+    "space": "The space complexity is O(log n) due to the recursion stack, where n is the height of the complete binary tree",
+    "strategy": "Binary search",
+    "tags": ["Binary Trees", "Binary search"],
+    "intuition": "Exploit a monotonic condition: once a candidate becomes feasible, every candidate on one side is feasible too. Keep the answer inside the search interval and discard the impossible half.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty or single-element range",
+      "Answer at the first/last candidate",
+      "Duplicate values",
+      "Overflow while computing mid"
+    ],
+    "pitfalls": [
+      "Using the wrong feasible boundary",
+      "Failing to make low/high move",
+      "Overflow in mid or feasibility sums"
+    ],
+    "code": "/* QUESTION:\n\nGiven the root of a complete binary tree, return the number of nodes in the tree.\n\nAccording to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.\n\nDesign an algorithm that runs in less than O(n) time complexity.\n\n\nAPPROACH:\n\nTo count the number of nodes in the complete binary tree efficiently, we can make use of the property of complete binary trees. Since all levels of the tree, except possibly the last level, are completely filled, we can perform binary search on the last level to find the number of nodes.\n\n1. First, we calculate the height of the left and right subtrees starting from the root.\n2. If the height of the left subtree is equal to the height of the right subtree, it means that the last level is completely filled, and the number of nodes in the tree is 2^h - 1, where h is the height of the tree.\n3. If the heights are not equal, it means that the last level is not completely filled. In this case, we recursively calculate the number of nodes in the left and right subtrees and add 1 (for the root node) to get the total number of nodes in the tree.\n\nCOMPLEXITY ANALYSIS:\n\nLet n be the number of nodes in the complete binary tree.\n- Time Complexity: The time complexity of this approach is O(log^2 n), as we perform binary search on the last level, and at each step, we calculate the height of the left and right subtrees, which takes O(log n) time. We do this operation recursively, so the overall time complexity is O(log^2 n).\n- Space Complexity: The space complexity is O(log n) due to the recursion stack, where n is the height of the complete binary tree.\n\nCODE:\n*/\n\nint leftHeight(TreeNode* root) {\n    int h = 1;\n    while (root) {\n        h++;\n        root = root->left;\n    }\n    return h;\n}\n\nint rightHeight(TreeNode* root) {\n    int h = 1;\n    while (root) {\n        h++;\n        root = root->right;\n    }\n    return h;\n}\n\nint countNodes(TreeNode* root) {\n    if (!root) return 0;\n    int lh = leftHeight(root->left);\n    int rh = rightHeight(root->right);\n    if (lh == rh)\n        return pow(2, lh) - 1;\n    return 1 + countNodes(root->left) + countNodes(root->right);\n}\n",
+    "codeLines": 52,
+    "repoPath": "11. Binary Trees/3. Hard/07. Count nodes in complete binary tree.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/07.%20Count%20nodes%20in%20complete%20binary%20tree.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/count-complete-tree-nodes/",
+      "title": "Count Complete Tree Nodes",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p246",
+    "index": 246,
+    "title": "Construct BT from inorder and preorder",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.",
+    "approach": "The preorder traversal follows the root-left-right order, while the inorder traversal follows the left-root-right order. Based on these two traversals, we can construct the binary tree recursively.\n\n1. The first element in the preorder traversal array is the root of the binary tree.\n2. We can find the position of the root in the inorder traversal array. All the elements to the left of this position will be in the left subtree, and all the elements to the right will be in the right subtree.\n3. Recursively, we can build the left and right subtrees using the corresponding portions of the preorder and inorder traversal arrays.\n4. The recursive function takes the index of the current element in the preorder traversal array, the starting and ending indices of the current portion in the inorder traversal array, and the preorder and inorder traversal arrays as inputs.\n5. In each recursive call, we create a new node with the value of the current element in the preorder traversal array and determine its left and right subtrees by calling the recursive function on the corresponding portions of the inorder and preorder traversal arrays.\n6. The base case is when the starting index is greater than the ending index, indicating an empty portion of the tree. In this case, we return NULL.\n7. Finally, we return the root of the constructed binary tree.",
+    "pseudocode": "ALGORITHM  Construct BT from inorder and preorder\nPATTERN    Tree traversal\n\nBEGIN\n  01  The preorder traversal follows the root-left-right order, while the inorder traversal follows the left-root-right order\n  02  Based on these two traversals, we can construct the binary tree recursively\n  03  The first element in the preorder traversal array is the root of the binary tree\n  04  We can find the position of the root in the inorder traversal array\n  05  All the elements to the left of this position will be in the left subtree, and all the elements to the right will be in the right subtree\n  06  Recursively, we can build the left and right subtrees using the corresponding portions of the preorder and inorder traversal arrays\n  07  The recursive function takes the index of the current element in the preorder traversal array, the starting and ending indices of the current portion in the inorder traversal array, and the preorder and inorder traversal arrays as inputs\n  08  In each recursive call, we create a new node with the value of the current element in the preorder traversal array and determine its left and right subtrees by calling the recursive function on the corresponding portions of the inorder and preorder traversal arrays\n  09  The base case is when the starting index is greater than the ending index, indicating an empty portion of the tree. In this case, we return NULL\n  10  Finally, we return the root of the constructed binary tree\n  11  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(n), as we visit each node once",
+    "space": "The space complexity is O(n) for the recursive call stack",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/* QUESTION:\n\nGiven two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.\n\nAPPROACH:\n\nThe preorder traversal follows the root-left-right order, while the inorder traversal follows the left-root-right order. Based on these two traversals, we can construct the binary tree recursively.\n\n1. The first element in the preorder traversal array is the root of the binary tree.\n2. We can find the position of the root in the inorder traversal array. All the elements to the left of this position will be in the left subtree, and all the elements to the right will be in the right subtree.\n3. Recursively, we can build the left and right subtrees using the corresponding portions of the preorder and inorder traversal arrays.\n4. The recursive function takes the index of the current element in the preorder traversal array, the starting and ending indices of the current portion in the inorder traversal array, and the preorder and inorder traversal arrays as inputs.\n5. In each recursive call, we create a new node with the value of the current element in the preorder traversal array and determine its left and right subtrees by calling the recursive function on the corresponding portions of the inorder and preorder traversal arrays.\n6. The base case is when the starting index is greater than the ending index, indicating an empty portion of the tree. In this case, we return NULL.\n7. Finally, we return the root of the constructed binary tree.\n\nCOMPLEXITY ANALYSIS:\n\nLet n be the number of nodes in the binary tree.\n- Time Complexity: The time complexity of this approach is O(n), as we visit each node once.\n- Space Complexity: The space complexity is O(n) for the recursive call stack.\n\nCODE:\n*/\n\nTreeNode* solve(int i, int ins, int ine, vector<int>& preorder, vector<int>& inorder) {\n    if (i >= preorder.size() || ins > ine) return NULL;\n\n    int loc = -1;\n    for (int j = ins; j <= ine; j++) {\n        if (inorder[j] == preorder[i])\n            loc = j;\n    }\n    TreeNode* root = new TreeNode(preorder[i]);\n    root->left = solve(i + 1, ins, loc - 1, preorder, inorder);\n    // Note: the index of the right child in preorder is the number of nodes in the left subtree + 1\n    root->right = solve(i + (loc - ins + 1), loc + 1, ine, preorder, inorder);\n\n    return root;\n}\n\nTreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {\n    int n = inorder.size();\n    return solve(0, 0, n - 1, preorder, inorder);\n}\n",
+    "codeLines": 45,
+    "repoPath": "11. Binary Trees/3. Hard/08. Construct BT from inorder and preorder.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/08.%20Construct%20BT%20from%20inorder%20and%20preorder.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p247",
+    "index": 247,
+    "title": "Construct BT from inorder and postorder",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.",
+    "approach": "The postorder traversal follows the left-right-root order, while the inorder traversal follows the left-root-right order. Based on these two traversals, we can construct the binary tree recursively.\n\n1. The last element in the postorder traversal array is the root of the binary tree.\n2. We can find the position of the root in the inorder traversal array. All the elements to the left of this position will be in the left subtree, and all the elements to the right will be in the right subtree.\n3. Recursively, we can build the left and right subtrees using the corresponding portions of the inorder and postorder traversal arrays.\n4. The recursive function takes the index of the current element in the postorder traversal array, the starting and ending indices of the current portion in the inorder traversal array, and the inorder and postorder traversal arrays as inputs.\n5. In each recursive call, we create a new node with the value of the current element in the postorder traversal array and determine its left and right subtrees by calling the recursive function on the corresponding portions of the inorder and postorder traversal arrays.\n6. The base case is when the starting index is greater than the ending index, indicating an empty portion of the tree. In this case, we return NULL.\n7. Finally, we return the root of the constructed binary tree.",
+    "pseudocode": "ALGORITHM  Construct BT from inorder and postorder\nPATTERN    Tree traversal\n\nBEGIN\n  01  The postorder traversal follows the left-right-root order, while the inorder traversal follows the left-root-right order\n  02  Based on these two traversals, we can construct the binary tree recursively\n  03  The last element in the postorder traversal array is the root of the binary tree\n  04  We can find the position of the root in the inorder traversal array\n  05  All the elements to the left of this position will be in the left subtree, and all the elements to the right will be in the right subtree\n  06  Recursively, we can build the left and right subtrees using the corresponding portions of the inorder and postorder traversal arrays\n  07  The recursive function takes the index of the current element in the postorder traversal array, the starting and ending indices of the current portion in the inorder traversal array, and the inorder and postorder traversal arrays as inputs\n  08  In each recursive call, we create a new node with the value of the current element in the postorder traversal array and determine its left and right subtrees by calling the recursive function on the corresponding portions of the inorder and postorder traversal arrays\n  09  The base case is when the starting index is greater than the ending index, indicating an empty portion of the tree. In this case, we return NULL\n  10  Finally, we return the root of the constructed binary tree\n  11  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(n), as we visit each node once",
+    "space": "The space complexity is O(n) for the recursive call stack",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/* QUESTION:\n\nGiven two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.\n\nAPPROACH:\n\nThe postorder traversal follows the left-right-root order, while the inorder traversal follows the left-root-right order. Based on these two traversals, we can construct the binary tree recursively.\n\n1. The last element in the postorder traversal array is the root of the binary tree.\n2. We can find the position of the root in the inorder traversal array. All the elements to the left of this position will be in the left subtree, and all the elements to the right will be in the right subtree.\n3. Recursively, we can build the left and right subtrees using the corresponding portions of the inorder and postorder traversal arrays.\n4. The recursive function takes the index of the current element in the postorder traversal array, the starting and ending indices of the current portion in the inorder traversal array, and the inorder and postorder traversal arrays as inputs.\n5. In each recursive call, we create a new node with the value of the current element in the postorder traversal array and determine its left and right subtrees by calling the recursive function on the corresponding portions of the inorder and postorder traversal arrays.\n6. The base case is when the starting index is greater than the ending index, indicating an empty portion of the tree. In this case, we return NULL.\n7. Finally, we return the root of the constructed binary tree.\n\nCOMPLEXITY ANALYSIS:\n\nLet n be the number of nodes in the binary tree.\n- Time Complexity: The time complexity of this approach is O(n), as we visit each node once.\n- Space Complexity: The space complexity is O(n) for the recursive call stack.\n\nCODE:\n*/\n\nTreeNode* solve(int pi, int ins, int ine, vector<int>& inorder, vector<int>& postorder) {\n    if (pi < 0 || ins > ine) return NULL;\n\n    int loc = -1;\n    for (int i = ins; i <= ine; i++) {\n        if (inorder[i] == postorder[pi])\n            loc = i;\n    }\n\n    TreeNode* root = new TreeNode(postorder[pi]);\n    root->right = solve(pi - 1, loc + 1, ine, inorder, postorder);\n    root->left = solve(pi - (ine - loc + 1), ins, loc - 1, inorder, postorder);\n\n    return root;\n}\n\nTreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {\n    int n = inorder.size();\n    return solve(n - 1, 0, n - 1, inorder, postorder);\n}\n",
+    "codeLines": 45,
+    "repoPath": "11. Binary Trees/3. Hard/09. Construct BT from inorder and postorder.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/09.%20Construct%20BT%20from%20inorder%20and%20postorder.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/",
+      "title": "Construct Binary Tree from Inorder and Postorder Traversal",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p248",
+    "index": 248,
+    "title": "Morris Preorder Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given a binary tree, find the preorder traversal of the tree without using extra space.",
+    "approach": "We can achieve a non-recursive preorder traversal without using extra space by modifying the binary tree itself.\n\n1. We start with the current node as the root.\n2. While the current node is not NULL, we do the following:\n   - If the current node does not have a left child, we visit the current node and move to its right child.\n   - If the current node has a left child, we find the rightmost node of its left subtree.\n     - If the rightmost node does not have a right child, we visit the current node, make the right child of the rightmost node point to the current node, and move to the left child.\n     - If the rightmost node already has a right child (which points back to the current node), we reset the right child to NULL, visit the current node, and move to its right child.\n3. We repeat this process until we have visited all the nodes in the tree.\n4. Finally, we return the result vector containing the preorder traversal.",
+    "pseudocode": "ALGORITHM  Morris Preorder Traversal\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can achieve a non-recursive preorder traversal without using extra space by modifying the binary tree itself\n  02  We start with the current node as the root\n  03  WHILE the current node is not NULL, we do the following:\n  04  IF the current node does not have a left child, we visit the current node and move to its right child\n  05  IF the current node has a left child, we find the rightmost node of its left subtree\n  06  IF the rightmost node does not have a right child, we visit the current node, make the right child of the rightmost node point to the current node, and move to the left child\n  07  IF the rightmost node already has a right child (which points back to the current node), we reset the right child to NULL, visit the current node, and move to its right child\n  08  We repeat this process until we have visited all the nodes in the tree\n  09  Finally, we return the result vector containing the preorder traversal\n  10  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(n) since we visit each node once",
+    "space": "The space complexity is O(1) since we don't use any extra space",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/* QUESTION:\n\nGiven a binary tree, find the preorder traversal of the tree without using extra space.\n\nAPPROACH:\n\nWe can achieve a non-recursive preorder traversal without using extra space by modifying the binary tree itself.\n\n1. We start with the current node as the root.\n2. While the current node is not NULL, we do the following:\n   - If the current node does not have a left child, we visit the current node and move to its right child.\n   - If the current node has a left child, we find the rightmost node of its left subtree.\n     - If the rightmost node does not have a right child, we visit the current node, make the right child of the rightmost node point to the current node, and move to the left child.\n     - If the rightmost node already has a right child (which points back to the current node), we reset the right child to NULL, visit the current node, and move to its right child.\n3. We repeat this process until we have visited all the nodes in the tree.\n4. Finally, we return the result vector containing the preorder traversal.\n\nCOMPLEXITY ANALYSIS:\n\nLet n be the number of nodes in the binary tree.\n- Time Complexity: The time complexity of this approach is O(n) since we visit each node once.\n- Space Complexity: The space complexity is O(1) since we don't use any extra space.\n\nCODE:\n*/\n\nvector<int> preOrder(Node* root) {\n    vector<int> ans;\n    Node* curr = root;\n\n    while (curr) {\n        if (!curr->left) {\n            ans.push_back(curr->data);\n            curr = curr->right;\n        } else {\n            Node* rightmost = curr->left;\n            while (rightmost->right && rightmost->right != curr)\n                rightmost = rightmost->right;\n\n            if (!rightmost->right) {\n                ans.push_back(curr->data);\n                rightmost->right = curr;\n                curr = curr->left;\n            } else {\n                rightmost->right = NULL;\n                curr = curr->right;\n            }\n        }\n    }\n\n    return ans;\n}\n",
+    "codeLines": 52,
+    "repoPath": "11. Binary Trees/3. Hard/11. Morris Preorder Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/11.%20Morris%20Preorder%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-preorder-traversal/",
+      "title": "Binary Tree Preorder Traversal",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p249",
+    "index": 249,
+    "title": "Morris Inorder Traversal",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given a binary tree, find the inorder traversal of the tree without using extra space.",
+    "approach": "We can achieve a non-recursive inorder traversal without using extra space by modifying the binary tree itself.\n\n1. We start with the current node as the root.\n2. While the current node is not NULL, we do the following:\n   - If the current node does not have a left child, we visit the current node and move to its right child.\n   - If the current node has a left child, we find the rightmost node of its left subtree.\n     - If the rightmost node does not have a right child, we make the right child point to the current node and move to the left child.\n     - If the rightmost node already has a right child (which points back to the current node), we reset the right child to NULL, visit the current node, and move to its right child.\n3. We repeat this process until we have visited all the nodes in the tree.\n4. Finally, we return the result vector containing the inorder traversal.",
+    "pseudocode": "ALGORITHM  Morris Inorder Traversal\nPATTERN    Tree traversal\n\nBEGIN\n  01  We can achieve a non-recursive inorder traversal without using extra space by modifying the binary tree itself\n  02  We start with the current node as the root\n  03  WHILE the current node is not NULL, we do the following:\n  04  IF the current node does not have a left child, we visit the current node and move to its right child\n  05  IF the current node has a left child, we find the rightmost node of its left subtree\n  06  IF the rightmost node does not have a right child, we make the right child point to the current node and move to the left child\n  07  IF the rightmost node already has a right child (which points back to the current node), we reset the right child to NULL, visit the current node, and move to its right child\n  08  We repeat this process until we have visited all the nodes in the tree\n  09  Finally, we return the result vector containing the inorder traversal\n  10  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(n) since we visit each node once",
+    "space": "The space complexity is O(1) since we don't use any extra space",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/* QUESTION:\n\nGiven a binary tree, find the inorder traversal of the tree without using extra space.\n\nAPPROACH:\n\nWe can achieve a non-recursive inorder traversal without using extra space by modifying the binary tree itself.\n\n1. We start with the current node as the root.\n2. While the current node is not NULL, we do the following:\n   - If the current node does not have a left child, we visit the current node and move to its right child.\n   - If the current node has a left child, we find the rightmost node of its left subtree.\n     - If the rightmost node does not have a right child, we make the right child point to the current node and move to the left child.\n     - If the rightmost node already has a right child (which points back to the current node), we reset the right child to NULL, visit the current node, and move to its right child.\n3. We repeat this process until we have visited all the nodes in the tree.\n4. Finally, we return the result vector containing the inorder traversal.\n\nCOMPLEXITY ANALYSIS:\n\nLet n be the number of nodes in the binary tree.\n- Time Complexity: The time complexity of this approach is O(n) since we visit each node once.\n- Space Complexity: The space complexity is O(1) since we don't use any extra space.\n\nCODE:\n*/\n\nvector<int> inOrder(Node* root) {\n    vector<int> ans;\n    Node* curr = root;\n\n    while (curr) {\n        if (!curr->left) {\n            ans.push_back(curr->data);\n            curr = curr->right;\n        } else {\n            Node* rightmost = curr->left;\n            while (rightmost->right && rightmost->right != curr)\n                rightmost = rightmost->right;\n\n            if (!rightmost->right) {\n                rightmost->right = curr;\n                curr = curr->left;\n            } else {\n                ans.push_back(curr->data);\n                rightmost->right = NULL;\n                curr = curr->right;\n            }\n        }\n    }\n\n    return ans;\n}\n",
+    "codeLines": 52,
+    "repoPath": "11. Binary Trees/3. Hard/12. Morris Inorder Traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/12.%20Morris%20Inorder%20Traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
+      "title": "Binary Tree Inorder Traversal",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p250",
+    "index": 250,
+    "title": "Flatten Binary Tree",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given the root of a binary tree, flatten the tree into a \"linked list\".",
+    "approach": "To flatten the binary tree into a linked list, we can modify the tree in-place using a modified preorder traversal.\n\n1. We start with the current node as the root.\n2. While the current node is not NULL, we do the following:\n   - If the current node has a left child, we find the rightmost node of its left subtree.\n     - We make the right child of the rightmost node point to the right child of the current node.\n     - We set the left child of the current node to NULL.\n     - We set the right child of the current node to its left child.\n   - We move to the right child of the current node.\n3. We repeat this process until we have visited all the nodes in the tree.",
+    "pseudocode": "ALGORITHM  Flatten Binary Tree\nPATTERN    Tree traversal\n\nBEGIN\n  01  To flatten the binary tree into a linked list, we can modify the tree in-place using a modified preorder traversal\n  02  We start with the current node as the root\n  03  WHILE the current node is not NULL, we do the following:\n  04  IF the current node has a left child, we find the rightmost node of its left subtree\n  05  We make the right child of the rightmost node point to the right child of the current node\n  06  We set the left child of the current node to NULL\n  07  We set the right child of the current node to its left child\n  08  We move to the right child of the current node\n  09  We repeat this process until we have visited all the nodes in the tree\n  10  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(n) since we visit each node once",
+    "space": "The space complexity is O(1) since we don't use any extra space",
+    "strategy": "Tree traversal",
+    "tags": ["Binary Trees", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/* QUESTION:\n\nGiven the root of a binary tree, flatten the tree into a \"linked list\".\n\nAPPROACH:\n\nTo flatten the binary tree into a linked list, we can modify the tree in-place using a modified preorder traversal.\n\n1. We start with the current node as the root.\n2. While the current node is not NULL, we do the following:\n   - If the current node has a left child, we find the rightmost node of its left subtree.\n     - We make the right child of the rightmost node point to the right child of the current node.\n     - We set the left child of the current node to NULL.\n     - We set the right child of the current node to its left child.\n   - We move to the right child of the current node.\n3. We repeat this process until we have visited all the nodes in the tree.\n\nCOMPLEXITY ANALYSIS:\n\nLet n be the number of nodes in the binary tree.\n- Time Complexity: The time complexity of this approach is O(n) since we visit each node once.\n- Space Complexity: The space complexity is O(1) since we don't use any extra space.\n\nCODE:\n*/\n\nvoid flatten(TreeNode* root) {\n    TreeNode* curr = root;\n\n    while (curr) {\n        if (curr->left) {\n            TreeNode* temp = curr->left;\n            while (temp->right)\n                temp = temp->right;\n\n            temp->right = curr->right;\n            curr->right = curr->left;\n            curr->left = NULL;\n        }\n        curr = curr->right;\n    }\n}\n",
+    "codeLines": 42,
+    "repoPath": "11. Binary Trees/3. Hard/13. Flatten Binary Tree.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/13.%20Flatten%20Binary%20Tree.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/flatten-binary-tree-to-linked-list/",
+      "title": "Flatten Binary Tree to Linked List",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p251",
+    "index": 251,
+    "title": "Serialize and Deserialize",
+    "topic": "Binary Trees",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.\n\nDesign an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.",
+    "approach": "To serialize the binary tree, we can perform a preorder traversal of the tree and append the node values to a string, separating them by a delimiter.\n\nTo deserialize the string back to the original tree structure, we can use a stringstream to split the string by the delimiter and recursively build the tree.\n\n1. For serialization:\n   - If the current node is NULL, we append \"N,\" to the string.\n   - Otherwise, we append the node value followed by a delimiter \",\" to the string.\n   - We then recursively serialize the left and right subtrees.\n\n2. For deserialization:\n   - If the current string token is \"N,\" indicating a NULL node, we return NULL.\n   - Otherwise, we convert the string token to an integer and create a new TreeNode with the value.\n   - We then recursively deserialize the left and right subtrees.",
+    "pseudocode": "ALGORITHM  Serialize and Deserialize\nPATTERN    Dynamic programming\n\nBEGIN\n  01  To serialize the binary tree, we can perform a preorder traversal of the tree and append the node values to a string, separating them by a delimiter\n  02  To deserialize the string back to the original tree structure, we can use a stringstream to split the string by the delimiter and recursively build the tree\n  03  For serialization:\n  04  IF the current node is NULL, we append \"N,\" to the string\n  05  ELSE we append the node value followed by a delimiter \",\" to the string\n  06  We then recursively serialize the left and right subtrees\n  07  For deserialization:\n  08  IF the current string token is \"N,\" indicating a NULL node, we return NULL\n  09  ELSE we convert the string token to an integer and create a new TreeNode with the value\n  10  We then recursively deserialize the left and right subtrees\n  11  RETURN the required result\nEND",
+    "time": "Serialization: O(n) - We visit each node once during the serialization process",
+    "space": "O(n) - The space required for the serialized string and the recursion stack",
+    "strategy": "Dynamic programming",
+    "tags": ["Binary Trees", "Dynamic programming", "Strings"],
+    "intuition": "Define a state that captures the smallest information needed to finish the problem. Write the transition first, lock down base cases, then choose memoization or tabulation.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Smallest base case",
+      "Impossible state",
+      "Repeated values",
+      "Overflow/modulo behavior"
+    ],
+    "pitfalls": [
+      "Ambiguous state meaning",
+      "Wrong iteration order",
+      "Missing impossible-state initialization"
+    ],
+    "code": "/* QUESTION:\n\nSerialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.\n\nDesign an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.\n\nAPPROACH:\n\nTo serialize the binary tree, we can perform a preorder traversal of the tree and append the node values to a string, separating them by a delimiter.\n\nTo deserialize the string back to the original tree structure, we can use a stringstream to split the string by the delimiter and recursively build the tree.\n\n1. For serialization:\n   - If the current node is NULL, we append \"N,\" to the string.\n   - Otherwise, we append the node value followed by a delimiter \",\" to the string.\n   - We then recursively serialize the left and right subtrees.\n\n2. For deserialization:\n   - If the current string token is \"N,\" indicating a NULL node, we return NULL.\n   - Otherwise, we convert the string token to an integer and create a new TreeNode with the value.\n   - We then recursively deserialize the left and right subtrees.\n\nCOMPLEXITY ANALYSIS:\n\nLet n be the number of nodes in the binary tree.\n- Time Complexity:\n  - Serialization: O(n) - We visit each node once during the serialization process.\n  - Deserialization: O(n) - We process each string token once during the deserialization process.\n- Space Complexity: O(n) - The space required for the serialized string and the recursion stack.\n\nCODE:\n*/\n\nvoid serialize(TreeNode* root, string& serialized) {\n    if (!root) {\n        serialized += \"N,\";\n        return;\n    }\n    serialized += to_string(root->val) + \",\";\n    serialize(root->left, serialized);\n    serialize(root->right, serialized);\n}\n\nstring serialize(TreeNode* root) {\n    string serialized;\n    serialize(root, serialized);\n    return serialized;\n}\n\nTreeNode* deserialize(stringstream& ss) {\n    string token;\n    getline(ss, token, ',');\n    if (token == \"N\")\n        return nullptr;\n    TreeNode* root = new TreeNode(stoi(token));\n    root->left = deserialize(ss);\n    root->right = deserialize(ss);\n    return root;\n}\n\nTreeNode* deserialize(string data) {\n    stringstream ss(data);\n    return deserialize(ss);\n}\n",
+    "codeLines": 64,
+    "repoPath": "11. Binary Trees/3. Hard/14. Serialize and Deserialize.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/11.%20Binary%20Trees/3.%20Hard/14.%20Serialize%20and%20Deserialize.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
+      "title": "Serialize and Deserialize Binary Tree",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  }
+]

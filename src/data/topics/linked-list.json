@@ -1,0 +1,1249 @@
+[
+  {
+    "id": "p085",
+    "index": 85,
+    "title": "Intro to linked list",
+    "topic": "Linked List",
+    "subtopic": "Single Linked List",
+    "difficulty": "Medium",
+    "question": "Construct the linked list from arr and return the head of the linked list.\n\nExample 1:\n\nInput:\nn = 5\narr = [1,2,3,4,5]\nOutput:\n1 2 3 4 5\nExplanation: Linked list for the given array will be 1->2->3->4->5.\nExample 2:\n\nInput:\nn = 2\narr = [2,4]\nOutput:\n2 4\nExplanation: Linked list for the given array will be 2->4.",
+    "approach": "The approach to construct a linked list from an array is as follows:\n\n1. Create the head node of the linked list using the first element of the array.\n2. Initialize a current pointer to the head node.\n3. Traverse the array starting from the second element.\n4. For each element in the array, create a new node and assign the element as its data.\n5. Set the `next` pointer of the current node to the newly created node.\n6. Update the current pointer to the newly created node.\n7. Repeat steps 4-6 until all elements in the array are processed.\n8. Return the head node of the constructed linked list.",
+    "pseudocode": "ALGORITHM  Intro to linked list\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  The approach to construct a linked list from an array is as follows:\n  02  SET the head node of the linked list using the first element of the array\n  03  SET a current pointer to the head node\n  04  FOR EACH element while traversing the array starting from the second element\n  05  FOR EACH element in the array, create a new node and assign the element as its data\n  06  SET the next pointer of the current node to the newly created node\n  07  UPDATE the current pointer to the newly created node\n  08  REPEAT steps 4-6 until all elements in the array are processed\n  09  RETURN the head node of the constructed linked list\nEND",
+    "time": "O(n)",
+    "space": "O(n)",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:- \nConstruct the linked list from arr and return the head of the linked list.\n\nExample 1:\n\nInput:\nn = 5\narr = [1,2,3,4,5]\nOutput:\n1 2 3 4 5\nExplanation: Linked list for the given array will be 1->2->3->4->5.\nExample 2:\n\nInput:\nn = 2\narr = [2,4]\nOutput:\n2 4\nExplanation: Linked list for the given array will be 2->4.\n\nAPPROACH:- \nThe approach to construct a linked list from an array is as follows:\n\n1. Create the head node of the linked list using the first element of the array.\n2. Initialize a current pointer to the head node.\n3. Traverse the array starting from the second element.\n4. For each element in the array, create a new node and assign the element as its data.\n5. Set the `next` pointer of the current node to the newly created node.\n6. Update the current pointer to the newly created node.\n7. Repeat steps 4-6 until all elements in the array are processed.\n8. Return the head node of the constructed linked list.\n\nCODE:-\n*/\n\nNode* constructLL(vector<int>& arr) {\n    Node* head = new Node(arr[0]);\n    Node* curr = head;\n    for(int i=1; i<arr.size(); i++){\n        curr->next = new Node(arr[i]);\n        curr = curr->next;\n    }\n    return head;\n}\n\n/*\nTIME COMPLEXITY:- O(n)\nSPACE COMPLEXITY:- O(n)\n*/",
+    "codeLines": 50,
+    "repoPath": "04.Linked List/1. Single Linked List/01.Intro_to_linked_list.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/1.%20Single%20Linked%20List/01.Intro_to_linked_list.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/",
+      "title": "Convert Binary Number in a Linked List to Integer",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p086",
+    "index": 86,
+    "title": "Inserting node to linked list",
+    "topic": "Linked List",
+    "subtopic": "Single Linked List",
+    "difficulty": "Medium",
+    "question": "Create a link list of size N according to the given input literals. Each integer input is accompanied by an indicator which can either be 0 or 1. If it is 0, insert the integer in the beginning of the link list. If it is 1, insert the integer at the end of the link list.\nHint: When inserting at the end, make sure that you handle NULL explicitly.\n\nExample 1:\n\nInput:\nLinkedList: 9->0->5->1->6->1->2->0->5->0\nOutput: 5 2 9 5 6\nExplanation:\nLength of Link List = N = 5\n9 0 indicated that 9 should be\ninserted in the beginning. Modified\nLink List = 9.\n5 1 indicated that 5 should be\ninserted in the end. Modified Link\nList = 9,5.\n6 1 indicated that 6 should be\ninserted in the end. Modified Link\nList = 9,5,6.\n2 0 indicated that 2 should be\ninserted in the beginning. Modified\nLink List = 2,9,5,6.\n5 0 indicated that 5 should be\ninserted in the beginning. Modified\nLink List = 5,2,9,5,6.\nFinal linked list = 5, 2, 9, 5, 6.\n\nExample 2:\n\nInput:\nLinkedList: 5->1->6->1->9->1\nOutput: 5 6 9",
+    "approach": "1. Initialize an empty linked list by setting the `head` pointer to `NULL`.\n2. Iterate through the given input literals.\n3. If the indicator is 0, insert the integer at the beginning of the linked list by calling the `insertAtBeginning` function. This function creates a new node with the given integer value and inserts it at the beginning of the linked list.\n4. If the indicator is 1, insert the integer at the end of the linked list by calling the `insertAtEnd` function. This function creates a new node with the given integer value and inserts it at the end of the linked list.\n5. After iterating through all the input literals, the resulting linked list will be the desired output.",
+    "pseudocode": "ALGORITHM  Inserting node to linked list\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  SET an empty linked list by setting the head pointer to NULL\n  02  FOR EACH element while traversing the given input literals\n  03  IF the indicator is 0, insert the integer at the beginning of the linked list by calling the insertAtBeginning function\n  04  This function creates a new node with the given integer value and inserts it at the beginning of the linked list\n  05  IF the indicator is 1, insert the integer at the end of the linked list by calling the insertAtEnd function\n  06  This function creates a new node with the given integer value and inserts it at the end of the linked list\n  07  After iterating through all the input literals, the resulting linked list will be the desired output\n  08  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of input literals, as we need to iterate through all the literals to construct the linked list",
+    "space": "O(1) as we are not using any extra space that grows with the input size. We only need a constant amount of space to store the pointers and temporary variables",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:- \nCreate a link list of size N according to the given input literals. Each integer input is accompanied by an indicator which can either be 0 or 1. If it is 0, insert the integer in the beginning of the link list. If it is 1, insert the integer at the end of the link list. \nHint: When inserting at the end, make sure that you handle NULL explicitly.\n\nExample 1:\n\nInput:\nLinkedList: 9->0->5->1->6->1->2->0->5->0\nOutput: 5 2 9 5 6\nExplanation:\nLength of Link List = N = 5\n9 0 indicated that 9 should be\ninserted in the beginning. Modified\nLink List = 9.\n5 1 indicated that 5 should be\ninserted in the end. Modified Link\nList = 9,5.\n6 1 indicated that 6 should be\ninserted in the end. Modified Link\nList = 9,5,6.\n2 0 indicated that 2 should be\ninserted in the beginning. Modified\nLink List = 2,9,5,6.\n5 0 indicated that 5 should be\ninserted in the beginning. Modified\nLink List = 5,2,9,5,6. \nFinal linked list = 5, 2, 9, 5, 6.\n\nExample 2:\n\nInput:\nLinkedList: 5->1->6->1->9->1\nOutput: 5 6 9\n\nThe approach to solving this problem is as follows:\n\n1. Initialize an empty linked list by setting the `head` pointer to `NULL`.\n2. Iterate through the given input literals.\n3. If the indicator is 0, insert the integer at the beginning of the linked list by calling the `insertAtBeginning` function. This function creates a new node with the given integer value and inserts it at the beginning of the linked list.\n4. If the indicator is 1, insert the integer at the end of the linked list by calling the `insertAtEnd` function. This function creates a new node with the given integer value and inserts it at the end of the linked list.\n5. After iterating through all the input literals, the resulting linked list will be the desired output.\n\nTime complexity of this approach is O(N), where N is the number of input literals, as we need to iterate through all the literals to construct the linked list.\nSpace complexity is O(1) as we are not using any extra space that grows with the input size. We only need a constant amount of space to store the pointers and temporary variables.\n\nCODE:-\n*/\n\nNode *insertAtBegining(Node *head, int x) {\n    if(head==NULL)\n        return new Node(x);\n    Node* temp = new Node(x);\n    temp->next = head;\n    return temp;    \n}\n\n\n//Function to insert a node at the end of the linked list.\nNode *insertAtEnd(Node *head, int x)  {\n    if(head==NULL)\n        return new Node(x);\n    Node* curr = head;\n    while(curr->next){\n        curr = curr->next;\n    }\n    curr->next = new Node(x);\n    return head;\n}",
+    "codeLines": 69,
+    "repoPath": "04.Linked List/1. Single Linked List/02.Inserting_node_to_linked_list.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/1.%20Single%20Linked%20List/02.Inserting_node_to_linked_list.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-linked-list/",
+      "title": "Design Linked List",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p087",
+    "index": 87,
+    "title": "Deleting node in linked list",
+    "topic": "Linked List",
+    "subtopic": "Single Linked List",
+    "difficulty": "Medium",
+    "question": "Given a singly linked list and an integer x.Delete xth node from the singly linked list.\n\nExample 1:\n\nInput: 1 -> 3 -> 4\n       x = 3\nOutput: 1 -> 3\nExplanation:\nAfter deleting the node at 3rd\nposition (1-base indexing), the\nlinked list is as 1 -> 3.\nExample 2:\n\nInput: 1 -> 5 -> 2 -> 9\nx = 2\nOutput: 1 -> 2 -> 9\nExplanation:\nAfter deleting the node at 2nd\nposition (1-based indexing), the\nlinked list is as 1 -> 2 -> 9.",
+    "approach": "1. If the given position is 1, it means the node to be deleted is the first node. In this case, we simply update the head pointer to the next node and return the new head.\n2. Initialize a counter `cnt` to 1 and a pointer `curr` to the head of the linked list.\n3. Traverse the linked list by moving the `curr` pointer to the next node until the counter `cnt` reaches the position just before the node to be deleted.\n4. Once we reach the position just before the node to be deleted, we update the `next` pointer of the current node to skip the next node and point to the node after it.\n5. Return the head pointer of the modified linked list.",
+    "pseudocode": "ALGORITHM  Deleting node in linked list\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  IF the given position is 1, it means the node to be deleted is the first node. In this case, we simply update the head pointer to the next node and return the new head\n  02  SET a counter cnt to 1 and a pointer curr to the head of the linked list\n  03  FOR EACH element while traversing the linked list by moving the curr pointer to the next node until the counter cnt reaches the position just before the node to be deleted\n  04  Once we reach the position just before the node to be deleted, we update the next pointer of the current node to skip the next node and point to the node after it\n  05  RETURN the head pointer of the modified linked list\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the linked list. We may need to traverse the linked list until we reach the desired position",
+    "space": "O(1) as we are not using any extra space that grows with the input size. We only need a constant amount of space to store the counter variable and the temporary pointer",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:- \nGiven a singly linked list and an integer x.Delete xth node from the singly linked list.\n\nExample 1:\n\nInput: 1 -> 3 -> 4 \n       x = 3\nOutput: 1 -> 3\nExplanation:\nAfter deleting the node at 3rd\nposition (1-base indexing), the\nlinked list is as 1 -> 3. \nExample 2:\n\nInput: 1 -> 5 -> 2 -> 9 \nx = 2\nOutput: 1 -> 2 -> 9\nExplanation: \nAfter deleting the node at 2nd\nposition (1-based indexing), the\nlinked list is as 1 -> 2 -> 9.\n\nAPPROACH:- \n1. If the given position is 1, it means the node to be deleted is the first node. In this case, we simply update the head pointer to the next node and return the new head.\n2. Initialize a counter `cnt` to 1 and a pointer `curr` to the head of the linked list.\n3. Traverse the linked list by moving the `curr` pointer to the next node until the counter `cnt` reaches the position just before the node to be deleted.\n4. Once we reach the position just before the node to be deleted, we update the `next` pointer of the current node to skip the next node and point to the node after it.\n5. Return the head pointer of the modified linked list.\n\n\n\nTime complexity of this approach is O(N), where N is the number of nodes in the linked list. We may need to traverse the linked list until we reach the desired position.\nSpace complexity is O(1) as we are not using any extra space that grows with the input size. We only need a constant amount of space to store the counter variable and the temporary pointer.\n\nCODE:-\n*/\n\nNode* deleteNode(Node *head,int x)\n{\n    if(x==1)\n        return head->next;\n    \n    int cnt = 1;\n    Node* curr = head;\n    while(cnt<x-1){\n        cnt++;\n        curr = curr->next;\n    }\n    curr->next = curr->next->next;\n    return head;\n}",
+    "codeLines": 52,
+    "repoPath": "04.Linked List/1. Single Linked List/03.Deleting_node_in_linked_list.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/1.%20Single%20Linked%20List/03.Deleting_node_in_linked_list.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-linked-list/",
+      "title": "Design Linked List",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p088",
+    "index": 88,
+    "title": "Count the number of nodes linked list",
+    "topic": "Linked List",
+    "subtopic": "Single Linked List",
+    "difficulty": "Medium",
+    "question": "Given a singly linked list. The task is to find the length of the linked list, where length is defined as the number of nodes in the linked list.\n\nExample 1:\n\nInput:\nLinkedList: 1->2->3->4->5\nOutput: 5\nExplanation: Count of nodes in the\nlinked list is 5, which is its length.\nExample 2:\n\nInput:\nLinkedList: 2->4->6->7->5->1->0\nOutput: 7\nExplanation: Count of nodes in the\nlinked list is 7. Hence, the output\nis 7.",
+    "approach": "1. Initialize a variable `cnt` to 0 to keep track of the count.\n2. Start with the `curr` pointer pointing to the head of the linked list.\n3. Iterate through the linked list by moving the `curr` pointer to the next node in each iteration.\n4. Increment the count `cnt` by 1 for each node encountered.\n5. Continue the iteration until the `curr` pointer becomes NULL, indicating the end of the linked list.\n6. Return the final count `cnt` as the result.",
+    "pseudocode": "ALGORITHM  Count the number of nodes linked list\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  SET a variable cnt to 0 to keep track of the count\n  02  Start with the curr pointer pointing to the head of the linked list\n  03  FOR EACH element while traversing the linked list by moving the curr pointer to the next node in each iteration\n  04  Increment the count cnt by 1 for each node encountered\n  05  Continue the iteration until the curr pointer becomes NULL, indicating the end of the linked list\n  06  RETURN the final count cnt as the result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the linked list. We need to visit each node once to count them",
+    "space": "O(1) as we are not using any extra space that grows with the input size. We only need a constant amount of space to store the count variable and the temporary pointer",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:-\nGiven a singly linked list. The task is to find the length of the linked list, where length is defined as the number of nodes in the linked list.\n\nExample 1:\n\nInput:\nLinkedList: 1->2->3->4->5\nOutput: 5\nExplanation: Count of nodes in the \nlinked list is 5, which is its length.\nExample 2:\n\nInput:\nLinkedList: 2->4->6->7->5->1->0\nOutput: 7\nExplanation: Count of nodes in the\nlinked list is 7. Hence, the output\nis 7.\n\nAPPROACH:-\n\n1. Initialize a variable `cnt` to 0 to keep track of the count.\n2. Start with the `curr` pointer pointing to the head of the linked list.\n3. Iterate through the linked list by moving the `curr` pointer to the next node in each iteration.\n4. Increment the count `cnt` by 1 for each node encountered.\n5. Continue the iteration until the `curr` pointer becomes NULL, indicating the end of the linked list.\n6. Return the final count `cnt` as the result.\n\nTime complexity of this approach is O(N), where N is the number of nodes in the linked list. We need to visit each node once to count them.\nSpace complexity is O(1) as we are not using any extra space that grows with the input size. We only need a constant amount of space to store the count variable and the temporary pointer.\n\nCODE:-\n*/\n\nint getCount(struct Node* head){\n    int cnt = 0;\n    Node* curr = head;\n    while(curr){\n        cnt++;\n        curr = curr->next;\n    }\n    return cnt;\n}",
+    "codeLines": 44,
+    "repoPath": "04.Linked List/1. Single Linked List/04.Count_the_number_of_nodes_linked_list.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/1.%20Single%20Linked%20List/04.Count_the_number_of_nodes_linked_list.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/",
+      "title": "Convert Binary Number in a Linked List to Integer",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p089",
+    "index": 89,
+    "title": "Search element in linked list",
+    "topic": "Linked List",
+    "subtopic": "Single Linked List",
+    "difficulty": "Medium",
+    "question": "Given a linked list of n nodes and a key , the task is to check if the key is present in the linked list or not.\n\nExample:\n\nInput:\nn = 4\n1->2->3->4\nKey = 3\nOutput:\nTrue\nExplanation:\n3 is present in Linked List, so the function returns true.",
+    "approach": "Just traverse the entire Linked List and if node's data matches with the target return true else return false.",
+    "pseudocode": "ALGORITHM  Search element in linked list\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  Just traverse the entire Linked List and if node's data matches with the target return true else return false\n  02  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:-\nGiven a linked list of n nodes and a key , the task is to check if the key is present in the linked list or not.\n\nExample:\n\nInput:\nn = 4\n1->2->3->4\nKey = 3\nOutput:\nTrue\nExplanation:\n3 is present in Linked List, so the function returns true.\n\nAPPROCACH:-\nJust traverse the entire Linked List and if node's data matches with the target return true else return false.\n\nTIME COMPLEXITY:- O(N)\nSPACE COMPLEXITY:- O(1)\n\nCODE:-\n*/\nbool searchKey(int n, struct Node* head, int key) {\n    struct Node* curr = head;\n    while(curr){\n        if(curr->data == key)\n            return true;\n        curr = curr->next;\n    }\n    return false;\n}",
+    "codeLines": 32,
+    "repoPath": "04.Linked List/1. Single Linked List/05.Search_element_in_linked_list.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/1.%20Single%20Linked%20List/05.Search_element_in_linked_list.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/",
+      "title": "Convert Binary Number in a Linked List to Integer",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p090",
+    "index": 90,
+    "title": "Introduction to Double LL",
+    "topic": "Linked List",
+    "subtopic": "Doubly Linked List",
+    "difficulty": "Medium",
+    "question": "Given a doubly linked list of n elements. The task is to reverse the doubly linked list.\n\nExample 1:\n\nInput:\nLinkedList: 3 <--> 4 <--> 5\nOutput: 5 4 3\nExample 2:\n\nInput:\nLinkedList: 75 <--> 122 <--> 59 <--> 196\nOutput: 196 59 122 75",
+    "approach": "1. Initialize two pointers `curr` and `nxt` to traverse the linked list. Set `curr` to the head of the linked list.\n2. In each iteration, store the next node in the `nxt` pointer to avoid losing the reference to the next node.\n3. Swap the `next` and `prev` pointers of the current node (`curr`).\n4. Check if the `prev` pointer of the current node (`curr->prev`) is `NULL`, which indicates that `curr` is the last node of the original linked list. If so, update the `ans` pointer to point to `curr` (the new head of the reversed linked list).\n5. Move the `curr` pointer to the previous node (`curr = curr->prev`) using the stored `nxt` pointer.\n6. Repeat steps 2-5 until `curr` becomes `NULL`, indicating that we have reached the end of the original linked list.\n7. Return the `ans` pointer, which now points to the head of the reversed linked list.",
+    "pseudocode": "ALGORITHM  Introduction to Double LL\nPATTERN    Two pointers\n\nBEGIN\n  01  SET two pointers curr and nxt to traverse the linked list. Set curr to the head of the linked list\n  02  In each iteration, store the next node in the nxt pointer to avoid losing the reference to the next node\n  03  Swap the next and prev pointers of the current node (curr)\n  04  Check if the prev pointer of the current node (curr->prev) is NULL, which indicates that curr is the last node of the original linked list\n  05  IF so, update the ans pointer to point to curr (the new head of the reversed linked list)\n  06  Move the curr pointer to the previous node (curr = curr->prev) using the stored nxt pointer\n  07  REPEAT steps 2-5 until curr becomes NULL, indicating that we have reached the end of the original linked list\n  08  RETURN the ans pointer, which now points to the head of the reversed linked list\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the doubly linked list. We need to traverse the entire list once to reverse the links",
+    "space": "O(1) as we are using a constant amount of extra space to store temporary pointers during the reversal process",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven a doubly linked list of n elements. The task is to reverse the doubly linked list.\n\nExample 1:\n\nInput:\nLinkedList: 3 <--> 4 <--> 5\nOutput: 5 4 3\nExample 2:\n\nInput:\nLinkedList: 75 <--> 122 <--> 59 <--> 196\nOutput: 196 59 122 75\n\nAPPROACH:-\n1. Initialize two pointers `curr` and `nxt` to traverse the linked list. Set `curr` to the head of the linked list.\n2. In each iteration, store the next node in the `nxt` pointer to avoid losing the reference to the next node.\n3. Swap the `next` and `prev` pointers of the current node (`curr`).\n4. Check if the `prev` pointer of the current node (`curr->prev`) is `NULL`, which indicates that `curr` is the last node of the original linked list. If so, update the `ans` pointer to point to `curr` (the new head of the reversed linked list).\n5. Move the `curr` pointer to the previous node (`curr = curr->prev`) using the stored `nxt` pointer.\n6. Repeat steps 2-5 until `curr` becomes `NULL`, indicating that we have reached the end of the original linked list.\n7. Return the `ans` pointer, which now points to the head of the reversed linked list.\n\nTime complexity of this approach is O(N), where N is the number of nodes in the doubly linked list. We need to traverse the entire list once to reverse the links.\nSpace complexity is O(1) as we are using a constant amount of extra space to store temporary pointers during the reversal process.\n*/\n\nNode* reverseDLL(Node * head)\n{\n    Node* curr = head;\n    Node* ans = NULL;\n    while(curr){\n        Node* nxt = curr->next;\n        curr->next = curr->prev;\n        curr->prev = nxt;\n        // this is to get the last node\n        if(curr->prev==NULL)\n            ans = curr;\n        curr = curr->prev;\n    }\n    return ans;\n}",
+    "codeLines": 43,
+    "repoPath": "04.Linked List/2.Doubly Linked List/01.Introduction_to_Double_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/2.Doubly%20Linked%20List/01.Introduction_to_Double_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/",
+      "title": "Convert Binary Number in a Linked List to Integer",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p091",
+    "index": 91,
+    "title": "Insert node in DLL",
+    "topic": "Linked List",
+    "subtopic": "Doubly Linked List",
+    "difficulty": "Medium",
+    "question": "Given a doubly-linked list, a position p, and an integer x. The task is to add a new node with value x at the position just after pth node in the doubly linked list.\n\nExample 1:\n\nInput:\nLinkedList: 2<->4<->5\np = 2, x = 6\nOutput: 2 4 5 6\nExplanation: p = 2, and x = 6. So, 6 is\ninserted after p, i.e, at position 3\n(0-based indexing).\nExample 2:\n\nInput:\nLinkedList: 1<->2<->3<->4\np = 0, x = 44\nOutput: 1 44 2 3 4\nExplanation: p = 0, and x = 44 . So, 44\nis inserted after p, i.e, at position 1\n(0-based indexing).",
+    "approach": "The approach to adding a node at a specific position in a doubly linked list is as follows:\n\n1. Initialize a counter `cnt` to 0 and a pointer `curr` to the head of the linked list.\n2. Traverse the linked list using the `curr` pointer until the `cnt` is less than the specified position.\n3. Increment the `cnt` by 1 and move the `curr` pointer to the next node in each iteration.\n4. Once the `cnt` reaches the desired position, create a new node with the given data.\n5. Set the `next` pointer of the new node to the next node of the current node (`curr->next`) and the `prev` pointer of the new node to the current node (`curr`).\n6. Update the `next` pointer of the current node (`curr->next`) to point to the new node.\n7. If the new node is inserted in the middle of the list, update the `prev` pointer of the next node (`nxt`) to point to the new node.\n8. The new node is successfully inserted into the linked list.",
+    "pseudocode": "ALGORITHM  Insert node in DLL\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  The approach to adding a node at a specific position in a doubly linked list is as follows:\n  02  SET a counter cnt to 0 and a pointer curr to the head of the linked list\n  03  FOR EACH element while traversing the linked list using the curr pointer until the cnt is less than the specified position\n  04  Increment the cnt by 1 and move the curr pointer to the next node in each iteration\n  05  Once the cnt reaches the desired position, create a new node with the given data\n  06  SET the next pointer of the new node to the next node of the current node (curr->next) and the prev pointer of the new node to the current node (curr)\n  07  UPDATE the next pointer of the current node (curr->next) to point to the new node\n  08  IF the new node is inserted in the middle of the list, update the prev pointer of the next node (nxt) to point to the new node\n  09  The new node is successfully inserted into the linked list\n  10  RETURN the required result\nEND",
+    "time": "of this approach is O(N), where N is the number of nodes in the doubly linked list. In the worst case, we may need to traverse the entire list to reach the desired position",
+    "space": "O(1) as we are using a constant amount of extra space to store temporary pointers during the insertion process",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:-\nGiven a doubly-linked list, a position p, and an integer x. The task is to add a new node with value x at the position just after pth node in the doubly linked list.\n\nExample 1:\n\nInput:\nLinkedList: 2<->4<->5\np = 2, x = 6 \nOutput: 2 4 5 6\nExplanation: p = 2, and x = 6. So, 6 is\ninserted after p, i.e, at position 3\n(0-based indexing).\nExample 2:\n\nInput:\nLinkedList: 1<->2<->3<->4\np = 0, x = 44\nOutput: 1 44 2 3 4\nExplanation: p = 0, and x = 44 . So, 44\nis inserted after p, i.e, at position 1\n(0-based indexing).\n\nAPPROACH:-\nThe approach to adding a node at a specific position in a doubly linked list is as follows:\n\n1. Initialize a counter `cnt` to 0 and a pointer `curr` to the head of the linked list.\n2. Traverse the linked list using the `curr` pointer until the `cnt` is less than the specified position.\n3. Increment the `cnt` by 1 and move the `curr` pointer to the next node in each iteration.\n4. Once the `cnt` reaches the desired position, create a new node with the given data.\n5. Set the `next` pointer of the new node to the next node of the current node (`curr->next`) and the `prev` pointer of the new node to the current node (`curr`).\n6. Update the `next` pointer of the current node (`curr->next`) to point to the new node.\n7. If the new node is inserted in the middle of the list, update the `prev` pointer of the next node (`nxt`) to point to the new node.\n8. The new node is successfully inserted into the linked list.\n\nTime complexity of this approach is O(N), where N is the number of nodes in the doubly linked list. In the worst case, we may need to traverse the entire list to reach the desired position.\nSpace complexity is O(1) as we are using a constant amount of extra space to store temporary pointers during the insertion process.\n\nCODE:-\n*/\n\nvoid addNode(Node *head, int pos, int data)\n{\n   int cnt = 0;\n   Node* curr = head;\n   while(cnt<pos){\n       curr = curr->next;\n       cnt++;\n   }\n   Node* nxt = curr->next;\n   curr->next = new Node(data);\n   curr->next->prev = curr;\n   curr->next->next = nxt;\n}",
+    "codeLines": 54,
+    "repoPath": "04.Linked List/2.Doubly Linked List/02.Insert_node_in_DLL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/2.Doubly%20Linked%20List/02.Insert_node_in_DLL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-linked-list/",
+      "title": "Design Linked List",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p092",
+    "index": 92,
+    "title": "Delete node in DLL",
+    "topic": "Linked List",
+    "subtopic": "Doubly Linked List",
+    "difficulty": "Medium",
+    "question": "Given a doubly linked list and a position. The task is to delete a node from given position in a doubly linked list.\n\nExample 1:\n\nInput:\nLinkedList = 1 <--> 3 <--> 4\nx = 3\nOutput: 1 3\nExplanation: After deleting the node at\nposition 3 (position starts from 1),\nthe linked list will be now as 1->3.\nExample 2:\n\nInput:\nLinkedList = 1 <--> 5 <--> 2 <--> 9\nx = 1\nOutput: 5 2 9",
+    "approach": "1. The function `deleteNode` takes in two parameters: `head_ref`, which is a pointer to the head of the doubly linked list, and `x`, which represents the position of the node to be deleted.\n2. The variable `temp` is initialized as the `head_ref`, which is a pointer to the head node of the linked list.\n3. If `x` is equal to 1, it means the node to be deleted is the head node. In this case, the `temp` pointer is moved to the next node, and the new `temp` pointer is returned as the new head of the linked list. This effectively deletes the original head node.\n4. If `x` is greater than 1, the code enters a loop that iterates `x-1` times. This loop moves the `temp` pointer to the node just before the position to be deleted.\n5. After the loop, the variable `previous` is assigned the value of `temp`, which represents the node just before the position to be deleted.\n6. The `previous->next` pointer is adjusted to skip over the node to be deleted by assigning it the value of `temp->next->next`.\n7. The `temp->prev` pointer is adjusted to point to the `previous` node, updating the backward link.\n8. Finally, the updated `head_ref` is returned.",
+    "pseudocode": "ALGORITHM  Delete node in DLL\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  The function deleteNode takes in two parameters: head_ref, which is a pointer to the head of the doubly linked list, and x, which represents the position of the node to be deleted\n  02  The variable temp is initialized as the head_ref, which is a pointer to the head node of the linked list\n  03  IF x is equal to 1, it means the node to be deleted is the head node\n  04  In this case, the temp pointer is moved to the next node, and the new temp pointer is returned as the new head of the linked list\n  05  This effectively deletes the original head node\n  06  IF x is greater than 1, the code enters a loop that iterates x-1 times. This loop moves the temp pointer to the node just before the position to be deleted\n  07  After the loop, the variable previous is assigned the value of temp, which represents the node just before the position to be deleted\n  08  The previous->next pointer is adjusted to skip over the node to be deleted by assigning it the value of temp->next->next\n  09  The temp->prev pointer is adjusted to point to the previous node, updating the backward link\n  10  Finally, the updated head_ref is returned\n  11  RETURN the required result\nEND",
+    "time": "If the node to be deleted is the head node (position 1), the code performs a constant number of operations, resulting in a time complexity of O(1)",
+    "space": "The code uses a constant amount of extra space for variables (`temp`, `previous`). Hence, the space complexity is O(1)",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*Given a doubly linked list and a position. The task is to delete a node from given position in a doubly linked list.\n\nExample 1:\n\nInput:\nLinkedList = 1 <--> 3 <--> 4 \nx = 3\nOutput: 1 3  \nExplanation: After deleting the node at\nposition 3 (position starts from 1),\nthe linked list will be now as 1->3.\nExample 2:\n\nInput:\nLinkedList = 1 <--> 5 <--> 2 <--> 9  \nx = 1\nOutput: 5 2 9\n\nAPPROACH:-\n1. The function `deleteNode` takes in two parameters: `head_ref`, which is a pointer to the head of the doubly linked list, and `x`, which represents the position of the node to be deleted.\n2. The variable `temp` is initialized as the `head_ref`, which is a pointer to the head node of the linked list.\n3. If `x` is equal to 1, it means the node to be deleted is the head node. In this case, the `temp` pointer is moved to the next node, and the new `temp` pointer is returned as the new head of the linked list. This effectively deletes the original head node.\n4. If `x` is greater than 1, the code enters a loop that iterates `x-1` times. This loop moves the `temp` pointer to the node just before the position to be deleted.\n5. After the loop, the variable `previous` is assigned the value of `temp`, which represents the node just before the position to be deleted.\n6. The `previous->next` pointer is adjusted to skip over the node to be deleted by assigning it the value of `temp->next->next`.\n7. The `temp->prev` pointer is adjusted to point to the `previous` node, updating the backward link.\n8. Finally, the updated `head_ref` is returned.\n\nCODE:-\n*/\nNode* deleteNode(Node *head_ref, int x) {\n  Node* temp = head_ref;\n  \n  // If the node to be deleted is the head node\n  if (x == 1) {\n    temp = temp->next;\n    return temp;\n  }\n  \n  // Traverse to the node just before the position to be deleted\n  for (int i = 1; i < (x - 1); i++) {\n    temp = temp->next;\n  }\n  \n  // Store the previous and next nodes of the node to be deleted\n  Node* previous = temp;\n  previous->next = temp->next->next;\n  temp->prev = previous;\n  \n  return head_ref;\n}\n\n/*\nTime Complexity:\n- If the node to be deleted is the head node (position 1), the code performs a constant number of operations, resulting in a time complexity of O(1).\n- If the node to be deleted is at any other position, the code traverses the linked list until it reaches the node just before the position to be deleted. This traversal requires visiting at most (x-1) nodes, where x is the position of the node to be deleted. Therefore, the time complexity in this case is O(x).\nSpace Complexity:\n- The code uses a constant amount of extra space for variables (`temp`, `previous`). Hence, the space complexity is O(1).\nIn summary, the time complexity of the provided code is O(1) when deleting the head node and O(x) when deleting any other node, where x is the position of the node to be deleted. The space complexity is O(1).\n*/",
+    "codeLines": 60,
+    "repoPath": "04.Linked List/2.Doubly Linked List/03.Delete_node_in_DLL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/2.Doubly%20Linked%20List/03.Delete_node_in_DLL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-linked-list/",
+      "title": "Design Linked List",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p093",
+    "index": 93,
+    "title": "Reverse DLL",
+    "topic": "Linked List",
+    "subtopic": "Doubly Linked List",
+    "difficulty": "Medium",
+    "question": "Given a doubly linked list of n elements. The task is to reverse the doubly linked list.\n\nExample 1:\n\nInput:\nLinkedList: 3 <--> 4 <--> 5\nOutput: 5 4 3\nExample 2:\n\nInput:\nLinkedList: 75 <--> 122 <--> 59 <--> 196\nOutput: 196 59 122 75",
+    "approach": "1. The function `reverseDLL` takes in one parameter: `head`, which is a pointer to the head of the doubly linked list.\n2. The variable `curr` is initialized with the `head` pointer, which represents the current node being processed.\n3. The variable `ans` is initialized as `NULL`. It will store the new head of the reversed linked list.\n4. The code enters a `while` loop, which continues until `curr` becomes `NULL`, indicating that all nodes have been processed.\n5. Inside the loop, the variable `nxt` is assigned the value of `curr->next`, which represents the next node in the original list.\n6. The next and previous pointers of the current node (`curr->next` and `curr->prev`) are swapped to reverse the links.\n7. The `if` condition checks if `curr->prev` is `NULL`, indicating that `curr` is the last node in the original list (now the first node in the reversed list). In this case, the `ans` pointer is updated to store the new head of the reversed list.\n8. The `curr` pointer is updated to `curr->prev`, which moves it to the previous node in the original list.\n9. After the loop, the `ans` pointer now holds the new head of the reversed list. It is returned as the result.",
+    "pseudocode": "ALGORITHM  Reverse DLL\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  The function reverseDLL takes in one parameter: head, which is a pointer to the head of the doubly linked list\n  02  The variable curr is initialized with the head pointer, which represents the current node being processed\n  03  The variable ans is initialized as NULL. It will store the new head of the reversed linked list\n  04  The code enters a while loop, which continues until curr becomes NULL, indicating that all nodes have been processed\n  05  Inside the loop, the variable nxt is assigned the value of curr->next, which represents the next node in the original list\n  06  The next and previous pointers of the current node (curr->next and curr->prev) are swapped to reverse the links\n  07  The if condition checks if curr->prev is NULL, indicating that curr is the last node in the original list (now the first node in the reversed list)\n  08  In this case, the ans pointer is updated to store the new head of the reversed list\n  09  The curr pointer is updated to curr->prev, which moves it to the previous node in the original list\n  10  After the loop, the ans pointer now holds the new head of the reversed list. It is returned as the result\n  11  RETURN the required result\nEND",
+    "time": "The code iterates over each node of the doubly linked list exactly once, performing a constant number of operations for each node. Therefore, the time complexity is O(n), where n is the number of nodes in the linked list",
+    "space": "The code uses a constant amount of extra space for variables (`curr`, `nxt`, `ans`). Hence, the space complexity is O(1)",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nGiven a doubly linked list of n elements. The task is to reverse the doubly linked list.\n\nExample 1:\n\nInput:\nLinkedList: 3 <--> 4 <--> 5\nOutput: 5 4 3\nExample 2:\n\nInput:\nLinkedList: 75 <--> 122 <--> 59 <--> 196\nOutput: 196 59 122 75\n\nAPPROACH:-\n1. The function `reverseDLL` takes in one parameter: `head`, which is a pointer to the head of the doubly linked list.\n2. The variable `curr` is initialized with the `head` pointer, which represents the current node being processed.\n3. The variable `ans` is initialized as `NULL`. It will store the new head of the reversed linked list.\n4. The code enters a `while` loop, which continues until `curr` becomes `NULL`, indicating that all nodes have been processed.\n5. Inside the loop, the variable `nxt` is assigned the value of `curr->next`, which represents the next node in the original list.\n6. The next and previous pointers of the current node (`curr->next` and `curr->prev`) are swapped to reverse the links.\n7. The `if` condition checks if `curr->prev` is `NULL`, indicating that `curr` is the last node in the original list (now the first node in the reversed list). In this case, the `ans` pointer is updated to store the new head of the reversed list.\n8. The `curr` pointer is updated to `curr->prev`, which moves it to the previous node in the original list.\n9. After the loop, the `ans` pointer now holds the new head of the reversed list. It is returned as the result.\n\nCODE:-\n*/\nNode* reverseDLL(Node *head) {\n    Node* curr = head;\n    Node* ans = NULL;\n    while(curr) {\n        Node* nxt = curr->next;\n        curr->next = curr->prev;\n        curr->prev = nxt;\n        if(curr->prev == NULL)\n            ans = curr;\n        curr = curr->prev;\n    }\n    return ans;\n}\n\n/*\nTime Complexity:\n- The code iterates over each node of the doubly linked list exactly once, performing a constant number of operations for each node. Therefore, the time complexity is O(n), where n is the number of nodes in the linked list.\nSpace Complexity:\n- The code uses a constant amount of extra space for variables (`curr`, `nxt`, `ans`). Hence, the space complexity is O(1).\n*/",
+    "codeLines": 47,
+    "repoPath": "04.Linked List/2.Doubly Linked List/04.Reverse_DLL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/2.Doubly%20Linked%20List/04.Reverse_DLL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-linked-list/",
+      "title": "Reverse Linked List",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p094",
+    "index": 94,
+    "title": "Find mid of LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "Given the head of a singly linked list, return the middle node of the linked list.\nIf there are two middle nodes, return the second middle node.\n\nExample 1:\nInput: head = [1,2,3,4,5]\nOutput: [3,4,5]\nExplanation: The middle node of the list is node 3.\n\nExample 2:\nInput: head = [1,2,3,4,5,6]\nOutput: [4,5,6]\nExplanation: Since the list has two middle nodes with values 3 and 4, we return the second one.",
+    "approach": "-> To find the middle node of a linked list, we can use the two-pointer technique.\n-> Initialize two pointers, slow and fast, to the head of the linked list.\n-> Move the slow pointer one step at a time and the fast pointer two steps at a time.\n-> When the fast pointer reaches the end of the list, the slow pointer will be at the middle node.\n-> If the total number of nodes in the list is even, there will be two middle nodes, and the slow pointer will be at the first middle node.\n-> To return the second middle node, we need to move the slow pointer one more step.\n-> Finally, return the node pointed to by the slow pointer.",
+    "pseudocode": "ALGORITHM  Find mid of LL\nPATTERN    Two pointers\n\nBEGIN\n  01  To find the middle node of a linked list, we can use the two-pointer technique\n  02  SET two pointers, slow and fast, to the head of the linked list\n  03  Move the slow pointer one step at a time and the fast pointer two steps at a time\n  04  When the fast pointer reaches the end of the list, the slow pointer will be at the middle node\n  05  IF the total number of nodes in the list is even, there will be two middle nodes, and the slow pointer will be at the first middle node\n  06  To return the second middle node, we need to move the slow pointer one more step\n  07  Finally, return the node pointed to by the slow pointer\n  08  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven the head of a singly linked list, return the middle node of the linked list.\nIf there are two middle nodes, return the second middle node.\n\nExample 1:\nInput: head = [1,2,3,4,5]\nOutput: [3,4,5]\nExplanation: The middle node of the list is node 3.\n\nExample 2:\nInput: head = [1,2,3,4,5,6]\nOutput: [4,5,6]\nExplanation: Since the list has two middle nodes with values 3 and 4, we return the second one.\n*/\n\n/*\nAPPROACH:\n-> To find the middle node of a linked list, we can use the two-pointer technique.\n-> Initialize two pointers, slow and fast, to the head of the linked list.\n-> Move the slow pointer one step at a time and the fast pointer two steps at a time.\n-> When the fast pointer reaches the end of the list, the slow pointer will be at the middle node.\n-> If the total number of nodes in the list is even, there will be two middle nodes, and the slow pointer will be at the first middle node.\n-> To return the second middle node, we need to move the slow pointer one more step.\n-> Finally, return the node pointed to by the slow pointer.\n*/\n\n// CODE:-\nListNode* middleNode(ListNode* head) {\n    ListNode* slow = head;\n    ListNode* fast = head;\n    \n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n    }\n    \n    return slow;\n}\n\n// TIME COMPLEXITY: O(N)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 42,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/01.Find_mid_of_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/01.Find_mid_of_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/middle-of-the-linked-list/",
+      "title": "Middle of the Linked List",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p095",
+    "index": 95,
+    "title": "Reverse LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "Given the head of a singly linked list, reverse the list, and return the reversed list.\n\nExample 1:\nInput: head = [1,2,3,4,5]\nOutput: [5,4,3,2,1]\n\nExample 2:\nInput: head = [1,2]\nOutput: [2,1]",
+    "approach": "To reverse a singly linked list, we can use an iterative approach.\nInitialize three pointers: prev as NULL, curr as head, and frwd as NULL.\nIterate through the linked list until curr becomes NULL:\n    - Store the next node of curr in frwd.\n    - Set the next of curr to prev, reversing the link.\n    - Move prev and curr one step forward.\n    - Move curr to the next node (frwd) to continue the iteration.\nReturn prev, which will be the new head of the reversed list.",
+    "pseudocode": "ALGORITHM  Reverse LL\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  To reverse a singly linked list, we can use an iterative approach\n  02  SET three pointers: prev as NULL, curr as head, and frwd as NULL\n  03  FOR EACH element while traversing the linked list until curr becomes NULL:\n  04  Store the next node of curr in frwd\n  05  SET the next of curr to prev, reversing the link\n  06  Move prev and curr one step forward\n  07  Move curr to the next node (frwd) to continue the iteration\n  08  RETURN prev, which will be the new head of the reversed list\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:-\nGiven the head of a singly linked list, reverse the list, and return the reversed list.\n\nExample 1:\nInput: head = [1,2,3,4,5]\nOutput: [5,4,3,2,1]\n\nExample 2:\nInput: head = [1,2]\nOutput: [2,1]\n*/\n\n/*\nAPPROACH:\nTo reverse a singly linked list, we can use an iterative approach.\nInitialize three pointers: prev as NULL, curr as head, and frwd as NULL.\nIterate through the linked list until curr becomes NULL:\n    - Store the next node of curr in frwd.\n    - Set the next of curr to prev, reversing the link.\n    - Move prev and curr one step forward.\n    - Move curr to the next node (frwd) to continue the iteration.\nReturn prev, which will be the new head of the reversed list.\n*/\n\n// CODE:-\nListNode* reverseList(ListNode* head) {\n    ListNode* prev = NULL;\n    ListNode* curr = head;\n    while (curr) {\n        ListNode* frwd = curr->next;\n        curr->next = prev;\n        prev = curr;\n        curr = frwd;\n    }\n    return prev;\n}\n\n// TIME COMPLEXITY: O(N)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 40,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/02.Reverse_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/02.Reverse_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-linked-list/",
+      "title": "Reverse Linked List",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p096",
+    "index": 96,
+    "title": "Detect loop in LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "Given head, the head of a linked list, determine if the linked list has a cycle in it.\n\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.\n\nReturn true if there is a cycle in the linked list. Otherwise, return false.\n\nExample 1:\nInput: head = [3,2,0,-4], pos = 1\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).\n\nExample 2:\nInput: head = [1,2], pos = 0\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 0th node.",
+    "approach": "To determine if a linked list has a cycle, we can use the two-pointer technique.\nInitialize two pointers, slow and fast, to the head of the linked list.\nMove the slow pointer one step at a time and the fast pointer two steps at a time.\nIf the linked list has a cycle, the fast pointer will eventually catch up to the slow pointer.\nIn other words, if there is a cycle, the two pointers will meet at some point.\nIf the fast pointer reaches the end of the list (i.e., it becomes NULL or reaches a node with a NULL next pointer), then there is no cycle in the linked list.\nReturn true if the two pointers meet (indicating a cycle), and false otherwise.",
+    "pseudocode": "ALGORITHM  Detect loop in LL\nPATTERN    Two pointers\n\nBEGIN\n  01  To determine if a linked list has a cycle, we can use the two-pointer technique\n  02  SET two pointers, slow and fast, to the head of the linked list\n  03  Move the slow pointer one step at a time and the fast pointer two steps at a time\n  04  IF the linked list has a cycle, the fast pointer will eventually catch up to the slow pointer\n  05  In other words, if there is a cycle, the two pointers will meet at some point\n  06  IF the fast pointer reaches the end of the list (i.e., it becomes NULL or reaches a node with a NULL next pointer), then there is no cycle in the linked list\n  07  RETURN true if the two pointers meet (indicating a cycle), and false otherwise\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven head, the head of a linked list, determine if the linked list has a cycle in it.\n\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.\n\nReturn true if there is a cycle in the linked list. Otherwise, return false.\n\nExample 1:\nInput: head = [3,2,0,-4], pos = 1\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).\n\nExample 2:\nInput: head = [1,2], pos = 0\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 0th node.\n*/\n\n/*\nAPPROACH:\nTo determine if a linked list has a cycle, we can use the two-pointer technique.\nInitialize two pointers, slow and fast, to the head of the linked list.\nMove the slow pointer one step at a time and the fast pointer two steps at a time.\nIf the linked list has a cycle, the fast pointer will eventually catch up to the slow pointer.\nIn other words, if there is a cycle, the two pointers will meet at some point.\nIf the fast pointer reaches the end of the list (i.e., it becomes NULL or reaches a node with a NULL next pointer), then there is no cycle in the linked list.\nReturn true if the two pointers meet (indicating a cycle), and false otherwise.\n*/\n\n// CODE:-\nbool hasCycle(ListNode *head) {\n    ListNode* slow = head;\n    ListNode* fast = head;\n\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n        if (slow == fast)\n            return true;\n    }\n    return false;\n}\n\n// TIME COMPLEXITY: O(N)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 46,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/03.Detect_loop_in_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/03.Detect_loop_in_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/linked-list-cycle/",
+      "title": "Linked List Cycle",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p097",
+    "index": 97,
+    "title": "Start of cycle in LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.\n\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to (0-indexed). It is -1 if there is no cycle. Note that pos is not passed as a parameter.\n\nDo not modify the linked list.\n\nExample 1:\nInput: head = [3,2,0,-4], pos = 1\nOutput: tail connects to node index 1\nExplanation: There is a cycle in the linked list, where tail connects to the second node.\n\nExample 2:\nInput: head = [1,2], pos = 0\nOutput: tail connects to node index 0\nExplanation: There is a cycle in the linked list, where tail connects to the first node.",
+    "approach": "To find the node where the cycle begins in a linked list, we can use the Floyd's cycle-finding algorithm, also known as the \"tortoise and hare\" algorithm.\nInitialize two pointers, slow and fast, to the head of the linked list.\nMove the slow pointer one step at a time and the fast pointer two steps at a time.\nIf the linked list has a cycle, the fast pointer will eventually catch up to the slow pointer.\nIn other words, if there is a cycle, the two pointers will meet at some point.\nOnce the two pointers meet, move one of the pointers back to the head of the linked list.\nThen, move both pointers one step at a time until they meet again.\nThe point at which they meet is the node where the cycle begins.\nReturn this node.\nIf the fast pointer reaches the end of the list (i.e., it becomes NULL or reaches a node with a NULL next pointer), then there is no cycle in the linked list, and we can return NULL.\n\nListNode* startOfCycle(ListNode* slow, ListNode* fast) {\n    while (slow != fast) {\n        slow = slow->next;\n        fast = fast->next;\n    }\n    return slow;\n}\n\nListNode* detectCycle(ListNode* head) {\n    ListNode* slow = head;\n    ListNode* fast = head;\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n        if (slow == fast) {\n            fast = head;\n            return startOfCycle(slow, fast);\n        }\n    }\n    return NULL;\n}",
+    "pseudocode": "ALGORITHM  Start of cycle in LL\nPATTERN    Two pointers\n\nBEGIN\n  01  To find the node where the cycle begins in a linked list, we can use the Floyd's cycle-finding algorithm, also known as the \"tortoise and hare\" algorithm\n  02  SET two pointers, slow and fast, to the head of the linked list\n  03  Move the slow pointer one step at a time and the fast pointer two steps at a time\n  04  IF the linked list has a cycle, the fast pointer will eventually catch up to the slow pointer\n  05  In other words, if there is a cycle, the two pointers will meet at some point\n  06  Once the two pointers meet, move one of the pointers back to the head of the linked list\n  07  Then, move both pointers one step at a time until they meet again\n  08  The point at which they meet is the node where the cycle begins\n  09  RETURN this node\n  10  IF the fast pointer reaches the end of the list (i.e., it becomes NULL or reaches a node with a NULL next pointer), then there is no cycle in the linked list, and we can return NULL\n  11  ListNode* startOfCycle(ListNode* slow, ListNode* fast) {\n  12  WHILE (slow != fast) {\n  13  slow = slow->next;\n  14  fast = fast->next;\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.\n\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to (0-indexed). It is -1 if there is no cycle. Note that pos is not passed as a parameter.\n\nDo not modify the linked list.\n\nExample 1:\nInput: head = [3,2,0,-4], pos = 1\nOutput: tail connects to node index 1\nExplanation: There is a cycle in the linked list, where tail connects to the second node.\n\nExample 2:\nInput: head = [1,2], pos = 0\nOutput: tail connects to node index 0\nExplanation: There is a cycle in the linked list, where tail connects to the first node.\n*/\n\n/*\nAPPROACH:\nTo find the node where the cycle begins in a linked list, we can use the Floyd's cycle-finding algorithm, also known as the \"tortoise and hare\" algorithm.\nInitialize two pointers, slow and fast, to the head of the linked list.\nMove the slow pointer one step at a time and the fast pointer two steps at a time.\nIf the linked list has a cycle, the fast pointer will eventually catch up to the slow pointer.\nIn other words, if there is a cycle, the two pointers will meet at some point.\nOnce the two pointers meet, move one of the pointers back to the head of the linked list.\nThen, move both pointers one step at a time until they meet again.\nThe point at which they meet is the node where the cycle begins.\nReturn this node.\nIf the fast pointer reaches the end of the list (i.e., it becomes NULL or reaches a node with a NULL next pointer), then there is no cycle in the linked list, and we can return NULL.\n*/\n\nListNode* startOfCycle(ListNode* slow, ListNode* fast) {\n    while (slow != fast) {\n        slow = slow->next;\n        fast = fast->next;\n    }\n    return slow;\n}\n\nListNode* detectCycle(ListNode* head) {\n    ListNode* slow = head;\n    ListNode* fast = head;\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n        if (slow == fast) {\n            fast = head;\n            return startOfCycle(slow, fast);\n        }\n    }\n    return NULL;\n}\n\n// TIME COMPLEXITY: O(N)\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 57,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/04.Start_of_cycle_in_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/04.Start_of_cycle_in_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/linked-list-cycle-ii/",
+      "title": "Linked List Cycle II",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p098",
+    "index": 98,
+    "title": "Count nodes in loop",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "Given a linked list of size N. The task is to complete the function countNodesinLoop() that checks whether a given Linked List contains a loop or not and if the loop is present then return the count of nodes in a loop or else return 0. C is the position of the node to which the last node is connected. If it is 0 then no loop.\n\nExample 1:\nInput: N = 10\nvalue[]={25,14,19,33,10,21,39,90,58,45}\nC = 4\nOutput: 7\nExplanation: The loop is 45->33. So\nlength of loop is 33->10->21->39->\n90->58->45 = 7. The number 33 is\nconnected to the last node to form the\nloop because according to the input the\n4th node from the beginning(1 based\nindex) will be connected to the last\nnode for the loop.\n\nExample 2:\nInput: N = 2\nvalue[] = {1,0}\nC = 1\nOutput: 2\nExplanation: The length of the loop\nis 2.",
+    "approach": "To detect a loop in a linked list, we can use the Floyd's cycle-finding algorithm, also known as the \"tortoise and hare\" algorithm.\nInitialize two pointers, slow and fast, to the head of the linked list.\nMove the slow pointer one step at a time and the fast pointer two steps at a time.\nIf the linked list has a loop, the fast pointer will eventually catch up to the slow pointer.\nIn other words, if there is a loop, the two pointers will meet at some point.\nOnce the two pointers meet, move one of the pointers back to the meeting point and start counting the number of nodes in the loop.\nContinue moving the pointer until it reaches the meeting point again, counting the nodes along the way.\nReturn the count of nodes in the loop.\nIf the fast pointer reaches the end of the list (i.e., it becomes NULL or reaches a node with a NULL next pointer), then there is no loop in the linked list, and we can return 0.\n\nint countNode(struct Node* slow, struct Node* fast) {\n    int cnt = 1;\n    slow = slow->next;\n    while (fast != slow) {\n        slow = slow->next;\n        cnt++;\n    }\n    return cnt;\n}\n\nint countNodesinLoop(struct Node* head) {\n    struct Node* slow = head;\n    struct Node* fast = head;\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n        if (fast == slow)\n            return countNode(slow, fast);\n    }\n    return 0;\n}",
+    "pseudocode": "ALGORITHM  Count nodes in loop\nPATTERN    Two pointers\n\nBEGIN\n  01  To detect a loop in a linked list, we can use the Floyd's cycle-finding algorithm, also known as the \"tortoise and hare\" algorithm\n  02  SET two pointers, slow and fast, to the head of the linked list\n  03  Move the slow pointer one step at a time and the fast pointer two steps at a time\n  04  IF the linked list has a loop, the fast pointer will eventually catch up to the slow pointer\n  05  In other words, if there is a loop, the two pointers will meet at some point\n  06  Once the two pointers meet, move one of the pointers back to the meeting point and start counting the number of nodes in the loop\n  07  Continue moving the pointer until it reaches the meeting point again, counting the nodes along the way\n  08  RETURN the count of nodes in the loop\n  09  IF the fast pointer reaches the end of the list (i.e., it becomes NULL or reaches a node with a NULL next pointer), then there is no loop in the linked list, and we can return 0\n  10  int countNode(struct Node* slow, struct Node* fast) {\n  11  int cnt = 1;\n  12  slow = slow->next;\n  13  WHILE (fast != slow) {\n  14  slow = slow->next;\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven a linked list of size N. The task is to complete the function countNodesinLoop() that checks whether a given Linked List contains a loop or not and if the loop is present then return the count of nodes in a loop or else return 0. C is the position of the node to which the last node is connected. If it is 0 then no loop.\n\nExample 1:\nInput: N = 10\nvalue[]={25,14,19,33,10,21,39,90,58,45}\nC = 4\nOutput: 7\nExplanation: The loop is 45->33. So\nlength of loop is 33->10->21->39->\n90->58->45 = 7. The number 33 is\nconnected to the last node to form the\nloop because according to the input the\n4th node from the beginning(1 based\nindex) will be connected to the last\nnode for the loop.\n\nExample 2:\nInput: N = 2\nvalue[] = {1,0}\nC = 1\nOutput: 2\nExplanation: The length of the loop\nis 2.\n*/\n\n/*\nAPPROACH:\nTo detect a loop in a linked list, we can use the Floyd's cycle-finding algorithm, also known as the \"tortoise and hare\" algorithm.\nInitialize two pointers, slow and fast, to the head of the linked list.\nMove the slow pointer one step at a time and the fast pointer two steps at a time.\nIf the linked list has a loop, the fast pointer will eventually catch up to the slow pointer.\nIn other words, if there is a loop, the two pointers will meet at some point.\nOnce the two pointers meet, move one of the pointers back to the meeting point and start counting the number of nodes in the loop.\nContinue moving the pointer until it reaches the meeting point again, counting the nodes along the way.\nReturn the count of nodes in the loop.\nIf the fast pointer reaches the end of the list (i.e., it becomes NULL or reaches a node with a NULL next pointer), then there is no loop in the linked list, and we can return 0.\n*/\n\nint countNode(struct Node* slow, struct Node* fast) {\n    int cnt = 1;\n    slow = slow->next;\n    while (fast != slow) {\n        slow = slow->next;\n        cnt++;\n    }\n    return cnt;\n}\n\nint countNodesinLoop(struct Node* head) {\n    struct Node* slow = head;\n    struct Node* fast = head;\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n        if (fast == slow)\n            return countNode(slow, fast);\n    }\n    return 0;\n}\n\n// TIME COMPLEXITY: O(N)\n// SPACE COMPLEXITY: O(1)\n\n\n",
+    "codeLines": 66,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/05.Count_nodes_in_loop.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/05.Count_nodes_in_loop.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/linked-list-cycle/",
+      "title": "Linked List Cycle",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p099",
+    "index": 99,
+    "title": "Check for palindrome LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "Given the head of a singly linked list, return true if it is a palindrome or false otherwise.\n\nExample 1:\nInput: head = [1,2,2,1]\nOutput: true\n\nExample 2:\nInput: head = [1,2]\nOutput: false",
+    "approach": "To determine if a linked list is a palindrome, we can follow these steps:\n1. Find the middle node of the linked list using the slow and fast pointer technique.\n2. Reverse the second half of the linked list.\n3. Compare the first half of the original linked list with the reversed second half.\n4. If all nodes match, the linked list is a palindrome.\n5. If any node does not match, the linked list is not a palindrome.\n\nListNode* reverseLL(ListNode* start) {\n    ListNode* prev = NULL;\n    ListNode* curr = start;\n    while (curr) {\n        ListNode* frwd = curr->next;\n        curr->next = prev;\n        prev = curr;\n        curr = frwd;\n    }\n    return prev;\n}\n\nbool isPalindrome(ListNode* head) {\n    ListNode* slow = head;\n    ListNode* fast = head;\n\nFind the middle node using the slow and fast pointer technique\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n    }\n\nReverse the second half of the linked list\n    ListNode* reversedHalf = reverseLL(slow);\n\nCompare the first half with the reversed second half\n    while (reversedHalf) {\n        if (head->val != reversedHalf->val)\n            return false;\n        head = head->next;\n        reversedHalf = reversedHalf->next;\n    }\n\n    return true;\n}",
+    "pseudocode": "ALGORITHM  Check for palindrome LL\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  To determine if a linked list is a palindrome, we can follow these steps:\n  02  Find the middle node of the linked list using the slow and fast pointer technique\n  03  Reverse the second half of the linked list\n  04  Compare the first half of the original linked list with the reversed second half\n  05  IF all nodes match, the linked list is a palindrome\n  06  IF any node does not match, the linked list is not a palindrome\n  07  ListNode* reverseLL(ListNode* start) {\n  08  ListNode* prev = NULL;\n  09  ListNode* curr = start;\n  10  WHILE (curr) {\n  11  ListNode* frwd = curr->next;\n  12  curr->next = prev;\n  13  prev = curr;\n  14  curr = frwd;\n  15  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:-\nGiven the head of a singly linked list, return true if it is a palindrome or false otherwise.\n\nExample 1:\nInput: head = [1,2,2,1]\nOutput: true\n\nExample 2:\nInput: head = [1,2]\nOutput: false\n*/\n\n/*\nAPPROACH:\nTo determine if a linked list is a palindrome, we can follow these steps:\n1. Find the middle node of the linked list using the slow and fast pointer technique.\n2. Reverse the second half of the linked list.\n3. Compare the first half of the original linked list with the reversed second half.\n4. If all nodes match, the linked list is a palindrome.\n5. If any node does not match, the linked list is not a palindrome.\n*/\n\nListNode* reverseLL(ListNode* start) {\n    ListNode* prev = NULL;\n    ListNode* curr = start;\n    while (curr) {\n        ListNode* frwd = curr->next;\n        curr->next = prev;\n        prev = curr;\n        curr = frwd;\n    }\n    return prev;\n}\n\nbool isPalindrome(ListNode* head) {\n    ListNode* slow = head;\n    ListNode* fast = head;\n    \n    // Find the middle node using the slow and fast pointer technique\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n    }\n    \n    // Reverse the second half of the linked list\n    ListNode* reversedHalf = reverseLL(slow);\n    \n    // Compare the first half with the reversed second half\n    while (reversedHalf) {\n        if (head->val != reversedHalf->val)\n            return false;\n        head = head->next;\n        reversedHalf = reversedHalf->next;\n    }\n    \n    return true;\n}\n\n// TIME COMPLEXITY: O(N)\n// SPACE COMPLEXITY: O(1)\n\n\n",
+    "codeLines": 63,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/06.Check_for_palindrome_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/06.Check_for_palindrome_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/palindrome-linked-list/",
+      "title": "Palindrome Linked List",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p100",
+    "index": 100,
+    "title": "Odd even LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.\n\nExample 1:\nInput: head = [1,2,3,4,5]\nOutput: [1,3,5,2,4]\n\nExample 2:\nInput: head = [2,1,3,5,6,4,7]\nOutput: [2,3,6,7,1,5,4]",
+    "approach": "To group nodes with odd indices together followed by nodes with even indices, we can follow these steps:\n1. Initialize two pointers, `odd` and `even`, to the first and second nodes respectively.\n2. Save the starting node of the even list as `evenHead`.\n3. Iterate while `odd->next` and `even` are not NULL.\n4. Connect the odd list with the next odd node (`odd->next = even->next`).\n5. Move the `odd` pointer to the next odd node (`odd = odd->next`).\n6. Connect the even list with the next even node (`even->next = odd->next`).\n7. Move the `even` pointer to the next even node (`even = even->next`).\n8. Connect the end of the odd list with the starting node of the even list (`odd->next = evenHead`).\n9. Return the head of the modified list.\n\nThis approach reorders the linked list in place without using any extra space.",
+    "pseudocode": "ALGORITHM  Odd even LL\nPATTERN    Two pointers\n\nBEGIN\n  01  To group nodes with odd indices together followed by nodes with even indices, we can follow these steps:\n  02  SET two pointers, odd and even, to the first and second nodes respectively\n  03  Save the starting node of the even list as evenHead\n  04  Iterate while odd->next and even are not NULL\n  05  Connect the odd list with the next odd node (odd->next = even->next)\n  06  Move the odd pointer to the next odd node (odd = odd->next)\n  07  Connect the even list with the next even node (even->next = odd->next)\n  08  Move the even pointer to the next even node (even = even->next)\n  09  Connect the end of the odd list with the starting node of the even list (odd->next = evenHead)\n  10  RETURN the head of the modified list\n  11  This approach reorders the linked list in place without using any extra space\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.\n\nExample 1:\nInput: head = [1,2,3,4,5]\nOutput: [1,3,5,2,4]\n\nExample 2:\nInput: head = [2,1,3,5,6,4,7]\nOutput: [2,3,6,7,1,5,4]\n*/\n\n/*\nAPPROACH:\nTo group nodes with odd indices together followed by nodes with even indices, we can follow these steps:\n1. Initialize two pointers, `odd` and `even`, to the first and second nodes respectively.\n2. Save the starting node of the even list as `evenHead`.\n3. Iterate while `odd->next` and `even` are not NULL.\n4. Connect the odd list with the next odd node (`odd->next = even->next`).\n5. Move the `odd` pointer to the next odd node (`odd = odd->next`).\n6. Connect the even list with the next even node (`even->next = odd->next`).\n7. Move the `even` pointer to the next even node (`even = even->next`).\n8. Connect the end of the odd list with the starting node of the even list (`odd->next = evenHead`).\n9. Return the head of the modified list.\n\nThis approach reorders the linked list in place without using any extra space.\n\nTIME COMPLEXITY: O(N)\nSPACE COMPLEXITY: O(1)\n*/\n\nListNode* oddEvenList(ListNode* head) {\n    if (!head || !head->next)\n        return head;\n    \n    ListNode* odd = head;\n    ListNode* even = head->next;\n    ListNode* evenHead = even;  // save the starting node of the even list\n    \n    while (odd->next && even) {\n        odd->next = even->next;  // connect the odd list with the next odd node\n        if (odd->next){\n            even->next = odd->next->next;  // connect the even list with the next even node\n            odd = odd->next;  // move the odd pointer to the next odd node\n        }\n        even = even->next;  // move the even pointer to the next even node\n    }\n    \n    odd->next = evenHead;  // connect the end of the odd list with the starting node of the even list\n    \n    return head;\n}\n",
+    "codeLines": 53,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/07.Odd_even_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/07.Odd_even_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/odd-even-linked-list/",
+      "title": "Odd Even Linked List",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p101",
+    "index": 101,
+    "title": "Delete nth node from back",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "Given the head of a linked list, remove the nth node from the end of the list and return its head.\n\nExample 1:\nInput: head = [1,2,3,4,5], n = 2\nOutput: [1,2,3,5]\n\nExample 2:\nInput: head = [1], n = 1\nOutput: []\n\nExample 3:\nInput: head = [1,2], n = 1\nOutput: [1]",
+    "approach": "To remove the nth node from the end of the linked list, we can follow these steps:\n1. Initialize two pointers, `left` and `right`, to the head of the linked list.\n2. Move the `right` pointer n nodes ahead.\n3. If `right` becomes NULL, it means the first node needs to be removed. Return head->next.\n4. Iterate until `right->next` becomes NULL.\n5. Move both `left` and `right` pointers one node ahead in each iteration.\n6. Once `right->next` becomes NULL, `left` will be pointing to the (n-1)th node from the end.\n7. Update `left->next` to skip the nth node from the end.\n8. Return the head of the modified linked list.",
+    "pseudocode": "ALGORITHM  Delete nth node from back\nPATTERN    Two pointers\n\nBEGIN\n  01  To remove the nth node from the end of the linked list, we can follow these steps:\n  02  SET two pointers, left and right, to the head of the linked list\n  03  Move the right pointer n nodes ahead\n  04  IF right becomes NULL, it means the first node needs to be removed. Return head->next\n  05  Iterate until right->next becomes NULL\n  06  Move both left and right pointers one node ahead in each iteration\n  07  Once right->next becomes NULL, left will be pointing to the (n-1)th node from the end\n  08  UPDATE left->next to skip the nth node from the end\n  09  RETURN the head of the modified linked list\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven the head of a linked list, remove the nth node from the end of the list and return its head.\n\nExample 1:\nInput: head = [1,2,3,4,5], n = 2\nOutput: [1,2,3,5]\n\nExample 2:\nInput: head = [1], n = 1\nOutput: []\n\nExample 3:\nInput: head = [1,2], n = 1\nOutput: [1]\n*/\n\n/*\nAPPROACH:\nTo remove the nth node from the end of the linked list, we can follow these steps:\n1. Initialize two pointers, `left` and `right`, to the head of the linked list.\n2. Move the `right` pointer n nodes ahead.\n3. If `right` becomes NULL, it means the first node needs to be removed. Return head->next.\n4. Iterate until `right->next` becomes NULL.\n5. Move both `left` and `right` pointers one node ahead in each iteration.\n6. Once `right->next` becomes NULL, `left` will be pointing to the (n-1)th node from the end.\n7. Update `left->next` to skip the nth node from the end.\n8. Return the head of the modified linked list.\n\nTIME COMPLEXITY: O(N)\nSPACE COMPLEXITY: O(1)\n*/\n\nListNode* removeNthFromEnd(ListNode* head, int n) {\n    ListNode* left = head;\n    ListNode* right = head;\n    \n    // Move the right pointer n nodes ahead\n    for (int i = 0; i < n; i++) {\n        right = right->next;\n    }\n    \n    // If right becomes NULL, remove the first node\n    if (!right)\n        return head->next;\n    \n    // Iterate until right->next becomes NULL\n    while (right->next) {\n        left = left->next;\n        right = right->next;\n    }\n    \n    // Update left->next to skip the nth node from the end\n    left->next = left->next->next;\n    \n    return head;\n}\n",
+    "codeLines": 57,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/08.Delete_nth_node_from_back.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/08.Delete_nth_node_from_back.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+      "title": "Remove Nth Node From End of List",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p102",
+    "index": 102,
+    "title": "Delete mid of LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "You are given the head of a linked list. Delete the middle node, and return the head of the modified linked list.\n\nExample:\nInput: head = [1,3,4,7,1,2,6]\nOutput: [1,3,4,1,2,6]\nExplanation:\nThe above figure represents the given linked list. The indices of the nodes are written below.\nSince n = 7, node 3 with value 7 is the middle node, which is marked in red.\nWe return the new list after removing this node.",
+    "approach": "To delete the middle node of a linked list, we can use the slow and fast pointer technique.\n1. Initialize three pointers: slow, fast, and prev.\n2. Move the slow pointer one step at a time and the fast pointer two steps at a time.\n3. Keep track of the previous node using the prev pointer.\n4. When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle node.\n5. Update the next pointer of the previous node to skip the middle node.\n6. Return the head of the modified linked list.",
+    "pseudocode": "ALGORITHM  Delete mid of LL\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  To delete the middle node of a linked list, we can use the slow and fast pointer technique\n  02  SET three pointers: slow, fast, and prev\n  03  Move the slow pointer one step at a time and the fast pointer two steps at a time\n  04  Keep track of the previous node using the prev pointer\n  05  When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle node\n  06  UPDATE the next pointer of the previous node to skip the middle node\n  07  RETURN the head of the modified linked list\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:-\nYou are given the head of a linked list. Delete the middle node, and return the head of the modified linked list.\n\nExample:\nInput: head = [1,3,4,7,1,2,6]\nOutput: [1,3,4,1,2,6]\nExplanation:\nThe above figure represents the given linked list. The indices of the nodes are written below.\nSince n = 7, node 3 with value 7 is the middle node, which is marked in red.\nWe return the new list after removing this node.\n\nAPPROACH:\nTo delete the middle node of a linked list, we can use the slow and fast pointer technique.\n1. Initialize three pointers: slow, fast, and prev.\n2. Move the slow pointer one step at a time and the fast pointer two steps at a time.\n3. Keep track of the previous node using the prev pointer.\n4. When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle node.\n5. Update the next pointer of the previous node to skip the middle node.\n6. Return the head of the modified linked list.\n\nTIME COMPLEXITY: O(N)\nSPACE COMPLEXITY: O(1)\n*/\n\nListNode* deleteMiddle(ListNode* head) {\n    ListNode* slow = head;\n    ListNode* fast = head;\n    ListNode* prev = NULL;\n    \n    // Move the slow and fast pointers\n    while (fast && fast->next) {\n        prev = slow;\n        slow = slow->next;\n        fast = fast->next->next;\n    }\n    \n    // Update the next pointer of the previous node\n    prev->next = slow->next;\n    \n    return head;\n}\n",
+    "codeLines": 42,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/09.Delete_mid_of_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/09.Delete_mid_of_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/",
+      "title": "Delete the Middle Node of a Linked List",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p103",
+    "index": 103,
+    "title": "Sort LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "Given the head of a linked list, return the list after sorting it in ascending order.\n\nExample:\nInput: head = [4,2,1,3]\nOutput: [1,2,3,4]",
+    "approach": "To sort a linked list, we can use the merge sort algorithm.\n1. Implement a function to merge two sorted linked lists.\n2. Implement a function to recursively divide the linked list into two halves.\n3. Apply merge sort on each half.\n4. Merge the sorted halves using the merge function.\n5. Return the head of the sorted linked list.",
+    "pseudocode": "ALGORITHM  Sort LL\nPATTERN    Two pointers\n\nBEGIN\n  01  To sort a linked list, we can use the merge sort algorithm\n  02  Implement a function to merge two sorted linked lists\n  03  Implement a function to recursively divide the linked list into two halves\n  04  Apply merge sort on each half\n  05  Merge the sorted halves using the merge function\n  06  RETURN the head of the sorted linked list\nEND",
+    "time": "O(NlogN)",
+    "space": "O(logN) - Recursive stack space",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven the head of a linked list, return the list after sorting it in ascending order.\n\nExample:\nInput: head = [4,2,1,3]\nOutput: [1,2,3,4]\n\nAPPROACH:\nTo sort a linked list, we can use the merge sort algorithm.\n1. Implement a function to merge two sorted linked lists.\n2. Implement a function to recursively divide the linked list into two halves.\n3. Apply merge sort on each half.\n4. Merge the sorted halves using the merge function.\n5. Return the head of the sorted linked list.\n\nTIME COMPLEXITY: O(NlogN)\nSPACE COMPLEXITY: O(logN) - Recursive stack space\n\n*/\n\nListNode* merge(ListNode* left, ListNode* right) {\n    if (left == NULL)\n        return right;\n    if (right == NULL)\n        return left;\n    \n    if (left->val < right->val) {\n        left->next = merge(left->next, right);\n        return left;\n    } else {\n        right->next = merge(left, right->next);\n        return right;\n    }\n}\n\nListNode* mergeSort(ListNode* start) {\n    if (start == NULL || start->next == NULL)\n        return start;\n    \n    ListNode* slow = start;\n    ListNode* fast = start->next;\n    \n    // Find the middle of the linked list\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n    }\n    \n    ListNode* a = mergeSort(slow->next); // Sort the right half\n    slow->next = NULL; // Break the linked list into two halves\n    ListNode* b = mergeSort(start); // Sort the left half\n    \n    return merge(a, b); // Merge the sorted halves\n}\n\nListNode* sortList(ListNode* head) {\n    return mergeSort(head);\n}\n",
+    "codeLines": 59,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/10.Sort_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/10.Sort_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sort-list/",
+      "title": "Sort List",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p104",
+    "index": 104,
+    "title": "Sort 0 1 2 in LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "Given a linked list of N nodes where nodes can contain values 0s, 1s, and 2s only.\nThe task is to segregate 0s, 1s, and 2s in the linked list such that all zeros segregate to the head side, 2s at the end of the linked list, and 1s in the middle of 0s and 2s.\n\nExample:\nInput:\nN = 8\nvalue[] = {1,2,2,1,2,0,2,2}\nOutput: 0 1 1 2 2 2 2 2\nExplanation: All the 0s are segregated to the left end of the linked list, 2s to the right end of the list, and 1s in between.",
+    "approach": "Count the number of 0s, 1s, and 2s in the linked list.\nTraverse the linked list and overwrite the nodes with 0s, 1s, and 2s based on their counts.",
+    "pseudocode": "ALGORITHM  Sort 0 1 2 in LL\nPATTERN    Two pointers\n\nBEGIN\n  01  Count the number of 0s, 1s, and 2s in the linked list\n  02  FOR EACH element while traversing the linked list and overwrite the nodes with 0s, 1s, and 2s based on their counts\n  03  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven a linked list of N nodes where nodes can contain values 0s, 1s, and 2s only. \nThe task is to segregate 0s, 1s, and 2s in the linked list such that all zeros segregate to the head side, 2s at the end of the linked list, and 1s in the middle of 0s and 2s.\n\nExample:\nInput:\nN = 8\nvalue[] = {1,2,2,1,2,0,2,2}\nOutput: 0 1 1 2 2 2 2 2\nExplanation: All the 0s are segregated to the left end of the linked list, 2s to the right end of the list, and 1s in between.\n\nAPPROACH:\nCount the number of 0s, 1s, and 2s in the linked list.\nTraverse the linked list and overwrite the nodes with 0s, 1s, and 2s based on their counts.\n\nTIME COMPLEXITY: O(N)\nSPACE COMPLEXITY: O(1)\n\n*/\n\nNode* segregate(Node* head) {\n    int zeroCnt = 0, oneCnt = 0, twoCnt = 0;\n    Node* curr = head;\n    \n    // Count the number of 0s, 1s, and 2s in the linked list\n    while (curr) {\n        if (curr->data == 0) zeroCnt++;\n        if (curr->data == 1) oneCnt++;\n        if (curr->data == 2) twoCnt++;\n        curr = curr->next;\n    }\n    \n    curr = head;\n    \n    // Overwrite the nodes with 0s, 1s, and 2s based on their counts\n    while (zeroCnt) {\n        curr->data = 0;\n        zeroCnt--;\n        curr = curr->next;\n    }\n    while (oneCnt) {\n        curr->data = 1;\n        oneCnt--;\n        curr = curr->next;\n    }\n    while (twoCnt) {\n        curr->data = 2;\n        twoCnt--;\n        curr = curr->next;\n    }\n    \n    return head;\n}\n",
+    "codeLines": 54,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/11.Sort_0_1_2_in_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/11.Sort_0_1_2_in_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sort-list/",
+      "title": "Sort List",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p105",
+    "index": 105,
+    "title": "Add 1 to LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "A number N is represented in a linked list such that each digit corresponds to a node in the linked list.\nYou need to add 1 to the number represented by the linked list.",
+    "approach": "To add 1 to the number represented by the linked list, we can reverse the linked list, perform the addition, and then reverse it back.\nFirst, reverse the linked list.\nTraverse the reversed linked list while keeping track of the carry.\nAdd 1 to the least significant digit (head) and update the carry if necessary.\nContinue traversing the linked list, adding the carry to each digit and updating the carry.\nIf there is still a remaining carry after traversing the linked list, create a new node with the carry as its value and append it to the end of the linked list.\nReverse the linked list again to restore its original order.",
+    "pseudocode": "ALGORITHM  Add 1 to LL\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  To add 1 to the number represented by the linked list, we can reverse the linked list, perform the addition, and then reverse it back\n  02  First, reverse the linked list\n  03  FOR EACH element while traversing the reversed linked list while keeping track of the carry\n  04  Add 1 to the least significant digit (head) and update the carry if necessary\n  05  Continue traversing the linked list, adding the carry to each digit and updating the carry\n  06  IF there is still a remaining carry after traversing the linked list, create a new node with the carry as its value and append it to the end of the linked list\n  07  Reverse the linked list again to restore its original order\n  08  RETURN the required result\nEND",
+    "time": "O(N), where N is the length of the linked list",
+    "space": "O(1)",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:-\nA number N is represented in a linked list such that each digit corresponds to a node in the linked list. \nYou need to add 1 to the number represented by the linked list.\n\nAPPROACH:\nTo add 1 to the number represented by the linked list, we can reverse the linked list, perform the addition, and then reverse it back.\nFirst, reverse the linked list.\nTraverse the reversed linked list while keeping track of the carry.\nAdd 1 to the least significant digit (head) and update the carry if necessary.\nContinue traversing the linked list, adding the carry to each digit and updating the carry.\nIf there is still a remaining carry after traversing the linked list, create a new node with the carry as its value and append it to the end of the linked list.\nReverse the linked list again to restore its original order.\n\nTIME COMPLEXITY: O(N), where N is the length of the linked list.\nSPACE COMPLEXITY: O(1)\n\n*/\n\nNode* reverseLL(Node* head) {\n    Node* prev = NULL;\n    Node* curr = head;\n    while (curr) {\n        Node* frwd = curr->next;\n        curr->next = prev;\n        prev = curr;\n        curr = frwd;\n    }\n    return prev;\n}\n\nNode* addOne(Node* head) {\n    head = reverseLL(head);\n    Node* curr = head;\n    int carry = 1;\n    Node* last;\n    while (curr) {\n        long sum = curr->data + carry;\n        curr->data = sum % 10;\n        carry = sum / 10;\n        if (curr && !curr->next)\n            last = curr;\n        curr = curr->next;\n    }\n    while (carry) {\n        last->next = new Node(carry % 10);\n        carry = carry / 10;\n        last = last->next;\n    }\n    head = reverseLL(head);\n    return head;\n}\n",
+    "codeLines": 52,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/12.Add_1_to_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/12.Add_1_to_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/plus-one-linked-list/",
+      "title": "Plus One Linked List",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": true
+    }
+  },
+  {
+    "id": "p106",
+    "index": 106,
+    "title": "Add two LL",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of LL",
+    "difficulty": "Medium",
+    "question": "You are given two non-empty linked lists representing two non-negative integers.\nThe digits are stored in reverse order, and each of their nodes contains a single digit.\nAdd the two numbers and return the sum as a linked list.",
+    "approach": "Traverse both linked lists simultaneously, starting from the heads.\nAt each step, add the corresponding digits from both linked lists along with the carry (initialized as 0).\nCreate a new node with the sum%10 and update the carry as sum/10.\nMove to the next nodes in both linked lists.\nContinue this process until both linked lists are traversed completely and there is no carry left.\nIf one linked list is shorter than the other, consider its remaining digits as 0.\nIf there is still a remaining carry, create a new node with the carry and append it to the result linked list.\nReturn the head of the result linked list.",
+    "pseudocode": "ALGORITHM  Add two LL\nPATTERN    Two pointers\n\nBEGIN\n  01  FOR EACH element while traversing both linked lists simultaneously, starting from the heads\n  02  At each step, add the corresponding digits from both linked lists along with the carry (initialized as 0)\n  03  SET a new node with the sum%10 and update the carry as sum/10\n  04  Move to the next nodes in both linked lists\n  05  Continue this process until both linked lists are traversed completely and there is no carry left\n  06  IF one linked list is shorter than the other, consider its remaining digits as 0\n  07  IF there is still a remaining carry, create a new node with the carry and append it to the result linked list\n  08  RETURN the head of the result linked list\nEND",
+    "time": "O(max(N, M)), where N and M are the lengths of the two input linked lists",
+    "space": "O(max(N, M)), as the length of the result linked list can be at most max(N, M)+1",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nYou are given two non-empty linked lists representing two non-negative integers. \nThe digits are stored in reverse order, and each of their nodes contains a single digit. \nAdd the two numbers and return the sum as a linked list.\n\nAPPROACH:\nTraverse both linked lists simultaneously, starting from the heads.\nAt each step, add the corresponding digits from both linked lists along with the carry (initialized as 0).\nCreate a new node with the sum%10 and update the carry as sum/10.\nMove to the next nodes in both linked lists.\nContinue this process until both linked lists are traversed completely and there is no carry left.\nIf one linked list is shorter than the other, consider its remaining digits as 0.\nIf there is still a remaining carry, create a new node with the carry and append it to the result linked list.\nReturn the head of the result linked list.\n\nTIME COMPLEXITY: O(max(N, M)), where N and M are the lengths of the two input linked lists.\nSPACE COMPLEXITY: O(max(N, M)), as the length of the result linked list can be at most max(N, M)+1.\n\n*/\n\nListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n    ListNode* p1 = l1;\n    ListNode* p2 = l2;\n    ListNode* dummy = new ListNode(); // Dummy node to simplify the logic\n    ListNode* ans = dummy;\n    int sum = 0, carry = 0;\n    while (p1 || p2) {\n        sum += carry; // Add the carry from the previous step\n        if (p1) {\n            sum += p1->val;\n            p1 = p1->next;\n        }\n        if (p2) {\n            sum += p2->val;\n            p2 = p2->next;\n        }\n        ans->next = new ListNode(sum % 10); // Create a new node with the current digit\n        carry = sum / 10; // Update the carry for the next step\n        sum = 0;\n        ans = ans->next; // Move to the next node in the result linked list\n    }\n    if (carry) {\n        ans->next = new ListNode(carry); // Append the remaining carry as a new node\n    }\n    return dummy->next; // Return the head of the result linked list (excluding the dummy node)\n}\n",
+    "codeLines": 47,
+    "repoPath": "04.Linked List/3.Medium Problems of LL/13.Add_two_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/3.Medium%20Problems%20of%20LL/13.Add_two_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/add-two-numbers/",
+      "title": "Add Two Numbers",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p107",
+    "index": 107,
+    "title": "Delete nodes from dll",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of DLL",
+    "difficulty": "Medium",
+    "question": "You are given the head of a doubly Linked List and a key. Your task is to delete all occurrences of the given key and return the new doubly Linked List.\n\n*Example:**\n\nInput:\n2 <-> 2 <-> 10 <-> 8 <-> 4 <-> 2 <-> 5 <-> 2\nKey: 2\nOutput:\n10 <-> 8 <-> 4 <-> 5\nExplanation:\nAll occurrences of 2 have been deleted.",
+    "approach": "To delete all occurrences of the given key from a doubly linked list, we can traverse the list and check each node's data. If the data matches the key, we handle three cases: deleting the first node, deleting the last node, and deleting a middle node. We update the pointers accordingly to remove the node from the list.",
+    "pseudocode": "ALGORITHM  Delete nodes from dll\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  To delete all occurrences of the given key from a doubly linked list, we can traverse the list and check each node's data\n  02  IF the data matches the key, we handle three cases: deleting the first node, deleting the last node, and deleting a middle node\n  03  We update the pointers accordingly to remove the node from the list\n  04  RETURN the required result\nEND",
+    "time": "The time complexity is O(N), where N is the number of nodes in the doubly linked list",
+    "space": "The space complexity is O(1) since we are modifying the given linked list in-place without using any extra space",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/**QUESTION:**\n\nYou are given the head of a doubly Linked List and a key. Your task is to delete all occurrences of the given key and return the new doubly Linked List.\n\n**Example:**\n\nInput: \n2 <-> 2 <-> 10 <-> 8 <-> 4 <-> 2 <-> 5 <-> 2\nKey: 2\nOutput: \n10 <-> 8 <-> 4 <-> 5\nExplanation: \nAll occurrences of 2 have been deleted.\n\n**APPROACH:**\n\nTo delete all occurrences of the given key from a doubly linked list, we can traverse the list and check each node's data. If the data matches the key, we handle three cases: deleting the first node, deleting the last node, and deleting a middle node. We update the pointers accordingly to remove the node from the list.\n\n**TIME COMPLEXITY:** The time complexity is O(N), where N is the number of nodes in the doubly linked list.\n\n**SPACE COMPLEXITY:** The space complexity is O(1) since we are modifying the given linked list in-place without using any extra space.\n\n**CODE:**/\n\nvoid deleteAllOccurOfX(struct Node** head_ref, int x) {\n    Node* curr = *head_ref;\n    while (curr) {\n        if (curr->data == x) {\n            // First node\n            if (!curr->prev) {\n                *head_ref = curr->next;\n                curr->next->prev = NULL\n            }\n            // Last node\n            else if (!curr->next) {\n                curr->prev->next = curr->next;\n            }\n            // Middle node\n            else {\n                curr->next->prev = curr->prev;\n                curr->prev->next = curr->next;\n            }\n        }\n        curr = curr->next;\n    }\n}\n",
+    "codeLines": 46,
+    "repoPath": "04.Linked List/4.Medium Problems of DLL/01.Delete_nodes_from_dll.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/4.Medium%20Problems%20of%20DLL/01.Delete_nodes_from_dll.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/design-linked-list/",
+      "title": "Design Linked List",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p108",
+    "index": 108,
+    "title": "Pair sum in dll",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of DLL",
+    "difficulty": "Medium",
+    "question": "Given a sorted doubly linked list of positive distinct elements, the task is to find pairs in the doubly linked list whose sum is equal to a given value `target`.\n\nExample 1:\nInput:\n1 <-> 2 <-> 4 <-> 5 <-> 6 <-> 8 <-> 9\nTarget: 7\nOutput: (1, 6), (2, 5)\nExplanation: We can see that there are two pairs (1, 6) and (2, 5) with a sum of 7.\n\nExample 2:\nInput:\n1 <-> 5 <-> 6\nTarget: 6\nOutput: (1, 5)\nExplanation: We can see that there is one pair (1, 5) with a sum of 6.",
+    "approach": "1. Initialize two pointers, `start` and `end`, pointing to the beginning and end of the doubly linked list, respectively.\n2. While the `start` pointer's data is less than the `end` pointer's data:\n   - Calculate the sum of the data at the `start` and `end` pointers.\n   - If the sum is equal to the target value, add the pair (start->data, end->data) to the result vector and move both the `start` and `end` pointers.\n   - If the sum is less than the target value, move the `start` pointer to the next node.\n   - If the sum is greater than the target value, move the `end` pointer to the previous node.\n3. Return the result vector containing all the pairs whose sum is equal to the target.",
+    "pseudocode": "ALGORITHM  Pair sum in dll\nPATTERN    Two pointers\n\nBEGIN\n  01  SET two pointers, start and end, pointing to the beginning and end of the doubly linked list, respectively\n  02  WHILE the start pointer's data is less than the end pointer's data:\n  03  Calculate the sum of the data at the start and end pointers\n  04  IF the sum is equal to the target value, add the pair (start->data, end->data) to the result vector and move both the start and end pointers\n  05  IF the sum is less than the target value, move the start pointer to the next node\n  06  IF the sum is greater than the target value, move the end pointer to the previous node\n  07  RETURN the result vector containing all the pairs whose sum is equal to the target\nEND",
+    "time": "O(N), where N is the number of nodes in the doubly linked list",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nGiven a sorted doubly linked list of positive distinct elements, the task is to find pairs in the doubly linked list whose sum is equal to a given value `target`.\n\nExample 1:\nInput:  \n1 <-> 2 <-> 4 <-> 5 <-> 6 <-> 8 <-> 9\nTarget: 7\nOutput: (1, 6), (2, 5)\nExplanation: We can see that there are two pairs (1, 6) and (2, 5) with a sum of 7.\n\nExample 2:\nInput: \n1 <-> 5 <-> 6\nTarget: 6\nOutput: (1, 5)\nExplanation: We can see that there is one pair (1, 5) with a sum of 6.\n\nApproach:\n1. Initialize two pointers, `start` and `end`, pointing to the beginning and end of the doubly linked list, respectively.\n2. While the `start` pointer's data is less than the `end` pointer's data:\n   - Calculate the sum of the data at the `start` and `end` pointers.\n   - If the sum is equal to the target value, add the pair (start->data, end->data) to the result vector and move both the `start` and `end` pointers.\n   - If the sum is less than the target value, move the `start` pointer to the next node.\n   - If the sum is greater than the target value, move the `end` pointer to the previous node.\n3. Return the result vector containing all the pairs whose sum is equal to the target.\n\nTime Complexity: O(N), where N is the number of nodes in the doubly linked list.\nSpace Complexity: O(1).\n\nCODE:\n*/\nvector<pair<int, int>> findPairsWithGivenSum(Node *head, int target)\n{\n    vector<pair<int, int>> ans;\n    Node* start = head;\n    Node* end = head;\n    while (end->next) {\n        end = end->next;\n    }\n    while (start->data < end->data) {\n        int sum = start->data + end->data;\n        if (sum == target) {\n            ans.push_back({ start->data, end->data });\n            start = start->next;\n            end = end->prev;\n        }\n        else if (sum < target) {\n            start = start->next;\n        }\n        else {\n            end = end->prev;\n        }\n    }\n    return ans;\n}\n",
+    "codeLines": 55,
+    "repoPath": "04.Linked List/4.Medium Problems of DLL/02.Pair_sum_in_dll.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/4.Medium%20Problems%20of%20DLL/02.Pair_sum_in_dll.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/two-sum-iv-input-is-a-bst/",
+      "title": "Two Sum IV - Input is a BST",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p109",
+    "index": 109,
+    "title": "Remove duplicates from dll",
+    "topic": "Linked List",
+    "subtopic": "Medium Problems of DLL",
+    "difficulty": "Medium",
+    "question": "Given a doubly linked list of n nodes sorted by values, the task is to remove duplicate nodes present in the linked list.\n\nExample 1:\nInput:\nn = 6\n1<->1<->1<->2<->3<->4\nOutput:\n1<->2<->3<->4\nExplanation:\nOnly the first occurrence of the node with value 1 is retained, and the rest of the nodes with value 1 are deleted.\n\nExample 2:\nInput:\nn = 7\n1<->2<->2<->3<->3<->4<->4\nOutput:\n1<->2<->3<->4\nExplanation:\nOnly the first occurrence of nodes with values 2, 3, and 4 are retained, and the rest of the repeating nodes are deleted.",
+    "approach": "1. Initialize a variable `dupli` with the value of the head node.\n2. Start from the next node, `curr`, and iterate until the end of the linked list.\n3. For each node, check if its data is equal to `dupli`.\n   - If it is equal, remove the node by updating the `next` and `prev` pointers of its neighboring nodes.\n   - Continue removing all consecutive nodes with the same value.\n4. If `curr` is not null, update `dupli` with the data of `curr`.\n5. Repeat steps 3-4 until the end of the linked list is reached.\n6. Return the head of the modified linked list.",
+    "pseudocode": "ALGORITHM  Remove duplicates from dll\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  SET a variable dupli with the value of the head node\n  02  Start from the next node, curr, and iterate until the end of the linked list\n  03  FOR EACH node, check if its data is equal to dupli\n  04  IF it is equal, remove the node by updating the next and prev pointers of its neighboring nodes\n  05  Continue removing all consecutive nodes with the same value\n  06  IF curr is not null, update dupli with the data of curr\n  07  REPEAT steps 3-4 until the end of the linked list is reached\n  08  RETURN the head of the modified linked list\nEND",
+    "time": "O(N), where N is the number of nodes in the linked list",
+    "space": "O(1)",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*Given a doubly linked list of n nodes sorted by values, the task is to remove duplicate nodes present in the linked list.\n\nExample 1:\nInput:\nn = 6\n1<->1<->1<->2<->3<->4\nOutput:\n1<->2<->3<->4\nExplanation:\nOnly the first occurrence of the node with value 1 is retained, and the rest of the nodes with value 1 are deleted.\n\nExample 2:\nInput:\nn = 7\n1<->2<->2<->3<->3<->4<->4\nOutput:\n1<->2<->3<->4\nExplanation:\nOnly the first occurrence of nodes with values 2, 3, and 4 are retained, and the rest of the repeating nodes are deleted.\n\nApproach:\n1. Initialize a variable `dupli` with the value of the head node.\n2. Start from the next node, `curr`, and iterate until the end of the linked list.\n3. For each node, check if its data is equal to `dupli`.\n   - If it is equal, remove the node by updating the `next` and `prev` pointers of its neighboring nodes.\n   - Continue removing all consecutive nodes with the same value.\n4. If `curr` is not null, update `dupli` with the data of `curr`.\n5. Repeat steps 3-4 until the end of the linked list is reached.\n6. Return the head of the modified linked list.\n\nTime Complexity: O(N), where N is the number of nodes in the linked list.\nSpace Complexity: O(1).\n\nCODE:\n*/\nNode* removeDuplicates(Node* head)\n{\n    int dupli = head->data;\n    Node* curr = head->next;\n\n    while (curr) {\n        while (curr && curr->data == dupli) {\n            if (curr->next)\n                curr->next->prev = curr->prev;\n            curr->prev->next = curr->next;\n            curr = curr->next;\n        }\n        if (curr) {\n            dupli = curr->data;\n            curr = curr->next;\n        }\n    }\n    return head;\n}\n",
+    "codeLines": 54,
+    "repoPath": "04.Linked List/4.Medium Problems of DLL/03.Remove_duplicates_from_dll.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/4.Medium%20Problems%20of%20DLL/03.Remove_duplicates_from_dll.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/remove-duplicates-from-sorted-list/",
+      "title": "Remove Duplicates from Sorted List",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p110",
+    "index": 110,
+    "title": "Reverse k node in groups",
+    "topic": "Linked List",
+    "subtopic": "Hard Problems of LL",
+    "difficulty": "Hard",
+    "question": "Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.",
+    "approach": "The idea is to reverse the nodes of the linked list in groups of size k.\nFirst, we need to check if there are at least k nodes remaining in the linked list. If not, we return the head as it is.\nNext, we reverse the first k nodes of the linked list. To do this, we maintain three pointers: prev, curr, and frwd.\nWe iterate through the first k nodes and at each step, we reverse the links between the nodes.\nAfter reversing the first k nodes, prev becomes the new head, and curr becomes the new tail of the reversed group.\nWe recursively call the function on the remaining linked list starting from frwd (which points to the (k+1)-th node).\nFinally, we update the next pointer of the original head to point to the reversed group obtained from the recursive call.",
+    "pseudocode": "ALGORITHM  Reverse k node in groups\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  The idea is to reverse the nodes of the linked list in groups of size k\n  02  First, we need to check if there are at least k nodes remaining in the linked list. If not, we return the head as it is\n  03  Next, we reverse the first k nodes of the linked list. To do this, we maintain three pointers: prev, curr, and frwd\n  04  We iterate through the first k nodes and at each step, we reverse the links between the nodes\n  05  After reversing the first k nodes, prev becomes the new head, and curr becomes the new tail of the reversed group\n  06  We recursively call the function on the remaining linked list starting from frwd (which points to the (k+1)-th node)\n  07  Finally, we update the next pointer of the original head to point to the reversed group obtained from the recursive call\n  08  RETURN the required result\nEND",
+    "time": "O(N), where N is the number of nodes in the linked list",
+    "space": "O(1)",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:-\nGiven the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.\n\nAPPROACH:\nThe idea is to reverse the nodes of the linked list in groups of size k.\nFirst, we need to check if there are at least k nodes remaining in the linked list. If not, we return the head as it is.\nNext, we reverse the first k nodes of the linked list. To do this, we maintain three pointers: prev, curr, and frwd.\nWe iterate through the first k nodes and at each step, we reverse the links between the nodes.\nAfter reversing the first k nodes, prev becomes the new head, and curr becomes the new tail of the reversed group.\nWe recursively call the function on the remaining linked list starting from frwd (which points to the (k+1)-th node).\nFinally, we update the next pointer of the original head to point to the reversed group obtained from the recursive call.\n\nTIME COMPLEXITY: O(N), where N is the number of nodes in the linked list.\nSPACE COMPLEXITY: O(1).\n\n*/\n\nListNode* reverseKGroup(ListNode* head, int k) {\n    ListNode* ptr = head;\n    for (int i = 0; i < k; i++) {\n        if (!ptr)\n            return head; // Return head if there are less than k nodes remaining\n        ptr = ptr->next;\n    }\n    int count = k;\n    ListNode* prev = NULL;\n    ListNode* curr = head;\n    ListNode* frwd = NULL;\n    while (count && curr) {\n        frwd = curr->next;\n        curr->next = prev;\n        prev = curr;\n        curr = frwd;\n        count--;\n    }\n    if (frwd)\n        head->next = reverseKGroup(frwd, k); // Recursive call for the remaining linked list\n    return prev; // Return the new head of the reversed group\n}\n",
+    "codeLines": 40,
+    "repoPath": "04.Linked List/5.Hard Promblems of LL/01.Reverse_k_node_in_groups.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/5.Hard%20Promblems%20of%20LL/01.Reverse_k_node_in_groups.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-nodes-in-k-group/",
+      "title": "Reverse Nodes in k-Group",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p111",
+    "index": 111,
+    "title": "Rotate LL k times",
+    "topic": "Linked List",
+    "subtopic": "Hard Problems of LL",
+    "difficulty": "Hard",
+    "question": "Given the head of a linked list, rotate the list to the right by k places.",
+    "approach": "To rotate the linked list to the right by k places, we need to perform the following steps:\n1. Find the length of the linked list and connect the last node to the head to form a circular linked list.\n2. Calculate the actual number of rotations by taking the modulus of k with the length of the linked list.\n3. Traverse to the (length - k - 1)th node, which will be the new tail of the rotated list.\n4. Set the new head as the next node of the (length - k - 1)th node and disconnect it from the rest of the list.\n5. Return the new head.",
+    "pseudocode": "ALGORITHM  Rotate LL k times\nPATTERN    Two pointers\n\nBEGIN\n  01  To rotate the linked list to the right by k places, we need to perform the following steps:\n  02  Find the length of the linked list and connect the last node to the head to form a circular linked list\n  03  Calculate the actual number of rotations by taking the modulus of k with the length of the linked list\n  04  FOR EACH element while traversing to the (length - k - 1)th node, which will be the new tail of the rotated list\n  05  SET the new head as the next node of the (length - k - 1)th node and disconnect it from the rest of the list\n  06  RETURN the new head\nEND",
+    "time": "O(N), where N is the number of nodes in the linked list",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven the head of a linked list, rotate the list to the right by k places.\n\nAPPROACH:\nTo rotate the linked list to the right by k places, we need to perform the following steps:\n1. Find the length of the linked list and connect the last node to the head to form a circular linked list.\n2. Calculate the actual number of rotations by taking the modulus of k with the length of the linked list.\n3. Traverse to the (length - k - 1)th node, which will be the new tail of the rotated list.\n4. Set the new head as the next node of the (length - k - 1)th node and disconnect it from the rest of the list.\n5. Return the new head.\n\nTIME COMPLEXITY: O(N), where N is the number of nodes in the linked list.\nSPACE COMPLEXITY: O(1).\n\n*/\n\nint find_len(ListNode* head) {\n    ListNode* curr = head;\n    int cnt = 1;\n    while (curr->next) {\n        curr = curr->next;\n        cnt++;\n    }\n    curr->next = head; // Connect the last node to the head to form a circular linked list\n    return cnt;\n}\n\nListNode* rotateRight(ListNode* head, int k) {\n    if (head == NULL || k == 0)\n        return head;\n    int len = find_len(head); // Find the length of the linked list and form a circular linked list\n    k = k % len; // Calculate the actual number of rotations\n    ListNode* curr = head;\n    // Traverse to the (length - k - 1)th node\n    for (int i = 0; i < len - k - 1; i++) {\n        curr = curr->next;\n    }\n    ListNode* newHead = curr->next; // The next node will be the new head\n    curr->next = NULL; // Disconnect the new tail from the rest of the list\n    return newHead;\n}\n",
+    "codeLines": 42,
+    "repoPath": "04.Linked List/5.Hard Promblems of LL/02.Rotate_LL_k_times.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/5.Hard%20Promblems%20of%20LL/02.Rotate_LL_k_times.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/rotate-list/",
+      "title": "Rotate List",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p112",
+    "index": 112,
+    "title": "Copy LL with random pointers",
+    "topic": "Linked List",
+    "subtopic": "Hard Problems of LL",
+    "difficulty": "Hard",
+    "question": "A linked list of length n is given such that each node contains an additional random pointer, which could point to any node in the list, or null.\n\nConstruct a deep copy of the list. The deep copy should consist of exactly n brand new nodes, where each new node has its value set to the value of its corresponding original node. Both the next and random pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state. None of the pointers in the new list should point to nodes in the original list.\n\nFor example, if there are two nodes X and Y in the original list, where X.random --> Y, then for the corresponding two nodes x and y in the copied list, x.random --> y.\n\nReturn the head of the copied linked list.\n\nThe linked list is represented in the input/output as a list of n nodes. Each node is represented as a pair of [val, random_index] where:\n\nval: an integer representing Node.val\nrandom_index: the index of the node (range from 0 to n-1) that the random pointer points to, or null if it does not point to any node.\nYour code will only be given the head of the original linked list.\n\nExample 1:\nInput: head = [[7,null],[13,0],[11,4],[10,2],[1,0]]\nOutput: [[7,null],[13,0],[11,4],[10,2],[1,0]]\n\nExample 2:\nInput: head = [[1,1],[2,1]]\nOutput: [[1,1],[2,1]]",
+    "approach": "To create a deep copy of a linked list with random pointers, we can follow these steps:\n1. Traverse the original linked list and create a new node for each node in the original list. Insert the new node between the original node and its next node.\n2. Set the random pointer of the new node by mapping it to the corresponding random node in the original list.\n3. Separate the original list and the copied list by updating the next pointers of nodes in both lists.\n4. Return the head of the copied list.",
+    "pseudocode": "ALGORITHM  Copy LL with random pointers\nPATTERN    Linked-list pointers\n\nBEGIN\n  01  To create a deep copy of a linked list with random pointers, we can follow these steps:\n  02  FOR EACH element while traversing the original linked list and create a new node for each node in the original list. Insert the new node between the original node and its next node\n  03  SET the random pointer of the new node by mapping it to the corresponding random node in the original list\n  04  Separate the original list and the copied list by updating the next pointers of nodes in both lists\n  05  RETURN the head of the copied list\nEND",
+    "time": "The time complexity of this approach is O(n) since we traverse the original list once to create the copied list",
+    "space": "The space complexity is also O(n) because we create a new node for each node in the original list",
+    "strategy": "Linked-list pointers",
+    "tags": ["Linked List", "Linked-list pointers"],
+    "intuition": "Draw the links before changing them. Save every pointer that will still be needed, rewire in a deliberate order, then advance.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty list",
+      "Single node",
+      "Head/tail modification",
+      "Cycle or invalid position when relevant"
+    ],
+    "pitfalls": [
+      "Overwriting next before saving it",
+      "Not updating both directions",
+      "Leaking or dereferencing a null node"
+    ],
+    "code": "/*\nQUESTION:\nA linked list of length n is given such that each node contains an additional random pointer, which could point to any node in the list, or null.\n\nConstruct a deep copy of the list. The deep copy should consist of exactly n brand new nodes, where each new node has its value set to the value of its corresponding original node. Both the next and random pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state. None of the pointers in the new list should point to nodes in the original list.\n\nFor example, if there are two nodes X and Y in the original list, where X.random --> Y, then for the corresponding two nodes x and y in the copied list, x.random --> y.\n\nReturn the head of the copied linked list.\n\nThe linked list is represented in the input/output as a list of n nodes. Each node is represented as a pair of [val, random_index] where:\n\nval: an integer representing Node.val\nrandom_index: the index of the node (range from 0 to n-1) that the random pointer points to, or null if it does not point to any node.\nYour code will only be given the head of the original linked list.\n\nExample 1:\nInput: head = [[7,null],[13,0],[11,4],[10,2],[1,0]]\nOutput: [[7,null],[13,0],[11,4],[10,2],[1,0]]\n\nExample 2:\nInput: head = [[1,1],[2,1]]\nOutput: [[1,1],[2,1]]\n\nAPPROACH:\nTo create a deep copy of a linked list with random pointers, we can follow these steps:\n1. Traverse the original linked list and create a new node for each node in the original list. Insert the new node between the original node and its next node.\n2. Set the random pointer of the new node by mapping it to the corresponding random node in the original list.\n3. Separate the original list and the copied list by updating the next pointers of nodes in both lists.\n4. Return the head of the copied list.\n\nTIME COMPLEXITY:\nThe time complexity of this approach is O(n) since we traverse the original list once to create the copied list.\n\nSPACE COMPLEXITY:\nThe space complexity is also O(n) because we create a new node for each node in the original list.\n\nCODE:\n*/\nNode* copyRandomList(Node* head) {\n    if (head == NULL)\n        return head;\n\n    // inserting dupli node in between\n    Node* orig = head;\n    while (orig) {\n        Node* temp = orig->next;\n        orig->next = new Node(orig->val);\n        orig->next->next = temp;\n        orig = orig->next->next;\n    }\n    // setting random pointers\n    orig = head;\n    while (orig) {\n        if (orig->random && orig->next)\n            orig->next->random = orig->random->next;\n        orig = orig->next->next;\n    }\n    // setting next pointers and dettaching duplicate nodes from the original list\n    orig = head;\n    Node* ans = orig->next;\n    while (orig && orig->next) {\n        Node* temp = orig->next->next;\n        if (orig->next->next)\n            orig->next->next = orig->next->next->next;\n        orig->next = temp;\n        orig = orig->next;\n    }\n    return ans;\n}\n",
+    "codeLines": 70,
+    "repoPath": "04.Linked List/5.Hard Promblems of LL/03.Copy_LL_with_random_pointers.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/5.Hard%20Promblems%20of%20LL/03.Copy_LL_with_random_pointers.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/copy-list-with-random-pointer/",
+      "title": "Copy List with Random Pointer",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p113",
+    "index": 113,
+    "title": "Flatten LL",
+    "topic": "Linked List",
+    "subtopic": "Hard Problems of LL",
+    "difficulty": "Hard",
+    "question": "Given a Linked List of size N, where every node represents a sub-linked-list and contains two pointers:\n(i) a next pointer to the next node,\n(ii) a bottom pointer to a linked list where this node is the head.\nEach of the sub-linked lists is in sorted order.\nFlatten the Link List such that all the nodes appear in a single level while maintaining the sorted order.\n\nNote: The flattened list will be printed using the bottom pointer instead of the next pointer.",
+    "approach": "To flatten the linked list, we can use a recursive approach. The idea is to flatten the list from right to left. Starting from the last node, we recursively flatten the sublist pointed by the bottom pointer and merge it with the current node. We continue this process until we reach the head of the original linked list. Finally, we return the flattened list.",
+    "pseudocode": "ALGORITHM  Flatten LL\nPATTERN    Two pointers\n\nBEGIN\n  01  To flatten the linked list, we can use a recursive approach\n  02  The idea is to flatten the list from right to left\n  03  Starting from the last node, we recursively flatten the sublist pointed by the bottom pointer and merge it with the current node\n  04  We continue this process until we reach the head of the original linked list\n  05  Finally, we return the flattened list\n  06  RETURN the required result\nEND",
+    "time": "The time complexity is O(N), where N is the total number of nodes in the linked list",
+    "space": "The space complexity is O(1) since we are modifying the given linked list in-place without using any extra space",
+    "strategy": "Two pointers",
+    "tags": ["Linked List", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer",
+      "Positions are valid under the indexing convention shown in the statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/**QUESTION:**\n\nGiven a Linked List of size N, where every node represents a sub-linked-list and contains two pointers:\n(i) a next pointer to the next node,\n(ii) a bottom pointer to a linked list where this node is the head.\nEach of the sub-linked lists is in sorted order.\nFlatten the Link List such that all the nodes appear in a single level while maintaining the sorted order.\n\nNote: The flattened list will be printed using the bottom pointer instead of the next pointer.\n\n**APPROACH:**\n\nTo flatten the linked list, we can use a recursive approach. The idea is to flatten the list from right to left. Starting from the last node, we recursively flatten the sublist pointed by the bottom pointer and merge it with the current node. We continue this process until we reach the head of the original linked list. Finally, we return the flattened list.\n\n**TIME COMPLEXITY:** The time complexity is O(N), where N is the total number of nodes in the linked list.\n\n**SPACE COMPLEXITY:** The space complexity is O(1) since we are modifying the given linked list in-place without using any extra space.\n\n**CODE:**/\n\nNode* merge(Node* head1, Node* head2)  \n{  \n    if (head1 == NULL)\n        return head2;\n    if (head2 == NULL)\n        return head1;\n    if (head1->data < head2->data) {\n        head1->bottom = merge(head1->bottom, head2);\n        return head1;\n    }\n    else {\n        head2->bottom = merge(head1, head2->bottom);\n        return head2;\n    }\n}\n\nNode* flatten(Node* root)\n{\n    if (root == NULL)\n        return root;\n\n    Node* left = root;\n    Node* right = flatten(root->next);\n    root->next = NULL;\n    left = merge(left, right);\n    return left;\n}",
+    "codeLines": 47,
+    "repoPath": "04.Linked List/5.Hard Promblems of LL/04.Flatten_LL.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/04.Linked%20List/5.Hard%20Promblems%20of%20LL/04.Flatten_LL.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/",
+      "title": "Flatten a Multilevel Doubly Linked List",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  }
+]

@@ -1,0 +1,1679 @@
+[
+  {
+    "id": "p001",
+    "index": 1,
+    "title": "Largest element in array",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given an array A[] of size n. The task is to find the largest element in it.\n\nExample:\n\nInput:\nn = 5\nA[] = {1, 8, 7, 56, 90}\nOutput:\n90\nExplanation:\nThe largest element of given array is 90",
+    "approach": "-> Intialize the ans with starting element\n-> Traverse the entire array and update the ans if the element is greater then ans\n-> Finally, return the ans",
+    "pseudocode": "ALGORITHM  Largest element in array\nPATTERN    Direct simulation\n\nBEGIN\n  01  Intialize the ans with starting element\n  02  FOR EACH element while traversing the entire array and update the ans if the element is greater then ans\n  03  Finally, return the ans\n  04  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an array A[] of size n. The task is to find the largest element in it.\n\nExample:\n\nInput:\nn = 5\nA[] = {1, 8, 7, 56, 90}\nOutput:\n90\nExplanation:\nThe largest element of given array is 90\n*/\n\n/*\nAPPROACH:-\n-> Intialize the ans with starting element\n-> Traverse the entire array and update the ans if the element is greater then ans\n-> Finally, return the ans\n*/\n\n// CODE:-\nint largest(int arr[], int n)\n{\n    int ans = arr[0];\n    for (int i = 1; i < n; i++)\n    {\n        if (arr[i] > ans)\n            ans = arr[i];\n    }\n    return ans;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 36,
+    "repoPath": "01.Arrays/1.Easy/01.Largest_element_in_array.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/01.Largest_element_in_array.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/third-maximum-number/",
+      "title": "Third Maximum Number",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p002",
+    "index": 2,
+    "title": "Second largest element in array",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given an array Arr of size N, print second largest distinct element from an array.\n\nExample:\n\nInput:\nN = 6\nArr[] = {12, 35, 1, 10, 34, 1}\nOutput: 34\nExplanation: The largest element of the\narray is 35 and the second largest element\nis 34.",
+    "approach": "> If the current element is larger than ‘large’ then update second_large and large variables\n-> Else if the current element is larger than ‘second_large’ then we update the variable second_large.\n-> Once we traverse the entire array, we would find the second largest element in the variable second_large.",
+    "pseudocode": "ALGORITHM  Second largest element in array\nPATTERN    Direct simulation\n\nBEGIN\n  01  IF the current element is larger than ‘large’ then update second_large and large variables\n  02  ELSE IF the current element is larger than ‘second_large’ then we update the variable second_large\n  03  Once we traverse the entire array, we would find the second largest element in the variable second_large\n  04  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an array Arr of size N, print second largest distinct element from an array.\n\nExample:\n\nInput:\nN = 6\nArr[] = {12, 35, 1, 10, 34, 1}\nOutput: 34\nExplanation: The largest element of the\narray is 35 and the second largest element\nis 34.\n*/\n\n/*\nAPPROACH\n-> If the current element is larger than ‘large’ then update second_large and large variables\n-> Else if the current element is larger than ‘second_large’ then we update the variable second_large.\n-> Once we traverse the entire array, we would find the second largest element in the variable second_large.\n*/\n\n// CODE:-\nint print2largest(int arr[], int n)\n{\n    int prev = -1, curr = arr[0];\n    for (int i = 1; i < n; i++)\n    {\n        if (arr[i] > curr)\n        {\n            prev = curr;\n            curr = arr[i];\n        }\n        else if (arr[i] > prev && arr[i] != curr)\n            prev = arr[i];\n    }\n    return prev;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 41,
+    "repoPath": "01.Arrays/1.Easy/02.Second_largest_element_in_array.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/02.Second_largest_element_in_array.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/third-maximum-number/",
+      "title": "Third Maximum Number",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p003",
+    "index": 3,
+    "title": "Check if array is sorted and rotated",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given an array nums, return true if the array was originally sorted in non-decreasing order, then rotated some number of positions (including zero). Otherwise, return false.\nThere may be duplicates in the original array.\nExample 1:\n\nInput: nums = [3,4,5,1,2]\nOutput: true\nExplanation: [1,2,3,4,5] is the original sorted array.\nYou can rotate the array by x = 3 positions to begin on the the element of value 3: [3,4,5,1,2].\nExample 2:\n\nInput: nums = [2,1,3,4]\nOutput: false\nExplanation: There is no sorted array once rotated that can make nums.",
+    "approach": "Compare all neignbour elements (a,b) in A,\nthe case of a > b can happen at most once.\n\nNote that the first element and the last element are also connected.\n\nIf all a <= b, A is already sorted so answer is true.\nIf all a <= b but only one a > b, and the first element is greater than equal to last element\nwe can rotate and make b the first element so answer is true.\nOther case, return false.",
+    "pseudocode": "ALGORITHM  Check if array is sorted and rotated\nPATTERN    Direct simulation\n\nBEGIN\n  01  Compare all neignbour elements (a,b) in A,\n  02  the case of a > b can happen at most once\n  03  Note that the first element and the last element are also connected\n  04  IF all a <= b, A is already sorted so answer is true\n  05  IF all a <= b but only one a > b, and the first element is greater than equal to last element\n  06  we can rotate and make b the first element so answer is true\n  07  Other case, return false\n  08  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an array nums, return true if the array was originally sorted in non-decreasing order, then rotated some number of positions (including zero). Otherwise, return false.\nThere may be duplicates in the original array.\nExample 1:\n\nInput: nums = [3,4,5,1,2]\nOutput: true\nExplanation: [1,2,3,4,5] is the original sorted array.\nYou can rotate the array by x = 3 positions to begin on the the element of value 3: [3,4,5,1,2].\nExample 2:\n\nInput: nums = [2,1,3,4]\nOutput: false\nExplanation: There is no sorted array once rotated that can make nums.\n\n*/\n\n/*\nAPPROACH:-\nCompare all neignbour elements (a,b) in A,\nthe case of a > b can happen at most once.\n\nNote that the first element and the last element are also connected.\n\nIf all a <= b, A is already sorted so answer is true.\nIf all a <= b but only one a > b, and the first element is greater than equal to last element\nwe can rotate and make b the first element so answer is true.\nOther case, return false.\n*/\n\n// CODE:-\nbool check(vector<int> &nums)\n{\n    int cnt = 0;\n    int n = nums.size();\n    for (int i = 0; i < n - 1; i++)\n    {\n        if (nums[i] > nums[i + 1])\n            cnt++;\n    }\n    if (cnt == 0)\n        return true;\n    else if (cnt == 1 && nums[0] >= nums[n - 1])\n        return true;\n    return false;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)\n",
+    "codeLines": 50,
+    "repoPath": "01.Arrays/1.Easy/03.Check_if_array_is_sorted_and_rotated.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/03.Check_if_array_is_sorted_and_rotated.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/",
+      "title": "Check if Array Is Sorted and Rotated",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p004",
+    "index": 4,
+    "title": "Remove duplicates from sorted array",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.\nConsider the number of unique elements of nums to be k, to get accepted, you need to do the following things:\nChange the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.\nReturn k.\n\nExample 1:\n\nInput: nums = [1,1,2]\nOutput: 2, nums = [1,2,_]\nExplanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively.\nIt does not matter what you leave beyond the returned k (hence they are underscores).\nExample 2:\n\nInput: nums = [0,0,1,1,1,2,2,3,3,4]\nOutput: 5, nums = [0,1,2,3,4,_,_,_,_,_]\nExplanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.\nIt does not matter what you leave beyond the returned k (hence they are underscores).",
+    "approach": "-> The idea, is to use keep a pointer k which signifies that upto here the array is sorted\n-> Now travese the entire array and if arr[k]!=arr[j] that is arr[j] is a unique value hence it should be included\n   so increment the k and swap arr[k] with arr[j]\n-> Return k+1, +1 is because of 0 based indexing",
+    "pseudocode": "ALGORITHM  Remove duplicates from sorted array\nPATTERN    Direct simulation\n\nBEGIN\n  01  The idea, is to use keep a pointer k which signifies that upto here the array is sorted\n  02  Now travese the entire array and if arr[k]!=arr[j] that is arr[j] is a unique value hence it should be included\n  03  so increment the k and swap arr[k] with arr[j]\n  04  RETURN k+1, +1 is because of 0 based indexing\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\n\nGiven an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.\nConsider the number of unique elements of nums to be k, to get accepted, you need to do the following things:\nChange the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.\nReturn k.\n\nExample 1:\n\nInput: nums = [1,1,2]\nOutput: 2, nums = [1,2,_]\nExplanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively.\nIt does not matter what you leave beyond the returned k (hence they are underscores).\nExample 2:\n\nInput: nums = [0,0,1,1,1,2,2,3,3,4]\nOutput: 5, nums = [0,1,2,3,4,_,_,_,_,_]\nExplanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.\nIt does not matter what you leave beyond the returned k (hence they are underscores).\n*/\n\n/*\nAPPROACH:-\n-> The idea, is to use keep a pointer k which signifies that upto here the array is sorted\n-> Now travese the entire array and if arr[k]!=arr[j] that is arr[j] is a unique value hence it should be included\n   so increment the k and swap arr[k] with arr[j]\n-> Return k+1, +1 is because of 0 based indexing\n*/\n\n// CODE:-\nint removeDuplicates(vector<int> &nums)\n{\n    int k = 0; // upto k array contains unique elements\n    for (int j = 1; j < nums.size(); j++)\n    {\n        if (nums[k] != nums[j])\n        {\n            k++;\n            swap(nums[k], nums[j]);\n        }\n    }\n    return k + 1;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 47,
+    "repoPath": "01.Arrays/1.Easy/04.Remove_duplicates_from_sorted_array.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/04.Remove_duplicates_from_sorted_array.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
+      "title": "Remove Duplicates from Sorted Array",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p005",
+    "index": 5,
+    "title": "Rotate array left by 1 place",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given an array \"ARR' containing 'N' elements, rotate this array Left by once means to shift all elements by one place to the left and move the first element to the last position in the array.\n\nExample:\nInput: 'N' 5, 'ARR' = [1, 2, 3, 4, 5]\nOutput: [2, 3, 4, 5, 1]\n\nExplanation:\nWe moved the 2nd element to the 1st position and 3rd element to the 2nd position and 4th element to the 3rd position and 5th element to the 4th position and move oth element to the 5th position.",
+    "approach": "-> By observing we can the ans is the arr where arr[i] = arr[i+1] and at last place we will have arr[0]\n-> Before traversing store the arr[0] in temp and then traverse the array and make arr[i] = arr[i+1]\n-> Make arr[n-1] = arr[0], where n is the size of the array",
+    "pseudocode": "ALGORITHM  Rotate array left by 1 place\nPATTERN    Two pointers\n\nBEGIN\n  01  By observing we can the ans is the arr where arr[i] = arr[i+1] and at last place we will have arr[0]\n  02  Before traversing store the arr[0] in temp and then traverse the array and make arr[i] = arr[i+1]\n  03  Make arr[n-1] = arr[0], where n is the size of the array\n  04  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an array \"ARR' containing 'N' elements, rotate this array Left by once means to shift all elements by one place to the left and move the first element to the last position in the array.\n\nExample:\nInput: 'N' 5, 'ARR' = [1, 2, 3, 4, 5]\nOutput: [2, 3, 4, 5, 1]\n\nExplanation:\nWe moved the 2nd element to the 1st position and 3rd element to the 2nd position and 4th element to the 3rd position and 5th element to the 4th position and move oth element to the 5th position.\n*/\n\n/*\nAPPROACH:-\n-> By observing we can the ans is the arr where arr[i] = arr[i+1] and at last place we will have arr[0]\n-> Before traversing store the arr[0] in temp and then traverse the array and make arr[i] = arr[i+1]\n-> Make arr[n-1] = arr[0], where n is the size of the array\n*/\n\n// CODE:-\nvector<int> rotateArray(vector<int> &arr, int n)\n{\n    int temp = arr[0];\n    for (int i = 0; i < n - 1; i++)\n    {\n        arr[i] = arr[i + 1];\n    }\n    arr[n - 1] = temp;\n\n    return arr;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 34,
+    "repoPath": "01.Arrays/1.Easy/05.Rotate_array_left_by_1place.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/05.Rotate_array_left_by_1place.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/rotate-array/",
+      "title": "Rotate Array",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p006",
+    "index": 6,
+    "title": "Rotate array left&right by k places",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.\n\nExample 1:\n\nInput: nums = [1,2,3,4,5,6,7], k = 3\nOutput: [5,6,7,1,2,3,4]\nExplanation:\nrotate 1 steps to the right: [7,1,2,3,4,5,6]\nrotate 2 steps to the right: [6,7,1,2,3,4,5]\nrotate 3 steps to the right: [5,6,7,1,2,3,4]\nExample 2:\n\nInput: nums = [-1,-100,3,99], k = 2\nOutput: [3,99,-1,-100]\nExplanation:\nrotate 1 steps to the right: [99,-1,-100,3]\nrotate 2 steps to the right: [3,99,-1,-100]",
+    "approach": "To rotate the array k places to right follow below steps\n-> Reverse first n-k elements\n-> Reverse last k elements\n-> Reverse the entire array\n\nTo rotate the array k places to left follow below steps\n-> Reverse first k elements\n-> Reverse last n-k elements\n-> Reverse the entire array",
+    "pseudocode": "ALGORITHM  Rotate array left&right by k places\nPATTERN    Two pointers\n\nBEGIN\n  01  To rotate the array k places to right follow below steps\n  02  Reverse first n-k elements\n  03  Reverse last k elements\n  04  Reverse the entire array\n  05  To rotate the array k places to left follow below steps\n  06  Reverse first k elements\n  07  Reverse last n-k elements\n  08  Reverse the entire array\n  09  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\n\nGiven an integer array nums, rotate the array to the right by k steps, where k is non-negative.\n\nExample 1:\n\nInput: nums = [1,2,3,4,5,6,7], k = 3\nOutput: [5,6,7,1,2,3,4]\nExplanation:\nrotate 1 steps to the right: [7,1,2,3,4,5,6]\nrotate 2 steps to the right: [6,7,1,2,3,4,5]\nrotate 3 steps to the right: [5,6,7,1,2,3,4]\nExample 2:\n\nInput: nums = [-1,-100,3,99], k = 2\nOutput: [3,99,-1,-100]\nExplanation:\nrotate 1 steps to the right: [99,-1,-100,3]\nrotate 2 steps to the right: [3,99,-1,-100]\n*/\n\n/*\nAPPROACH:-\nTo rotate the array k places to right follow below steps\n-> Reverse first n-k elements\n-> Reverse last k elements\n-> Reverse the entire array\n\nTo rotate the array k places to left follow below steps\n-> Reverse first k elements\n-> Reverse last n-k elements\n-> Reverse the entire array\n*/\n\n// CODE:-\n\n// RIGHT ROATATE:-\nvoid rightRotate(int arr[], int n, int k)\n{\n    k = k % n; // to keep k within the range\n    reverse(arr, arr + (n - k));\n    reverse(arr + (n - k), arr + n);\n    reverse(arr, arr + n);\n}\n\n// LEFT ROATATE:-\nvoid leftRotate(int arr[], int n, int k)\n{\n    k = k % n; // to keep k within the range\n    reverse(arr, arr + k);\n    reverse(arr + k, arr + n);\n    reverse(arr, arr + n);\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 57,
+    "repoPath": "01.Arrays/1.Easy/06.Rotate_array_left&right_by_k_places.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/06.Rotate_array_left%26right_by_k_places.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/rotate-array/",
+      "title": "Rotate Array",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p007",
+    "index": 7,
+    "title": "Move 0's to end",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.\n\nNote that you must do this in-place without making a copy of the array.\n\nExample 1:\n\nInput: nums = [0,1,0,3,12]\nOutput: [1,3,12,0,0]\nExample 2:\n\nInput: nums = [0]\nOutput: [0]",
+    "approach": "-> The idea is while traversing the array if we found any zero then we have to swap it with next non-zero",
+    "pseudocode": "ALGORITHM  Move 0's to end\nPATTERN    Direct simulation\n\nBEGIN\n  01  The idea is while traversing the array if we found any zero then we have to swap it with next non-zero\n  02  RETURN the required result\nEND",
+    "time": "O(N) (as we moving j throught the array only once)",
+    "space": "O(0)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.\n\nNote that you must do this in-place without making a copy of the array.\n\nExample 1:\n\nInput: nums = [0,1,0,3,12]\nOutput: [1,3,12,0,0]\nExample 2:\n\nInput: nums = [0]\nOutput: [0]\n*/\n\n/*\nAPPROACH:-\n-> The idea is while traversing the array if we found any zero then we have to swap it with next non-zero\n*/\n\n// CODE:-\n// function to find the next non-zero element\nint next_nonzero(vector<int> &a, int &j)\n{\n    while (j < a.size())\n    {\n        if (a[j] != 0)\n            return j;\n        j++;\n    }\n    return -1;\n}\nvoid moveZeroes(vector<int> &nums)\n{\n    int j = -1; // is to find the next non zero element\n    // i signifies that upto here all elements are non-zero\n    for (int i = 0; i < nums.size(); i++)\n    {\n        if (nums[i] != 0)\n            continue;\n        if (j == -1)\n            j = i + 1;\n        int nxt_non0 = next_nonzero(nums, j);\n        if (nxt_non0 == -1)\n            return;\n        swap(nums[i], nums[nxt_non0]);\n    }\n}\n\n// TIME COMPLEXITY = O(N) (as we moving j throught the array only once)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 52,
+    "repoPath": "01.Arrays/1.Easy/07.Move_0's_to_end.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/07.Move_0%27s_to_end.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/move-zeroes/",
+      "title": "Move Zeroes",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p008",
+    "index": 8,
+    "title": "Linear search",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "I don't think anyone needs it's solution. The idea is to traverse the array using loop and when the element\nis equal to k return the same",
+    "approach": "I don't think anyone needs it's solution. The idea is to traverse the array using loop and when the element\nis equal to k return the same",
+    "pseudocode": "ALGORITHM  Linear search\nPATTERN    Direct simulation\n\nBEGIN\n  01  FOR EACH index i from 0 to length(array) - 1\n  02  IF array[i] equals target, RETURN i (or the required success value)\n  03  RETURN the required not-found value\nEND",
+    "time": "Not explicitly stated in the source file",
+    "space": "Not explicitly stated in the source file",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nI don't think anyone needs it's solution. The idea is to traverse the array using loop and when the element\nis equal to k return the same\n*/",
+    "codeLines": 4,
+    "repoPath": "01.Arrays/1.Easy/08.Linear_search.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/08.Linear_search.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-search/",
+      "title": "Binary Search",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p009",
+    "index": 9,
+    "title": "Union of 2 sorted arrays",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Union of two arrays can be defined as the common and distinct elements in the two arrays.\nGiven two sorted arrays of size n and m respectively, find their union.\n\nExample 1:\n\nInput:\nn = 5, arr1[] = {1, 2, 3, 4, 5}\nm = 3, arr2 [] = {1, 2, 3}\nOutput: 1 2 3 4 5\nExplanation: Distinct elements including\nboth the arrays are: 1 2 3 4 5.\n\nExample 2:\n\nInput:\nn = 5, arr1[] = {2, 2, 3, 4, 5}\nm = 5, arr2[] = {1, 1, 2, 3, 4}\nOutput: 1 2 3 4 5\nExplanation: Distinct elements including\nboth the arrays are: 1 2 3 4 5.",
+    "approach": "-> Take two pointer i and j where i is for arr1 and j is for arr2 and traverse\n-> While travsersing 3 cases arises\n    -> arr1[ i ] == arr2[ j ]\n        Here we found a common element, so insert only one element in the union.\n        Let’s insert arr[i] in union and whenever we insert element we increment pointer while pointer is not equal to the inserted element\n    -> arr1[i]<arr2[j]\n        Here insert arr[i]\n    -> arr1[i]>arr2[j]\n        Here insert arr2[j]\n-> Now check if elements of any array is left to traverse then traverse that array",
+    "pseudocode": "ALGORITHM  Union of 2 sorted arrays\nPATTERN    Two pointers\n\nBEGIN\n  01  Take two pointer i and j where i is for arr1 and j is for arr2 and traverse\n  02  WHILE travsersing 3 cases arises\n  03  arr1[ i ] == arr2[ j ]\n  04  Here we found a common element, so insert only one element in the union\n  05  Let’s insert arr[i] in union and whenever we insert element we increment pointer while pointer is not equal to the inserted element\n  06  arr1[i]<arr2[j]\n  07  Here insert arr[i]\n  08  arr1[i]>arr2[j]\n  09  Here insert arr2[j]\n  10  Now check if elements of any array is left to traverse then traverse that array\n  11  RETURN the required result\nEND",
+    "time": "O(N+M)",
+    "space": "O(0)",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nUnion of two arrays can be defined as the common and distinct elements in the two arrays.\nGiven two sorted arrays of size n and m respectively, find their union.\n\n\nExample 1:\n\nInput:\nn = 5, arr1[] = {1, 2, 3, 4, 5}\nm = 3, arr2 [] = {1, 2, 3}\nOutput: 1 2 3 4 5\nExplanation: Distinct elements including\nboth the arrays are: 1 2 3 4 5.\n\n\nExample 2:\n\nInput:\nn = 5, arr1[] = {2, 2, 3, 4, 5}\nm = 5, arr2[] = {1, 1, 2, 3, 4}\nOutput: 1 2 3 4 5\nExplanation: Distinct elements including\nboth the arrays are: 1 2 3 4 5.\n*/\n\n/*\nAPPROACH:-\n-> Take two pointer i and j where i is for arr1 and j is for arr2 and traverse\n-> While travsersing 3 cases arises\n    -> arr1[ i ] == arr2[ j ]\n        Here we found a common element, so insert only one element in the union.\n        Let’s insert arr[i] in union and whenever we insert element we increment pointer while pointer is not equal to the inserted element\n    -> arr1[i]<arr2[j]\n        Here insert arr[i]\n    -> arr1[i]>arr2[j]\n        Here insert arr2[j]\n-> Now check if elements of any array is left to traverse then traverse that array\n*/\n\n// CODE:-\nvector<int> findUnion(int arr1[], int arr2[], int n, int m)\n{\n    int i = 0; // i to keep track in arr1\n    int j = 0; // j to keep track in arr2\n    vector<int> ans;\n\n    while (i < n && j < m)\n    {\n\n        if (arr1[i] < arr2[j])\n        {\n            ans.push_back(arr1[i++]);\n            while (i < n && arr1[i] == arr1[i - 1])\n                i++;\n        }\n        else if (arr2[j] < arr1[i])\n        {\n            ans.push_back(arr2[j++]);\n            while (j < m && arr2[j] == arr2[j - 1])\n                j++;\n        }\n        // means arr1[i] = arr2[j] in that case we can insert anyone\n        else\n        {\n            ans.push_back(arr1[i++]);\n            j++;\n            while (i < n && arr1[i] == arr1[i - 1])\n                i++;\n            while (j < m && arr2[j] == arr2[j - 1])\n                j++;\n        }\n    }\n\n    while (i < n)\n    {\n        ans.push_back(arr1[i++]);\n        while (i < n && arr1[i] == arr1[i - 1])\n            i++;\n    }\n    while (j < m)\n    {\n        ans.push_back(arr2[j++]);\n        while (j < m && arr2[j] == arr2[j - 1])\n            j++;\n    }\n\n    return ans;\n}\n\n// TIME COMPLEXITY = O(N+M)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 92,
+    "repoPath": "01.Arrays/1.Easy/09.Union_of_2_sorted_arrays.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/09.Union_of_2_sorted_arrays.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-sorted-array/",
+      "title": "Merge Sorted Array",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p010",
+    "index": 10,
+    "title": "Missing number",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.\n\nExample 1:\n\nInput: nums = [3,0,1]\nOutput: 2\nExplanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.\nExample 2:\n\nInput: nums = [0,1]\nOutput: 2\nExplanation: n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums.",
+    "approach": "-> Calculate the optimum sum i.e. sum when all elements were present\n-> Calculate the actual array's sum\n-> Return the optimum sum - actual sum",
+    "pseudocode": "ALGORITHM  Missing number\nPATTERN    Direct simulation\n\nBEGIN\n  01  Calculate the optimum sum i.e. sum when all elements were present\n  02  Calculate the actual array's sum\n  03  RETURN the optimum sum - actual sum\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.\n\nExample 1:\n\nInput: nums = [3,0,1]\nOutput: 2\nExplanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.\nExample 2:\n\nInput: nums = [0,1]\nOutput: 2\nExplanation: n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums.\n*/\n\n/*\nAPPROACH:-\n-> Calculate the optimum sum i.e. sum when all elements were present\n-> Calculate the actual array's sum\n-> Return the optimum sum - actual sum\n*/\n\n// CODE:-\nint missingNumber(vector<int> &nums)\n{\n    int n = nums.size();\n    long long optimum_sum = (n * (n + 1)) / 2; // the sum if no number is absent\n    long long actual_sum = 0;\n    for (auto it : nums)\n    {\n        actual_sum += it;\n    }\n    return optimum_sum - actual_sum;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 38,
+    "repoPath": "01.Arrays/1.Easy/10.Missing_number.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/10.Missing_number.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/missing-number/",
+      "title": "Missing Number",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p011",
+    "index": 11,
+    "title": "Max consecutive 1's",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.\n\nExample 1:\n\nInput: nums = [3,0,1]\nOutput: 2\nExplanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.\nExample 2:\n\nInput: nums = [0,1]\nOutput: 2\nExplanation: n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums.",
+    "approach": "-> Traverse the entire array and within it run a loop while element's are equal to 1 and store the count\n-> Update the ans as max(ans,cnt)",
+    "pseudocode": "ALGORITHM  Max consecutive 1's\nPATTERN    Direct simulation\n\nBEGIN\n  01  FOR EACH element while traversing the entire array and within it run a loop while element's are equal to 1 and store the count\n  02  UPDATE the ans as max(ans,cnt)\n  03  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.\n\nExample 1:\n\nInput: nums = [3,0,1]\nOutput: 2\nExplanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.\nExample 2:\n\nInput: nums = [0,1]\nOutput: 2\nExplanation: n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums.\n*/\n\n/*\nAPPROACH:-\n-> Traverse the entire array and within it run a loop while element's are equal to 1 and store the count\n-> Update the ans as max(ans,cnt)\n*/\n\n// CODE:-\nint findMaxConsecutiveOnes(vector<int> &nums)\n{\n    int ans = 0;\n    for (int i = 0; i < nums.size(); i++)\n    {\n        int cnt = 0; // to store the count of consecutive 1's\n        while (i < nums.size() && nums[i] == 1)\n        {\n            cnt++;\n            i++;\n        }\n        ans = max(ans, cnt);\n    }\n    return ans;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)\n",
+    "codeLines": 41,
+    "repoPath": "01.Arrays/1.Easy/11.Max_consecutive_1's.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/11.Max_consecutive_1%27s.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/max-consecutive-ones/",
+      "title": "Max Consecutive Ones",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p012",
+    "index": 12,
+    "title": "Longest subarray with given sum",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "You are given an array 'A' of size 'N' and an integer 'K'. You need to print the length of the longest subarray of array 'A' whose sum = 'K'.\nExample:\nInput: 'N' = 7 'K' = 3\n'A' = [1, 2, 3, 1, 1, 1, 1]\nOutput: 3\nExplanation: Subarrays whose sum = '3' are:\n[1, 2], [3], [1, 1, 1], [1, 1, 1]\nHere, the length of the longest subarray is 3, which is our final answer.",
+    "approach": "-> Use sliding window approach using two pointers start and end\n-> Run a loop to traverse the entire array add from end and subtract from start when sum>k\n-> If sum==k then, update the ans now, window size = end-start+1",
+    "pseudocode": "ALGORITHM  Longest subarray with given sum\nPATTERN    Sliding window\n\nBEGIN\n  01  Use sliding window approach using two pointers start and end\n  02  Run a loop to traverse the entire array add from end and subtract from start when sum>k\n  03  IF sum==k then, update the ans now, window size = end-start+1\n  04  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Sliding window",
+    "tags": ["Arrays", "Sliding window"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*\nQUESTION:-\nYou are given an array 'A' of size 'N' and an integer 'K'. You need to print the length of the longest subarray of array 'A' whose sum = 'K'.\nExample:\nInput: 'N' = 7 'K' = 3\n'A' = [1, 2, 3, 1, 1, 1, 1]\nOutput: 3\nExplanation: Subarrays whose sum = '3' are:\n[1, 2], [3], [1, 1, 1], [1, 1, 1]\nHere, the length of the longest subarray is 3, which is our final answer.\n*/\n\n/*\nAPPROACH:-\n-> Use sliding window approach using two pointers start and end\n-> Run a loop to traverse the entire array add from end and subtract from start when sum>k\n-> If sum==k then, update the ans now, window size = end-start+1\n*/\n\n// CODE:-\nint longestSubarrayWithSumK(vector<int> a, long long k)\n{\n    int start = 0;\n    int ans = 0;\n    long long sum = 0;\n    int n = a.size();\n\n    for (int end = 0; end < n; end++)\n    {\n        sum += a[end];\n        while (sum > k)\n        {\n            sum -= a[start];\n            start++;\n        }\n        if (sum == k)\n        {\n            ans = max(ans, end - start + 1);\n        }\n    }\n    return ans;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 45,
+    "repoPath": "01.Arrays/1.Easy/12.Longest_subarray_with_given_sum.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/12.Longest_subarray_with_given_sum.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subarray-sum-equals-k/",
+      "title": "Subarray Sum Equals K",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p013",
+    "index": 13,
+    "title": "Find element present only once",
+    "topic": "Arrays",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.\nYou must implement a solution with a linear runtime complexity and use only constant extra space.\n\nExample 1:\nInput: nums = [2,2,1]\nOutput: 1\n\nExample 2:\nInput: nums = [4,1,2,1,2]\nOutput: 4",
+    "approach": "-> We can use XOR operation as we know xor cancles out the same elements\n-> Intial xr=0 then traverse the entire array and xor each element with xr\n-> Since only one element is present once and all other are present twice so the remaining element would be the\n    one which is present only once cause all other gets cancels out",
+    "pseudocode": "ALGORITHM  Find element present only once\nPATTERN    Bit manipulation\n\nBEGIN\n  01  We can use XOR operation as we know xor cancles out the same elements\n  02  Intial xr=0 then traverse the entire array and xor each element with xr\n  03  Since only one element is present once and all other are present twice so the remaining element would be the\n  04  one which is present only once cause all other gets cancels out\n  05  RETURN the required result\nEND",
+    "time": "and use only constant extra space",
+    "space": "O(0)",
+    "strategy": "Bit manipulation",
+    "tags": ["Arrays", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven a non-empty array of integers nums, every element appears twice except for one. Find that single one.\nYou must implement a solution with a linear runtime complexity and use only constant extra space.\n\n\nExample 1:\nInput: nums = [2,2,1]\nOutput: 1\n\nExample 2:\nInput: nums = [4,1,2,1,2]\nOutput: 4\n*/\n\n/*\nAPPROACH:-\n-> We can use XOR operation as we know xor cancles out the same elements\n-> Intial xr=0 then traverse the entire array and xor each element with xr\n-> Since only one element is present once and all other are present twice so the remaining element would be the\n    one which is present only once cause all other gets cancels out\n*/\n\n// CODE:-\nint singleNumber(vector<int> &nums)\n{\n    int xr = 0;\n    for (int i = 0; i < nums.size(); i++)\n    {\n        xr = nums[i] ^ xr;\n    }\n    return xr;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 36,
+    "repoPath": "01.Arrays/1.Easy/13.Find_element_present_only_once.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/1.Easy/13.Find_element_present_only_once.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/single-number/",
+      "title": "Single Number",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p014",
+    "index": 14,
+    "title": "2 sum problem",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "QUESITON:-\nGiven an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\nYou can return the answer in any order.\n\nExample 1:\n\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]\nExplanation: Because nums[0] + nums[1] == 9, we return [0, 1].\nExample 2:\n\nInput: nums = [3,2,4], target = 6\nOutput: [1,2]",
+    "approach": "-> Create an empty map to store the elements and their corresponding indices.\n>  Iterate through the input array, nums, and for each element:\n    Calculate the complement by subtracting the current element from the target value.\n    Check if the complement exists in the map.\n    If the complement exists, return the indices of the current element and the complement.\n    If the complement does not exist, add the current element and its index to the map.\n-> If no solution is found, return an empty vector or a message indicating no solution exists.",
+    "pseudocode": "ALGORITHM  2 sum problem\nPATTERN    Hashing\n\nBEGIN\n  01  SET an empty map to store the elements and their corresponding indices\n  02  FOR EACH element while traversing the input array, nums, and for each element:\n  03  Calculate the complement by subtracting the current element from the target value\n  04  Check if the complement exists in the map\n  05  IF the complement exists, return the indices of the current element and the complement\n  06  IF the complement does not exist, add the current element and its index to the map\n  07  IF no solution is found, return an empty vector or a message indicating no solution exists\n  08  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(N)",
+    "strategy": "Hashing",
+    "tags": ["Arrays", "Hashing"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*\nQUESITON:-\nGiven an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\nYou can return the answer in any order.\n\nExample 1:\n\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]\nExplanation: Because nums[0] + nums[1] == 9, we return [0, 1].\nExample 2:\n\nInput: nums = [3,2,4], target = 6\nOutput: [1,2]\n*/\n\n/*\nApproach:\n\n-> Create an empty map to store the elements and their corresponding indices.\n>  Iterate through the input array, nums, and for each element:\n    Calculate the complement by subtracting the current element from the target value.\n    Check if the complement exists in the map.\n    If the complement exists, return the indices of the current element and the complement.\n    If the complement does not exist, add the current element and its index to the map.\n-> If no solution is found, return an empty vector or a message indicating no solution exists.\n*/\n\n// CODE:-\nvector<int> twoSum(vector<int> &nums, int target)\n{\n    unordered_map<int, int> mp;\n    for (int i = 0; i < nums.size(); i++)\n    {\n        int remain = target - nums[i];\n        if (mp.find(remain) != mp.end() && mp[remain] != i)\n            return {i, mp[remain]};\n        mp[nums[i]] = i;\n    }\n    return {-1, -1};\n    // If the question asks to just return whether pair exists or not, not the indexes in that case we can sort and easily find the pair sum without extra space\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(N)",
+    "codeLines": 46,
+    "repoPath": "01.Arrays/2.Medium/01.2_sum_problem.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/01.2_sum_problem.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/two-sum/",
+      "title": "Two Sum",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p015",
+    "index": 15,
+    "title": "Sort 0 1 2",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.\nWe will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.\nYou must solve this problem without using the library's sort function.\n\nExample 1:\n\nInput: nums = [2,0,2,1,1,0]\nOutput: [0,0,1,1,2,2]\n\nExample 2:\n\nInput: nums = [2,0,1]\nOutput: [0,1,2]",
+    "approach": "-> Initialize three pointers: low at the beginning of the array, mid at the beginning of the array, and high at the end of the array.\n-> Iterate through the array while the mid pointer is less than or equal to the high pointer:\n1. If the current element at the mid pointer is 0 (red), we swap it with the element at the low pointer and increment both low and mid pointers. This ensures that red elements are moved to the left side of the array.\n2. If the current element at the mid pointer is 1 (white), we simply increment the mid pointer. This keeps white elements in the middle of the array.\n3. If the current element at the mid pointer is 2 (blue), we swap it with the element at the high pointer and decrement the high pointer. This ensures that blue elements are moved to the right side of the array.\n\nRepeat step 2 until the mid pointer crosses the high pointer.\nAt the end of the algorithm, the array will be sorted in the desired order.",
+    "pseudocode": "ALGORITHM  Sort 0 1 2\nPATTERN    Two pointers\n\nBEGIN\n  01  SET three pointers: low at the beginning of the array, mid at the beginning of the array, and high at the end of the array\n  02  FOR EACH element while traversing the array while the mid pointer is less than or equal to the high pointer:\n  03  IF the current element at the mid pointer is 0 (red), we swap it with the element at the low pointer and increment both low and mid pointers\n  04  This ensures that red elements are moved to the left side of the array\n  05  IF the current element at the mid pointer is 1 (white), we simply increment the mid pointer. This keeps white elements in the middle of the array\n  06  IF the current element at the mid pointer is 2 (blue), we swap it with the element at the high pointer and decrement the high pointer\n  07  This ensures that blue elements are moved to the right side of the array\n  08  REPEAT step 2 until the mid pointer crosses the high pointer\n  09  At the end of the algorithm, the array will be sorted in the desired order\n  10  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.\nWe will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.\nYou must solve this problem without using the library's sort function.\n\nExample 1:\n\nInput: nums = [2,0,2,1,1,0]\nOutput: [0,0,1,1,2,2]\n\nExample 2:\n\nInput: nums = [2,0,1]\nOutput: [0,1,2]\n*/\n\n/*\nAPPROACH:-\n-> Initialize three pointers: low at the beginning of the array, mid at the beginning of the array, and high at the end of the array.\n-> Iterate through the array while the mid pointer is less than or equal to the high pointer:\n1. If the current element at the mid pointer is 0 (red), we swap it with the element at the low pointer and increment both low and mid pointers. This ensures that red elements are moved to the left side of the array.\n2. If the current element at the mid pointer is 1 (white), we simply increment the mid pointer. This keeps white elements in the middle of the array.\n3. If the current element at the mid pointer is 2 (blue), we swap it with the element at the high pointer and decrement the high pointer. This ensures that blue elements are moved to the right side of the array.\n\nRepeat step 2 until the mid pointer crosses the high pointer.\nAt the end of the algorithm, the array will be sorted in the desired order.\n*/\n\n// CODE:-\nvoid sortColors(vector<int> &nums)\n{\n    int low = 0, mid = 0, high = nums.size() - 1;\n    while (mid <= high)\n    {\n        if (nums[mid] == 0)\n            swap(nums[mid++], nums[low++]);\n        else if (nums[mid] == 1)\n            mid++;\n        else\n            swap(nums[mid], nums[high--]);\n    }\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 46,
+    "repoPath": "01.Arrays/2.Medium/02.Sort_0_1_2.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/02.Sort_0_1_2.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sort-colors/",
+      "title": "Sort Colors",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p016",
+    "index": 16,
+    "title": "Majority element",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given an array nums of size n, return the majority element.\nThe majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.\n\nExample 1:\n\nInput: nums = [3,2,3]\nOutput: 3\n\nExample 2:\n\nInput: nums = [2,2,1,1,1,2,2]\nOutput: 2",
+    "approach": "-> Initialize two variables: candidate and count. Set candidate to the first element of the array, and count to 1.\n-> Iterate through the array starting from the second element:\n    If the current element is equal to the candidate, increment the count by 1.\n    If the current element is different from the candidate, decrement the count by 1.\n    If the count becomes 0, update the candidate to the current element and set the count to 1 again.\n-> After the iteration, the candidate variable will hold the majority element.\nReturn the candidate as the result.",
+    "pseudocode": "ALGORITHM  Majority element\nPATTERN    Direct simulation\n\nBEGIN\n  01  SET two variables: candidate and count. Set candidate to the first element of the array, and count to 1\n  02  FOR EACH element while traversing the array starting from the second element:\n  03  IF the current element is equal to the candidate, increment the count by 1\n  04  IF the current element is different from the candidate, decrement the count by 1\n  05  IF the count becomes 0, update the candidate to the current element and set the count to 1 again\n  06  After the iteration, the candidate variable will hold the majority element\n  07  RETURN the candidate as the result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an array nums of size n, return the majority element.\nThe majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.\n\nExample 1:\n\nInput: nums = [3,2,3]\nOutput: 3\n\nExample 2:\n\nInput: nums = [2,2,1,1,1,2,2]\nOutput: 2\n*/\n\n/*\nAPROACH:-\n-> Initialize two variables: candidate and count. Set candidate to the first element of the array, and count to 1.\n-> Iterate through the array starting from the second element:\n    If the current element is equal to the candidate, increment the count by 1.\n    If the current element is different from the candidate, decrement the count by 1.\n    If the count becomes 0, update the candidate to the current element and set the count to 1 again.\n-> After the iteration, the candidate variable will hold the majority element.\nReturn the candidate as the result.\n*/\n\n// CODE:-\nint majorityElement(vector<int> &nums)\n{\n    int candidate = nums[0];\n    int vote = 1;\n    for (int i = 1; i < nums.size(); i++)\n    {\n        if (vote <= 0)\n            candidate = nums[i];\n        if (nums[i] == candidate)\n            vote++;\n        else\n            vote--;\n    }\n    return candidate;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 46,
+    "repoPath": "01.Arrays/2.Medium/03.Majority_element.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/03.Majority_element.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/majority-element/",
+      "title": "Majority Element",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p017",
+    "index": 17,
+    "title": "Kadane's algorithm",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given an integer array nums, find the subarray with the largest sum, and return its sum.\n\nExample 1:\n\nInput: nums = [-2,1,-3,4,-1,2,1,-5,4]\nOutput: 6\nExplanation: The subarray [4,-1,2,1] has the largest sum 6.\n\nExample 2:\n\nInput: nums = [1]\nOutput: 1\nExplanation: The subarray [1] has the largest sum 1.",
+    "approach": "-> Initialize two variables: maxSum and currentSum. Set both variables to the first element of the array.\n-> Iterate through the array starting from the second element:\n    Update currentSum by adding the current element to it.\n    If currentSum becomes negative, reset it to 0. This step ensures that we consider only the subarrays with positive sums.\n    Update maxSum by taking the maximum value between maxSum and currentSum. This keeps track of the maximum subarray sum encountered so far.\n-> After the iteration, the maxSum variable will hold the largest sum of any subarray.\n-> Return the maxSum as the result.",
+    "pseudocode": "ALGORITHM  Kadane's algorithm\nPATTERN    Dynamic programming\n\nBEGIN\n  01  SET two variables: maxSum and currentSum. Set both variables to the first element of the array\n  02  FOR EACH element while traversing the array starting from the second element:\n  03  UPDATE currentSum by adding the current element to it\n  04  IF currentSum becomes negative, reset it to 0. This step ensures that we consider only the subarrays with positive sums\n  05  UPDATE maxSum by taking the maximum value between maxSum and currentSum. This keeps track of the maximum subarray sum encountered so far\n  06  After the iteration, the maxSum variable will hold the largest sum of any subarray\n  07  RETURN the maxSum as the result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Dynamic programming",
+    "tags": ["Arrays", "Dynamic programming"],
+    "intuition": "Define a state that captures the smallest information needed to finish the problem. Write the transition first, lock down base cases, then choose memoization or tabulation.",
+    "constraints": [
+      "State dimensions must fit memory; target O(N) or O(N × M) where applicable",
+      "Values fit 32-bit integers unless counts/sums require 64-bit or modulo arithmetic",
+      "Empty input and base states are handled explicitly"
+    ],
+    "edgeCases": [
+      "Smallest base case",
+      "Impossible state",
+      "Repeated values",
+      "Overflow/modulo behavior"
+    ],
+    "pitfalls": [
+      "Ambiguous state meaning",
+      "Wrong iteration order",
+      "Missing impossible-state initialization"
+    ],
+    "code": "/*\nQUESTION:-\nGiven an integer array nums, find the subarray with the largest sum, and return its sum.\n\nExample 1:\n\nInput: nums = [-2,1,-3,4,-1,2,1,-5,4]\nOutput: 6\nExplanation: The subarray [4,-1,2,1] has the largest sum 6.\n\nExample 2:\n\nInput: nums = [1]\nOutput: 1\nExplanation: The subarray [1] has the largest sum 1.\n*/\n\n/*\nAPPROACH:-\n-> Initialize two variables: maxSum and currentSum. Set both variables to the first element of the array.\n-> Iterate through the array starting from the second element:\n    Update currentSum by adding the current element to it.\n    If currentSum becomes negative, reset it to 0. This step ensures that we consider only the subarrays with positive sums.\n    Update maxSum by taking the maximum value between maxSum and currentSum. This keeps track of the maximum subarray sum encountered so far.\n-> After the iteration, the maxSum variable will hold the largest sum of any subarray.\n-> Return the maxSum as the result.\n*/\n\n// CODE:-\nint maxSubArray(vector<int> &nums)\n{\n    int curr_sum = 0;\n    int ans = INT_MIN;\n    for (int i = 0; i < nums.size(); i++)\n    {\n        curr_sum += nums[i];\n        ans = max(ans, curr_sum);\n        if (curr_sum < 0)\n            curr_sum = 0;\n    }\n    return ans;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 45,
+    "repoPath": "01.Arrays/2.Medium/04.Kadane's_algorithm.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/04.Kadane%27s_algorithm.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-subarray/",
+      "title": "Maximum Subarray",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p018",
+    "index": 18,
+    "title": "Number of subarray sum equal k",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.\n\nExample:\nInput: nums = [1,1,1], k = 2\nOutput: 2",
+    "approach": "To find the total number of subarrays with sum equal to k, we can use the technique of prefix sum along with a hashmap.\n1. Initialize a variable `count` to keep track of the count of subarrays with sum equal to k.\n2. Initialize a variable `prefixSum` to keep track of the prefix sum while iterating through the array.\n3. Initialize a hashmap `sumCount` to store the frequency of prefix sums encountered so far.\n4. Set the initial prefix sum to 0 and set its count to 1 in the `sumCount` hashmap.\n5. Iterate through the array and update the prefix sum by adding each element.\n6. Check if the current prefix sum minus k exists in the `sumCount` hashmap. If it does, add the count of that prefix sum to the `count` variable.\n7. Increment the count of the current prefix sum in the `sumCount` hashmap.\n8. Finally, return the `count` variable as the total number of subarrays with sum equal to k.",
+    "pseudocode": "ALGORITHM  Number of subarray sum equal k\nPATTERN    Hashing\n\nBEGIN\n  01  To find the total number of subarrays with sum equal to k, we can use the technique of prefix sum along with a hashmap\n  02  SET a variable count to keep track of the count of subarrays with sum equal to k\n  03  SET a variable prefixSum to keep track of the prefix sum while iterating through the array\n  04  SET a hashmap sumCount to store the frequency of prefix sums encountered so far\n  05  SET the initial prefix sum to 0 and set its count to 1 in the sumCount hashmap\n  06  FOR EACH element while traversing the array and update the prefix sum by adding each element\n  07  Check if the current prefix sum minus k exists in the sumCount hashmap. If it does, add the count of that prefix sum to the count variable\n  08  Increment the count of the current prefix sum in the sumCount hashmap\n  09  Finally, return the count variable as the total number of subarrays with sum equal to k\n  10  RETURN the required result\nEND",
+    "time": "O(n), where n is the size of the input array nums",
+    "space": "O(n), as we are using a hashmap to store the prefix sums and their corresponding counts",
+    "strategy": "Hashing",
+    "tags": ["Arrays", "Hashing"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.\n\nExample:\nInput: nums = [1,1,1], k = 2\nOutput: 2\n\nAPPROACH:\nTo find the total number of subarrays with sum equal to k, we can use the technique of prefix sum along with a hashmap.\n1. Initialize a variable `count` to keep track of the count of subarrays with sum equal to k.\n2. Initialize a variable `prefixSum` to keep track of the prefix sum while iterating through the array.\n3. Initialize a hashmap `sumCount` to store the frequency of prefix sums encountered so far.\n4. Set the initial prefix sum to 0 and set its count to 1 in the `sumCount` hashmap.\n5. Iterate through the array and update the prefix sum by adding each element.\n6. Check if the current prefix sum minus k exists in the `sumCount` hashmap. If it does, add the count of that prefix sum to the `count` variable.\n7. Increment the count of the current prefix sum in the `sumCount` hashmap.\n8. Finally, return the `count` variable as the total number of subarrays with sum equal to k.\n\nCODE:\n*/\n\nint subarraySum(vector<int> &nums, int k)\n{\n    int pref_sum = 0;\n    unordered_map<int, int> mp;\n    int ans = 0;\n\n    for (int i = 0; i < nums.size(); i++)\n    {\n        pref_sum += nums[i];\n\n        if (pref_sum == k)\n            ans++;\n\n        if (mp.find(pref_sum - k) != mp.end())\n        {\n            ans += mp[pref_sum - k];\n        }\n\n        mp[pref_sum]++;\n    }\n\n    return ans;\n}\n\n/*\nTIME COMPLEXITY: O(n), where n is the size of the input array nums.\nSPACE COMPLEXITY: O(n), as we are using a hashmap to store the prefix sums and their corresponding counts.\n*/\n",
+    "codeLines": 50,
+    "repoPath": "01.Arrays/2.Medium/05.Number_of_subarray_sum_equal_k.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/05.Number_of_subarray_sum_equal_k.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subarray-sum-equals-k/",
+      "title": "Subarray Sum Equals K",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p019",
+    "index": 19,
+    "title": "Stock buy sell",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "You are given an array prices where prices[i] is the price of a given stock on the ith day.\nYou want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.\n\nExample 1:\n\nInput: prices = [7,1,5,3,6,4]\nOutput: 5\nExplanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.\nNote that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.\n\nExample 2:\n\nInput: prices = [7,6,4,3,1]\nOutput: 0\nExplanation: In this case, no transactions are done and the max profit = 0.",
+    "approach": "Initialize two variables: min_price and max_profit.\n\n-> min_price = minimum price in the array.\n-> max_profit = 0.\n\nIterate through the array, and for each price:\n\n-> Update min_price to the minimum price seen so far.\n-> Update max_profit to the maximum profit seen so far, or the current price minus min_price, whichever is greater.\n\nReturn max_profit.",
+    "pseudocode": "ALGORITHM  Stock buy sell\nPATTERN    Direct simulation\n\nBEGIN\n  01  SET two variables: min_price and max_profit\n  02  min_price = minimum price in the array\n  03  max_profit = 0\n  04  FOR EACH element while traversing the array, and for each price:\n  05  UPDATE min_price to the minimum price seen so far\n  06  UPDATE max_profit to the maximum profit seen so far, or the current price minus min_price, whichever is greater\n  07  RETURN max_profit\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nYou are given an array prices where prices[i] is the price of a given stock on the ith day.\nYou want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.\n\nExample 1:\n\nInput: prices = [7,1,5,3,6,4]\nOutput: 5\nExplanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.\nNote that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.\n\nExample 2:\n\nInput: prices = [7,6,4,3,1]\nOutput: 0\nExplanation: In this case, no transactions are done and the max profit = 0.\n*/\n\n/*\nAPPROACH:-\nInitialize two variables: min_price and max_profit.\n\n-> min_price = minimum price in the array.\n-> max_profit = 0.\n\nIterate through the array, and for each price:\n\n-> Update min_price to the minimum price seen so far.\n-> Update max_profit to the maximum profit seen so far, or the current price minus min_price, whichever is greater.\n\nReturn max_profit.\n*/\n\n// CODE:-\nint maxProfit(vector<int> &prices)\n{\n    int minprice = prices[0];\n    int ans = 0;\n    for (int i = 1; i < prices.size(); i++)\n    {\n        ans = max(ans, prices[i] - minprice);\n        minprice = min(minprice, prices[i]);\n    }\n    return ans;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 50,
+    "repoPath": "01.Arrays/2.Medium/06.Stock_buy_sell.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/06.Stock_buy_sell.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+      "title": "Best Time to Buy and Sell Stock",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p020",
+    "index": 20,
+    "title": "Rearrange elements by sign",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "You are given a 0-indexed integer array nums of even length consisting of an equal number of positive and negative integers.\nYou should rearrange the elements of nums such that the modified array follows the given conditions:\nEvery consecutive pair of integers have opposite signs.\nFor all integers with the same sign, the order in which they were present in nums is preserved.\nThe rearranged array begins with a positive integer.\nReturn the modified array after rearranging the elements to satisfy the aforementioned conditions.\n\nExample 1:\n\nInput: nums = [3,1,-2,-5,2,-4]\nOutput: [3,-2,1,-5,2,-4]\nExplanation:\nThe positive integers in nums are [3,1,2]. The negative integers are [-2,-5,-4].\nThe only possible way to rearrange them such that they satisfy all conditions is [3,-2,1,-5,2,-4].\nOther ways such as [1,-2,2,-5,3,-4], [3,1,2,-2,-5,-4], [-2,3,-5,1,-4,2] are incorrect because they do not satisfy one or more conditions.",
+    "approach": "Initialize two pointers, pos_ptr and neg_ptr. pos_ptr will point to the first positive integer in the array, and neg_ptr will point to the first negative integer in the array.\nIterate over the array.\nIf the current integer is positive, swap it with the element at neg_ptr.\nIncrement pos_ptr by 1.\nIncrement neg_ptr by 1.\nRepeat steps 3-5 until the end of the array is reached.\nThe array will now be rearranged such that every consecutive pair of integers have opposite signs.",
+    "pseudocode": "ALGORITHM  Rearrange elements by sign\nPATTERN    Two pointers\n\nBEGIN\n  01  SET two pointers, pos_ptr and neg_ptr. pos_ptr will point to the first positive integer in the array, and neg_ptr will point to the first negative integer in the array\n  02  Iterate over the array\n  03  IF the current integer is positive, swap it with the element at neg_ptr\n  04  Increment pos_ptr by 1\n  05  Increment neg_ptr by 1\n  06  REPEAT steps 3-5 until the end of the array is reached\n  07  The array will now be rearranged such that every consecutive pair of integers have opposite signs\n  08  RETURN the required result\nEND",
+    "time": "O(N)",
+    "space": "O(0)",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nYou are given a 0-indexed integer array nums of even length consisting of an equal number of positive and negative integers.\nYou should rearrange the elements of nums such that the modified array follows the given conditions:\nEvery consecutive pair of integers have opposite signs.\nFor all integers with the same sign, the order in which they were present in nums is preserved.\nThe rearranged array begins with a positive integer.\nReturn the modified array after rearranging the elements to satisfy the aforementioned conditions.\n\n\nExample 1:\n\nInput: nums = [3,1,-2,-5,2,-4]\nOutput: [3,-2,1,-5,2,-4]\nExplanation:\nThe positive integers in nums are [3,1,2]. The negative integers are [-2,-5,-4].\nThe only possible way to rearrange them such that they satisfy all conditions is [3,-2,1,-5,2,-4].\nOther ways such as [1,-2,2,-5,3,-4], [3,1,2,-2,-5,-4], [-2,3,-5,1,-4,2] are incorrect because they do not satisfy one or more conditions.\n*/\n\n/*\nAPPROACH:-\nInitialize two pointers, pos_ptr and neg_ptr. pos_ptr will point to the first positive integer in the array, and neg_ptr will point to the first negative integer in the array.\nIterate over the array.\nIf the current integer is positive, swap it with the element at neg_ptr.\nIncrement pos_ptr by 1.\nIncrement neg_ptr by 1.\nRepeat steps 3-5 until the end of the array is reached.\nThe array will now be rearranged such that every consecutive pair of integers have opposite signs.\n*/\n\n// CODE:-\nvector<int> rearrangeArray(vector<int> &nums)\n{\n    int i = 0; // for +ve integers\n    int j = 1; // for -ve integers\n    vector<int> ans(nums.size());\n    for (int k = 0; k < nums.size(); k++)\n    {\n        if (nums[k] >= 0)\n        {\n            ans[i] = nums[k];\n            i += 2;\n        }\n        else\n        {\n            ans[j] = nums[k];\n            j += 2;\n        }\n    }\n    return ans;\n}\n\n// TIME COMPLEXITY = O(N)\n// SPACE COMPLEXITY = O(0)",
+    "codeLines": 55,
+    "repoPath": "01.Arrays/2.Medium/07.Rearange_elements_by_sign.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/07.Rearange_elements_by_sign.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/rearrange-array-elements-by-sign/",
+      "title": "Rearrange Array Elements by Sign",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p021",
+    "index": 21,
+    "title": "Next permutation",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "A permutation of an array of integers is an arrangement of its members into a sequence or linear order.\n\nFor example, for arr = [1,2,3], the following are all the permutations of arr: [1,2,3], [1,3,2], [2, 1, 3], [2, 3, 1], [3,1,2], [3,2,1].\nThe next permutation of an array of integers is the next lexicographically greater permutation of its integer. More formally, if all the permutations of the array are sorted in one container according to their lexicographical order, then the next permutation of that array is the permutation that follows it in the sorted container. If such arrangement is not possible, the array must be rearranged as the lowest possible order (i.e., sorted in ascending order).\n\nFor example, the next permutation of arr = [1,2,3] is [1,3,2].\nSimilarly, the next permutation of arr = [2,3,1] is [3,1,2].\nWhile the next permutation of arr = [3,2,1] is [1,2,3] because [3,2,1] does not have a lexicographical larger rearrangement.\n\nGiven an array of integers nums, find the next permutation of nums.\n\nThe replacement must be in place and use only constant extra memory.\n\nExample 1:\nInput: nums = [1,2,3]\nOutput: [1,3,2]",
+    "approach": "To find the next permutation of an array, we can follow these steps:\n\n1. Find the first index `i` from the right such that `nums[i] < nums[i+1]`. This is the first element that needs to be swapped.\n2. Find the first index `j` from the right such that `nums[j] > nums[i]`. This is the element that will replace `nums[i]`.\n3. Swap `nums[i]` and `nums[j]`.\n4. Reverse the subarray starting from `i+1` till the end of the array.\n5. If step 1 does not find any index `i`, it means the array is in descending order. In that case, reverse the entire array to get the lowest possible order.",
+    "pseudocode": "ALGORITHM  Next permutation\nPATTERN    Dynamic programming\n\nBEGIN\n  01  To find the next permutation of an array, we can follow these steps:\n  02  Find the first index i from the right such that nums[i] < nums[i+1]. This is the first element that needs to be swapped\n  03  Find the first index j from the right such that nums[j] > nums[i]. This is the element that will replace nums[i]\n  04  Swap nums[i] and nums[j]\n  05  Reverse the subarray starting from i+1 till the end of the array\n  06  IF step 1 does not find any index i, it means the array is in descending order. In that case, reverse the entire array to get the lowest possible order\n  07  RETURN the required result\nEND",
+    "time": "O(n), where n is the size of the input array",
+    "space": "O(1)",
+    "strategy": "Dynamic programming",
+    "tags": ["Arrays", "Dynamic programming", "Graph"],
+    "intuition": "Define a state that captures the smallest information needed to finish the problem. Write the transition first, lock down base cases, then choose memoization or tabulation.",
+    "constraints": [
+      "State dimensions must fit memory; target O(N) or O(N × M) where applicable",
+      "Values fit 32-bit integers unless counts/sums require 64-bit or modulo arithmetic",
+      "Empty input and base states are handled explicitly"
+    ],
+    "edgeCases": [
+      "Smallest base case",
+      "Impossible state",
+      "Repeated values",
+      "Overflow/modulo behavior"
+    ],
+    "pitfalls": [
+      "Ambiguous state meaning",
+      "Wrong iteration order",
+      "Missing impossible-state initialization"
+    ],
+    "code": "/*\nQUESTION:-\n\nA permutation of an array of integers is an arrangement of its members into a sequence or linear order.\n\nFor example, for arr = [1,2,3], the following are all the permutations of arr: [1,2,3], [1,3,2], [2, 1, 3], [2, 3, 1], [3,1,2], [3,2,1].\nThe next permutation of an array of integers is the next lexicographically greater permutation of its integer. More formally, if all the permutations of the array are sorted in one container according to their lexicographical order, then the next permutation of that array is the permutation that follows it in the sorted container. If such arrangement is not possible, the array must be rearranged as the lowest possible order (i.e., sorted in ascending order).\n\nFor example, the next permutation of arr = [1,2,3] is [1,3,2].\nSimilarly, the next permutation of arr = [2,3,1] is [3,1,2].\nWhile the next permutation of arr = [3,2,1] is [1,2,3] because [3,2,1] does not have a lexicographical larger rearrangement.\n\nGiven an array of integers nums, find the next permutation of nums.\n\nThe replacement must be in place and use only constant extra memory.\n\nExample 1:\nInput: nums = [1,2,3]\nOutput: [1,3,2]\n*/\n\n/*\nAPPROACH:-\n\nTo find the next permutation of an array, we can follow these steps:\n\n1. Find the first index `i` from the right such that `nums[i] < nums[i+1]`. This is the first element that needs to be swapped.\n2. Find the first index `j` from the right such that `nums[j] > nums[i]`. This is the element that will replace `nums[i]`.\n3. Swap `nums[i]` and `nums[j]`.\n4. Reverse the subarray starting from `i+1` till the end of the array.\n5. If step 1 does not find any index `i`, it means the array is in descending order. In that case, reverse the entire array to get the lowest possible order.\n\n*/\n\n// CODE:\n\nvoid nextPermutation(vector<int> &nums)\n{\n\n    int bp = -1;\n    // finding the break point\n    for (int i = nums.size() - 2; i >= 0; i--)\n    {\n        if (nums[i] < nums[i + 1])\n        {\n            bp = i;\n            break;\n        }\n    }\n    // first greater element from back\n    if (bp != -1)\n    {\n        for (int i = nums.size() - 1; i >= 0; i--)\n        {\n            if (nums[i] > nums[bp])\n            {\n                swap(nums[i], nums[bp]);\n                break;\n            }\n        }\n    }\n    // reverse the array from bp+1 to end\n    reverse(nums.begin() + bp + 1, nums.end());\n}\n\n// TIME COMPLEXITY: O(n), where n is the size of the input array.\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 67,
+    "repoPath": "01.Arrays/2.Medium/08.Next_permutation.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/08.Next_permutation.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/next-permutation/",
+      "title": "Next Permutation",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p022",
+    "index": 22,
+    "title": "Leaders in array",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given an array A of positive integers. Your task is to find the leaders in the array. An element of the array is a leader if it is greater than or equal to all the elements to its right side. The rightmost element is always a leader.\n\nExample 1:\nInput:\nn = 6\nA[] = {16,17,4,3,5,2}\nOutput: 17 5 2\nExplanation: The first leader is 17 as it is greater than all the elements to its right. Similarly, the next leader is 5. The rightmost element is always a leader, so it is also included.",
+    "approach": "To find the leaders in the array, we can follow these steps:\n\n1. Initialize a variable `maxRight` with the rightmost element of the array.\n2. Iterate the array from right to left:\n   - If the current element is greater than or equal to `maxRight`, it is a leader. Print the current element and update `maxRight` to the current element.\n3. Finally, print `maxRight` as it is always a leader.",
+    "pseudocode": "ALGORITHM  Leaders in array\nPATTERN    Two pointers\n\nBEGIN\n  01  To find the leaders in the array, we can follow these steps:\n  02  SET a variable maxRight with the rightmost element of the array\n  03  Iterate the array from right to left:\n  04  IF the current element is greater than or equal to maxRight, it is a leader. Print the current element and update maxRight to the current element\n  05  Finally, print maxRight as it is always a leader\n  06  RETURN the required result\nEND",
+    "time": "O(n), where n is the size of the array",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\n\nGiven an array A of positive integers. Your task is to find the leaders in the array. An element of the array is a leader if it is greater than or equal to all the elements to its right side. The rightmost element is always a leader.\n\nExample 1:\nInput:\nn = 6\nA[] = {16,17,4,3,5,2}\nOutput: 17 5 2\nExplanation: The first leader is 17 as it is greater than all the elements to its right. Similarly, the next leader is 5. The rightmost element is always a leader, so it is also included.\n\n*/\n\n/*\nAPPROACH:-\n\nTo find the leaders in the array, we can follow these steps:\n\n1. Initialize a variable `maxRight` with the rightmost element of the array.\n2. Iterate the array from right to left:\n   - If the current element is greater than or equal to `maxRight`, it is a leader. Print the current element and update `maxRight` to the current element.\n3. Finally, print `maxRight` as it is always a leader.\n\n*/\n\n// CODE:\n\nvector<int> leaders(int a[], int n)\n{\n    vector<int> ans;\n    ans.push_back(a[n - 1]);\n    int maxi = a[n - 1]; // represent maximum encountered till now\n\n    for (int i = n - 2; i >= 0; i--)\n    {\n        if (a[i] >= maxi)\n        {\n            ans.push_back(a[i]);\n            maxi = a[i];\n        }\n    }\n\n    reverse(ans.begin(), ans.end());\n    return ans;\n}\n\n// TIME COMPLEXITY: O(n), where n is the size of the array.\n// SPACE COMPLEXITY: O(1)\n\n",
+    "codeLines": 50,
+    "repoPath": "01.Arrays/2.Medium/09.Leaders_in_array.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/09.Leaders_in_array.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+      "title": "Best Time to Buy and Sell Stock",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p023",
+    "index": 23,
+    "title": "Longest consecutive subsequence",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.\n\nExample 1:\nInput: nums = [100,4,200,1,3,2]\nOutput: 4\nExplanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.\n\nExample 2:\nInput: nums = [0,3,7,2,5,8,4,6,0,1]\nOutput: 9",
+    "approach": "To find the length of the longest consecutive elements sequence, we can follow these steps:\n\n1. Create a set to store all the elements of the array.\n2. Iterate through the array and insert each element into the set.\n3. For each element, check if its previous consecutive element (num-1) exists in the set. If it does not exist, it means the current element is the starting element of a sequence.\n4. For each starting element, keep incrementing the current element (num+1) and checking if it exists in the set. This will help find the consecutive elements in the sequence.\n5. Keep track of the maximum length of consecutive elements encountered.\n6. Return the maximum length as the result.",
+    "pseudocode": "ALGORITHM  Longest consecutive subsequence\nPATTERN    Hashing\n\nBEGIN\n  01  To find the length of the longest consecutive elements sequence, we can follow these steps:\n  02  SET a set to store all the elements of the array\n  03  FOR EACH element while traversing the array and insert each element into the set\n  04  FOR EACH element, check if its previous consecutive element (num-1) exists in the set. If it does not exist, it means the current element is the starting element of a sequence\n  05  FOR EACH starting element, keep incrementing the current element (num+1) and checking if it exists in the set. This will help find the consecutive elements in the sequence\n  06  Keep track of the maximum length of consecutive elements encountered\n  07  RETURN the maximum length as the result\nEND",
+    "time": "O(n), where n is the size of the input array",
+    "space": "O(n), as we are using a set to store the elements of the array",
+    "strategy": "Hashing",
+    "tags": ["Arrays", "Hashing"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*\nQUESTION:-\n\nGiven an unsorted array of integers nums, return the length of the longest consecutive elements sequence.\n\nExample 1:\nInput: nums = [100,4,200,1,3,2]\nOutput: 4\nExplanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.\n\nExample 2:\nInput: nums = [0,3,7,2,5,8,4,6,0,1]\nOutput: 9\n*/\n\n/*\nAPPROACH:-\n\nTo find the length of the longest consecutive elements sequence, we can follow these steps:\n\n1. Create a set to store all the elements of the array.\n2. Iterate through the array and insert each element into the set.\n3. For each element, check if its previous consecutive element (num-1) exists in the set. If it does not exist, it means the current element is the starting element of a sequence.\n4. For each starting element, keep incrementing the current element (num+1) and checking if it exists in the set. This will help find the consecutive elements in the sequence.\n5. Keep track of the maximum length of consecutive elements encountered.\n6. Return the maximum length as the result.\n\n*/\n\n// CODE:\nint longestConsecutive(vector<int> &nums)\n{\n    unordered_map<int, int> mp;\n    for (int i = 0; i < nums.size(); i++)\n    {\n        mp[nums[i]]++;\n    }\n    int ans = 0;\n    for (int i = 0; i < nums.size(); i++)\n    {\n        int start = nums[i];\n        // check whehter this can be the start of the subsequence\n        if (mp.find(nums[i] - 1) == mp.end())\n        {\n            int temp = 1;\n            int nxt = nums[i];\n            while (mp.find(nxt + 1) != mp.end())\n            {\n                temp++;\n                nxt++;\n            }\n            ans = max(ans, temp);\n        }\n    }\n    return ans;\n}\n\n// TIME COMPLEXITY: O(n), where n is the size of the input array.\n// SPACE COMPLEXITY: O(n), as we are using a set to store the elements of the array.\n",
+    "codeLines": 59,
+    "repoPath": "01.Arrays/2.Medium/10.Longest_consecutive_subsequence.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/10.Longest_consecutive_subsequence.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-consecutive-sequence/",
+      "title": "Longest Consecutive Sequence",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p024",
+    "index": 24,
+    "title": "Set matrix 0's",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.\n\nExample 1:\nInput: matrix = [[1,1,1],[1,0,1],[1,1,1]]\nOutput: [[1,0,1],[0,0,0],[1,0,1]]\n\nExample 2:\nInput: matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]\nOutput: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]",
+    "approach": "To solve this problem in-place, we can follow these steps:\n1. Use two boolean variables, firstRowZero and firstColZero, to check if the first row and first column contain zeros initially.\n2. Iterate through the matrix and if an element is zero, set the corresponding element in the first row and first column to zero.\n3. Iterate through the matrix again, excluding the first row and first column. If an element in the first row or first column is zero, set the current element to zero.\n4. Finally, based on the values in firstRowZero and firstColZero, set the first row and first column to zero if needed.",
+    "pseudocode": "ALGORITHM  Set matrix 0's\nPATTERN    Bit manipulation\n\nBEGIN\n  01  To solve this problem in-place, we can follow these steps:\n  02  Use two boolean variables, firstRowZero and firstColZero, to check if the first row and first column contain zeros initially\n  03  FOR EACH element while traversing the matrix and if an element is zero, set the corresponding element in the first row and first column to zero\n  04  FOR EACH element while traversing the matrix again, excluding the first row and first column. If an element in the first row or first column is zero, set the current element to zero\n  05  Finally, based on the values in firstRowZero and firstColZero, set the first row and first column to zero if needed\n  06  RETURN the required result\nEND",
+    "time": "O(m * n), where m and n are the dimensions of the matrix",
+    "space": "O(1), as we are using constant extra space",
+    "strategy": "Bit manipulation",
+    "tags": ["Arrays", "Bit manipulation", "Matrix / grid"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "1 ≤ rows, columns ≤ 10³",
+      "Total cells should fit memory for the chosen O(R × C) representation",
+      "Cell values fit a signed 32-bit integer unless path sums require 64-bit"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.\n\nExample 1:\nInput: matrix = [[1,1,1],[1,0,1],[1,1,1]]\nOutput: [[1,0,1],[0,0,0],[1,0,1]]\n\nExample 2:\nInput: matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]\nOutput: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]\n\nAPPROACH:\nTo solve this problem in-place, we can follow these steps:\n1. Use two boolean variables, firstRowZero and firstColZero, to check if the first row and first column contain zeros initially.\n2. Iterate through the matrix and if an element is zero, set the corresponding element in the first row and first column to zero.\n3. Iterate through the matrix again, excluding the first row and first column. If an element in the first row or first column is zero, set the current element to zero.\n4. Finally, based on the values in firstRowZero and firstColZero, set the first row and first column to zero if needed.\n\nTIME COMPLEXITY: O(m * n), where m and n are the dimensions of the matrix.\nSPACE COMPLEXITY: O(1), as we are using constant extra space.\n\n*/\n\n// CODE:\nvoid setZeroes(vector<vector<int>>& matrix) {\n    int m = matrix.size();\n    int n = matrix[0].size();\n    bool firstRowZero = false;\n    bool firstColZero = false;\n\n    // Check if the first row contains zero\n    for (int j = 0; j < n; j++) {\n        if (matrix[0][j] == 0) {\n            firstRowZero = true;\n            break;\n        }\n    }\n\n    // Check if the first column contains zero\n    for (int i = 0; i < m; i++) {\n        if (matrix[i][0] == 0) {\n            firstColZero = true;\n            break;\n        }\n    }\n\n    // Mark zeros in the first row and column\n    for (int i = 1; i < m; i++) {\n        for (int j = 1; j < n; j++) {\n            if (matrix[i][j] == 0) {\n                matrix[i][0] = 0;\n                matrix[0][j] = 0;\n            }\n        }\n    }\n\n    // Set rows to zero\n    for (int i = 1; i < m; i++) {\n        if (matrix[i][0] == 0) {\n            for (int j = 1; j < n; j++) {\n                matrix[i][j] = 0;\n            }\n        }\n    }\n\n    // Set columns to zero\n    for (int j = 1; j < n; j++) {\n        if (matrix[0][j] == 0) {\n            for (int i = 1; i < m; i++) {\n                matrix[i][j] = 0;\n            }\n        }\n    }\n\n    // Set first row to zero\n    if (firstRowZero) {\n        for (int j = 0; j < n; j++) {\n            matrix[0][j] = 0;\n        }\n    }\n\n    // Set first column to zero\n    if (firstColZero) {\n        for (int i = 0; i < m; i++) {\n            matrix[i][0] = 0;\n        }\n    }\n}\n\n// TIME COMPLEXITY: O(m * n), where m and n are the dimensions of the matrix.\n// SPACE COMPLEXITY: O(1), as we are using constant extra space.\n",
+    "codeLines": 92,
+    "repoPath": "01.Arrays/2.Medium/11.Set_matrix_0's.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/11.Set_matrix_0%27s.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/set-matrix-zeroes/",
+      "title": "Set Matrix Zeroes",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p025",
+    "index": 25,
+    "title": "Rotate matrix",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).\n\nExample 1:\nInput: matrix = [[1,2,3],[4,5,6],[7,8,9]]\nOutput: [[7,4,1],[8,5,2],[9,6,3]]\n\nExample 2:\nInput: matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]\nOutput: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]",
+    "approach": "To rotate the image by 90 degrees clockwise in-place, we can follow these steps:\n\n1. Transpose the matrix: Iterate over the matrix and swap each element (i, j) with its corresponding element (j, i). This step transforms rows into columns.\n\n2. Reverse each row: Iterate over each row in the transposed matrix and reverse the elements. This step ensures the rotation in a clockwise direction.",
+    "pseudocode": "ALGORITHM  Rotate matrix\nPATTERN    Bit manipulation\n\nBEGIN\n  01  To rotate the image by 90 degrees clockwise in-place, we can follow these steps:\n  02  Transpose the matrix: Iterate over the matrix and swap each element (i, j) with its corresponding element (j, i). This step transforms rows into columns\n  03  Reverse each row: Iterate over each row in the transposed matrix and reverse the elements. This step ensures the rotation in a clockwise direction\n  04  RETURN the required result\nEND",
+    "time": "O(N^2), where N is the size of the matrix",
+    "space": "O(1)",
+    "strategy": "Bit manipulation",
+    "tags": ["Arrays", "Bit manipulation", "Matrix / grid"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "1 ≤ rows, columns ≤ 10³",
+      "Total cells should fit memory for the chosen O(R × C) representation",
+      "Cell values fit a signed 32-bit integer unless path sums require 64-bit"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\n\nYou are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).\n\nExample 1:\nInput: matrix = [[1,2,3],[4,5,6],[7,8,9]]\nOutput: [[7,4,1],[8,5,2],[9,6,3]]\n\nExample 2:\nInput: matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]\nOutput: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]\n\n*/\n\n/*\nAPPROACH:-\n\nTo rotate the image by 90 degrees clockwise in-place, we can follow these steps:\n\n1. Transpose the matrix: Iterate over the matrix and swap each element (i, j) with its corresponding element (j, i). This step transforms rows into columns.\n\n2. Reverse each row: Iterate over each row in the transposed matrix and reverse the elements. This step ensures the rotation in a clockwise direction.\n\n*/\n\n// CODE: \n\nvoid rotate(vector<vector<int>>& matrix) {\n    // Transpose the matrix\n    int n = matrix.size();\n    int m = matrix[0].size();\n    for(int i=0; i<n; i++){\n        // note here we move \n        for(int j=0; j<i; j++){\n            swap(matrix[i][j],matrix[j][i]);\n        }\n    }\n\n    // Reverse each row\n    for(int i=0; i<n; i++){\n        reverse(matrix[i].begin(),matrix[i].end());\n    }\n}\n\n// TIME COMPLEXITY = O(N^2), where N is the size of the matrix.\n// SPACE COMPLEXITY = O(1)\n",
+    "codeLines": 47,
+    "repoPath": "01.Arrays/2.Medium/12.Rotate_matrix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/12.Rotate_matrix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/rotate-image/",
+      "title": "Rotate Image",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p026",
+    "index": 26,
+    "title": "Spiral traversal",
+    "topic": "Arrays",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given an m x n matrix, return all elements of the matrix in spiral order.\n\nExample 1:\nInput: matrix = [[1,2,3],[4,5,6],[7,8,9]]\nOutput: [1,2,3,6,9,8,7,4,5]\n\nExample 2:\nInput: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]\nOutput: [1,2,3,4,8,12,11,10,9,5,6,7]",
+    "approach": "To traverse the matrix in a spiral order, we can use the following steps:\n\n1. Initialize four variables: top, bottom, left, and right to keep track of the boundaries of the current spiral.\n2. Create an empty vector called 'ans' to store the elements in spiral order.\n3. While the top boundary is less than or equal to the bottom boundary and the left boundary is less than or equal to the right boundary:\n   - Traverse the top row from left to right and add each element to 'ans'.\n   - Increment the top boundary.\n   - Traverse the right column from top to bottom and add each element to 'ans'.\n   - Decrement the right boundary.\n   - Check if the top boundary is still less than or equal to the bottom boundary:\n     - Traverse the bottom row from right to left and add each element to 'ans'.\n     - Decrement the bottom boundary.\n   - Check if the left boundary is still less than or equal to the right boundary:\n     - Traverse the left column from bottom to top and add each element to 'ans'.\n     - Increment the left boundary.\n4. Return the 'ans' vector containing all the elements in spiral order.",
+    "pseudocode": "ALGORITHM  Spiral traversal\nPATTERN    Two pointers\n\nBEGIN\n  01  To traverse the matrix in a spiral order, we can use the following steps:\n  02  SET four variables: top, bottom, left, and right to keep track of the boundaries of the current spiral\n  03  SET an empty vector called 'ans' to store the elements in spiral order\n  04  WHILE the top boundary is less than or equal to the bottom boundary and the left boundary is less than or equal to the right boundary:\n  05  FOR EACH element while traversing the top row from left to right and add each element to 'ans'\n  06  Increment the top boundary\n  07  FOR EACH element while traversing the right column from top to bottom and add each element to 'ans'\n  08  Decrement the right boundary\n  09  Check if the top boundary is still less than or equal to the bottom boundary:\n  10  FOR EACH element while traversing the bottom row from right to left and add each element to 'ans'\n  11  Decrement the bottom boundary\n  12  Check if the left boundary is still less than or equal to the right boundary:\n  13  FOR EACH element while traversing the left column from bottom to top and add each element to 'ans'\n  14  Increment the left boundary\n  15  RETURN the required result\nEND",
+    "time": "O(N), where N is the total number of elements in the matrix",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers", "Matrix / grid"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\n\nGiven an m x n matrix, return all elements of the matrix in spiral order.\n\nExample 1:\nInput: matrix = [[1,2,3],[4,5,6],[7,8,9]]\nOutput: [1,2,3,6,9,8,7,4,5]\n\nExample 2:\nInput: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]\nOutput: [1,2,3,4,8,12,11,10,9,5,6,7]\n\n*/\n\n/*\nAPPROACH:-\n\nTo traverse the matrix in a spiral order, we can use the following steps:\n\n1. Initialize four variables: top, bottom, left, and right to keep track of the boundaries of the current spiral.\n2. Create an empty vector called 'ans' to store the elements in spiral order.\n3. While the top boundary is less than or equal to the bottom boundary and the left boundary is less than or equal to the right boundary:\n   - Traverse the top row from left to right and add each element to 'ans'.\n   - Increment the top boundary.\n   - Traverse the right column from top to bottom and add each element to 'ans'.\n   - Decrement the right boundary.\n   - Check if the top boundary is still less than or equal to the bottom boundary:\n     - Traverse the bottom row from right to left and add each element to 'ans'.\n     - Decrement the bottom boundary.\n   - Check if the left boundary is still less than or equal to the right boundary:\n     - Traverse the left column from bottom to top and add each element to 'ans'.\n     - Increment the left boundary.\n4. Return the 'ans' vector containing all the elements in spiral order.\n\n*/\n\n// CODE:\n\nvector<int> spiralOrder(vector<vector<int>>& matrix) {\n    int n = matrix.size(); \n    int m = matrix[0].size();\n    int top = 0, bottom = n - 1;\n    int left = 0, right = m - 1;\n    vector<int> ans;\n\n    while (top <= bottom && left <= right) {\n        // Traverse top row\n        for (int i = left; i <= right; i++) {\n            ans.push_back(matrix[top][i]);\n        }\n        top++;\n\n        // Traverse right column\n        for (int i = top; i <= bottom; i++) {\n            ans.push_back(matrix[i][right]);\n        }\n        right--;\n\n        // Traverse bottom row\n        if (top <= bottom) {\n            for (int i = right; i >= left; i--) {\n                ans.push_back(matrix[bottom][i]);\n            }\n            bottom--;\n        }\n\n        // Traverse left column\n        if (left <= right) {\n            for (int i = bottom; i >= top; i--) {\n                ans.push_back(matrix[i][left]);\n            }\n            left++;\n        }\n    }\n\n    return ans;\n}\n\n// TIME COMPLEXITY: O(N), where N is the total number of elements in the matrix.\n// SPACE COMPLEXITY: O(1)\n",
+    "codeLines": 81,
+    "repoPath": "01.Arrays/2.Medium/13.Spiral_traversal.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/2.Medium/13.Spiral_traversal.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/spiral-matrix/",
+      "title": "Spiral Matrix",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p027",
+    "index": 27,
+    "title": "Pascal triangle",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an integer `rowIndex`, return the `rowIndex`th (0-indexed) row of Pascal's triangle.\n\nIn Pascal's triangle, each number is the sum of the two numbers directly above it.\n\nExample:\n\nInput: `rowIndex = 3`\n\nOutput: `[1, 3, 3, 1]`",
+    "approach": "To generate the `rowIndex`th row of Pascal's triangle, we can use the property that each number is the sum of the two numbers directly above it. We start with the base case of the first row, which is `[1]`. Then, for each subsequent row, we calculate the elements using the formula `C(n, k) = C(n-1, k-1) * (n-k+1) / k`, where `C(n, k)` represents the binomial coefficient.",
+    "pseudocode": "ALGORITHM  Pascal triangle\nPATTERN    Direct simulation\n\nBEGIN\n  01  To generate the rowIndexth row of Pascal's triangle, we can use the property that each number is the sum of the two numbers directly above it\n  02  We start with the base case of the first row, which is [1]\n  03  Then, for each subsequent row, we calculate the elements using the formula C(n, k) = C(n-1, k-1) * (n-k+1) / k, where C(n, k) represents the binomial coefficient\n  04  RETURN the required result\nEND",
+    "time": "O(rowIndex)",
+    "space": "O(rowIndex)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\n**Question:**\n\nGiven an integer `rowIndex`, return the `rowIndex`th (0-indexed) row of Pascal's triangle.\n\nIn Pascal's triangle, each number is the sum of the two numbers directly above it.\n\nExample:\n\nInput: `rowIndex = 3`\n\nOutput: `[1, 3, 3, 1]`\n*/\n\n/*\n**APPROACH:**\nTo generate the `rowIndex`th row of Pascal's triangle, we can use the property that each number is the sum of the two numbers directly above it. We start with the base case of the first row, which is `[1]`. Then, for each subsequent row, we calculate the elements using the formula `C(n, k) = C(n-1, k-1) * (n-k+1) / k`, where `C(n, k)` represents the binomial coefficient.\n\n**CODE:**\n*/\n\nvector<int> getRow(int rowIndex) {\n    vector<int> row(rowIndex + 1, 1); // Initialize the row with 1s\n    long long coefficient = 1;\n    \n    for (int col = 1; col <= rowIndex; col++) {\n        coefficient = coefficient * (rowIndex - col + 1) / col;\n        row[col] = coefficient;\n    }\n    \n    return row;\n}\n\n/*\n**COMPLEXITY ANALYSIS:**\n- Time Complexity: O(rowIndex)\n  - We iterate over each element in the row and calculate its value using the binomial coefficient formula.\n- Space Complexity: O(rowIndex)\n  - We use additional space to store the row of Pascal's triangle.\n\nOverall, the algorithm has a linear time complexity and linear space complexity.\n*/\n",
+    "codeLines": 42,
+    "repoPath": "01.Arrays/3.Hard/01.Pascal_triangle.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/01.Pascal_triangle.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/pascals-triangle/",
+      "title": "Pascal's Triangle",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p028",
+    "index": 28,
+    "title": "Majority element 2",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.\n\nExample 1:\nInput: nums = [3,2,3]\nOutput: [3]\n\nExample 2:\nInput: nums = [1]\nOutput: [1]",
+    "approach": "To find all elements that appear more than ⌊ n/3 ⌋ times, we can use the Boyer-Moore Majority Vote algorithm. This algorithm helps us find potential candidates that could appear more than ⌊ n/3 ⌋ times in a single pass. After finding the candidates, we count their occurrences and return the elements that meet the criteria.\n\n1. Initialize two candidate variables, c1 and c2, and their corresponding vote counters, vote1 and vote2.\n2. Iterate through the array:\n   - If the current element matches c1, increment vote1.\n   - Else if the current element matches c2, increment vote2.\n   - Else if vote1 is 0, assign the current element to c1 and set vote1 to 1.\n   - Else if vote2 is 0, assign the current element to c2 and set vote2 to 1.\n   - Else, decrement both vote1 and vote2.\n3. After finding the potential candidates, count the occurrences of each candidate using cnt1 and cnt2.\n4. If cnt1 is greater than ⌊ n/3 ⌋, add c1 to the result vector.\n5. If cnt2 is greater than ⌊ n/3 ⌋ and c2 is different from c1, add c2 to the result vector.\n6. Return the result vector containing the elements that appear more than ⌊ n/3 ⌋ times.\n\nvector<int> majorityElement(vector<int> &nums)\n{\n    int c1 = 0, c2 = 0, vote1 = 0, vote2 = 0;\n\nFinding potential candidates\n    for (int i = 0; i < nums.size(); i++)\n    {\n        if (c1 == nums[i])\n        {\n            vote1++;\n        }\n        else if (c2 == nums[i])\n        {\n            vote2++;\n        }\n        else if (vote1 == 0)\n        {\n            c1 = nums[i];\n            vote1 = 1;\n        }\n        else if (vote2 == 0)\n        {\n            c2 = nums[i];\n            vote2 = 1;\n        }\n        else\n        {\n            vote1--;\n            vote2--;\n        }\n    }\n\n    vector<int> ans;\n    int cnt1 = 0, cnt2 = 0;\n\nCounting occurrences of potential candidates\n    for (auto it : nums)\n    {\n        if (it == c1)\n        {\n            cnt1++;\n        }\n        if (it == c2)\n        {\n            cnt2++;\n        }\n    }\n\nChecking if candidates appear more than ⌊ n/3 ⌋ times\n    if (cnt1 > nums.size() / 3)\n    {\n        ans.push_back(c1);\n    }\n    if (cnt2 > nums.size() / 3 && c2 != c1)\n    {\n        ans.push_back(c2);\n    }\n\n    return ans;\n}",
+    "pseudocode": "ALGORITHM  Majority element 2\nPATTERN    Direct simulation\n\nBEGIN\n  01  To find all elements that appear more than ⌊ n/3 ⌋ times, we can use the Boyer-Moore Majority Vote algorithm\n  02  This algorithm helps us find potential candidates that could appear more than ⌊ n/3 ⌋ times in a single pass\n  03  After finding the candidates, we count their occurrences and return the elements that meet the criteria\n  04  SET two candidate variables, c1 and c2, and their corresponding vote counters, vote1 and vote2\n  05  FOR EACH element while traversing the array:\n  06  IF the current element matches c1, increment vote1\n  07  ELSE IF the current element matches c2, increment vote2\n  08  ELSE IF vote1 is 0, assign the current element to c1 and set vote1 to 1\n  09  ELSE IF vote2 is 0, assign the current element to c2 and set vote2 to 1\n  10  Else, decrement both vote1 and vote2\n  11  After finding the potential candidates, count the occurrences of each candidate using cnt1 and cnt2\n  12  IF cnt1 is greater than ⌊ n/3 ⌋, add c1 to the result vector\n  13  IF cnt2 is greater than ⌊ n/3 ⌋ and c2 is different from c1, add c2 to the result vector\n  14  RETURN the result vector containing the elements that appear more than ⌊ n/3 ⌋ times\nEND",
+    "time": "O(n), where n is the size of the input array",
+    "space": "O(1), as we are using a constant amount of extra space",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.\n\nExample 1:\nInput: nums = [3,2,3]\nOutput: [3]\n\nExample 2:\nInput: nums = [1]\nOutput: [1]\n\nAPPROACH:\nTo find all elements that appear more than ⌊ n/3 ⌋ times, we can use the Boyer-Moore Majority Vote algorithm. This algorithm helps us find potential candidates that could appear more than ⌊ n/3 ⌋ times in a single pass. After finding the candidates, we count their occurrences and return the elements that meet the criteria.\n\n1. Initialize two candidate variables, c1 and c2, and their corresponding vote counters, vote1 and vote2.\n2. Iterate through the array:\n   - If the current element matches c1, increment vote1.\n   - Else if the current element matches c2, increment vote2.\n   - Else if vote1 is 0, assign the current element to c1 and set vote1 to 1.\n   - Else if vote2 is 0, assign the current element to c2 and set vote2 to 1.\n   - Else, decrement both vote1 and vote2.\n3. After finding the potential candidates, count the occurrences of each candidate using cnt1 and cnt2.\n4. If cnt1 is greater than ⌊ n/3 ⌋, add c1 to the result vector.\n5. If cnt2 is greater than ⌊ n/3 ⌋ and c2 is different from c1, add c2 to the result vector.\n6. Return the result vector containing the elements that appear more than ⌊ n/3 ⌋ times.\n\n\n*/\n\nvector<int> majorityElement(vector<int> &nums)\n{\n    int c1 = 0, c2 = 0, vote1 = 0, vote2 = 0;\n\n    // Finding potential candidates\n    for (int i = 0; i < nums.size(); i++)\n    {\n        if (c1 == nums[i])\n        {\n            vote1++;\n        }\n        else if (c2 == nums[i])\n        {\n            vote2++;\n        }\n        else if (vote1 == 0)\n        {\n            c1 = nums[i];\n            vote1 = 1;\n        }\n        else if (vote2 == 0)\n        {\n            c2 = nums[i];\n            vote2 = 1;\n        }\n        else\n        {\n            vote1--;\n            vote2--;\n        }\n    }\n\n    vector<int> ans;\n    int cnt1 = 0, cnt2 = 0;\n\n    // Counting occurrences of potential candidates\n    for (auto it : nums)\n    {\n        if (it == c1)\n        {\n            cnt1++;\n        }\n        if (it == c2)\n        {\n            cnt2++;\n        }\n    }\n\n    // Checking if candidates appear more than ⌊ n/3 ⌋ times\n    if (cnt1 > nums.size() / 3)\n    {\n        ans.push_back(c1);\n    }\n    if (cnt2 > nums.size() / 3 && c2 != c1)\n    {\n        ans.push_back(c2);\n    }\n\n    return ans;\n}\n\n// TIME COMPLEXITY: O(n), where n is the size of the input array.\n// SPACE COMPLEXITY: O(1), as we are using a constant amount of extra space.\n",
+    "codeLines": 93,
+    "repoPath": "01.Arrays/3.Hard/02.Majority_element_2.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/02.Majority_element_2.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/majority-element-ii/",
+      "title": "Majority Element II",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p029",
+    "index": 29,
+    "title": "3 sum",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.\n\nExample:\nInput: nums = [-1,0,1,2,-1,-4]\nOutput: [[-1,-1,2],[-1,0,1]]\nExplanation:\nnums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.\nnums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.\nnums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.\nThe distinct triplets are [-1,0,1] and [-1,-1,2].\nNotice that the order of the output and the order of the triplets does not matter.",
+    "approach": "To find all triplets that sum up to zero, we can follow these steps:\n1. Sort the input array in non-decreasing order.\n2. Iterate through the array and fix the first element as nums[k] (where k = 0 to n-1).\n3. Use two pointers (i and j) to find the other two elements such that nums[i] + nums[j] = -nums[k].\n4. Move the pointers accordingly to find all possible triplets.\n5. Skip duplicate elements to avoid duplicate triplets.\n6. Return the resulting triplets.\n\nvector<vector<int>> threeSum(vector<int> &nums)\n{\n    vector<vector<int>> ans;\n    sort(nums.begin(), nums.end());\n\n    for (int k = 0; k < nums.size(); k++)\n    {\n        int i = k + 1;\n        int j = nums.size() - 1;\n        int target = -nums[k];\n\n        while (i < j)\n        {\n            int sum = nums[i] + nums[j];\n\n            if (sum == target)\n            {\n                ans.push_back({nums[k], nums[i], nums[j]});\n                i++;\n                j--;\n\nSkip duplicate elements\n                while (i < j && nums[i] == nums[i - 1])\n                    i++;\n                while (i < j && nums[j] == nums[j + 1])\n                    j--;\n            }\n            else if (sum < target)\n            {\n                i++;\n            }\n            else\n            {\n                j--;\n            }\n        }\n\nSkip duplicate elements\n        while (k + 1 < nums.size() && nums[k + 1] == nums[k])\n            k++;\n    }\n\n    return ans;\n}",
+    "pseudocode": "ALGORITHM  3 sum\nPATTERN    Two pointers\n\nBEGIN\n  01  To find all triplets that sum up to zero, we can follow these steps:\n  02  Sort the input array in non-decreasing order\n  03  FOR EACH element while traversing the array and fix the first element as nums[k] (where k = 0 to n-1)\n  04  Use two pointers (i and j) to find the other two elements such that nums[i] + nums[j] = -nums[k]\n  05  Move the pointers accordingly to find all possible triplets\n  06  Skip duplicate elements to avoid duplicate triplets\n  07  RETURN the resulting triplets\n  08  vector<vector<int>> threeSum(vector<int> &nums)\n  09  {\n  10  vector<vector<int>> ans;\n  11  sort(nums.begin(), nums.end());\n  12  for (int k = 0; k < nums.size(); k++)\n  13  {\n  14  int i = k + 1;\nEND",
+    "time": "O(n^2), where n is the size of the input array",
+    "space": "O(1), as we are using a constant amount of extra space for storing the output and variables",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.\n\nExample:\nInput: nums = [-1,0,1,2,-1,-4]\nOutput: [[-1,-1,2],[-1,0,1]]\nExplanation:\nnums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.\nnums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.\nnums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.\nThe distinct triplets are [-1,0,1] and [-1,-1,2].\nNotice that the order of the output and the order of the triplets does not matter.\n*/\n\n/*\nAPPROACH:\nTo find all triplets that sum up to zero, we can follow these steps:\n1. Sort the input array in non-decreasing order.\n2. Iterate through the array and fix the first element as nums[k] (where k = 0 to n-1).\n3. Use two pointers (i and j) to find the other two elements such that nums[i] + nums[j] = -nums[k].\n4. Move the pointers accordingly to find all possible triplets.\n5. Skip duplicate elements to avoid duplicate triplets.\n6. Return the resulting triplets.\n*/\n\nvector<vector<int>> threeSum(vector<int> &nums)\n{\n    vector<vector<int>> ans;\n    sort(nums.begin(), nums.end());\n\n    for (int k = 0; k < nums.size(); k++)\n    {\n        int i = k + 1;\n        int j = nums.size() - 1;\n        int target = -nums[k];\n\n        while (i < j)\n        {\n            int sum = nums[i] + nums[j];\n\n            if (sum == target)\n            {\n                ans.push_back({nums[k], nums[i], nums[j]});\n                i++;\n                j--;\n\n                // Skip duplicate elements\n                while (i < j && nums[i] == nums[i - 1])\n                    i++;\n                while (i < j && nums[j] == nums[j + 1])\n                    j--;\n            }\n            else if (sum < target)\n            {\n                i++;\n            }\n            else\n            {\n                j--;\n            }\n        }\n\n        // Skip duplicate elements\n        while (k + 1 < nums.size() && nums[k + 1] == nums[k])\n            k++;\n    }\n\n    return ans;\n}\n\n/*\nTIME COMPLEXITY: O(n^2), where n is the size of the input array.\nThe sorting step takes O(n log n), and the two-pointer traversal takes O(n^2) in the worst case.\nHence, the overall time complexity is O(n^2).\n\nSPACE COMPLEXITY: O(1), as we are using a constant amount of extra space for storing the output and variables.\n*/\n",
+    "codeLines": 78,
+    "repoPath": "01.Arrays/3.Hard/03.3_sum.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/03.3_sum.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/3sum/",
+      "title": "3Sum",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p030",
+    "index": 30,
+    "title": "4 sum",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:\n- 0 <= a, b, c, d < n\n- a, b, c, and d are distinct.\n- nums[a] + nums[b] + nums[c] + nums[d] == target\n\nExample:\nInput: nums = [1,0,-1,0,-2,2], target = 0\nOutput: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]",
+    "approach": "To find the unique quadruplets that sum up to the target, we can use a similar approach as the threeSum problem. We will fix two elements (nums[a] and nums[b]) and use two pointers to find the remaining two elements (nums[c] and nums[d]) that sum up to the target.\n\n1. Sort the input array nums in ascending order.\n2. Iterate through the array with two pointers: a and b.\n3. For each pair of elements nums[a] and nums[b], use two pointers c and d to find the remaining two elements that sum up to the target.\n   - Initialize c as b + 1 and d as the last index of the array.\n   - Calculate the target sum as trgt = target - (nums[a] + nums[b]).\n   - While c < d, compare the sum of nums[c] and nums[d] with the target sum.\n     - If the sum is equal to the target sum, we found a quadruplet. Add it to the answer and move the pointers c and d.\n       - Important: Skip any duplicate elements while moving c and d.\n     - If the sum is greater than the target sum, decrement d.\n     - If the sum is less than the target sum, increment c.\n4. Skip any duplicate elements for pointers a and b to avoid duplicate quadruplets.\n5. Return the answer array containing unique quadruplets.",
+    "pseudocode": "ALGORITHM  4 sum\nPATTERN    Two pointers\n\nBEGIN\n  01  To find the unique quadruplets that sum up to the target, we can use a similar approach as the threeSum problem\n  02  We will fix two elements (nums[a] and nums[b]) and use two pointers to find the remaining two elements (nums[c] and nums[d]) that sum up to the target\n  03  Sort the input array nums in ascending order\n  04  FOR EACH element while traversing the array with two pointers: a and b\n  05  FOR EACH pair of elements nums[a] and nums[b], use two pointers c and d to find the remaining two elements that sum up to the target\n  06  SET c as b + 1 and d as the last index of the array\n  07  Calculate the target sum as trgt = target - (nums[a] + nums[b])\n  08  WHILE c < d, compare the sum of nums[c] and nums[d] with the target sum\n  09  IF the sum is equal to the target sum, we found a quadruplet. Add it to the answer and move the pointers c and d\n  10  Important: Skip any duplicate elements while moving c and d\n  11  IF the sum is greater than the target sum, decrement d\n  12  IF the sum is less than the target sum, increment c\n  13  Skip any duplicate elements for pointers a and b to avoid duplicate quadruplets\n  14  RETURN the answer array containing unique quadruplets\nEND",
+    "time": "O(n^3), where n is the size of the input array nums",
+    "space": "O(1), as we are using a constant amount of extra space",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:\n- 0 <= a, b, c, d < n\n- a, b, c, and d are distinct.\n- nums[a] + nums[b] + nums[c] + nums[d] == target\n\nExample:\nInput: nums = [1,0,-1,0,-2,2], target = 0\nOutput: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]\n\nAPPROACH:\nTo find the unique quadruplets that sum up to the target, we can use a similar approach as the threeSum problem. We will fix two elements (nums[a] and nums[b]) and use two pointers to find the remaining two elements (nums[c] and nums[d]) that sum up to the target.\n\n1. Sort the input array nums in ascending order.\n2. Iterate through the array with two pointers: a and b.\n3. For each pair of elements nums[a] and nums[b], use two pointers c and d to find the remaining two elements that sum up to the target.\n   - Initialize c as b + 1 and d as the last index of the array.\n   - Calculate the target sum as trgt = target - (nums[a] + nums[b]).\n   - While c < d, compare the sum of nums[c] and nums[d] with the target sum.\n     - If the sum is equal to the target sum, we found a quadruplet. Add it to the answer and move the pointers c and d.\n       - Important: Skip any duplicate elements while moving c and d.\n     - If the sum is greater than the target sum, decrement d.\n     - If the sum is less than the target sum, increment c.\n4. Skip any duplicate elements for pointers a and b to avoid duplicate quadruplets.\n5. Return the answer array containing unique quadruplets.\n\n\nCODE:\n*/\n\nvector<vector<int>> fourSum(vector<int> &nums, int target)\n{\n    vector<vector<int>> ans;\n    long long trgt = (long long)(target); // to handle overflow\n    sort(nums.begin(), nums.end());\n\n    for (int a = 0; a < nums.size(); a++)\n    {\n        for (int b = a + 1; b < nums.size(); b++)\n        {\n            if (a == b)\n                continue;\n\n            int c = b + 1;\n            int d = nums.size() - 1;\n            long long tar = trgt - (nums[a] + nums[b]);\n\n            while (c < d)\n            {\n                long long sum = nums[c] + nums[d];\n\n                if (sum == tar)\n                {\n                    ans.push_back({nums[a], nums[b], nums[c], nums[d]});\n                    c++;\n                    d--;\n\n                    // Skip duplicate elements\n                    while (c < d && nums[c] == nums[c - 1])\n                        c++;\n                    while (c < d && nums[d] == nums[d + 1])\n                        d--;\n                }\n                else if (sum > tar)\n                {\n                    d--;\n                }\n                else\n                {\n                    c++;\n                }\n            }\n\n            // Skip duplicate elements\n            while (b + 1 < nums.size() && nums[b + 1] == nums[b])\n                b++;\n        }\n\n        // Skip duplicate elements\n        while (a + 1 < nums.size() && nums[a + 1] == nums[a])\n            a++;\n    }\n\n    return ans;\n}\n\n/*\nTIME COMPLEXITY: O(n^3), where n is the size of the input array nums.\nSPACE COMPLEXITY: O(1), as we are using a constant amount of extra space.\n*/\n",
+    "codeLines": 91,
+    "repoPath": "01.Arrays/3.Hard/04.4_sum.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/04.4_sum.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/4sum/",
+      "title": "4Sum",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p031",
+    "index": 31,
+    "title": "Largest subarray with 0 sum",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an array with both positive and negative integers, we need to compute the length of the largest subarray with a sum of 0.\n\nExample:\nInput:\nN = 8\nA[] = {15, -2, 2, -8, 1, 7, 10, 23}\nOutput: 5\nExplanation: The largest subarray with a sum of 0 will be -2, 2, -8, 1, 7.",
+    "approach": "To find the length of the largest subarray with a sum of 0, we can use a technique called prefix sum.\n1. Create a prefix sum array of the same size as the input array.\n2. Initialize a map to store the prefix sum and its corresponding index. Initialize it with an entry for prefix sum 0 and index -1.\n3. Iterate through the input array and calculate the prefix sum by adding each element.\n4. For each prefix sum encountered, check if it exists in the map. If it does, update the answer by taking the maximum of the current answer and the difference between the current index and the index stored in the map for that prefix sum.\n5. If the prefix sum is not found in the map, add it to the map with its corresponding index.\n6. Finally, return the answer as the length of the largest subarray with a sum of 0.",
+    "pseudocode": "ALGORITHM  Largest subarray with 0 sum\nPATTERN    Hashing\n\nBEGIN\n  01  To find the length of the largest subarray with a sum of 0, we can use a technique called prefix sum\n  02  SET a prefix sum array of the same size as the input array\n  03  SET a map to store the prefix sum and its corresponding index. Initialize it with an entry for prefix sum 0 and index -1\n  04  FOR EACH element while traversing the input array and calculate the prefix sum by adding each element\n  05  FOR EACH prefix sum encountered, check if it exists in the map\n  06  IF it does, update the answer by taking the maximum of the current answer and the difference between the current index and the index stored in the map for that prefix sum\n  07  IF the prefix sum is not found in the map, add it to the map with its corresponding index\n  08  Finally, return the answer as the length of the largest subarray with a sum of 0\n  09  RETURN the required result\nEND",
+    "time": "O(n), where n is the size of the input array A",
+    "space": "O(n), as we are using a map to store the prefix sums and their corresponding indices",
+    "strategy": "Hashing",
+    "tags": ["Arrays", "Hashing"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array with both positive and negative integers, we need to compute the length of the largest subarray with a sum of 0.\n\nExample:\nInput:\nN = 8\nA[] = {15, -2, 2, -8, 1, 7, 10, 23}\nOutput: 5\nExplanation: The largest subarray with a sum of 0 will be -2, 2, -8, 1, 7.\n\nAPPROACH:\nTo find the length of the largest subarray with a sum of 0, we can use a technique called prefix sum.\n1. Create a prefix sum array of the same size as the input array.\n2. Initialize a map to store the prefix sum and its corresponding index. Initialize it with an entry for prefix sum 0 and index -1.\n3. Iterate through the input array and calculate the prefix sum by adding each element.\n4. For each prefix sum encountered, check if it exists in the map. If it does, update the answer by taking the maximum of the current answer and the difference between the current index and the index stored in the map for that prefix sum.\n5. If the prefix sum is not found in the map, add it to the map with its corresponding index.\n6. Finally, return the answer as the length of the largest subarray with a sum of 0.\n\nCODE:\n*/\n\nint maxLen(vector<int> &A, int n)\n{\n    unordered_map<int, int> mp;\n    mp[0] = -1;\n    int pref_sum = 0;\n    int ans = 0;\n\n    for (int i = 0; i < n; i++)\n    {\n        pref_sum += A[i];\n        if (mp.find(pref_sum) != mp.end())\n        {\n            ans = max(ans, i - mp[pref_sum]);\n        }\n        else\n        {\n            mp[pref_sum] = i;\n        }\n    }\n\n    return ans;\n}\n\n/*\nTIME COMPLEXITY: O(n), where n is the size of the input array A.\nSPACE COMPLEXITY: O(n), as we are using a map to store the prefix sums and their corresponding indices.\n*/\n",
+    "codeLines": 50,
+    "repoPath": "01.Arrays/3.Hard/05.Largest_subarray_with_0sum.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/05.Largest_subarray_with_0sum.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subarray-sum-equals-k/",
+      "title": "Subarray Sum Equals K",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p032",
+    "index": 32,
+    "title": "Subarrays with xor k",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an array 'A' consisting of 'N' integers and an integer 'B', find the number of subarrays of array 'A' whose bitwise XOR of all elements is equal to 'B'.\n\nExample:\nInput: 'N' = 4, 'B' = 2\n'A' = [1, 2, 3, 2]\nOutput: 3\nExplanation: Subarrays have bitwise xor equal to '2' are: [1, 2, 3, 2], [2], [2].",
+    "approach": "To find the number of subarrays with bitwise XOR equal to B, we can use the technique of prefix XOR along with a hashmap.\n1. Initialize a variable `prefixXOR` to keep track of the prefix XOR while iterating through the array.\n2. Initialize a variable `count` to keep track of the count of subarrays with XOR equal to B.\n3. Initialize a hashmap `xorCount` to store the frequency of prefix XOR values encountered so far.\n4. Set the initial prefix XOR to 0 and set its count to 1 in the `xorCount` hashmap.\n5. Iterate through the array and update the prefix XOR by XOR-ing each element.\n6. Check if the current prefix XOR is equal to B. If it is, increment the `count` variable.\n7. Check if the XOR of the current prefix XOR with B exists in the `xorCount` hashmap. If it does, add the count of that XOR value to the `count` variable.\n8. Increment the count of the current prefix XOR in the `xorCount` hashmap.\n9. Finally, return the `count` variable as the number of subarrays with XOR equal to B.",
+    "pseudocode": "ALGORITHM  Subarrays with xor k\nPATTERN    Hashing\n\nBEGIN\n  01  To find the number of subarrays with bitwise XOR equal to B, we can use the technique of prefix XOR along with a hashmap\n  02  SET a variable prefixXOR to keep track of the prefix XOR while iterating through the array\n  03  SET a variable count to keep track of the count of subarrays with XOR equal to B\n  04  SET a hashmap xorCount to store the frequency of prefix XOR values encountered so far\n  05  SET the initial prefix XOR to 0 and set its count to 1 in the xorCount hashmap\n  06  FOR EACH element while traversing the array and update the prefix XOR by XOR-ing each element\n  07  Check if the current prefix XOR is equal to B. If it is, increment the count variable\n  08  Check if the XOR of the current prefix XOR with B exists in the xorCount hashmap. If it does, add the count of that XOR value to the count variable\n  09  Increment the count of the current prefix XOR in the xorCount hashmap\n  10  Finally, return the count variable as the number of subarrays with XOR equal to B\n  11  RETURN the required result\nEND",
+    "time": "O(n), where n is the size of the input array a",
+    "space": "O(n), as we are using a hashmap to store the prefix XOR values and their corresponding counts",
+    "strategy": "Hashing",
+    "tags": ["Arrays", "Hashing"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*QUESTION:\nGiven an array 'A' consisting of 'N' integers and an integer 'B', find the number of subarrays of array 'A' whose bitwise XOR of all elements is equal to 'B'.\n\nExample:\nInput: 'N' = 4, 'B' = 2\n'A' = [1, 2, 3, 2]\nOutput: 3\nExplanation: Subarrays have bitwise xor equal to '2' are: [1, 2, 3, 2], [2], [2].\n\nAPPROACH:\nTo find the number of subarrays with bitwise XOR equal to B, we can use the technique of prefix XOR along with a hashmap.\n1. Initialize a variable `prefixXOR` to keep track of the prefix XOR while iterating through the array.\n2. Initialize a variable `count` to keep track of the count of subarrays with XOR equal to B.\n3. Initialize a hashmap `xorCount` to store the frequency of prefix XOR values encountered so far.\n4. Set the initial prefix XOR to 0 and set its count to 1 in the `xorCount` hashmap.\n5. Iterate through the array and update the prefix XOR by XOR-ing each element.\n6. Check if the current prefix XOR is equal to B. If it is, increment the `count` variable.\n7. Check if the XOR of the current prefix XOR with B exists in the `xorCount` hashmap. If it does, add the count of that XOR value to the `count` variable.\n8. Increment the count of the current prefix XOR in the `xorCount` hashmap.\n9. Finally, return the `count` variable as the number of subarrays with XOR equal to B.\n\nCODE:\n*/\n\nint subarraysWithSumK(vector<int> a, int b) {\n    int pref_xr = 0;\n    int ans = 0;\n    unordered_map<int, int> mp;\n    \n    for(int i = 0; i < a.size(); i++){\n        pref_xr = pref_xr ^ a[i];\n        \n        if(pref_xr == b)\n            ans++;\n        \n        if(mp.find(pref_xr ^ b) != mp.end()){\n            ans += mp[pref_xr ^ b];\n        }\n        \n        mp[pref_xr]++;\n    }\n    \n    return ans;\n}\n\n/*\nTIME COMPLEXITY: O(n), where n is the size of the input array a.\nSPACE COMPLEXITY: O(n), as we are using a hashmap to store the prefix XOR values and their corresponding counts.\n*/\n\n",
+    "codeLines": 50,
+    "repoPath": "01.Arrays/3.Hard/06.Subarrays_with_xor_k.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/06.Subarrays_with_xor_k.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/count-number-of-nice-subarrays/",
+      "title": "Count Number of Nice Subarrays",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p033",
+    "index": 33,
+    "title": "Merge overlapping subinterval",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals and return an array of non-overlapping intervals that cover all the intervals in the input.\n\nExample 1:\nInput: intervals = [[1,3],[2,6],[8,10],[15,18]]\nOutput: [[1,6],[8,10],[15,18]]\nExplanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].",
+    "approach": "To merge overlapping intervals, we can follow these steps:\n1. Sort the intervals based on the start time.\n2. Initialize a vector `ans` to store the merged intervals.\n3. Add the first interval from the sorted intervals to the `ans` vector.\n4. Iterate through the remaining intervals:\n   - If the start time of the current interval is less than or equal to the end time of the last interval in the `ans` vector, it means they overlap. Update the end time of the last interval in the `ans` vector if necessary.\n   - If the start time of the current interval is greater than the end time of the last interval in the `ans` vector, it means they don't overlap. Add the current interval to the `ans` vector.\n5. Return the `ans` vector as the merged non-overlapping intervals.",
+    "pseudocode": "ALGORITHM  Merge overlapping subinterval\nPATTERN    Bit manipulation\n\nBEGIN\n  01  To merge overlapping intervals, we can follow these steps:\n  02  Sort the intervals based on the start time\n  03  SET a vector ans to store the merged intervals\n  04  Add the first interval from the sorted intervals to the ans vector\n  05  FOR EACH element while traversing the remaining intervals:\n  06  IF the start time of the current interval is less than or equal to the end time of the last interval in the ans vector, it means they overlap\n  07  UPDATE the end time of the last interval in the ans vector if necessary\n  08  IF the start time of the current interval is greater than the end time of the last interval in the ans vector, it means they don't overlap\n  09  Add the current interval to the ans vector\n  10  RETURN the ans vector as the merged non-overlapping intervals\nEND",
+    "time": "O(nlogn), where n is the number of intervals in the input",
+    "space": "O(n), where n is the number of intervals in the input",
+    "strategy": "Bit manipulation",
+    "tags": ["Arrays", "Bit manipulation"],
+    "intuition": "Treat each bit as an independent boolean feature. Masks make tests, toggles, and compact state transitions explicit and fast.",
+    "constraints": [
+      "Inputs fit the integer width used by the implementation",
+      "Bit positions are zero-indexed unless the statement says otherwise",
+      "Use unsigned/64-bit shifts when the sign bit or large positions are possible"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals and return an array of non-overlapping intervals that cover all the intervals in the input.\n\nExample 1:\nInput: intervals = [[1,3],[2,6],[8,10],[15,18]]\nOutput: [[1,6],[8,10],[15,18]]\nExplanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].\n\nAPPROACH:\nTo merge overlapping intervals, we can follow these steps:\n1. Sort the intervals based on the start time.\n2. Initialize a vector `ans` to store the merged intervals.\n3. Add the first interval from the sorted intervals to the `ans` vector.\n4. Iterate through the remaining intervals:\n   - If the start time of the current interval is less than or equal to the end time of the last interval in the `ans` vector, it means they overlap. Update the end time of the last interval in the `ans` vector if necessary.\n   - If the start time of the current interval is greater than the end time of the last interval in the `ans` vector, it means they don't overlap. Add the current interval to the `ans` vector.\n5. Return the `ans` vector as the merged non-overlapping intervals.\n\nCODE:\n*/\n\nvector<vector<int>> merge(vector<vector<int>>& intervals) {\n    sort(intervals.begin(), intervals.end());\n    vector<vector<int>> ans;\n    ans.push_back(intervals[0]);\n    \n    for(int i = 1; i < intervals.size(); i++){\n        if(ans.back()[1] >= intervals[i][0]){\n            ans.back()[1] = max(ans.back()[1], intervals[i][1]);\n        }\n        else{\n            ans.push_back(intervals[i]);\n        }\n    }\n    \n    return ans;\n}\n\n/*\nTIME COMPLEXITY: O(nlogn), where n is the number of intervals in the input.\nThe sorting step takes O(nlogn) time, and the merging step takes O(n) time.\nOverall, the time complexity is dominated by the sorting step.\nSPACE COMPLEXITY: O(n), where n is the number of intervals in the input.\nWe are using additional space to store the merged intervals in the `ans` vector.\n*/\n\n",
+    "codeLines": 47,
+    "repoPath": "01.Arrays/3.Hard/07.Merge_overlapping_subinterval.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/07.Merge_overlapping_subinterval.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-intervals/",
+      "title": "Merge Intervals",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p034",
+    "index": 34,
+    "title": "Merge 2 sorted array without space",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.\nMerge nums1 and nums2 into a single array sorted in non-decreasing order.\nThe final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.\n\nExample 1:\nInput: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3\nOutput: [1,2,2,3,5,6]\nExplanation: The arrays we are merging are [1,2,3] and [2,5,6].\nThe result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.",
+    "approach": "To merge two sorted arrays, nums1 and nums2, into nums1, we can use a two-pointer approach.\n1. Initialize three pointers: i, j, and k, where i points to the last valid element of nums1, j points to the last element of nums2, and k points to the last index of the merged array nums1.\n2. Start from the end of the arrays and compare the elements at i and j.\n3. If the element at nums1[i] is greater than the element at nums2[j], swap it with the element at nums1[k], decrement i and k.\n4. Otherwise, swap the element at nums2[j] with the element at nums1[k], decrement j and k.\n5. Repeat steps 3 and 4 until all elements in nums1 and nums2 have been merged.\n6. If there are still elements remaining in nums2 after merging, copy them to the remaining positions in nums1.",
+    "pseudocode": "ALGORITHM  Merge 2 sorted array without space\nPATTERN    Direct simulation\n\nBEGIN\n  01  To merge two sorted arrays, nums1 and nums2, into nums1, we can use a two-pointer approach\n  02  SET three pointers: i, j, and k, where i points to the last valid element of nums1, j points to the last element of nums2, and k points to the last index of the merged array nums1\n  03  Start from the end of the arrays and compare the elements at i and j\n  04  IF the element at nums1[i] is greater than the element at nums2[j], swap it with the element at nums1[k], decrement i and k\n  05  ELSE swap the element at nums2[j] with the element at nums1[k], decrement j and k\n  06  REPEAT steps 3 and 4 until all elements in nums1 and nums2 have been merged\n  07  IF there are still elements remaining in nums2 after merging, copy them to the remaining positions in nums1\n  08  RETURN the required result\nEND",
+    "time": "O(m + n), where m and n are the lengths of nums1 and nums2 respectively",
+    "space": "O(1)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nYou are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.\nMerge nums1 and nums2 into a single array sorted in non-decreasing order.\nThe final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.\n\nExample 1:\nInput: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3\nOutput: [1,2,2,3,5,6]\nExplanation: The arrays we are merging are [1,2,3] and [2,5,6].\nThe result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.\n\nAPPROACH:\nTo merge two sorted arrays, nums1 and nums2, into nums1, we can use a two-pointer approach.\n1. Initialize three pointers: i, j, and k, where i points to the last valid element of nums1, j points to the last element of nums2, and k points to the last index of the merged array nums1.\n2. Start from the end of the arrays and compare the elements at i and j.\n3. If the element at nums1[i] is greater than the element at nums2[j], swap it with the element at nums1[k], decrement i and k.\n4. Otherwise, swap the element at nums2[j] with the element at nums1[k], decrement j and k.\n5. Repeat steps 3 and 4 until all elements in nums1 and nums2 have been merged.\n6. If there are still elements remaining in nums2 after merging, copy them to the remaining positions in nums1.\n\nCODE:\n*/\n\nvoid merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n    int i = m - 1; // Pointer for nums1\n    int j = n - 1; // Pointer for nums2\n    int k = m + n - 1; // Pointer for merged array nums1\n    \n    while (i >= 0 && j >= 0) {\n        if (nums1[i] > nums2[j]) {\n            swap(nums1[i], nums1[k]);\n            i--;\n            k--;\n        } else {\n            swap(nums2[j], nums1[k]);\n            j--;\n            k--;\n        }\n    }\n    \n    // Copy remaining elements from nums2 to nums1 if any\n    while (j >= 0) {\n        swap(nums2[j], nums1[k]);\n        j--;\n        k--;\n    }\n}\n\n/*\nTIME COMPLEXITY: O(m + n), where m and n are the lengths of nums1 and nums2 respectively.\nThe merging process requires iterating through both arrays once.\nSPACE COMPLEXITY: O(1)\nThe merge is performed in-place without using any additional space.\n\n*/\n\n",
+    "codeLines": 57,
+    "repoPath": "01.Arrays/3.Hard/08.Merge_2_sorted_array_without_space.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/08.Merge_2_sorted_array_without_space.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/merge-sorted-array/",
+      "title": "Merge Sorted Array",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p035",
+    "index": 35,
+    "title": "Repeating and missing numbers",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an unsorted array Arr of size N of positive integers. One number 'A' from set {1, 2,....,N} is missing and one number 'B' occurs twice in the array. Find these two numbers.\n\nExample:\nInput:\nN = 2\nArr[] = {2, 2}\nOutput: 2 1\nExplanation: Repeating number is 2 and the smallest positive missing number is 1.",
+    "approach": "To find the missing and repeating numbers in the given unsorted array, we can utilize the properties of summation and sum of squares. Let's denote the missing number as 'x' and the repeating number as 'y'.\n\n1. Calculate the optimal sum 'optSum' using the formula: optSum = N * (N + 1) / 2, where N is the size of the array.\n2. Calculate the optimal sum of squares 'opt2Sum' using the formula: opt2Sum = N * (N + 1) * (2 * N + 1) / 6.\n3. Calculate the actual sum 'actSum' and actual sum of squares 'act2Sum' of the given array.\n4. Find the difference between the optimal sum and the actual sum: xMinusY = optSum - actSum.\n5. Find the difference between the optimal sum of squares and the actual sum of squares: x2MinusY2 = opt2Sum - act2Sum.\n6. Calculate the sum of 'x' and 'y': xPlusY = x2MinusY2 / xMinusY.\n7. Calculate 'x' and 'y' using the equations: x = (xPlusY + xMinusY) / 2 and y = xPlusY - x.",
+    "pseudocode": "ALGORITHM  Repeating and missing numbers\nPATTERN    Direct simulation\n\nBEGIN\n  01  To find the missing and repeating numbers in the given unsorted array, we can utilize the properties of summation and sum of squares\n  02  Let's denote the missing number as 'x' and the repeating number as 'y'\n  03  Calculate the optimal sum 'optSum' using the formula: optSum = N * (N + 1) / 2, where N is the size of the array\n  04  Calculate the optimal sum of squares 'opt2Sum' using the formula: opt2Sum = N * (N + 1) * (2 * N + 1) / 6\n  05  Calculate the actual sum 'actSum' and actual sum of squares 'act2Sum' of the given array\n  06  Find the difference between the optimal sum and the actual sum: xMinusY = optSum - actSum\n  07  Find the difference between the optimal sum of squares and the actual sum of squares: x2MinusY2 = opt2Sum - act2Sum\n  08  Calculate the sum of 'x' and 'y': xPlusY = x2MinusY2 / xMinusY\n  09  Calculate 'x' and 'y' using the equations: x = (xPlusY + xMinusY) / 2 and y = xPlusY - x\n  10  RETURN the required result\nEND",
+    "time": "O(N), where N is the size of the array",
+    "space": "O(1)",
+    "strategy": "Direct simulation",
+    "tags": ["Arrays", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an unsorted array Arr of size N of positive integers. One number 'A' from set {1, 2,....,N} is missing and one number 'B' occurs twice in the array. Find these two numbers.\n\nExample:\nInput:\nN = 2\nArr[] = {2, 2}\nOutput: 2 1\nExplanation: Repeating number is 2 and the smallest positive missing number is 1.\n\nAPPROACH:\nTo find the missing and repeating numbers in the given unsorted array, we can utilize the properties of summation and sum of squares. Let's denote the missing number as 'x' and the repeating number as 'y'.\n\n1. Calculate the optimal sum 'optSum' using the formula: optSum = N * (N + 1) / 2, where N is the size of the array.\n2. Calculate the optimal sum of squares 'opt2Sum' using the formula: opt2Sum = N * (N + 1) * (2 * N + 1) / 6.\n3. Calculate the actual sum 'actSum' and actual sum of squares 'act2Sum' of the given array.\n4. Find the difference between the optimal sum and the actual sum: xMinusY = optSum - actSum.\n5. Find the difference between the optimal sum of squares and the actual sum of squares: x2MinusY2 = opt2Sum - act2Sum.\n6. Calculate the sum of 'x' and 'y': xPlusY = x2MinusY2 / xMinusY.\n7. Calculate 'x' and 'y' using the equations: x = (xPlusY + xMinusY) / 2 and y = xPlusY - x.\n\nCODE:\n*/\n\nvector<int> findTwoElement(vector<int> arr, int N) {\n    long long n = N;\n    long long optSum = n * (n + 1) / 2; // Sum if all elements are present once\n    long long opt2Sum = n * (n + 1) * (2 * n + 1) / 6; // Optimum sum of squares\n    long long actSum = 0; // Actual sum of the given array\n    long long act2Sum = 0; // Actual sum of squares\n    \n    for (auto it : arr) {\n        actSum += it;\n        act2Sum += (long long)it * (long long)it;\n    }\n    \n    long long xMinusY = optSum - actSum;\n    long long x2MinusY2 = opt2Sum - act2Sum;\n    long long xPlusY = x2MinusY2 / xMinusY;\n    \n    long long x = (xPlusY + xMinusY) / 2;\n    long long y = xPlusY - x;\n    \n    return {(int)y, (int)x};\n}\n\n/*\nTIME COMPLEXITY: O(N), where N is the size of the array.\nSPACE COMPLEXITY: O(1).\n*/\n",
+    "codeLines": 51,
+    "repoPath": "01.Arrays/3.Hard/09.Repeating_and_missing_numbers.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/09.Repeating_and_missing_numbers.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/find-the-duplicate-number/",
+      "title": "Find the Duplicate Number",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p036",
+    "index": 36,
+    "title": "Count inversions",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an array of integers. Find the Inversion Count in the array.\n\nInversion Count: For an array, inversion count indicates how far (or close) the array is from being sorted. If the array is already sorted then the inversion count is 0. If an array is sorted in the reverse order then the inversion count is the maximum.\nFormally, two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j.\n\nExample 1:\nInput: N = 5, arr[] = {2, 4, 1, 3, 5}\nOutput: 3\nExplanation: The sequence 2, 4, 1, 3, 5 has three inversions (2, 1), (4, 1), (4, 3).\n\nExample 2:\nInput: N = 5, arr[] = {2, 3, 4, 5, 6}\nOutput: 0\nExplanation: As the sequence is already sorted, there is no inversion count.",
+    "approach": "To find the inversion count in the array, we can utilize the merge sort algorithm. The idea is to divide the array into two halves, recursively count the inversions in each half, and then merge the two halves while counting the inversions across them.",
+    "pseudocode": "ALGORITHM  Count inversions\nPATTERN    Two pointers\n\nBEGIN\n  01  To find the inversion count in the array, we can utilize the merge sort algorithm\n  02  The idea is to divide the array into two halves, recursively count the inversions in each half, and then merge the two halves while counting the inversions across them\n  03  RETURN the required result\nEND",
+    "time": "O(N log N), where N is the size of the array",
+    "space": "O(N)",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an array of integers. Find the Inversion Count in the array.\n\nInversion Count: For an array, inversion count indicates how far (or close) the array is from being sorted. If the array is already sorted then the inversion count is 0. If an array is sorted in the reverse order then the inversion count is the maximum. \nFormally, two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j.\n\nExample 1:\nInput: N = 5, arr[] = {2, 4, 1, 3, 5}\nOutput: 3\nExplanation: The sequence 2, 4, 1, 3, 5 has three inversions (2, 1), (4, 1), (4, 3).\n\nExample 2:\nInput: N = 5, arr[] = {2, 3, 4, 5, 6}\nOutput: 0\nExplanation: As the sequence is already sorted, there is no inversion count.\n\nAPPROACH:\nTo find the inversion count in the array, we can utilize the merge sort algorithm. The idea is to divide the array into two halves, recursively count the inversions in each half, and then merge the two halves while counting the inversions across them.\n\nCODE:\n*/\n\nlong long int inv_cnt = 0;\n\nlong long int merge(long long start, long long mid, long long end, long long arr[]) {\n    long long leftsize = mid - start + 1;\n    long long rightsize = end - mid;\n    long long left[leftsize], right[rightsize];\n    \n    for (long long i = 0; i < leftsize; i++) {\n        left[i] = arr[start + i];\n    }\n    for (long long i = 0; i < rightsize; i++) {\n        right[i] = arr[mid + 1 + i];\n    }\n    \n    long long i = 0, j = 0, k = start;\n    while (i < leftsize && j < rightsize) {\n        if (left[i] > right[j]) {\n            inv_cnt += leftsize - i;\n            arr[k++] = right[j++];\n        } else {\n            arr[k++] = left[i++];\n        }\n    }\n    while (i < leftsize) {\n        arr[k++] = left[i++];\n    }\n    while (j < rightsize) {\n        arr[k++] = right[j++];\n    }\n}\n\nvoid mergesort(long long start, long long end, long long arr[]) {\n    if (start >= end)\n        return;\n    long long mid = start + (end - start) / 2;\n    mergesort(start, mid, arr);\n    mergesort(mid + 1, end, arr);\n    merge(start, mid, end, arr);\n}\n\nlong long int inversionCount(long long arr[], long long N) {\n    mergesort(0, N - 1, arr);\n    return inv_cnt;\n}\n\n/*\nTIME COMPLEXITY: O(N log N), where N is the size of the array.\nSPACE COMPLEXITY: O(N).\n*/\n",
+    "codeLines": 72,
+    "repoPath": "01.Arrays/3.Hard/10.Count_inversions.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/10.Count_inversions.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-pairs/",
+      "title": "Reverse Pairs",
+      "match": "related",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p037",
+    "index": 37,
+    "title": "Reverse pairs",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an integer array nums, return the number of reverse pairs in the array.\nA reverse pair is a pair (i, j) where:\n0 <= i < j < nums.length and\nnums[i] > 2 * nums[j].\n\nExample:\nInput: nums = [1,3,2,3,1]\nOutput: 2\nExplanation: The reverse pairs are:\n(1, 4) --> nums[1] = 3, nums[4] = 1, 3 > 2 * 1\n(3, 4) --> nums[3] = 3, nums[4] = 1, 3 > 2 * 1",
+    "approach": "To solve this problem, we can use the merge sort algorithm. While merging the two sorted subarrays, we can count the number of reverse pairs.\n\n1. Define a variable 'rev_pair' to store the count of reverse pairs.\n2. Implement the 'merge' function to merge two subarrays and count the reverse pairs.\n3. Implement the 'mergesort' function to recursively divide the array into subarrays and perform merge sort.\n4. Initialize 'rev_pair' to 0 and call the 'mergesort' function on the given array.\n5. Return the 'rev_pair' as the result.",
+    "pseudocode": "ALGORITHM  Reverse pairs\nPATTERN    Two pointers\n\nBEGIN\n  01  To solve this problem, we can use the merge sort algorithm. While merging the two sorted subarrays, we can count the number of reverse pairs\n  02  Define a variable 'rev_pair' to store the count of reverse pairs\n  03  Implement the 'merge' function to merge two subarrays and count the reverse pairs\n  04  Implement the 'mergesort' function to recursively divide the array into subarrays and perform merge sort\n  05  SET 'rev_pair' to 0 and call the 'mergesort' function on the given array\n  06  RETURN the 'rev_pair' as the result\nEND",
+    "time": "O(n log n), where n is the size of the array",
+    "space": "O(n), where n is the size of the array",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:\nGiven an integer array nums, return the number of reverse pairs in the array.\nA reverse pair is a pair (i, j) where:\n0 <= i < j < nums.length and\nnums[i] > 2 * nums[j].\n\nExample:\nInput: nums = [1,3,2,3,1]\nOutput: 2\nExplanation: The reverse pairs are:\n(1, 4) --> nums[1] = 3, nums[4] = 1, 3 > 2 * 1\n(3, 4) --> nums[3] = 3, nums[4] = 1, 3 > 2 * 1\n\nAPPROACH:\nTo solve this problem, we can use the merge sort algorithm. While merging the two sorted subarrays, we can count the number of reverse pairs.\n\n1. Define a variable 'rev_pair' to store the count of reverse pairs.\n2. Implement the 'merge' function to merge two subarrays and count the reverse pairs.\n3. Implement the 'mergesort' function to recursively divide the array into subarrays and perform merge sort.\n4. Initialize 'rev_pair' to 0 and call the 'mergesort' function on the given array.\n5. Return the 'rev_pair' as the result.\n\nCODE:\n*/\n\nint rev_pair = 0;\n\nvoid merge(int start, int mid, int end, vector<int>& nums){\n    int left_size = mid - start + 1;\n    int right_size = end - mid;\n    vector<int> left(left_size);\n    vector<int> right(right_size);\n\n    for(int i = 0; i < left_size; i++){\n        left[i] = nums[start + i];\n    }\n    for(int i = 0; i < right_size; i++){\n        right[i] = nums[mid + 1 + i];\n    }\n\n    // main logic resides here\n    int m = 0;\n    for(int i = 0; i < left_size; i++){\n        while(m < right_size && left[i] > (long long)2 * right[m]){\n            m++;\n        }\n        rev_pair += m;\n    }\n\n    int i = 0, j = 0, k = start;\n    while(i < left_size && j < right_size){\n        if(left[i] > right[j]){\n            nums[k++] = right[j++];\n        }\n        else{\n            nums[k++] = left[i++];\n        }\n    }\n    while(i < left_size){\n        nums[k++] = left[i++];\n    }\n    while(j < right_size){\n        nums[k++] = right[j++];\n    }\n}\n\nvoid mergesort(int start, int end, vector<int>& nums){\n    if(start >= end)\n        return;\n    int mid = start + (end - start) / 2;\n    mergesort(start, mid, nums);\n    mergesort(mid + 1, end, nums);\n    merge(start, mid, end, nums);\n}\n\nint reversePairs(vector<int>& nums) {\n    rev_pair = 0;\n    mergesort(0, nums.size() - 1, nums);\n    return rev_pair;\n}\n\n/*\nTIME COMPLEXITY: O(n log n), where n is the size of the array.\nSPACE COMPLEXITY: O(n), where n is the size of the array.\n*/\n",
+    "codeLines": 86,
+    "repoPath": "01.Arrays/3.Hard/11.Reverse_pairs.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/11.Reverse_pairs.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-pairs/",
+      "title": "Reverse Pairs",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p038",
+    "index": 38,
+    "title": "Maximum product subarray",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an integer array nums, find a subarray that has the largest product, and return the product.\n\nExample:\n\nInput: nums = [2,3,-2,4]\nOutput: 6\nExplanation: [2,3] has the largest product 6.",
+    "approach": "To find the subarray with the largest product, we iterate through the array while keeping track of the current product. We maintain two variables: `ans` to store the maximum product found so far and `prdct` to store the current product. Since negative numbers can change the sign and potentially result in a larger product, we run the loop twice, once from left to right and once from right to left.",
+    "pseudocode": "ALGORITHM  Maximum product subarray\nPATTERN    Two pointers\n\nBEGIN\n  01  To find the subarray with the largest product, we iterate through the array while keeping track of the current product\n  02  We maintain two variables: ans to store the maximum product found so far and prdct to store the current product\n  03  Since negative numbers can change the sign and potentially result in a larger product, we run the loop twice, once from left to right and once from right to left\n  04  RETURN the required result\nEND",
+    "time": "O(N), where N is the size of the input array",
+    "space": "O(1)",
+    "strategy": "Two pointers",
+    "tags": ["Arrays", "Two pointers"],
+    "intuition": "Use ordering or a maintained invariant to move one boundary at a time instead of restarting a nested scan.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*QUESTION:\n\nGiven an integer array nums, find a subarray that has the largest product, and return the product.\n\nExample:\n\nInput: nums = [2,3,-2,4]\nOutput: 6\nExplanation: [2,3] has the largest product 6.\n\nAPPROACH:\n\nTo find the subarray with the largest product, we iterate through the array while keeping track of the current product. We maintain two variables: `ans` to store the maximum product found so far and `prdct` to store the current product. Since negative numbers can change the sign and potentially result in a larger product, we run the loop twice, once from left to right and once from right to left.\n\nCODE:*/\n\nint maxProduct(vector<int>& nums) {\n    int ans = INT_MIN;\n    int prdct = 1;\n\n    // Iterate from left to right\n    for (int i = 0; i < nums.size(); i++) {\n        prdct = prdct * nums[i];\n        ans = max(ans, prdct);\n        if (prdct == 0)\n            prdct = 1;\n    }\n\n    prdct = 1;\n\n    // Iterate from right to left\n    for (int i = nums.size() - 1; i >= 0; i--) {\n        prdct = prdct * nums[i];\n        ans = max(ans, prdct);\n        if (prdct == 0)\n            prdct = 1;\n    }\n\n    return ans;\n}\n\n/*\nTIME COMPLEXITY: O(N), where N is the size of the input array.\nSPACE COMPLEXITY: O(1).\n*/\n",
+    "codeLines": 45,
+    "repoPath": "01.Arrays/3.Hard/12.Maximum_product_subarray.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/12.Maximum_product_subarray.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-product-subarray/",
+      "title": "Maximum Product Subarray",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p039",
+    "index": 39,
+    "title": "Longest subarray with sum k containing +ves and -ves",
+    "topic": "Arrays",
+    "subtopic": "Hard",
+    "difficulty": "Hard",
+    "question": "Given an array containing N integers and an integer K, find the length of the longest subarray with the sum of the elements equal to K.\n\nExample:\nInput:\nA[] = {10, 5, 2, 7, 1, 9}\nK = 15\nOutput:\n4\nExplanation:\nThe sub-array is {5, 2, 7, 1}.",
+    "approach": "To solve this problem, we can use a prefix sum approach along with a hashmap to keep track of the prefix sums encountered so far. We iterate through the array and maintain a prefix sum variable. At each index, we check if the prefix sum equals K, in which case we update the maximum length of the subarray found so far. Additionally, we check if the current prefix sum minus K exists in the hashmap. If it does, it means there is a subarray between the previous occurrence of the prefix sum minus K and the current index that sums up to K. We update the maximum length accordingly. We store the prefix sums and their corresponding indices in the hashmap.",
+    "pseudocode": "ALGORITHM  Longest subarray with sum k containing +ves and -ves\nPATTERN    Hashing\n\nBEGIN\n  01  To solve this problem, we can use a prefix sum approach along with a hashmap to keep track of the prefix sums encountered so far\n  02  We iterate through the array and maintain a prefix sum variable\n  03  At each index, we check if the prefix sum equals K, in which case we update the maximum length of the subarray found so far\n  04  Additionally, we check if the current prefix sum minus K exists in the hashmap\n  05  IF it does, it means there is a subarray between the previous occurrence of the prefix sum minus K and the current index that sums up to K\n  06  We update the maximum length accordingly\n  07  We store the prefix sums and their corresponding indices in the hashmap\n  08  RETURN the required result\nEND",
+    "time": "The code iterates through the array once, resulting in a time complexity of O(N), where N is the size of the array",
+    "space": "The code uses an unordered map to store the prefix sums and their corresponding indices. In the worst case, all elements of the array could be distinct, leading to a space complexity of O(N) to store the prefix sums in the map",
+    "strategy": "Hashing",
+    "tags": ["Arrays", "Hashing"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*Question:\nGiven an array containing N integers and an integer K, find the length of the longest subarray with the sum of the elements equal to K.\n\nExample:\nInput:\nA[] = {10, 5, 2, 7, 1, 9}\nK = 15\nOutput:\n4\nExplanation:\nThe sub-array is {5, 2, 7, 1}.\n\nApproach:\nTo solve this problem, we can use a prefix sum approach along with a hashmap to keep track of the prefix sums encountered so far. We iterate through the array and maintain a prefix sum variable. At each index, we check if the prefix sum equals K, in which case we update the maximum length of the subarray found so far. Additionally, we check if the current prefix sum minus K exists in the hashmap. If it does, it means there is a subarray between the previous occurrence of the prefix sum minus K and the current index that sums up to K. We update the maximum length accordingly. We store the prefix sums and their corresponding indices in the hashmap.\n\nCode:\n*/\nint lenOfLongSubarr(int A[], int N, int K) {\n    int pref_sum = 0;\n    int ans = 0;\n    unordered_map<int, int> mp;\n\n    for (int i = 0; i < N; i++) {\n        pref_sum += A[i];\n        if (pref_sum == K)\n            ans = max(ans, i + 1);\n        if (mp.find(pref_sum - K) != mp.end())\n            ans = max(ans, i - mp[pref_sum - K]);\n        if (mp.find(pref_sum) == mp.end())\n            mp[pref_sum] = i;\n    }\n    return ans;\n}\n/*\nTime Complexity: The code iterates through the array once, resulting in a time complexity of O(N), where N is the size of the array.\nSpace Complexity: The code uses an unordered map to store the prefix sums and their corresponding indices. In the worst case, all elements of the array could be distinct, leading to a space complexity of O(N) to store the prefix sums in the map.\n*/",
+    "codeLines": 37,
+    "repoPath": "01.Arrays/3.Hard/13.Longest_subarray_with_sum_k_containg_+ves_and_-ves.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/01.Arrays/3.Hard/13.Longest_subarray_with_sum_k_containg_%2Bves_and_-ves.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subarray-sum-equals-k/",
+      "title": "Subarray Sum Equals K",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  }
+]

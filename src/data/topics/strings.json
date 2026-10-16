@@ -1,0 +1,574 @@
+[
+  {
+    "id": "p071",
+    "index": 71,
+    "title": "Remove outer parenthesis",
+    "topic": "Strings",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given a valid parentheses string `s`, remove the outermost parentheses of every primitive string in the primitive decomposition of `s`.",
+    "approach": "- We can iterate through the characters of the string and keep track of the number of open parentheses encountered.\n- Whenever we encounter an opening parenthesis, if the count of open parentheses is greater than 0, we append it to the result string.\n- When we encounter a closing parenthesis, we decrement the count of open parentheses and append it to the result string only if the count is greater than 1.",
+    "pseudocode": "ALGORITHM  Remove outer parenthesis\nPATTERN    Stack / queue\n\nBEGIN\n  01  We can iterate through the characters of the string and keep track of the number of open parentheses encountered\n  02  Whenever we encounter an opening parenthesis, if the count of open parentheses is greater than 0, we append it to the result string\n  03  When we encounter a closing parenthesis, we decrement the count of open parentheses and append it to the result string only if the count is greater than 1\n  04  RETURN the required result\nEND",
+    "time": "O(N), where N is the length of the input string `s`",
+    "space": "O(N), where N is the length of the input string `s`",
+    "strategy": "Stack / queue",
+    "tags": ["Strings", "Stack / queue"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven a valid parentheses string `s`, remove the outermost parentheses of every primitive string in the primitive decomposition of `s`.\n\nApproach:\n- We can iterate through the characters of the string and keep track of the number of open parentheses encountered.\n- Whenever we encounter an opening parenthesis, if the count of open parentheses is greater than 0, we append it to the result string.\n- When we encounter a closing parenthesis, we decrement the count of open parentheses and append it to the result string only if the count is greater than 1.\n\nCode:\n*/\nstring removeOuterParentheses(string s) {\n    string res;\n    int opened = 0;\n\n    for (auto c : s) {\n        if (c == '(') {\n            if (opened > 0)\n                res += c;\n            opened++;\n        } else {\n            if (opened > 1)\n                res += c;\n            opened--;\n        }\n    }\n\n    return res;\n}\n/*\nTime Complexity: O(N), where N is the length of the input string `s`.\nSpace Complexity: O(N), where N is the length of the input string `s`.\n*/",
+    "codeLines": 33,
+    "repoPath": "03.Strings/1.Easy/01.Remove_outer_parenthesis.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/1.Easy/01.Remove_outer_parenthesis.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/remove-outermost-parentheses/",
+      "title": "Remove Outermost Parentheses",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p072",
+    "index": 72,
+    "title": "Reverse words in string",
+    "topic": "Strings",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given an input string s, reverse the order of the words.\nA word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.\nReturn a string of the words in reverse order concatenated by a single space.\nNote that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.\n\nExample:\nInput: s = \"the sky is blue\"\nOutput: \"blue is sky the\"",
+    "approach": "- Initialize an empty string 'ans' to store the reversed words.\n- Initialize 'start' and 'end' variables to keep track of the start and end indices of each word.\n- Iterate through the input string 's'.\n- Ignore leading spaces by advancing the iterator 'i' until a non-space character is found.\n- Set 'start' to the current index 'i'.\n- Find the end index 'end' of the current word by advancing 'i' until a space or the end of the string is encountered.\n- Extract the current word using the substr() function and store it in a temporary string 'temp'.\n- Reverse the characters in 'temp'.\n- Append 'temp' to 'ans' with a space delimiter.\n- Reverse the characters in 'ans' to get the reversed order of words.\n- Remove any leading or trailing spaces in 'ans'.\n- Return the resulting string 'ans'.",
+    "pseudocode": "ALGORITHM  Reverse words in string\nPATTERN    Tree traversal\n\nBEGIN\n  01  SET an empty string 'ans' to store the reversed words\n  02  SET 'start' and 'end' variables to keep track of the start and end indices of each word\n  03  FOR EACH element while traversing the input string 's'\n  04  Ignore leading spaces by advancing the iterator 'i' until a non-space character is found\n  05  SET 'start' to the current index 'i'\n  06  Find the end index 'end' of the current word by advancing 'i' until a space or the end of the string is encountered\n  07  Extract the current word using the substr() function and store it in a temporary string 'temp'\n  08  Reverse the characters in 'temp'\n  09  Append 'temp' to 'ans' with a space delimiter\n  10  Reverse the characters in 'ans' to get the reversed order of words\n  11  Remove any leading or trailing spaces in 'ans'\n  12  RETURN the resulting string 'ans'\nEND",
+    "time": "O(n), where n is the length of the input string 's'",
+    "space": "O(n), where n is the length of the input string 's'",
+    "strategy": "Tree traversal",
+    "tags": ["Strings", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven an input string s, reverse the order of the words.\nA word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.\nReturn a string of the words in reverse order concatenated by a single space.\nNote that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.\n\nExample:\nInput: s = \"the sky is blue\"\nOutput: \"blue is sky the\"\n\nApproach:\n- Initialize an empty string 'ans' to store the reversed words.\n- Initialize 'start' and 'end' variables to keep track of the start and end indices of each word.\n- Iterate through the input string 's'.\n- Ignore leading spaces by advancing the iterator 'i' until a non-space character is found.\n- Set 'start' to the current index 'i'.\n- Find the end index 'end' of the current word by advancing 'i' until a space or the end of the string is encountered.\n- Extract the current word using the substr() function and store it in a temporary string 'temp'.\n- Reverse the characters in 'temp'.\n- Append 'temp' to 'ans' with a space delimiter.\n- Reverse the characters in 'ans' to get the reversed order of words.\n- Remove any leading or trailing spaces in 'ans'.\n- Return the resulting string 'ans'.\n\nCode:\n*/\n\nstring reverseWords(string s) {\n    string ans = \"\";\n    int start = -1, end = -1;\n    for(int i=0; i<s.size(); i++){\n        while(s[i]==' ')\n            i++;\n        start = i;\n        while(i<s.size() && s[i]!=' ')\n            i++;\n        end = i;\n        string temp = s.substr(start,end-start);\n        reverse(temp.begin(),temp.end());\n        ans = ans+\" \"+temp;\n    }\n    reverse(ans.begin(),ans.end());\n    int i=0, j=ans.size()-1;\n    while(ans[i]==' ')\n        i++;\n    while(ans[j]==' ')\n        j--;\n    ans = ans.substr(i,j-i+1);\n    return ans;\n}\n\n/*\nTime Complexity: O(n), where n is the length of the input string 's'.\nSpace Complexity: O(n), where n is the length of the input string 's'.\n*/\n",
+    "codeLines": 56,
+    "repoPath": "03.Strings/1.Easy/02.Reverse_words_in_string.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/1.Easy/02.Reverse_words_in_string.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-words-in-a-string/",
+      "title": "Reverse Words in a String",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p073",
+    "index": 73,
+    "title": "Largest odd number in string",
+    "topic": "Strings",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "You are given a string num, representing a large integer. Return the largest-valued odd integer (as a string) that is a non-empty substring of num, or an empty string \"\" if no odd integer exists.\nA substring is a contiguous sequence of characters within a string.",
+    "approach": "1. Iterate through the string from the last character.\n2. Check if the current character is odd.\n3. If it is odd, return the substring from the beginning of the string to the current character index.\n4. If no odd number is found, return an empty string.",
+    "pseudocode": "ALGORITHM  Largest odd number in string\nPATTERN    Tree traversal\n\nBEGIN\n  01  FOR EACH element while traversing the string from the last character\n  02  Check if the current character is odd\n  03  IF it is odd, return the substring from the beginning of the string to the current character index\n  04  IF no odd number is found, return an empty string\n  05  RETURN the required result\nEND",
+    "time": "O(N), where N is the length of the input string num",
+    "space": "O(1)",
+    "strategy": "Tree traversal",
+    "tags": ["Strings", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nYou are given a string num, representing a large integer. Return the largest-valued odd integer (as a string) that is a non-empty substring of num, or an empty string \"\" if no odd integer exists.\nA substring is a contiguous sequence of characters within a string.\n\nApproach:\n1. Iterate through the string from the last character.\n2. Check if the current character is odd.\n3. If it is odd, return the substring from the beginning of the string to the current character index.\n4. If no odd number is found, return an empty string.\n\nTime Complexity: O(N), where N is the length of the input string num.\n- We iterate through the string once to find the largest odd number.\n\nSpace Complexity: O(1)\n- We use constant space to store the result and iterate through the string.\n\nCode:\n*/\n\nstring largestOddNumber(string num) {\n    // Check the first odd number from last\n    for (int i = num.size() - 1; i >= 0; i--) {\n        if ((num[i] - '0') % 2 != 0)\n            return num.substr(0, i + 1);\n    }\n    return \"\";\n}\n",
+    "codeLines": 28,
+    "repoPath": "03.Strings/1.Easy/03.Largest_odd_number_in_string.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/1.Easy/03.Largest_odd_number_in_string.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/largest-odd-number-in-string/",
+      "title": "Largest Odd Number in String",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p074",
+    "index": 74,
+    "title": "Longest common prefix",
+    "topic": "Strings",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Write a function to find the longest common prefix string amongst an array of strings.\nIf there is no common prefix, return an empty string \"\".",
+    "approach": "1. Sort the array of strings lexicographically.\n2. Take the first and last string from the sorted array.\n3. Compare each character of the first and last string until they don't match or the end of either string is reached.\n4. Return the common prefix.",
+    "pseudocode": "ALGORITHM  Longest common prefix\nPATTERN    Tree traversal\n\nBEGIN\n  01  Sort the array of strings lexicographically\n  02  Take the first and last string from the sorted array\n  03  Compare each character of the first and last string until they don't match or the end of either string is reached\n  04  RETURN the common prefix\nEND",
+    "time": "O(N*M*log(N)), where N is the number of strings and M is the maximum length of the strings",
+    "space": "O(1)",
+    "strategy": "Tree traversal",
+    "tags": ["Strings", "Tree traversal", "Graph"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:\nWrite a function to find the longest common prefix string amongst an array of strings.\nIf there is no common prefix, return an empty string \"\".\n\nApproach:\n1. Sort the array of strings lexicographically.\n2. Take the first and last string from the sorted array.\n3. Compare each character of the first and last string until they don't match or the end of either string is reached.\n4. Return the common prefix.\n\nTime Complexity: O(N*M*log(N)), where N is the number of strings and M is the maximum length of the strings.\n- Sorting the array of strings takes O(N*log(N)) time.\n- Comparing the first and last string takes O(M) time.\n\nSpace Complexity: O(1)\n- We use constant space.\n\nCode:\n*/\n\nusing namespace std;\n\nstring longestCommonPrefix(vector<string>& strs) {\n    if (strs.empty())\n        return \"\";\n\n    sort(strs.begin(), strs.end());\n\n    int first = 0, last = strs.size() - 1;\n    int i = 0, j = 0;\n    int len = 0;\n\n    while (i < strs[first].size() && j < strs[last].size() && strs[first][len] == strs[last][len]) {\n        i++;\n        j++;\n        len++;\n    }\n\n    return strs[first].substr(0, len);\n}\n",
+    "codeLines": 41,
+    "repoPath": "03.Strings/1.Easy/04.Longest_common_prefix.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/1.Easy/04.Longest_common_prefix.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-common-prefix/",
+      "title": "Longest Common Prefix",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p075",
+    "index": 75,
+    "title": "Isomorphic string",
+    "topic": "Strings",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given two strings s and t, determine if they are isomorphic.\nTwo strings s and t are isomorphic if the characters in s can be replaced to get t.\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\nNo two characters may map to the same character, but a character may map to itself.",
+    "approach": "1. Initialize two maps to store the mapping of characters from s to t and from t to s.\n2. Iterate through each character in s and t simultaneously.\n3. If the current characters in s and t are already mapped differently, return false.\n4. If the current characters in s and t are not mapped yet, add them to the maps.\n5. If the current characters in s and t are already mapped to each other, continue to the next characters.\n6. If all characters have been iterated and no inconsistencies are found, return true.",
+    "pseudocode": "ALGORITHM  Isomorphic string\nPATTERN    Hashing\n\nBEGIN\n  01  SET two maps to store the mapping of characters from s to t and from t to s\n  02  FOR EACH element while traversing each character in s and t simultaneously\n  03  IF the current characters in s and t are already mapped differently, return false\n  04  IF the current characters in s and t are not mapped yet, add them to the maps\n  05  IF the current characters in s and t are already mapped to each other, continue to the next characters\n  06  IF all characters have been iterated and no inconsistencies are found, return true\n  07  RETURN the required result\nEND",
+    "time": "O(n), where n is the length of the input strings s and t",
+    "space": "O(m), where m is the number of unique characters in the input strings s and t",
+    "strategy": "Hashing",
+    "tags": ["Strings", "Hashing"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*\nQuestion:\nGiven two strings s and t, determine if they are isomorphic.\nTwo strings s and t are isomorphic if the characters in s can be replaced to get t.\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\nNo two characters may map to the same character, but a character may map to itself.\n\nApproach:\n1. Initialize two maps to store the mapping of characters from s to t and from t to s.\n2. Iterate through each character in s and t simultaneously.\n3. If the current characters in s and t are already mapped differently, return false.\n4. If the current characters in s and t are not mapped yet, add them to the maps.\n5. If the current characters in s and t are already mapped to each other, continue to the next characters.\n6. If all characters have been iterated and no inconsistencies are found, return true.\n\nCode:\n*/\n\nbool isIsomorphic(string s, string t) {\n    unordered_map<char, char> mps;\n    unordered_map<char, char> mpt;\n\n    for (int i = 0; i < s.size(); i++) {\n        if (mps.find(s[i]) == mps.end() && mpt.find(t[i]) == mpt.end()) {\n            mps[s[i]] = t[i];\n            mpt[t[i]] = s[i];\n        } else if (mps[s[i]] != t[i] || mpt[t[i]] != s[i]) {\n            return false;\n        }\n    }\n\n    return true;\n}\n\n/*\nTime Complexity: O(n), where n is the length of the input strings s and t.\n- We iterate through each character of s and t once.\n\nSpace Complexity: O(m), where m is the number of unique characters in the input strings s and t.\n- In the worst case, all characters in s and t are unique, and we need to store mappings for all of them.\n- The space complexity can also be considered as O(1) since the maximum number of unique characters is limited (26 English alphabets).\n*/\n\n",
+    "codeLines": 43,
+    "repoPath": "03.Strings/1.Easy/05.Isomorphic_string.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/1.Easy/05.Isomorphic_string.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/isomorphic-strings/",
+      "title": "Isomorphic Strings",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p076",
+    "index": 76,
+    "title": "Check for rotated string",
+    "topic": "Strings",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Rotate String\nGiven two strings s and goal, return true if and only if s can become goal after some number of shifts on s.\n\nA shift on s consists of moving the leftmost character of s to the rightmost position.\n\nExample:\nInput: s = \"abcde\", goal = \"cdeab\"\nOutput: true\n\nInput: s = \"abcde\", goal = \"abced\"\nOutput: false",
+    "approach": "- First, we check if the lengths of the two strings `s` and `goal` are equal. If not, they cannot be rotated versions of each other, so we return `false`.\n- Then, we concatenate `s` with itself to create a new string `concat`.\n- We check if `goal` is a substring of `concat`. If it is, that means `s` can be transformed into `goal` by performing some number of left shifts, so we return `true`. Otherwise, we return `false`.",
+    "pseudocode": "ALGORITHM  Check for rotated string\nPATTERN    Tree traversal\n\nBEGIN\n  01  First, we check if the lengths of the two strings s and goal are equal. If not, they cannot be rotated versions of each other, so we return false\n  02  Then, we concatenate s with itself to create a new string concat\n  03  We check if goal is a substring of concat\n  04  IF it is, that means s can be transformed into goal by performing some number of left shifts, so we return true\n  05  ELSE we return false\n  06  RETURN the required result\nEND",
+    "time": "The time complexity of this approach is O(N^2), where N is the length of the input strings `s` and `goal`. This is because the `find` function is used to search for the substring `goal` within the concatenated string, which has a time complexity of O(N^2)",
+    "space": "The space complexity is O(N), where N is the length of the input string `s`. This is because we create a new string `concat` by concatenating `s` with itself",
+    "strategy": "Tree traversal",
+    "tags": ["Strings", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQUESTION: Rotate String\nGiven two strings s and goal, return true if and only if s can become goal after some number of shifts on s.\n\nA shift on s consists of moving the leftmost character of s to the rightmost position.\n\nExample:\nInput: s = \"abcde\", goal = \"cdeab\"\nOutput: true\n\nInput: s = \"abcde\", goal = \"abced\"\nOutput: false\n\nApproach:\n- First, we check if the lengths of the two strings `s` and `goal` are equal. If not, they cannot be rotated versions of each other, so we return `false`.\n- Then, we concatenate `s` with itself to create a new string `concat`.\n- We check if `goal` is a substring of `concat`. If it is, that means `s` can be transformed into `goal` by performing some number of left shifts, so we return `true`. Otherwise, we return `false`.\n\nCODE:-\n*/\n\nbool rotateString(string s, string goal) {\n    if (s.size() != goal.size())\n        return false;\n    if ((s + s).find(goal) == string::npos)\n        return false;\n    return true;\n}\n\n/*\nTime Complexity: The time complexity of this approach is O(N^2), where N is the length of the input strings `s` and `goal`. This is because the `find` function is used to search for the substring `goal` within the concatenated string, which has a time complexity of O(N^2).\nSpace Complexity: The space complexity is O(N), where N is the length of the input string `s`. This is because we create a new string `concat` by concatenating `s` with itself.\n*/\n",
+    "codeLines": 33,
+    "repoPath": "03.Strings/1.Easy/06.Check_for_rotated_string.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/1.Easy/06.Check_for_rotated_string.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/rotate-string/",
+      "title": "Rotate String",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p077",
+    "index": 77,
+    "title": "Valid anagram",
+    "topic": "Strings",
+    "subtopic": "Easy",
+    "difficulty": "Easy",
+    "question": "Given two strings s and t, return true if t is an anagram of s, and false otherwise.\nAn Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.\n\nExample 1:\n\nInput: s = \"anagram\", t = \"nagaram\"\nOutput: true\nExample 2:\n\nInput: s = \"rat\", t = \"car\"\nOutput: false\n\nProblem: Valid Anagram",
+    "approach": "1. Create an unordered map to store the count of each character in string `s`.\n2. Iterate over each character in `s` and increment its count in the map.\n3. Iterate over each character in `t`.\n   - If the character is not present in the map or its count is zero, return false.\n   - Decrement the count of the character in the map.\n   - If the count becomes zero, remove the character from the map.\n4. After iterating through all characters in `t`, if the map is empty, return true; otherwise, return false.",
+    "pseudocode": "ALGORITHM  Valid anagram\nPATTERN    Hashing\n\nBEGIN\n  01  SET an unordered map to store the count of each character in string s\n  02  Iterate over each character in s and increment its count in the map\n  03  Iterate over each character in t\n  04  IF the character is not present in the map or its count is zero, return false\n  05  Decrement the count of the character in the map\n  06  IF the count becomes zero, remove the character from the map\n  07  After iterating through all characters in t, if the map is empty, return true; otherwise, return false\n  08  RETURN the required result\nEND",
+    "time": "O(max(s.length(), t.length()))",
+    "space": "O(s.length())",
+    "strategy": "Hashing",
+    "tags": ["Strings", "Hashing"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*\nQUESTION:-\nGiven two strings s and t, return true if t is an anagram of s, and false otherwise.\nAn Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.\n\nExample 1:\n\nInput: s = \"anagram\", t = \"nagaram\"\nOutput: true\nExample 2:\n\nInput: s = \"rat\", t = \"car\"\nOutput: false\n\nProblem: Valid Anagram\n\nApproach:\n1. Create an unordered map to store the count of each character in string `s`.\n2. Iterate over each character in `s` and increment its count in the map.\n3. Iterate over each character in `t`.\n   - If the character is not present in the map or its count is zero, return false.\n   - Decrement the count of the character in the map.\n   - If the count becomes zero, remove the character from the map.\n4. After iterating through all characters in `t`, if the map is empty, return true; otherwise, return false.\n\nCode:\n*/\n\nbool isAnagram(string s, string t) {\n    unordered_map<char,int>mp;\n    for(auto c:s)\n        mp[c]++;\n    for(auto c:t){\n        if(mp.find(c)==mp.end())\n            return false;\n        mp[c]--;\n        if(mp[c]==0)\n            mp.erase(c);\n    }\n    return (mp.size()==0);\n}\n\n/* \nTime complexity: O(max(s.length(), t.length()))\nSpace complexity: O(s.length())\n*/",
+    "codeLines": 46,
+    "repoPath": "03.Strings/1.Easy/07.Valid_anagram.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/1.Easy/07.Valid_anagram.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/valid-anagram/",
+      "title": "Valid Anagram",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p078",
+    "index": 78,
+    "title": "Sort characters by frequency",
+    "topic": "Strings",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given a string s, sort it in decreasing order based on the frequency of the characters.\nThe frequency of a character is the number of times it appears in the string.",
+    "approach": "1. Create a frequency map to count the occurrences of each character in the string.\n2. Use a priority queue to sort the characters based on their frequencies in decreasing order.\n3. Iterate through the priority queue and append the characters to a new string according to their frequencies.",
+    "pseudocode": "ALGORITHM  Sort characters by frequency\nPATTERN    Dijkstra / shortest path\n\nBEGIN\n  01  SET a frequency map to count the occurrences of each character in the string\n  02  Use a priority queue to sort the characters based on their frequencies in decreasing order\n  03  FOR EACH element while traversing the priority queue and append the characters to a new string according to their frequencies\n  04  RETURN the required result\nEND",
+    "time": "O(n log n), where n is the length of the string. Building the frequency map takes O(n) time, and the priority queue operations take O(n log n) time",
+    "space": "O(n), where n is the length of the string. The space is used to store the frequency map and the priority queue",
+    "strategy": "Dijkstra / shortest path",
+    "tags": ["Strings", "Dijkstra / shortest path"],
+    "intuition": "Always expand the not-yet-finalized state with minimum known distance, then relax outgoing edges. Stale priority-queue entries can be skipped safely.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Using Dijkstra with negative edges",
+      "Not skipping stale heap entries",
+      "Using int for large distances"
+    ],
+    "code": "/*\nQuestion:\nGiven a string s, sort it in decreasing order based on the frequency of the characters.\nThe frequency of a character is the number of times it appears in the string.\n\nApproach:\n1. Create a frequency map to count the occurrences of each character in the string.\n2. Use a priority queue to sort the characters based on their frequencies in decreasing order.\n3. Iterate through the priority queue and append the characters to a new string according to their frequencies.\n\nCode:\n*/\n\nstring frequencySort(string s) {\n    unordered_map<char, int> mp;\n    for (auto c : s) {\n        mp[c]++;\n    }\n\n    priority_queue<pair<int, char>> pq;\n    for (auto it : mp) {\n        pq.push({ it.second, it.first });\n    }\n\n    string ans = \"\";\n    while (!pq.empty()) {\n        auto curr = pq.top();\n        pq.pop();\n        ans.append(curr.first, curr.second);\n    }\n\n    return ans;\n}\n\n/*\nTime Complexity: O(n log n), where n is the length of the string. Building the frequency map takes O(n) time, and the priority queue operations take O(n log n) time.\nSpace Complexity: O(n), where n is the length of the string. The space is used to store the frequency map and the priority queue.\n*/",
+    "codeLines": 38,
+    "repoPath": "03.Strings/2.Medium/01.Sort_characters_by_frequency.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/2.Medium/01.Sort_characters_by_frequency.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sort-characters-by-frequency/",
+      "title": "Sort Characters By Frequency",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p079",
+    "index": 79,
+    "title": "Max nesting depth of parenthesis",
+    "topic": "Strings",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given a VPS represented as a string s, return the nesting depth of s.",
+    "approach": "1. Initialize `opened` as 0 and `ans` as 0 to keep track of the number of opened parentheses and the maximum nesting depth respectively.\n2. Iterate through each character `c` in the string `s`.\n    a. If `c` is an opening parenthesis '(', increment `opened` by 1 and update `ans` if it is greater than the current value of `ans`.\n    b. If `c` is a closing parenthesis ')', decrement `opened` by 1.\n3. Return `ans` as the maximum nesting depth.",
+    "pseudocode": "ALGORITHM  Max nesting depth of parenthesis\nPATTERN    Stack / queue\n\nBEGIN\n  01  SET opened as 0 and ans as 0 to keep track of the number of opened parentheses and the maximum nesting depth respectively\n  02  FOR EACH element while traversing each character c in the string s\n  03  a. If c is an opening parenthesis '(', increment opened by 1 and update ans if it is greater than the current value of ans\n  04  b. If c is a closing parenthesis ')', decrement opened by 1\n  05  RETURN ans as the maximum nesting depth\nEND",
+    "time": "O(n), where n is the length of the string `s`",
+    "space": "O(1)",
+    "strategy": "Stack / queue",
+    "tags": ["Strings", "Stack / queue"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQuestion:\nGiven a VPS represented as a string s, return the nesting depth of s.\n\nApproach:\n1. Initialize `opened` as 0 and `ans` as 0 to keep track of the number of opened parentheses and the maximum nesting depth respectively.\n2. Iterate through each character `c` in the string `s`.\n    a. If `c` is an opening parenthesis '(', increment `opened` by 1 and update `ans` if it is greater than the current value of `ans`.\n    b. If `c` is a closing parenthesis ')', decrement `opened` by 1.\n3. Return `ans` as the maximum nesting depth.\n\nCODE:-\n\n*/\n\nint maxDepth(string s) {\n    int opened = 0, ans = 0;\n    for (auto c : s) {\n        if (c == '(') {\n            opened++;\n            ans = max(ans, opened);\n        } else if (c == ')') {\n            opened--;\n        }\n    }\n    return ans;\n}\n\n/*\nTime Complexity: O(n), where n is the length of the string `s`.\nSpace Complexity: O(1)\n*/",
+    "codeLines": 32,
+    "repoPath": "03.Strings/2.Medium/02.Max_nesting_depth_of_parenthesis.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/2.Medium/02.Max_nesting_depth_of_parenthesis.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/",
+      "title": "Maximum Nesting Depth of the Parentheses",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p080",
+    "index": 80,
+    "title": "Roman to Integer",
+    "topic": "Strings",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given a Roman numeral as a string, convert it to an integer.\n\nExample 1:\n\nInput: s = \"III\"\nOutput: 3\nExplanation: III = 3.\nExample 2:\n\nInput: s = \"LVIII\"\nOutput: 58\nExplanation: L = 50, V= 5, III = 3.",
+    "approach": "1. Create a map to store the values of each Roman symbol.\n2. Initialize `result` as the value of the first symbol in the input string.\n3. Iterate through each character `c` in the input string `s`, starting from the second character.\n    a. If the value of the current symbol is greater than the value of the previous symbol, subtract twice the value of the previous symbol from `result` and add the value of the current symbol.\n    b. Otherwise, add the value of the current symbol to `result`.\n4. Return `result` as the converted integer.",
+    "pseudocode": "ALGORITHM  Roman to Integer\nPATTERN    Hashing\n\nBEGIN\n  01  SET a map to store the values of each Roman symbol\n  02  SET result as the value of the first symbol in the input string\n  03  FOR EACH element while traversing each character c in the input string s, starting from the second character\n  04  a\n  05  IF the value of the current symbol is greater than the value of the previous symbol, subtract twice the value of the previous symbol from result and add the value of the current symbol\n  06  b. Otherwise, add the value of the current symbol to result\n  07  RETURN result as the converted integer\nEND",
+    "time": "O(n), where n is the length of the input string `s`",
+    "space": "O(1)",
+    "strategy": "Hashing",
+    "tags": ["Strings", "Hashing"],
+    "intuition": "Trade extra memory for constant-average-time membership or frequency lookups, turning repeated searches into one pass.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Accidental map insertion",
+      "Ignoring collisions/average-case assumptions",
+      "Incorrect frequency cleanup"
+    ],
+    "code": "/*\nQuestion:\nGiven a Roman numeral as a string, convert it to an integer.\n\nExample 1:\n\nInput: s = \"III\"\nOutput: 3\nExplanation: III = 3.\nExample 2:\n\nInput: s = \"LVIII\"\nOutput: 58\nExplanation: L = 50, V= 5, III = 3.\n\n\nApproach:\n1. Create a map to store the values of each Roman symbol.\n2. Initialize `result` as the value of the first symbol in the input string.\n3. Iterate through each character `c` in the input string `s`, starting from the second character.\n    a. If the value of the current symbol is greater than the value of the previous symbol, subtract twice the value of the previous symbol from `result` and add the value of the current symbol.\n    b. Otherwise, add the value of the current symbol to `result`.\n4. Return `result` as the converted integer.\n\nTime Complexity: O(n), where n is the length of the input string `s`.\nSpace Complexity: O(1)\n*/\n\nint romanToInt(string s) {\n    unordered_map<char, int> symbolValues = {\n        {'I', 1},\n        {'V', 5},\n        {'X', 10},\n        {'L', 50},\n        {'C', 100},\n        {'D', 500},\n        {'M', 1000}\n    };\n\n    int result = symbolValues[s[0]];\n    for (int i = 1; i < s.size(); i++) {\n        if (symbolValues[s[i]] > symbolValues[s[i - 1]]) {\n            result -= 2 * symbolValues[s[i - 1]];\n            result += symbolValues[s[i]];\n        } else {\n            result += symbolValues[s[i]];\n        }\n    }\n\n    return result;\n}\n",
+    "codeLines": 51,
+    "repoPath": "03.Strings/2.Medium/03.Roman_to_Integer.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/2.Medium/03.Roman_to_Integer.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/roman-to-integer/",
+      "title": "Roman to Integer",
+      "match": "exact",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p081",
+    "index": 81,
+    "title": "Implement atoi",
+    "topic": "Strings",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).\n\nThe algorithm for myAtoi(string s) is as follows:\n\nRead in and ignore any leading whitespace.\nCheck if the next character (if not already at the end of the string) is '-' or '+'. Read this character in if it is either. This determines if the final result is negative or positive respectively. Assume the result is positive if neither is present.\nRead in next the characters until the next non-digit character or the end of the input is reached. The rest of the string is ignored.\nConvert these digits into an integer (i.e. \"123\" -> 123, \"0032\" -> 32). If no digits were read, then the integer is 0. Change the sign as necessary (from step 2).\nIf the integer is out of the 32-bit signed integer range [-231, 231 - 1], then clamp the integer so that it remains in the range. Specifically, integers less than -231 should be clamped to -231, and integers greater than 231 - 1 should be clamped to 231 - 1.\nReturn the integer as the final result.\nNote:\n\nOnly the space character ' ' is considered a whitespace character.\nDo not ignore any characters other than the leading whitespace or the rest of the string after the digits.\n\nExample 1:\n\nInput: s = \"42\"\nOutput: 42\nExplanation: The underlined characters are what is read in, the caret is the current reader position.\nStep 1: \"42\" (no characters read because there is no leading whitespace)\n         ^\nStep 2: \"42\" (no characters read because there is neither a '-' nor '+')\n         ^\nStep 3: \"42\" (\"42\" is read in)\n           ^\nThe parsed integer is 42.\nSince 42 is in the range [-231, 231 - 1], the final result is 42.\nExample 2:\n\nInput: s = \"   -42\"\nOutput: -42\nExplanation:\nStep 1: \"   -42\" (leading whitespace is read and ignored)\n            ^\nStep 2: \"   -42\" ('-' is read, so the result should be negative)\n             ^\nStep 3: \"   -42\" (\"42\" is read in)\n               ^\nThe parsed integer is -42.\nSince -42 is in the range [-231, 231 - 1], the final result is -42.",
+    "approach": "1. Initialize an index `i` to track the current position in the string.\n2. Skip any leading whitespace by incrementing `i` until a non-whitespace character is encountered.\n3. Check if the next character (if not at the end of the string) is `'-'` or `'+'`. Set a `sign` flag accordingly to determine the final result's sign.\n4. Read the consecutive digits until a non-digit character is encountered or the end of the input is reached. Convert these digits into an integer.\n5. Apply the sign to the integer obtained from the digits.\n6. If the integer is out of the 32-bit signed integer range, clamp it to the range [-231, 231 - 1].\n7. Return the final integer.",
+    "pseudocode": "ALGORITHM  Implement atoi\nPATTERN    Direct simulation\n\nBEGIN\n  01  SET an index i to track the current position in the string\n  02  Skip any leading whitespace by incrementing i until a non-whitespace character is encountered\n  03  Check if the next character (if not at the end of the string) is '-' or '+'. Set a sign flag accordingly to determine the final result's sign\n  04  Read the consecutive digits until a non-digit character is encountered or the end of the input is reached. Convert these digits into an integer\n  05  Apply the sign to the integer obtained from the digits\n  06  IF the integer is out of the 32-bit signed integer range, clamp it to the range [-231, 231 - 1]\n  07  RETURN the final integer\nEND",
+    "time": "The function scans the input string once, resulting in a linear time complexity of O(n), where n is the length of the input string",
+    "space": "The function uses a constant amount of extra space, resulting in constant space complexity, O(1)",
+    "strategy": "Direct simulation",
+    "tags": ["Strings", "Direct simulation"],
+    "intuition": "Translate the operation into explicit state changes, preserve the required invariant after every step, and return the final state.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*\nQUESTION:-\nImplement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).\n\nThe algorithm for myAtoi(string s) is as follows:\n\nRead in and ignore any leading whitespace.\nCheck if the next character (if not already at the end of the string) is '-' or '+'. Read this character in if it is either. This determines if the final result is negative or positive respectively. Assume the result is positive if neither is present.\nRead in next the characters until the next non-digit character or the end of the input is reached. The rest of the string is ignored.\nConvert these digits into an integer (i.e. \"123\" -> 123, \"0032\" -> 32). If no digits were read, then the integer is 0. Change the sign as necessary (from step 2).\nIf the integer is out of the 32-bit signed integer range [-231, 231 - 1], then clamp the integer so that it remains in the range. Specifically, integers less than -231 should be clamped to -231, and integers greater than 231 - 1 should be clamped to 231 - 1.\nReturn the integer as the final result.\nNote:\n\nOnly the space character ' ' is considered a whitespace character.\nDo not ignore any characters other than the leading whitespace or the rest of the string after the digits.\n \n\nExample 1:\n\nInput: s = \"42\"\nOutput: 42\nExplanation: The underlined characters are what is read in, the caret is the current reader position.\nStep 1: \"42\" (no characters read because there is no leading whitespace)\n         ^\nStep 2: \"42\" (no characters read because there is neither a '-' nor '+')\n         ^\nStep 3: \"42\" (\"42\" is read in)\n           ^\nThe parsed integer is 42.\nSince 42 is in the range [-231, 231 - 1], the final result is 42.\nExample 2:\n\nInput: s = \"   -42\"\nOutput: -42\nExplanation:\nStep 1: \"   -42\" (leading whitespace is read and ignored)\n            ^\nStep 2: \"   -42\" ('-' is read, so the result should be negative)\n             ^\nStep 3: \"   -42\" (\"42\" is read in)\n               ^\nThe parsed integer is -42.\nSince -42 is in the range [-231, 231 - 1], the final result is -42.\n\nApproach:\n1. Initialize an index `i` to track the current position in the string.\n2. Skip any leading whitespace by incrementing `i` until a non-whitespace character is encountered.\n3. Check if the next character (if not at the end of the string) is `'-'` or `'+'`. Set a `sign` flag accordingly to determine the final result's sign.\n4. Read the consecutive digits until a non-digit character is encountered or the end of the input is reached. Convert these digits into an integer.\n5. Apply the sign to the integer obtained from the digits.\n6. If the integer is out of the 32-bit signed integer range, clamp it to the range [-231, 231 - 1].\n7. Return the final integer.\n\nCode:*/\nint myAtoi(string s) {\n    int i = 0;\n    while (i < s.size() && s[i] == ' ')\n        i++;\n    if (i == s.size())\n        return 0;\n    bool sign = true; // indicates the number is positive\n\n    if (s[i] == '-') {\n        i++;\n        sign = false;\n    } else if (s[i] == '+')\n        i++;\n\n    long long ans = 0;\n    while (i < s.size() && (0 <= s[i] - '0' && s[i] - '0' <= 9)) {\n        long long digit = s[i] - '0';\n        ans = (ans * 10) + digit;\n        // handle overflow case\n        if (ans > INT_MAX && sign)\n            return INT_MAX;\n        else if (ans > INT_MAX)\n            return INT_MIN;\n        i++;\n    }\n    ans = sign ? ans : -1 * ans;\n    return (int) ans;\n}\n\n/*\n- Time Complexity: The function scans the input string once, resulting in a linear time complexity of O(n), where n is the length of the input string.\n- Space Complexity: The function uses a constant amount of extra space, resulting in constant space complexity, O(1).\n*/",
+    "codeLines": 88,
+    "repoPath": "03.Strings/2.Medium/04.Implement_atoi.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/2.Medium/04.Implement_atoi.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/string-to-integer-atoi/",
+      "title": "String to Integer (atoi)",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p082",
+    "index": 82,
+    "title": "Count the number of substrings with k unique characters",
+    "topic": "Strings",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given a string of lowercase alphabets, count all possible substrings (not necessarily distinct) that have exactly k distinct characters.\n\nExample 1:\n\nInput:\nS = \"aba\", K = 2\nOutput:\n3\nExplanation:\nThe substrings are:\n\"ab\", \"ba\" and \"aba\".\n\nExample 2:\n\nInput:\nS = \"abaaca\", K = 1\nOutput:\n7\nExplanation:\nThe substrings are:\n\"a\", \"b\", \"a\", \"aa\", \"a\", \"c\", \"a\".",
+    "approach": "1. We can solve this problem using the sliding window technique.\n2. Initialize a variable ans to keep track of the count of substrings with exactly k distinct characters.\n3. Create an unordered_map mp to store the count of characters in the current window.\n4. Initialize two pointers i and j to mark the start and end of the window, both initially pointing to the start of the string.\n5. Iterate j from the start to the end of the string:\n   - Increment the count of the current character s[j] in mp.\n   - If the number of distinct characters in mp exceeds k, move the start pointer i towards the right until the number of distinct characters becomes k again.\n   - Update the ans by adding the length of the current window (j - i + 1) to it.\n6. Return the value of ans.",
+    "pseudocode": "ALGORITHM  Count the number of substrings with k unique characters\nPATTERN    Sliding window\n\nBEGIN\n  01  We can solve this problem using the sliding window technique\n  02  SET a variable ans to keep track of the count of substrings with exactly k distinct characters\n  03  SET an unordered_map mp to store the count of characters in the current window\n  04  SET two pointers i and j to mark the start and end of the window, both initially pointing to the start of the string\n  05  Iterate j from the start to the end of the string:\n  06  Increment the count of the current character s[j] in mp\n  07  IF the number of distinct characters in mp exceeds k, move the start pointer i towards the right until the number of distinct characters becomes k again\n  08  UPDATE the ans by adding the length of the current window (j - i + 1) to it\n  09  RETURN the value of ans\nEND",
+    "time": "O(N), where N is the length of the input string",
+    "space": "O(K), where K is the number of distinct characters",
+    "strategy": "Sliding window",
+    "tags": ["Strings", "Sliding window"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*Given a string of lowercase alphabets, count all possible substrings (not necessarily distinct) that have exactly k distinct characters. \n\nExample 1:\n\nInput:\nS = \"aba\", K = 2\nOutput:\n3\nExplanation:\nThe substrings are:\n\"ab\", \"ba\" and \"aba\".\n\nExample 2:\n\nInput: \nS = \"abaaca\", K = 1\nOutput:\n7\nExplanation:\nThe substrings are:\n\"a\", \"b\", \"a\", \"aa\", \"a\", \"c\", \"a\". \n\nApproach:\n1. We can solve this problem using the sliding window technique.\n2. Initialize a variable ans to keep track of the count of substrings with exactly k distinct characters.\n3. Create an unordered_map mp to store the count of characters in the current window.\n4. Initialize two pointers i and j to mark the start and end of the window, both initially pointing to the start of the string.\n5. Iterate j from the start to the end of the string:\n   - Increment the count of the current character s[j] in mp.\n   - If the number of distinct characters in mp exceeds k, move the start pointer i towards the right until the number of distinct characters becomes k again.\n   - Update the ans by adding the length of the current window (j - i + 1) to it.\n6. Return the value of ans.\n\nCode:*/\n\nlong long int substrAtmostK(string s, int k) {\n    long long int ans = 0;\n    unordered_map<char, int> mp;\n    int i = 0;\n    for (int j = 0; j < s.size(); j++) {\n        mp[s[j]]++;\n        \n        while (mp.size() > k) {\n            mp[s[i]]--;\n            if (mp[s[i]] == 0)\n                mp.erase(s[i]);\n            i++;\n        }\n        \n        ans += j - i + 1;\n    }\n    return ans;\n}\n\nlong long int substrCount(string s, int k) {\n    long long int atmostk = substrAtmostK(s, k);\n    long long int atmostk_1 = substrAtmostK(s, k - 1);\n    return atmostk - atmostk_1;\n}\n\n/*Time Complexity: O(N), where N is the length of the input string.\nSpace Complexity: O(K), where K is the number of distinct characters.*/\n\n",
+    "codeLines": 63,
+    "repoPath": "03.Strings/2.Medium/05.Count_the_number_of_substrings_with_k_unique_characters.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/2.Medium/05.Count_the_number_of_substrings_with_k_unique_characters.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subarrays-with-k-different-integers/",
+      "title": "Subarrays with K Different Integers",
+      "match": "related",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p083",
+    "index": 83,
+    "title": "Longest palindromic substring",
+    "topic": "Strings",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "Given a string `s`, the task is to find the longest palindromic substring in `s`.\n\nExample 1:\nInput: s = \"babad\"\nOutput: \"bab\"\nExplanation: \"aba\" is also a valid answer.\n\nExample 2:\nInput: s = \"cbbd\"\nOutput: \"bb\"",
+    "approach": "1. We define a helper function `expandFromCenter` that takes a string `s`, and two indices `start` and `end` as input.\n2. The function expands from the center and checks if the substring from `start` to `end` is a palindrome.\n3. If the length of the current palindrome is greater than the maximum length seen so far (`maxLen`), we update the maximum length and the corresponding start and end indices (`ans_start` and `ans_end`).\n4. We iterate over each character of the string `s` and consider it as a potential center for the palindrome.\n5. We call `expandFromCenter` twice for each character - once for considering odd-length palindromes and once for even-length palindromes.\n6. Finally, we return the substring of `s` that corresponds to the longest palindromic substring.",
+    "pseudocode": "ALGORITHM  Longest palindromic substring\nPATTERN    Tree traversal\n\nBEGIN\n  01  We define a helper function expandFromCenter that takes a string s, and two indices start and end as input\n  02  The function expands from the center and checks if the substring from start to end is a palindrome\n  03  IF the length of the current palindrome is greater than the maximum length seen so far (maxLen), we update the maximum length and the corresponding start and end indices (ans_start and ans_end)\n  04  We iterate over each character of the string s and consider it as a potential center for the palindrome\n  05  We call expandFromCenter twice for each character - once for considering odd-length palindromes and once for even-length palindromes\n  06  Finally, we return the substring of s that corresponds to the longest palindromic substring\n  07  RETURN the required result\nEND",
+    "time": "O(n^2), where n is the length of the input string `s`. The nested loops iterate over all possible pairs of indices",
+    "space": "O(1), as we are using a constant amount of extra space",
+    "strategy": "Tree traversal",
+    "tags": ["Strings", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*\nQuestion:-\nGiven a string `s`, the task is to find the longest palindromic substring in `s`.\n\nExample 1:\nInput: s = \"babad\"\nOutput: \"bab\"\nExplanation: \"aba\" is also a valid answer.\n\nExample 2:\nInput: s = \"cbbd\"\nOutput: \"bb\"\n\nApproach:\n1. We define a helper function `expandFromCenter` that takes a string `s`, and two indices `start` and `end` as input.\n2. The function expands from the center and checks if the substring from `start` to `end` is a palindrome.\n3. If the length of the current palindrome is greater than the maximum length seen so far (`maxLen`), we update the maximum length and the corresponding start and end indices (`ans_start` and `ans_end`).\n4. We iterate over each character of the string `s` and consider it as a potential center for the palindrome.\n5. We call `expandFromCenter` twice for each character - once for considering odd-length palindromes and once for even-length palindromes.\n6. Finally, we return the substring of `s` that corresponds to the longest palindromic substring.\n\nCode:*/\n\nvoid expandFromCenter(string s, int start, int end, int& ans_start, int& ans_end, int& maxLen) {\n    while (start >= 0 && end < s.size() && s[start] == s[end]) {\n        if (end - start + 1 > maxLen) {\n            ans_start = start;\n            ans_end = end;\n            maxLen = end - start + 1;\n        }\n        start--;\n        end++;\n    }\n}\n\nstring longestPalindrome(string s) {\n    string ans = \"\";\n    int maxLen = 0, ans_start = -1, ans_end = -1;\n    for (int i = 0; i < s.size(); i++) {\n        // For odd length palindromes\n        expandFromCenter(s, i, i, ans_start, ans_end, maxLen);\n        // For even length palindromes\n        expandFromCenter(s, i - 1, i, ans_start, ans_end, maxLen);\n    }\n    return (maxLen == 0) ? \"\" : s.substr(ans_start, ans_end - ans_start + 1);\n}\n\n/*\nTime Complexity: O(n^2), where n is the length of the input string `s`. The nested loops iterate over all possible pairs of indices.\nSpace Complexity: O(1), as we are using a constant amount of extra space.\n*/\n",
+    "codeLines": 51,
+    "repoPath": "03.Strings/2.Medium/06.Longest_palindromic_substring.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/2.Medium/06.Longest_palindromic_substring.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-palindromic-substring/",
+      "title": "Longest Palindromic Substring",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p084",
+    "index": 84,
+    "title": "Sum of beauty of all substrings",
+    "topic": "Strings",
+    "subtopic": "Medium",
+    "difficulty": "Medium",
+    "question": "The beauty of a string is the difference in frequencies between the most frequent and least frequent characters.\n\nGiven a string `s`, you need to calculate the sum of beauty for all of its substrings. The beauty of a substring is defined as the difference between the highest and lowest frequency of any character in the substring.\n\nWrite a function `beautySum` that takes a string `s` as input and returns the sum of beauty for all substrings.\n\nExample:\n\nInput: s = \"aabcb\"\nOutput: 5\nExplanation: The substrings with non-zero beauty are [\"aab\",\"aabc\",\"aabcb\",\"abcb\",\"bcb\"], each with beauty equal to 1.\n\nInput: s = \"aabcbaa\"\nOutput: 17",
+    "approach": "1. Initialize a variable `ans` to store the total beauty sum.\n2. Iterate over the string `s` with the first loop, starting from index `i`.\n   - Initialize a frequency array `freq` of size 26, initialized with zeros.\n   - Iterate over the string `s` with the second loop, starting from index `j` equal to `i`.\n      - Increment the frequency of the character `s[j]` in the `freq` array.\n      - Calculate the difference between the highest and lowest frequencies in the `freq` array and add it to `ans`.\n3. Return the value of `ans` as the final result.",
+    "pseudocode": "ALGORITHM  Sum of beauty of all substrings\nPATTERN    Tree traversal\n\nBEGIN\n  01  SET a variable ans to store the total beauty sum\n  02  Iterate over the string s with the first loop, starting from index i\n  03  SET a frequency array freq of size 26, initialized with zeros\n  04  Iterate over the string s with the second loop, starting from index j equal to i\n  05  Increment the frequency of the character s[j] in the freq array\n  06  Calculate the difference between the highest and lowest frequencies in the freq array and add it to ans\n  07  RETURN the value of ans as the final result\nEND",
+    "time": "for generating all substrings is O(n^2), where n is the length of the string `s`. For each substring, we calculate the difference between the highest and lowest frequencies, which takes O(26) or O(1) time since there are 26 lowercase alphabets. Therefore, the ",
+    "space": "O(26) or O(1) since we use a constant-sized frequency array to store the counts of characters",
+    "strategy": "Tree traversal",
+    "tags": ["Strings", "Tree traversal"],
+    "intuition": "Solve the current node and combine independently computed child results. Pick preorder, inorder, postorder, or level order according to when the node must be processed.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": ["Null root", "Single node", "Completely skewed tree", "Duplicate node values"],
+    "pitfalls": [
+      "Missing the null base case",
+      "Combining child answers in the wrong order",
+      "Recursion-depth overflow"
+    ],
+    "code": "/*Question:\n\nThe beauty of a string is the difference in frequencies between the most frequent and least frequent characters.\n\nGiven a string `s`, you need to calculate the sum of beauty for all of its substrings. The beauty of a substring is defined as the difference between the highest and lowest frequency of any character in the substring.\n\nWrite a function `beautySum` that takes a string `s` as input and returns the sum of beauty for all substrings.\n\nExample:\n\nInput: s = \"aabcb\"\nOutput: 5\nExplanation: The substrings with non-zero beauty are [\"aab\",\"aabc\",\"aabcb\",\"abcb\",\"bcb\"], each with beauty equal to 1.\n\nInput: s = \"aabcbaa\"\nOutput: 17\n\nApproach:\n\n1. Initialize a variable `ans` to store the total beauty sum.\n2. Iterate over the string `s` with the first loop, starting from index `i`.\n   - Initialize a frequency array `freq` of size 26, initialized with zeros.\n   - Iterate over the string `s` with the second loop, starting from index `j` equal to `i`.\n      - Increment the frequency of the character `s[j]` in the `freq` array.\n      - Calculate the difference between the highest and lowest frequencies in the `freq` array and add it to `ans`.\n3. Return the value of `ans` as the final result.\n\nCODE:-\n*/\nint get_maxmin(vector<int>& freq){\n    int maxi = INT_MIN, mini = INT_MAX;\n    for(auto it:freq){\n        maxi = max(maxi,it);\n        if(it!=0)\n            mini = min(mini,it);\n    }\n    return (mini==INT_MAX)?0:maxi-mini;\n}    \n\nint beautySum(string s) {\n    int ans = 0;\n    // 2 loops to generate all substrings\n    for(int i=0; i<s.size(); i++){\n        vector<int>freq(26,0);\n        for(int j=i; j<s.size(); j++){\n            freq[s[j]-'a']++;\n            int maxmin = get_maxmin(freq);\n            ans += maxmin;\n        }\n    }\n    return ans;\n}\n\n/*\nTime complexity :- for generating all substrings is O(n^2), where n is the length of the string `s`. For each substring, we calculate the difference between the highest and lowest frequencies, which takes O(26) or O(1) time since there are 26 lowercase alphabets. Therefore, the overall time complexity is O(n^2).\nSpace complexity :- O(26) or O(1) since we use a constant-sized frequency array to store the counts of characters.\n*/\n",
+    "codeLines": 57,
+    "repoPath": "03.Strings/2.Medium/07.Sum_of_beauty_of_all_substrings.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/03.Strings/2.Medium/07.Sum_of_beauty_of_all_substrings.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sum-of-beauty-of-all-substrings/",
+      "title": "Sum of Beauty of All Substrings",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  }
+]

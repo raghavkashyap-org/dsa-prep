@@ -1,0 +1,475 @@
+[
+  {
+    "id": "p178",
+    "index": 178,
+    "title": "Longest Substring Without Repeating Characters",
+    "topic": "Sliding Window",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given a string s, find the length of the longest substring without repeating characters.",
+    "approach": "- We can use a sliding window approach to solve this problem.\n- We maintain a window that contains only unique characters.\n- We use a hash map to store the frequency of characters in the current window.\n- We iterate through the string and expand the window by adding one character at a time.\n- If we encounter a repeating character, we shrink the window from the left until the character is no longer in the window.\n- We keep track of the maximum window size encountered so far and return it as the result.\n\nExample:\nInput: s = \"abcabcbb\"\nOutput: 3\nExplanation: The answer is \"abc\", with the length of 3.",
+    "pseudocode": "ALGORITHM  Longest Substring Without Repeating Characters\nPATTERN    Sliding window\n\nBEGIN\n  01  We can use a sliding window approach to solve this problem\n  02  We maintain a window that contains only unique characters\n  03  We use a hash map to store the frequency of characters in the current window\n  04  We iterate through the string and expand the window by adding one character at a time\n  05  IF we encounter a repeating character, we shrink the window from the left until the character is no longer in the window\n  06  We keep track of the maximum window size encountered so far and return it as the result\n  07  Example:\n  08  Input: s = \"abcabcbb\"\n  09  Output: 3\n  10  Explanation: The answer is \"abc\", with the length of 3\n  11  RETURN the required result\nEND",
+    "time": "of this algorithm is O(N), where N is the length of the input string `s`. We iterate through each character of the string once",
+    "space": "O(M), where M is the number of unique characters in the string `s`. The unordered map `mp` can store up to M key-value pairs",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window", "Strings"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*\nQuestion:\nGiven a string s, find the length of the longest substring without repeating characters.\n\nApproach:\n- We can use a sliding window approach to solve this problem.\n- We maintain a window that contains only unique characters.\n- We use a hash map to store the frequency of characters in the current window.\n- We iterate through the string and expand the window by adding one character at a time.\n- If we encounter a repeating character, we shrink the window from the left until the character is no longer in the window.\n- We keep track of the maximum window size encountered so far and return it as the result.\n\nExample:\nInput: s = \"abcabcbb\"\nOutput: 3\nExplanation: The answer is \"abc\", with the length of 3.\n\nCODE:-\n*/\n\nint lengthOfLongestSubstring(const string& s) {\n    int ans = 0;\n    unordered_map<char, int> mp;\n    int start = 0;\n    \n    for (int i = 0; i < s.size(); i++) {\n        mp[s[i]]++;\n        \n        while (mp.size() < i - start + 1) {\n            mp[s[start]]--;\n            if (mp[s[start]] == 0)\n                mp.erase(s[start]);\n            start++;\n        }\n        \n        if (mp.size() == i - start + 1)\n            ans = max(ans, i - start + 1);\n    }\n    \n    return ans;\n}\n\n// Complexity Analysis:\n// - The time complexity of this algorithm is O(N), where N is the length of the input string `s`. We iterate through each character of the string once.\n// - The space complexity is O(M), where M is the number of unique characters in the string `s`. The unordered map `mp` can store up to M key-value pairs.\n",
+    "codeLines": 45,
+    "repoPath": "08. Sliding Window/1. Medium Problems/01. Longest Substring Without Repeating Characters.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/1.%20Medium%20Problems/01.%20Longest%20Substring%20Without%20Repeating%20Characters.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+      "title": "Longest Substring Without Repeating Characters",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p179",
+    "index": 179,
+    "title": "Max Consecutive 1's",
+    "topic": "Sliding Window",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.\n\nExample 1:\nInput: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2\nOutput: 6\nExplanation: [1,1,1,0,0,1,1,1,1,1,1]\nBolded numbers were flipped from 0 to 1. The longest subarray is underlined.",
+    "approach": "1. Initialize variables zeroCnt, start, and ans.\n2. Iterate through the array nums:\n   - If the current element is 0, increment zeroCnt.\n   - Enter a while loop to adjust the start index until zeroCnt becomes less than or equal to k.\n   - During the adjustment, decrement zeroCnt if the element at the start index is 0.\n   - Update ans by taking the maximum of the current ans and the length of the current subarray if zeroCnt is less than or equal to k.\n3. Return the maximum length of consecutive 1's (ans).",
+    "pseudocode": "ALGORITHM  Max Consecutive 1's\nPATTERN    Sliding window\n\nBEGIN\n  01  SET variables zeroCnt, start, and ans\n  02  FOR EACH element while traversing the array nums:\n  03  IF the current element is 0, increment zeroCnt\n  04  Enter a while loop to adjust the start index until zeroCnt becomes less than or equal to k\n  05  During the adjustment, decrement zeroCnt if the element at the start index is 0\n  06  UPDATE ans by taking the maximum of the current ans and the length of the current subarray if zeroCnt is less than or equal to k\n  07  RETURN the maximum length of consecutive 1's (ans)\nEND",
+    "time": "O(N), where N is the length of the input array nums. We iterate through the array once",
+    "space": "O(1), as we are using a constant amount of additional space to store variables",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*QUESTION:\nGiven a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.\n\nExample 1:\nInput: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2\nOutput: 6\nExplanation: [1,1,1,0,0,1,1,1,1,1,1]\nBolded numbers were flipped from 0 to 1. The longest subarray is underlined.\n\nAPPROACH:\n1. Initialize variables zeroCnt, start, and ans.\n2. Iterate through the array nums:\n   - If the current element is 0, increment zeroCnt.\n   - Enter a while loop to adjust the start index until zeroCnt becomes less than or equal to k.\n   - During the adjustment, decrement zeroCnt if the element at the start index is 0.\n   - Update ans by taking the maximum of the current ans and the length of the current subarray if zeroCnt is less than or equal to k.\n3. Return the maximum length of consecutive 1's (ans).\n\nCODE:*/\n\nint longestOnes(vector<int>& nums, int k) {\n    int zeroCnt = 0, start = 0, ans = 0;\n    for(int i = 0; i < nums.size(); i++) {\n        if(nums[i] == 0)\n            zeroCnt++;\n        while(zeroCnt > k) {\n            if(nums[start] == 0)\n                zeroCnt--;\n            start++;\n        }\n        if(zeroCnt <= k)\n            ans = max(ans, i - start + 1);\n    }\n    return ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(N), where N is the length of the input array nums. We iterate through the array once.\n- Space complexity: O(1), as we are using a constant amount of additional space to store variables.\n*/\n",
+    "codeLines": 41,
+    "repoPath": "08. Sliding Window/1. Medium Problems/02. Max Consecutive 1's.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/1.%20Medium%20Problems/02.%20Max%20Consecutive%201%27s.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/max-consecutive-ones-iii/",
+      "title": "Max Consecutive Ones III",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p180",
+    "index": 180,
+    "title": "Fruit into Baskets",
+    "topic": "Sliding Window",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "You are visiting a farm that has a single row of fruit trees arranged from left to right. The trees are represented by an integer array fruits of size N, where fruits[i] is the type of fruit the ith tree produces.\nYou want to collect as much fruit as possible. However, the owner has some strict rules that you must follow:\n1. You only have two baskets, and each basket can only hold a single type of fruit. There is no limit on the amount of fruit each basket can hold.\n2. Starting from any tree of your choice, you must pick exactly one fruit from every tree (including the start tree) while moving to the right. The picked fruits must fit in one of the baskets.\n3. Once you reach a tree with fruit that cannot fit in your baskets, you must stop.\n\nGiven the integer array fruits, return the maximum number of fruits you can pick.\n\nExample 1:\nInput: N = 3, fruits[] = {2, 1, 2}\nOutput: 3\nExplanation: We can pick fruits from all three trees.",
+    "approach": "1. Initialize an unordered_map mp to track the frequency of fruit types.\n2. Initialize variables ans and start to keep track of the maximum number of fruits and the start index of the subarray.\n3. Iterate through the fruit trees using a sliding window approach:\n   - Increment the frequency of the current fruit type in the map.\n   - Enter a while loop to adjust the start index until the number of fruit types in the map becomes more than 2.\n   - During the adjustment, decrement the frequency of the fruit type at the start index and remove it from the map if the frequency becomes 0.\n   - Update the ans by taking the maximum of the current ans and the length of the current subarray if the number of fruit types in the map is at most 2.\n4. Return the maximum number of fruits (ans).",
+    "pseudocode": "ALGORITHM  Fruit into Baskets\nPATTERN    Sliding window\n\nBEGIN\n  01  SET an unordered_map mp to track the frequency of fruit types\n  02  SET variables ans and start to keep track of the maximum number of fruits and the start index of the subarray\n  03  FOR EACH element while traversing the fruit trees using a sliding window approach:\n  04  Increment the frequency of the current fruit type in the map\n  05  Enter a while loop to adjust the start index until the number of fruit types in the map becomes more than 2\n  06  During the adjustment, decrement the frequency of the fruit type at the start index and remove it from the map if the frequency becomes 0\n  07  UPDATE the ans by taking the maximum of the current ans and the length of the current subarray if the number of fruit types in the map is at most 2\n  08  RETURN the maximum number of fruits (ans)\nEND",
+    "time": "O(N), where N is the number of fruit trees. We iterate through the fruit trees once using the sliding window approach",
+    "space": "O(1) or O(2), as the size of the map can be at most 2 since we only have two baskets",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*QUESTION:\nYou are visiting a farm that has a single row of fruit trees arranged from left to right. The trees are represented by an integer array fruits of size N, where fruits[i] is the type of fruit the ith tree produces.\nYou want to collect as much fruit as possible. However, the owner has some strict rules that you must follow:\n1. You only have two baskets, and each basket can only hold a single type of fruit. There is no limit on the amount of fruit each basket can hold.\n2. Starting from any tree of your choice, you must pick exactly one fruit from every tree (including the start tree) while moving to the right. The picked fruits must fit in one of the baskets.\n3. Once you reach a tree with fruit that cannot fit in your baskets, you must stop.\n\nGiven the integer array fruits, return the maximum number of fruits you can pick.\n\nExample 1:\nInput: N = 3, fruits[] = {2, 1, 2}\nOutput: 3\nExplanation: We can pick fruits from all three trees.\n\nAPPROACH:\n1. Initialize an unordered_map mp to track the frequency of fruit types.\n2. Initialize variables ans and start to keep track of the maximum number of fruits and the start index of the subarray.\n3. Iterate through the fruit trees using a sliding window approach:\n   - Increment the frequency of the current fruit type in the map.\n   - Enter a while loop to adjust the start index until the number of fruit types in the map becomes more than 2.\n   - During the adjustment, decrement the frequency of the fruit type at the start index and remove it from the map if the frequency becomes 0.\n   - Update the ans by taking the maximum of the current ans and the length of the current subarray if the number of fruit types in the map is at most 2.\n4. Return the maximum number of fruits (ans).\n\nCODE:*/\n\nint totalFruits(int N, vector<int>& fruits) {\n    unordered_map<int, int> mp;\n    int ans = 0, start = 0;\n    for(int i = 0; i < fruits.size(); i++) {\n        mp[fruits[i]]++;\n        while(mp.size() > 2) {\n            mp[fruits[start]]--;\n            if(mp[fruits[start]] == 0)\n                mp.erase(fruits[start]);\n            start++;\n        }\n        if(mp.size() <= 2)\n            ans = max(ans, i - start + 1);\n    }\n    return ans;\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(N), where N is the number of fruit trees. We iterate through the fruit trees once using the sliding window approach.\n- Space complexity: O(1) or O(2), as the size of the map can be at most 2 since we only have two baskets.\n*/\n",
+    "codeLines": 48,
+    "repoPath": "08. Sliding Window/1. Medium Problems/03. Fruit into Baskets.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/1.%20Medium%20Problems/03.%20Fruit%20into%20Baskets.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/fruit-into-baskets/",
+      "title": "Fruit Into Baskets",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p181",
+    "index": 181,
+    "title": "Longest Repeating Character",
+    "topic": "Sliding Window",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.\nReturn the length of the longest substring containing the same letter you can get after performing the above operations.\n\nExample 1:\nInput: s = \"ABAB\", k = 2\nOutput: 4\nExplanation: Replace the two 'A's with two 'B's or vice versa.",
+    "approach": "1. Create an unordered_set ltrs to store all unique letters in the given string s.\n2. Initialize a variable ans to keep track of the maximum length of the substring.\n3. Iterate through each letter ltr in the set ltrs:\n   - Initialize variables start and ltrCnt to track the starting index of the current substring and the count of ltr in the substring.\n   - Iterate through each character in the string s:\n     - If the character is equal to ltr, increment ltrCnt.\n     - Enter a while loop to adjust the start index until the number of characters in the substring that are different from ltr is more than k.\n     - During the adjustment, if the character at the start index is equal to ltr, decrement ltrCnt.\n     - Increment the start index.\n     - If the length of the current substring minus ltrCnt is at most k, update ans by taking the maximum of ans and the length of the current substring.\n4. Return the maximum length of the substring (ans).",
+    "pseudocode": "ALGORITHM  Longest Repeating Character\nPATTERN    Sliding window\n\nBEGIN\n  01  SET an unordered_set ltrs to store all unique letters in the given string s\n  02  SET a variable ans to keep track of the maximum length of the substring\n  03  FOR EACH element while traversing each letter ltr in the set ltrs:\n  04  SET variables start and ltrCnt to track the starting index of the current substring and the count of ltr in the substring\n  05  FOR EACH element while traversing each character in the string s:\n  06  IF the character is equal to ltr, increment ltrCnt\n  07  Enter a while loop to adjust the start index until the number of characters in the substring that are different from ltr is more than k\n  08  During the adjustment, if the character at the start index is equal to ltr, decrement ltrCnt\n  09  Increment the start index\n  10  IF the length of the current substring minus ltrCnt is at most k, update ans by taking the maximum of ans and the length of the current substring\n  11  RETURN the maximum length of the substring (ans)\nEND",
+    "time": "O(N * L), where N is the length of the string s and L is the number of unique letters in the string. We iterate through the string and perform the sliding window operation for each unique letter",
+    "space": "O(L), as we store the unique letters in the set ltrs",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window", "Strings"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*QUESTION:\nYou are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.\nReturn the length of the longest substring containing the same letter you can get after performing the above operations.\n\nExample 1:\nInput: s = \"ABAB\", k = 2\nOutput: 4\nExplanation: Replace the two 'A's with two 'B's or vice versa.\n\nAPPROACH:\n1. Create an unordered_set ltrs to store all unique letters in the given string s.\n2. Initialize a variable ans to keep track of the maximum length of the substring.\n3. Iterate through each letter ltr in the set ltrs:\n   - Initialize variables start and ltrCnt to track the starting index of the current substring and the count of ltr in the substring.\n   - Iterate through each character in the string s:\n     - If the character is equal to ltr, increment ltrCnt.\n     - Enter a while loop to adjust the start index until the number of characters in the substring that are different from ltr is more than k.\n     - During the adjustment, if the character at the start index is equal to ltr, decrement ltrCnt.\n     - Increment the start index.\n     - If the length of the current substring minus ltrCnt is at most k, update ans by taking the maximum of ans and the length of the current substring.\n4. Return the maximum length of the substring (ans).\n\nCODE:*/\nint characterReplacement(string s, int k) {\n    unordered_set<char> ltrs;\n    for(auto it : s)\n        ltrs.insert(it);\n    int ans = 0;\n    for(auto ltr : ltrs) {\n        int start = 0, ltrCnt = 0;\n        for(int i = 0; i < s.size(); i++) {\n            if(s[i] == ltr)\n                ltrCnt++;\n            while((i - start + 1) - ltrCnt > k) {\n                if(s[start] == ltr)\n                    ltrCnt--;\n                start++;\n            }\n            if((i - start + 1) - ltrCnt <= k)\n                ans = max(ans, i - start + 1);\n        }\n    }\n    return ans;\n}\n/*\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(N * L), where N is the length of the string s and L is the number of unique letters in the string. We iterate through the string and perform the sliding window operation for each unique letter.\n    - L can have the max value of 26, so we can say the complexity would be O(N * 26) i.e O(N).\n- Space complexity: O(L), as we store the unique letters in the set ltrs.\n*/\n",
+    "codeLines": 50,
+    "repoPath": "08. Sliding Window/1. Medium Problems/04. Longest Repeating Character.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/1.%20Medium%20Problems/04.%20Longest%20Repeating%20Character.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-repeating-character-replacement/",
+      "title": "Longest Repeating Character Replacement",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p182",
+    "index": 182,
+    "title": "Binary Subarrays with Sum",
+    "topic": "Sliding Window",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given a binary array nums and an integer goal, return the number of non-empty subarrays with a sum equal to the goal.\n\nExample 1:\nInput: nums = [1,0,1,0,1], goal = 2\nOutput: 4\nExplanation: The 4 subarrays are bolded and underlined below:\n[1,0,1,0,1]\n[1,0,1,0,1]\n[1,0,1,0,1]\n[1,0,1,0,1]",
+    "approach": "1. Create an unordered_map mp to store the prefix sum and its frequency.\n2. Initialize a variable prefSum to keep track of the prefix sum.\n3. Initialize a variable cnt to keep track of the count of subarrays with a sum equal to the goal.\n4. Iterate through each element nums[i] in the array:\n   - Update prefSum by adding nums[i].\n   - Check if prefSum is equal to the goal, if so, increment cnt.\n   - Check if the difference between prefSum and goal (prefSum - goal) exists in the map.\n     - If it exists, increment cnt by the frequency of (prefSum - goal) in the map, as this would mean we have found subarrays with a sum equal to the goal.\n   - Increment the frequency of prefSum in the map.\n5. Return cnt, which represents the number of non-empty subarrays with a sum equal to the goal.",
+    "pseudocode": "ALGORITHM  Binary Subarrays with Sum\nPATTERN    Sliding window\n\nBEGIN\n  01  SET an unordered_map mp to store the prefix sum and its frequency\n  02  SET a variable prefSum to keep track of the prefix sum\n  03  SET a variable cnt to keep track of the count of subarrays with a sum equal to the goal\n  04  FOR EACH element while traversing each element nums[i] in the array:\n  05  UPDATE prefSum by adding nums[i]\n  06  Check if prefSum is equal to the goal, if so, increment cnt\n  07  Check if the difference between prefSum and goal (prefSum - goal) exists in the map\n  08  IF it exists, increment cnt by the frequency of (prefSum - goal) in the map, as this would mean we have found subarrays with a sum equal to the goal\n  09  Increment the frequency of prefSum in the map\n  10  RETURN cnt, which represents the number of non-empty subarrays with a sum equal to the goal\nEND",
+    "time": "O(N), where N is the size of the input array nums. We traverse the array once and perform constant time operations in the loop",
+    "space": "O(N), as the worst-case scenario would be that all prefix sums are distinct, so the map mp would store N prefix sums",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*QUESTION:\nGiven a binary array nums and an integer goal, return the number of non-empty subarrays with a sum equal to the goal.\n\nExample 1:\nInput: nums = [1,0,1,0,1], goal = 2\nOutput: 4\nExplanation: The 4 subarrays are bolded and underlined below:\n[1,0,1,0,1]\n[1,0,1,0,1]\n[1,0,1,0,1]\n[1,0,1,0,1]\n\nAPPROACH:\n1. Create an unordered_map mp to store the prefix sum and its frequency.\n2. Initialize a variable prefSum to keep track of the prefix sum.\n3. Initialize a variable cnt to keep track of the count of subarrays with a sum equal to the goal.\n4. Iterate through each element nums[i] in the array:\n   - Update prefSum by adding nums[i].\n   - Check if prefSum is equal to the goal, if so, increment cnt.\n   - Check if the difference between prefSum and goal (prefSum - goal) exists in the map.\n     - If it exists, increment cnt by the frequency of (prefSum - goal) in the map, as this would mean we have found subarrays with a sum equal to the goal.\n   - Increment the frequency of prefSum in the map.\n5. Return cnt, which represents the number of non-empty subarrays with a sum equal to the goal.\n\nCODE:*/\n\n\nint numSubarraysWithSum(vector<int>& nums, int goal) {\n    unordered_map<int, int> mp;\n    int prefSum = 0, cnt = 0;\n    for(int i = 0; i < nums.size(); i++) {\n        prefSum += nums[i];\n        if(prefSum == goal)\n            cnt++;\n        if(mp.find(prefSum - goal) != mp.end())\n            cnt += mp[prefSum - goal];\n        mp[prefSum]++;\n    }\n    return cnt;\n}\n/*\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(N), where N is the size of the input array nums. We traverse the array once and perform constant time operations in the loop.\n- Space complexity: O(N), as the worst-case scenario would be that all prefix sums are distinct, so the map mp would store N prefix sums.\n    - we can reduce the space complexity to O(1) if we use this countOfSubarrays with atmost sum = k - atmost sum = k-1 \n    - which will return in countofSubarrays with sum exactly K, but this won't work if array has -ve elements\n*/\n",
+    "codeLines": 47,
+    "repoPath": "08. Sliding Window/1. Medium Problems/05. Binary Subarrays with Sum.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/1.%20Medium%20Problems/05.%20Binary%20Subarrays%20with%20Sum.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/binary-subarrays-with-sum/",
+      "title": "Binary Subarrays With Sum",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p183",
+    "index": 183,
+    "title": "Count the number of nice subarrays",
+    "topic": "Sliding Window",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given an array of integers nums and an integer k, a continuous subarray is called nice if there are k odd numbers in it. Return the number of nice subarrays.\n\nExample 1:\nInput: nums = [1,1,2,1,1], k = 3\nOutput: 2\nExplanation: The only subarrays with 3 odd numbers are [1,1,2,1] and [1,2,1,1].",
+    "approach": "1. Define a helper function called atMostK, which calculates the number of subarrays with at most k odd numbers.\n2. Initialize variables start to 0, oddCnt to 0, and ans to 0.\n3. Iterate through each element nums[i] in the array:\n   - If nums[i] is odd, increment oddCnt by 1.\n   - While oddCnt is greater than k, move the start pointer and decrement oddCnt if the element at nums[start] is odd. This ensures that we maintain at most k odd numbers in the subarray.\n   - Add the count of subarrays from start to i (i - start + 1) to ans.\n4. Return ans, which represents the number of subarrays with at most k odd numbers.\n5. In the numberOfSubarrays function, return the difference between atMostK(nums, k) and atMostK(nums, k - 1) to get the number of nice subarrays.",
+    "pseudocode": "ALGORITHM  Count the number of nice subarrays\nPATTERN    Sliding window\n\nBEGIN\n  01  Define a helper function called atMostK, which calculates the number of subarrays with at most k odd numbers\n  02  SET variables start to 0, oddCnt to 0, and ans to 0\n  03  FOR EACH element while traversing each element nums[i] in the array:\n  04  IF nums[i] is odd, increment oddCnt by 1\n  05  WHILE oddCnt is greater than k, move the start pointer and decrement oddCnt if the element at nums[start] is odd\n  06  This ensures that we maintain at most k odd numbers in the subarray\n  07  Add the count of subarrays from start to i (i - start + 1) to ans\n  08  RETURN ans, which represents the number of subarrays with at most k odd numbers\n  09  In the numberOfSubarrays function, return the difference between atMostK(nums, k) and atMostK(nums, k - 1) to get the number of nice subarrays\nEND",
+    "time": "O(N), where N is the size of the input array nums. We traverse the array once in both the atMostK function and the numberOfSubarrays function",
+    "space": "O(1), as we use constant extra space throughout the algorithm",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "QUESTION:\n/*Given an array of integers nums and an integer k, a continuous subarray is called nice if there are k odd numbers in it. Return the number of nice subarrays.\n\nExample 1:\nInput: nums = [1,1,2,1,1], k = 3\nOutput: 2\nExplanation: The only subarrays with 3 odd numbers are [1,1,2,1] and [1,2,1,1].\n\nAPPROACH:\n1. Define a helper function called atMostK, which calculates the number of subarrays with at most k odd numbers.\n2. Initialize variables start to 0, oddCnt to 0, and ans to 0.\n3. Iterate through each element nums[i] in the array:\n   - If nums[i] is odd, increment oddCnt by 1.\n   - While oddCnt is greater than k, move the start pointer and decrement oddCnt if the element at nums[start] is odd. This ensures that we maintain at most k odd numbers in the subarray.\n   - Add the count of subarrays from start to i (i - start + 1) to ans.\n4. Return ans, which represents the number of subarrays with at most k odd numbers.\n5. In the numberOfSubarrays function, return the difference between atMostK(nums, k) and atMostK(nums, k - 1) to get the number of nice subarrays.\n\nCODE:*/\nint atMostK(vector<int>& nums, int k) {\n    int start = 0, oddCnt = 0, ans = 0;\n    for(int i = 0; i < nums.size(); i++) {\n        if(nums[i] % 2 != 0)\n            oddCnt++;\n        while(oddCnt > k) {\n            if(nums[start] % 2 != 0)\n                oddCnt--;\n            start++;\n        }\n        ans += i - start + 1;\n    }\n    return ans;\n}\n\nint numberOfSubarrays(vector<int>& nums, int k) {\n    return atMostK(nums, k) - atMostK(nums, k - 1);\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(N), where N is the size of the input array nums. We traverse the array once in both the atMostK function and the numberOfSubarrays function.\n- Space complexity: O(1), as we use constant extra space throughout the algorithm.\n*/\n",
+    "codeLines": 43,
+    "repoPath": "08. Sliding Window/1. Medium Problems/06. Count the number of nice subarrays.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/1.%20Medium%20Problems/06.%20Count%20the%20number%20of%20nice%20subarrays.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/count-number-of-nice-subarrays/",
+      "title": "Count Number of Nice Subarrays",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p184",
+    "index": 184,
+    "title": "Number of Substrings Containing all 3 characters",
+    "topic": "Sliding Window",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "Given a string s consisting only of characters 'a', 'b', and 'c', you need to count the number of substrings that contain at least one occurrence of all these characters.",
+    "approach": "To count the number of substrings with at least one occurrence of 'a', 'b', and 'c', we can use a sliding window approach.\n\n1. Create a helper function, countOfUnvalidSubstrings, which counts the number of substrings that do not contain all three characters.\n   - Initialize an unordered_map, mp, to keep track of the counts of characters in the current window.\n   - Initialize start to 0 and ans to 0.\n   - Iterate over the string from left to right:\n     - Increment the count of the current character in mp.\n     - If the number of unique characters in mp exceeds 2, it means we have found an invalid substring.\n       - Decrement the count of the character at the start of the window in mp.\n       - If the count becomes zero, remove the character from mp.\n       - Move the start of the window to the next position.\n     - Add the length of the current window to ans.\n   - Return ans.\n\n2. In the main function, numberOfSubstrings:\n   - Calculate the total number of substrings, cntOfTotalSubstrings, using the formula (n * (n + 1)) / 2, where n is the length of the string.\n   - Subtract the count of invalid substrings obtained from countOfUnvalidSubstrings from cntOfTotalSubstrings.\n   - Return the resulting count.\n\nint countOfUnvalidSubstrings(string& s) {\n    unordered_map<char, int> mp;\n    int start = 0, ans = 0;\n\n    for (int i = 0; i < s.size(); i++) {\n        mp[s[i]]++;\n\n        while (mp.size() > 2) {\n            mp[s[start]]--;\n\n            if (mp[s[start]] == 0)\n                mp.erase(s[start]);\n\n            start++;\n        }\n\n        ans += i - start + 1;\n    }\n\n    return ans;\n}\n\nint numberOfSubstrings(string s) {\n    long long n = s.size();\n    int cntOfTotalSubstrings = (n * (n + 1)) / 2;\n    return cntOfTotalSubstrings - countOfUnvalidSubstrings(s);\n}",
+    "pseudocode": "ALGORITHM  Number of Substrings Containing all 3 characters\nPATTERN    Sliding window\n\nBEGIN\n  01  To count the number of substrings with at least one occurrence of 'a', 'b', and 'c', we can use a sliding window approach\n  02  SET a helper function, countOfUnvalidSubstrings, which counts the number of substrings that do not contain all three characters\n  03  SET an unordered_map, mp, to keep track of the counts of characters in the current window\n  04  SET start to 0 and ans to 0\n  05  Iterate over the string from left to right:\n  06  Increment the count of the current character in mp\n  07  IF the number of unique characters in mp exceeds 2, it means we have found an invalid substring\n  08  Decrement the count of the character at the start of the window in mp\n  09  IF the count becomes zero, remove the character from mp\n  10  Move the start of the window to the next position\n  11  Add the length of the current window to ans\n  12  RETURN ans\n  13  In the main function, numberOfSubstrings:\n  14  Calculate the total number of substrings, cntOfTotalSubstrings, using the formula (n * (n + 1)) / 2, where n is the length of the string\nEND",
+    "time": "O(n), where n is the length of the string s. We iterate over the string once",
+    "space": "O(1), as the extra space used is constant throughout the algorithm",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window", "Strings"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*\nQUESTION:\nGiven a string s consisting only of characters 'a', 'b', and 'c', you need to count the number of substrings that contain at least one occurrence of all these characters.\n\nAPPROACH:\nTo count the number of substrings with at least one occurrence of 'a', 'b', and 'c', we can use a sliding window approach.\n\n1. Create a helper function, countOfUnvalidSubstrings, which counts the number of substrings that do not contain all three characters.\n   - Initialize an unordered_map, mp, to keep track of the counts of characters in the current window.\n   - Initialize start to 0 and ans to 0.\n   - Iterate over the string from left to right:\n     - Increment the count of the current character in mp.\n     - If the number of unique characters in mp exceeds 2, it means we have found an invalid substring.\n       - Decrement the count of the character at the start of the window in mp.\n       - If the count becomes zero, remove the character from mp.\n       - Move the start of the window to the next position.\n     - Add the length of the current window to ans.\n   - Return ans.\n\n2. In the main function, numberOfSubstrings:\n   - Calculate the total number of substrings, cntOfTotalSubstrings, using the formula (n * (n + 1)) / 2, where n is the length of the string.\n   - Subtract the count of invalid substrings obtained from countOfUnvalidSubstrings from cntOfTotalSubstrings.\n   - Return the resulting count.\n*/\n\nint countOfUnvalidSubstrings(string& s) {\n    unordered_map<char, int> mp;\n    int start = 0, ans = 0;\n    \n    for (int i = 0; i < s.size(); i++) {\n        mp[s[i]]++;\n        \n        while (mp.size() > 2) {\n            mp[s[start]]--;\n            \n            if (mp[s[start]] == 0)\n                mp.erase(s[start]);\n            \n            start++;\n        }\n        \n        ans += i - start + 1;\n    }\n    \n    return ans;\n}\n\nint numberOfSubstrings(string s) {\n    long long n = s.size();\n    int cntOfTotalSubstrings = (n * (n + 1)) / 2;\n    return cntOfTotalSubstrings - countOfUnvalidSubstrings(s);\n}\n\n/*\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(n), where n is the length of the string s. We iterate over the string once.\n- Space complexity: O(1), as the extra space used is constant throughout the algorithm.\n*/\n",
+    "codeLines": 58,
+    "repoPath": "08. Sliding Window/1. Medium Problems/07. Number of Substrings Containing all 3 characters.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/1.%20Medium%20Problems/07.%20Number%20of%20Substrings%20Containing%20all%203%20characters.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/",
+      "title": "Number of Substrings Containing All Three Characters",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p185",
+    "index": 185,
+    "title": "Maximum Points you can obtain form the card",
+    "topic": "Sliding Window",
+    "subtopic": "Medium Problems",
+    "difficulty": "Medium",
+    "question": "You are given an array of cards, each with an associated number of points. You can take exactly k cards, either from the beginning or from the end of the row. Your goal is to maximize the sum of the points of the cards you have taken. Return the maximum score you can obtain.",
+    "approach": "To maximize the score, we need to minimize the sum of the discarded cards. We can find the minimum sum of a subarray of size (n - k) using a sliding window approach.\n\n1. Create a helper function, minimumSumOfSizeK, which finds the minimum sum of a subarray of size k.\n   - Initialize ans to INT_MAX, currsum to 0, and start to 0.\n   - Iterate over the array from left to right:\n     - Add the current element to currsum.\n     - If the size of the current window (i - start + 1) exceeds k, remove the element at the start of the window from currsum and move the start to the next position.\n     - If the size of the current window is k, update ans with the minimum of ans and currsum.\n   - Return ans.\n\n2. In the main function, maxScore:\n   - Calculate the total sum of all the cards, totalSum.\n   - Calculate the size of the discarded cards, windowSize, which is (n - k).\n   - Find the minimum sum of a subarray of size windowSize using the minimumSumOfSizeK function and store it in discardedSum.\n   - Return the maximum score, which is (totalSum - discardedSum).",
+    "pseudocode": "ALGORITHM  Maximum Points you can obtain form the card\nPATTERN    Sliding window\n\nBEGIN\n  01  To maximize the score, we need to minimize the sum of the discarded cards. We can find the minimum sum of a subarray of size (n - k) using a sliding window approach\n  02  SET a helper function, minimumSumOfSizeK, which finds the minimum sum of a subarray of size k\n  03  SET ans to INT_MAX, currsum to 0, and start to 0\n  04  Iterate over the array from left to right:\n  05  Add the current element to currsum\n  06  IF the size of the current window (i - start + 1) exceeds k, remove the element at the start of the window from currsum and move the start to the next position\n  07  IF the size of the current window is k, update ans with the minimum of ans and currsum\n  08  RETURN ans\n  09  In the main function, maxScore:\n  10  Calculate the total sum of all the cards, totalSum\n  11  Calculate the size of the discarded cards, windowSize, which is (n - k)\n  12  Find the minimum sum of a subarray of size windowSize using the minimumSumOfSizeK function and store it in discardedSum\n  13  RETURN the maximum score, which is (totalSum - discardedSum)\nEND",
+    "time": "O(n), where n is the size of the cardPoints array. We iterate over the array once to calculate the total sum and find the minimum sum of a subarray",
+    "space": "O(1), as the extra space used is constant throughout the algorithm",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*\nQUESTION:\nYou are given an array of cards, each with an associated number of points. You can take exactly k cards, either from the beginning or from the end of the row. Your goal is to maximize the sum of the points of the cards you have taken. Return the maximum score you can obtain.\n\nAPPROACH:\nTo maximize the score, we need to minimize the sum of the discarded cards. We can find the minimum sum of a subarray of size (n - k) using a sliding window approach.\n\n1. Create a helper function, minimumSumOfSizeK, which finds the minimum sum of a subarray of size k.\n   - Initialize ans to INT_MAX, currsum to 0, and start to 0.\n   - Iterate over the array from left to right:\n     - Add the current element to currsum.\n     - If the size of the current window (i - start + 1) exceeds k, remove the element at the start of the window from currsum and move the start to the next position.\n     - If the size of the current window is k, update ans with the minimum of ans and currsum.\n   - Return ans.\n\n2. In the main function, maxScore:\n   - Calculate the total sum of all the cards, totalSum.\n   - Calculate the size of the discarded cards, windowSize, which is (n - k).\n   - Find the minimum sum of a subarray of size windowSize using the minimumSumOfSizeK function and store it in discardedSum.\n   - Return the maximum score, which is (totalSum - discardedSum).\n\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(n), where n is the size of the cardPoints array. We iterate over the array once to calculate the total sum and find the minimum sum of a subarray.\n- Space complexity: O(1), as the extra space used is constant throughout the algorithm.\n*/\n\nint minimumSumOfSizeK(vector<int>& arr, int k) {\n    int ans = INT_MAX, currsum = 0, start = 0;\n    \n    for (int i = 0; i < arr.size(); i++) {\n        currsum += arr[i];\n        \n        while ((i - start + 1) > k) {\n            currsum -= arr[start];\n            start++;\n        }\n        \n        if ((i - start + 1) == k)\n            ans = min(ans, currsum);\n    }\n    \n    return ans;\n}\n\nint maxScore(vector<int>& cardPoints, int k) {\n    int totalSum = 0;\n    \n    for (auto it : cardPoints) {\n        totalSum += it;\n    }\n    \n    int windowSize = cardPoints.size() - k;\n    int discardedSum = minimumSumOfSizeK(cardPoints, windowSize);\n    \n    return totalSum - discardedSum;\n}\n",
+    "codeLines": 56,
+    "repoPath": "08. Sliding Window/1. Medium Problems/08. Maximum Points you can obtaln form the card.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/1.%20Medium%20Problems/08.%20Maximum%20Points%20you%20can%20obtaln%20form%20the%20card.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/",
+      "title": "Maximum Points You Can Obtain from Cards",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p186",
+    "index": 186,
+    "title": "Longest Substring with at most K unique characters",
+    "topic": "Sliding Window",
+    "subtopic": "Hard Problems",
+    "difficulty": "Hard",
+    "question": "Given a string 'str' and an integer 'K', find the length of the largest substring with at most 'K' distinct characters.\n\nEXAMPLE:\nFor example, if we are given 'str' = \"abbbbbbc\" and 'K' = 2, the substrings that can be formed are [\"abbbbbb\", \"bbbbbbc\"]. Hence, the answer is 7.",
+    "approach": "We can use a sliding window approach to solve this problem.\n\n1. Create a function, kDistinctChars, that takes 'k' and the input string 's' as parameters.\n   - Initialize an unordered_map, mp, to store the frequency of characters.\n   - Initialize 'start' to 0 and 'ans' to 0.\n   - Iterate over the string from left to right:\n     - Increment the frequency of the current character in the map.\n     - If the number of distinct characters in the map exceeds 'k', move the 'start' pointer to the right and remove characters from the map until the number of distinct characters becomes equal to 'k'.\n     - Update 'ans' with the maximum length of the substring (i - start + 1).\n   - Return 'ans', which represents the length of the largest substring with at most 'k' distinct characters.",
+    "pseudocode": "ALGORITHM  Longest Substring with at most K unique characters\nPATTERN    Sliding window\n\nBEGIN\n  01  We can use a sliding window approach to solve this problem\n  02  SET a function, kDistinctChars, that takes 'k' and the input string 's' as parameters\n  03  SET an unordered_map, mp, to store the frequency of characters\n  04  SET 'start' to 0 and 'ans' to 0\n  05  Iterate over the string from left to right:\n  06  Increment the frequency of the current character in the map\n  07  IF the number of distinct characters in the map exceeds 'k', move the 'start' pointer to the right and remove characters from the map until the number of distinct characters becomes equal to 'k'\n  08  UPDATE 'ans' with the maximum length of the substring (i - start + 1)\n  09  RETURN 'ans', which represents the length of the largest substring with at most 'k' distinct characters\nEND",
+    "time": "O(n), where n is the length of the string 's'. We iterate over the string once using the sliding window approach",
+    "space": "O(k), as the space used by the unordered_map is proportional to the number of distinct characters, which can be at most 'k'",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window", "Strings"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*\nQUESTION:\nGiven a string 'str' and an integer 'K', find the length of the largest substring with at most 'K' distinct characters.\n\nEXAMPLE:\nFor example, if we are given 'str' = \"abbbbbbc\" and 'K' = 2, the substrings that can be formed are [\"abbbbbb\", \"bbbbbbc\"]. Hence, the answer is 7.\n\nAPPROACH:\nWe can use a sliding window approach to solve this problem.\n\n1. Create a function, kDistinctChars, that takes 'k' and the input string 's' as parameters.\n   - Initialize an unordered_map, mp, to store the frequency of characters.\n   - Initialize 'start' to 0 and 'ans' to 0.\n   - Iterate over the string from left to right:\n     - Increment the frequency of the current character in the map.\n     - If the number of distinct characters in the map exceeds 'k', move the 'start' pointer to the right and remove characters from the map until the number of distinct characters becomes equal to 'k'.\n     - Update 'ans' with the maximum length of the substring (i - start + 1).\n   - Return 'ans', which represents the length of the largest substring with at most 'k' distinct characters.\n\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(n), where n is the length of the string 's'. We iterate over the string once using the sliding window approach.\n- Space complexity: O(k), as the space used by the unordered_map is proportional to the number of distinct characters, which can be at most 'k'.\n*/\n\nint kDistinctChars(int k, string &s) {\n    unordered_map<char, int> mp;\n    int start = 0, ans = 0;\n    \n    for (int i = 0; i < s.size(); i++) {\n        mp[s[i]]++;\n        \n        while (mp.size() > k) {\n            mp[s[start]]--;\n            \n            if (mp[s[start]] == 0)\n                mp.erase(s[start]);\n            \n            start++;\n        }\n        \n        ans = max(ans, i - start + 1);\n    }\n    \n    return ans;\n}\n",
+    "codeLines": 45,
+    "repoPath": "08. Sliding Window/2. Hard Problems/01. Longest Substring with at most K unique characters.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/2.%20Hard%20Problems/01.%20Longest%20Substring%20with%20at%20most%20K%20unique%20characters.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/",
+      "title": "Longest Substring with At Most K Distinct Characters",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": true
+    }
+  },
+  {
+    "id": "p187",
+    "index": 187,
+    "title": "Count the number of substrings with exactly K unique characters",
+    "topic": "Sliding Window",
+    "subtopic": "Hard Problems",
+    "difficulty": "Hard",
+    "question": "Given an integer array 'nums' and an integer 'k', find the number of good subarrays of 'nums'.\n\nA good array is an array where the number of different integers in that array is exactly 'k'.\n\nFor example, [1,2,3,1,2] has 3 different integers: 1, 2, and 3.\nA subarray is a contiguous part of an array.\n\nEXAMPLE:\nInput: nums = [1,2,1,2,3], k = 2\nOutput: 7\nExplanation: Subarrays formed with exactly 2 different integers: [1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,1,2]",
+    "approach": "We can solve this problem using a sliding window approach.\n\n1. Create a function, kDistinctIntegers, that takes 'k' and the input vector 's' as parameters.\n   - Initialize an unordered_map, mp, to store the frequency of elements.\n   - Initialize 'start' to 0 and 'ans' to 0.\n   - Iterate over the vector from left to right:\n     - Increment the frequency of the current element in the map.\n     - If the number of distinct elements in the map exceeds 'k', move the 'start' pointer to the right and remove elements from the map until the number of distinct elements becomes equal to 'k'.\n     - Update 'ans' by adding the number of subarrays that can be formed with exactly 'k' distinct integers, which is equal to (i - start + 1).\n   - Return 'ans', which represents the total number of good subarrays.\n\n2. Create a function, subarraysWithKDistinct, that takes 'nums' and 'k' as parameters.\n   - Return the difference between the number of good subarrays with 'k' distinct integers and the number of good subarrays with 'k-1' distinct integers, which can be calculated using the kDistinctIntegers function.",
+    "pseudocode": "ALGORITHM  Count the number of substrings with exactly K unique characters\nPATTERN    Sliding window\n\nBEGIN\n  01  We can solve this problem using a sliding window approach\n  02  SET a function, kDistinctIntegers, that takes 'k' and the input vector 's' as parameters\n  03  SET an unordered_map, mp, to store the frequency of elements\n  04  SET 'start' to 0 and 'ans' to 0\n  05  Iterate over the vector from left to right:\n  06  Increment the frequency of the current element in the map\n  07  IF the number of distinct elements in the map exceeds 'k', move the 'start' pointer to the right and remove elements from the map until the number of distinct elements becomes equal to 'k'\n  08  UPDATE 'ans' by adding the number of subarrays that can be formed with exactly 'k' distinct integers, which is equal to (i - start + 1)\n  09  RETURN 'ans', which represents the total number of good subarrays\n  10  SET a function, subarraysWithKDistinct, that takes 'nums' and 'k' as parameters\n  11  RETURN the difference between the number of good subarrays with 'k' distinct integers and the number of good subarrays with 'k-1' distinct integers, which can be calculated using the kDistinctIntegers function\nEND",
+    "time": "O(n), where n is the length of the input vector 'nums'. We iterate over the vector once using the sliding window approach",
+    "space": "O(k), as the space used by the unordered_map is proportional to the number of distinct elements, which can be at most 'k'",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window", "Strings"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*\nQUESTION:\nGiven an integer array 'nums' and an integer 'k', find the number of good subarrays of 'nums'.\n\nA good array is an array where the number of different integers in that array is exactly 'k'.\n\nFor example, [1,2,3,1,2] has 3 different integers: 1, 2, and 3.\nA subarray is a contiguous part of an array.\n\nEXAMPLE:\nInput: nums = [1,2,1,2,3], k = 2\nOutput: 7\nExplanation: Subarrays formed with exactly 2 different integers: [1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,1,2]\n\nAPPROACH:\nWe can solve this problem using a sliding window approach.\n\n1. Create a function, kDistinctIntegers, that takes 'k' and the input vector 's' as parameters.\n   - Initialize an unordered_map, mp, to store the frequency of elements.\n   - Initialize 'start' to 0 and 'ans' to 0.\n   - Iterate over the vector from left to right:\n     - Increment the frequency of the current element in the map.\n     - If the number of distinct elements in the map exceeds 'k', move the 'start' pointer to the right and remove elements from the map until the number of distinct elements becomes equal to 'k'.\n     - Update 'ans' by adding the number of subarrays that can be formed with exactly 'k' distinct integers, which is equal to (i - start + 1).\n   - Return 'ans', which represents the total number of good subarrays.\n\n2. Create a function, subarraysWithKDistinct, that takes 'nums' and 'k' as parameters.\n   - Return the difference between the number of good subarrays with 'k' distinct integers and the number of good subarrays with 'k-1' distinct integers, which can be calculated using the kDistinctIntegers function.\n\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(n), where n is the length of the input vector 'nums'. We iterate over the vector once using the sliding window approach.\n- Space complexity: O(k), as the space used by the unordered_map is proportional to the number of distinct elements, which can be at most 'k'.\n*/\n\nint kDistinctIntegers(int k, vector<int> &s) {\n    unordered_map<int, int> mp;\n    int start = 0, ans = 0;\n    \n    for (int i = 0; i < s.size(); i++) {\n        mp[s[i]]++;\n        \n        while (mp.size() > k) {\n            mp[s[start]]--;\n            \n            if (mp[s[start]] == 0)\n                mp.erase(s[start]);\n            \n            start++;\n        }\n        \n        ans += i - start + 1;\n    }\n    \n    return ans;\n}\n\nint subarraysWithKDistinct(vector<int>& nums, int k) {\n    return kDistinctIntegers(k, nums) - kDistinctIntegers(k - 1, nums);\n}\n",
+    "codeLines": 59,
+    "repoPath": "08. Sliding Window/2. Hard Problems/02. Count the number of substrings with exactly K unique characters.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/2.%20Hard%20Problems/02.%20Count%20the%20number%20of%20substrings%20with%20exactly%20K%20unique%20characters.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subarrays-with-k-different-integers/",
+      "title": "Subarrays with K Different Integers",
+      "match": "related",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p188",
+    "index": 188,
+    "title": "Minimum Window Substring",
+    "topic": "Sliding Window",
+    "subtopic": "Hard Problems",
+    "difficulty": "Hard",
+    "question": "Given two strings 's' and 't' of lengths 'm' and 'n' respectively, find the minimum window substring of 's' that contains all the characters of 't' (including duplicates). If there is no such substring, return an empty string.\n\nEXAMPLE:\nInput: s = \"ADOBECODEBANC\", t = \"ABC\"\nOutput: \"BANC\"\nExplanation: The minimum window substring \"BANC\" includes 'A', 'B', and 'C' from string 't'.",
+    "approach": "We can solve this problem using a sliding window approach.\n\n1. Create a function, minWindow, that takes 's' and 't' as parameters.\n   - Initialize an unordered_map, mp, to store the frequency of characters in 't'.\n   - Iterate over 't' and update the frequencies in the map.\n   - Initialize 'count' to the number of unique characters in 't'.\n   - Initialize 'start' to 0 and 'minlen' to INT_MAX.\n   - Initialize 'substrBegin' to 0, which represents the starting index of the minimum window substring.\n   - Iterate over 's' from left to right:\n     - Decrement the frequency of the current character in the map.\n     - If the frequency becomes 0, decrement 'count'.\n     - Check if 'count' becomes 0, indicating that we have found a window containing all characters of 't'.\n       - If the current window length is smaller than 'minlen', update 'minlen' and 'substrBegin' to the current window length and starting index respectively.\n       - Move the 'start' pointer to the right, increment the frequency of the character at 'start' in the map, and increment 'count' if the frequency becomes greater than 0.\n   - Return the minimum window substring by using the substr function on 's' with 'substrBegin' and 'minlen' as parameters.\n   - If 'minlen' is still INT_MAX, return an empty string.",
+    "pseudocode": "ALGORITHM  Minimum Window Substring\nPATTERN    Sliding window\n\nBEGIN\n  01  We can solve this problem using a sliding window approach\n  02  SET a function, minWindow, that takes 's' and 't' as parameters\n  03  SET an unordered_map, mp, to store the frequency of characters in 't'\n  04  Iterate over 't' and update the frequencies in the map\n  05  SET 'count' to the number of unique characters in 't'\n  06  SET 'start' to 0 and 'minlen' to INT_MAX\n  07  SET 'substrBegin' to 0, which represents the starting index of the minimum window substring\n  08  Iterate over 's' from left to right:\n  09  Decrement the frequency of the current character in the map\n  10  IF the frequency becomes 0, decrement 'count'\n  11  Check if 'count' becomes 0, indicating that we have found a window containing all characters of 't'\n  12  IF the current window length is smaller than 'minlen', update 'minlen' and 'substrBegin' to the current window length and starting index respectively\n  13  Move the 'start' pointer to the right, increment the frequency of the character at 'start' in the map, and increment 'count' if the frequency becomes greater than 0\n  14  RETURN the minimum window substring by using the substr function on 's' with 'substrBegin' and 'minlen' as parameters\nEND",
+    "time": "O(m + n), where m is the length of 's' and n is the length of 't'. We iterate over both strings once using the sliding window approach",
+    "space": "O(n), as the space used by the unordered_map is proportional to the number of unique characters in 't', which can be at most 'n'",
+    "strategy": "Sliding window",
+    "tags": ["Sliding Window", "Sliding window", "Strings"],
+    "intuition": "Maintain exactly the information needed for the current contiguous range. Expand to gain candidates and shrink only when the window violates the required invariant.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "Empty input",
+      "Window never becomes valid",
+      "Repeated values at both boundaries",
+      "k = 0 or k larger than the domain"
+    ],
+    "pitfalls": [
+      "Shrinking at the wrong time",
+      "Not deleting zero-frequency keys",
+      "Assuming the technique works with negative values"
+    ],
+    "code": "/*\nQUESTION:\nGiven two strings 's' and 't' of lengths 'm' and 'n' respectively, find the minimum window substring of 's' that contains all the characters of 't' (including duplicates). If there is no such substring, return an empty string.\n\nEXAMPLE:\nInput: s = \"ADOBECODEBANC\", t = \"ABC\"\nOutput: \"BANC\"\nExplanation: The minimum window substring \"BANC\" includes 'A', 'B', and 'C' from string 't'.\n\nAPPROACH:\nWe can solve this problem using a sliding window approach.\n\n1. Create a function, minWindow, that takes 's' and 't' as parameters.\n   - Initialize an unordered_map, mp, to store the frequency of characters in 't'.\n   - Iterate over 't' and update the frequencies in the map.\n   - Initialize 'count' to the number of unique characters in 't'.\n   - Initialize 'start' to 0 and 'minlen' to INT_MAX.\n   - Initialize 'substrBegin' to 0, which represents the starting index of the minimum window substring.\n   - Iterate over 's' from left to right:\n     - Decrement the frequency of the current character in the map.\n     - If the frequency becomes 0, decrement 'count'.\n     - Check if 'count' becomes 0, indicating that we have found a window containing all characters of 't'.\n       - If the current window length is smaller than 'minlen', update 'minlen' and 'substrBegin' to the current window length and starting index respectively.\n       - Move the 'start' pointer to the right, increment the frequency of the character at 'start' in the map, and increment 'count' if the frequency becomes greater than 0.\n   - Return the minimum window substring by using the substr function on 's' with 'substrBegin' and 'minlen' as parameters.\n   - If 'minlen' is still INT_MAX, return an empty string.\n\nCOMPLEXITY ANALYSIS:\n- Time complexity: O(m + n), where m is the length of 's' and n is the length of 't'. We iterate over both strings once using the sliding window approach.\n- Space complexity: O(n), as the space used by the unordered_map is proportional to the number of unique characters in 't', which can be at most 'n'.\n*/\n\nstring minWindow(string s, string t) {\n    unordered_map<char, int> mp;\n\n    for (auto it : t) {\n        mp[it]++;\n    }\n    \n    int count = mp.size();\n    int start = 0, minlen = INT_MAX;\n    int substrBegin = 0;\n\n    for (int i = 0; i < s.size(); i++) {\n        mp[s[i]]--;\n        \n        if (mp[s[i]] == 0)\n            count--;\n        \n        while (count == 0) {\n            if (i - start + 1 < minlen) {\n                substrBegin = start;\n                minlen = i - start + 1;\n            }\n            \n            mp[s[start]]++;\n            \n            if (mp[s[start]] > 0) {\n                count++;\n            }\n            \n            start++;\n        }\n    }\n    \n    return (minlen == INT_MAX) ? \"\" : s.substr(substrBegin, minlen);\n}\n",
+    "codeLines": 67,
+    "repoPath": "08. Sliding Window/2. Hard Problems/03. Minimum Window Substring.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/08.%20Sliding%20Window/2.%20Hard%20Problems/03.%20Minimum%20Window%20Substring.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/minimum-window-substring/",
+      "title": "Minimum Window Substring",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  }
+]

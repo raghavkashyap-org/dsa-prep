@@ -1,0 +1,905 @@
+[
+  {
+    "id": "p114",
+    "index": 114,
+    "title": "Implement atoi via recursion",
+    "topic": "Recursion",
+    "subtopic": "Get Strong Hold",
+    "difficulty": "Foundation",
+    "question": "Your task is to implement the function atoi. The function takes a string (str) as an argument and converts it to an integer and returns it.\n\nNote: You are not allowed to use inbuilt functions.\n\nExample 1:\nInput:\nstr = \"123\"\nOutput: 123\n\nExample 2:\nInput:\nstr = \"21a\"\nOutput: -1\nExplanation: Output is -1 as not all characters are digits.",
+    "approach": "1. We start from the last character of the string and recursively convert each digit to an integer.\n2. We use a helper function `getnum` that takes the index `i` and the string `str` as arguments.\n3. The base case is when `i` becomes negative, in which case we return 0.\n4. For each digit, we convert it to an integer by subtracting the ASCII value of '0'.\n5. We check if the digit is within the range of 0 to 9. If it is, we recursively call `getnum` for the previous index `i-1`.\n   - If the recursive call returns a valid number (`prev != 1e9`), we multiply it by 10 and add the current digit.\n   - Otherwise, we return a large value `1e9` to indicate an invalid conversion.\n6. In the main `atoi` function, we initialize `i` to the index of the last character in the string (`str.size()-1`).\n7. We call the `getnum` function with `i` and `str`.\n8. If the result (`ans`) is equal to `1e9`, it means the conversion was invalid, so we return -1.\n9. If the first character of the string is '-', we return the negative value of `ans`.\n10. Otherwise, we return `ans`.",
+    "pseudocode": "ALGORITHM  Implement atoi via recursion\nPATTERN    Recursion\n\nBEGIN\n  01  We start from the last character of the string and recursively convert each digit to an integer\n  02  We use a helper function getnum that takes the index i and the string str as arguments\n  03  The base case is when i becomes negative, in which case we return 0\n  04  FOR EACH digit, we convert it to an integer by subtracting the ASCII value of '0'\n  05  We check if the digit is within the range of 0 to 9. If it is, we recursively call getnum for the previous index i-1\n  06  IF the recursive call returns a valid number (prev != 1e9), we multiply it by 10 and add the current digit\n  07  ELSE we return a large value 1e9 to indicate an invalid conversion\n  08  In the main atoi function, we initialize i to the index of the last character in the string (str.size()-1)\n  09  We call the getnum function with i and str\n  10  IF the result (ans) is equal to 1e9, it means the conversion was invalid, so we return -1\n  11  IF the first character of the string is '-', we return the negative value of ans\n  12  ELSE we return ans\n  13  RETURN the required result\nEND",
+    "time": "O(N), where N is the length of the string",
+    "space": "O(N), where N is the length of the string (due to the recursive calls)",
+    "strategy": "Recursion",
+    "tags": ["Recursion", "Strings"],
+    "intuition": "State a base case that strictly reduces the problem, then trust the recursive call to solve the smaller instance.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*Your task is to implement the function atoi. The function takes a string (str) as an argument and converts it to an integer and returns it.\n\nNote: You are not allowed to use inbuilt functions.\n\nExample 1:\nInput:\nstr = \"123\"\nOutput: 123\n\nExample 2:\nInput:\nstr = \"21a\"\nOutput: -1\nExplanation: Output is -1 as not all characters are digits.\n\nApproach:\n1. We start from the last character of the string and recursively convert each digit to an integer.\n2. We use a helper function `getnum` that takes the index `i` and the string `str` as arguments.\n3. The base case is when `i` becomes negative, in which case we return 0.\n4. For each digit, we convert it to an integer by subtracting the ASCII value of '0'.\n5. We check if the digit is within the range of 0 to 9. If it is, we recursively call `getnum` for the previous index `i-1`.\n   - If the recursive call returns a valid number (`prev != 1e9`), we multiply it by 10 and add the current digit.\n   - Otherwise, we return a large value `1e9` to indicate an invalid conversion.\n6. In the main `atoi` function, we initialize `i` to the index of the last character in the string (`str.size()-1`).\n7. We call the `getnum` function with `i` and `str`.\n8. If the result (`ans`) is equal to `1e9`, it means the conversion was invalid, so we return -1.\n9. If the first character of the string is '-', we return the negative value of `ans`.\n10. Otherwise, we return `ans`.\n\nTime Complexity: O(N), where N is the length of the string.\nSpace Complexity: O(N), where N is the length of the string (due to the recursive calls).\n\nCODE:*/\nint getnum(int i, string& str)\n{\n    if (i < 0)\n        return 0;\n\n    if (i == 0) {\n        if (str[i] == '-')\n            return 0;\n\n        int digit = str[i] - '0';\n        if (0 <= digit && digit <= 9) {\n            int prev = getnum(i - 1, str);\n            if (prev != 1e9)\n                return (prev * 10) + digit;\n        }\n        return 1e9;\n    }\n\n    int digit = str[i] - '0';\n    if (0 <= digit && digit <= 9) {\n        int prev = getnum(i - 1, str);\n        if (prev != 1e9)\n            return (prev * 10) + digit;\n    }\n    return 1e9;\n}\n\nint atoi(string str)\n{\n    int i = str.size() - 1;\n    int ans = getnum(i, str);\n    if (ans == 1e9)\n        return -1;\n    if (str[0] == '-')\n        return -1 * ans;\n    return ans;\n}\n",
+    "codeLines": 70,
+    "repoPath": "05.Recursion/1.Get Strong Hold/01.Implement_atoi_via_recursion.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/1.Get%20Strong%20Hold/01.Implement_atoi_via_recursion.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/string-to-integer-atoi/",
+      "title": "String to Integer (atoi)",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p115",
+    "index": 115,
+    "title": "Count good numbers",
+    "topic": "Recursion",
+    "subtopic": "Get Strong Hold",
+    "difficulty": "Foundation",
+    "question": "A digit string is good if the digits (0-indexed) at even indices are even and the digits at odd indices are prime (2, 3, 5, or 7).\nGiven an integer n, return the total number of good digit strings of length n. Since the answer may be large, return it modulo 109 + 7.\nA digit string is a string consisting of digits 0 through 9 that may contain leading zeros.\n\nExample 1:\nInput: n = 1\nOutput: 5\nExplanation: The good numbers of length 1 are \"0\", \"2\", \"4\", \"6\", \"8\".\n\nExample 2:\nInput: n = 4\nOutput: 400\n\nExample 3:\nInput: n = 50\nOutput: 564908303",
+    "approach": "- We can observe that for a good digit string of length n, each digit can be either even or a prime number (2, 3, 5, or 7).\n- For odd indices, there are 4 choices (2, 3, 5, or 7) since they must be prime.\n- For even indices, there are 5 choices (0, 2, 4, 6, or 8) since they must be even.\n- We can use a recursive approach to count the number of good digit strings.\n- The base case is when n = 1, in which case there are 5 possible digit strings (0, 2, 4, 6, or 8).\n- For even lengths (n % 2 == 0), we multiply the count of good digit strings of length n-1 by 4 (since there are 4 choices for odd indices).\n- For odd lengths (n % 2 != 0), we multiply the count of good digit strings of length n-1 by 5 (since there are 5 choices for even indices).\n- We return the result modulo 10^9 + 7 to handle large outputs.",
+    "pseudocode": "ALGORITHM  Count good numbers\nPATTERN    Recursion\n\nBEGIN\n  01  We can observe that for a good digit string of length n, each digit can be either even or a prime number (2, 3, 5, or 7)\n  02  For odd indices, there are 4 choices (2, 3, 5, or 7) since they must be prime\n  03  For even indices, there are 5 choices (0, 2, 4, 6, or 8) since they must be even\n  04  We can use a recursive approach to count the number of good digit strings\n  05  The base case is when n = 1, in which case there are 5 possible digit strings (0, 2, 4, 6, or 8)\n  06  For even lengths (n % 2 == 0), we multiply the count of good digit strings of length n-1 by 4 (since there are 4 choices for odd indices)\n  07  For odd lengths (n % 2 != 0), we multiply the count of good digit strings of length n-1 by 5 (since there are 5 choices for even indices)\n  08  We return the result modulo 10^9 + 7 to handle large outputs\n  09  RETURN the required result\nEND",
+    "time": "O(n) (due to the recursive calls)",
+    "space": "O(n) (due to the recursive calls)",
+    "strategy": "Recursion",
+    "tags": ["Recursion", "Strings"],
+    "intuition": "State a base case that strictly reduces the problem, then trust the recursive call to solve the smaller instance.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*QUESTION:\nA digit string is good if the digits (0-indexed) at even indices are even and the digits at odd indices are prime (2, 3, 5, or 7).\nGiven an integer n, return the total number of good digit strings of length n. Since the answer may be large, return it modulo 109 + 7.\nA digit string is a string consisting of digits 0 through 9 that may contain leading zeros.\n\nExample 1:\nInput: n = 1\nOutput: 5\nExplanation: The good numbers of length 1 are \"0\", \"2\", \"4\", \"6\", \"8\".\n\nExample 2:\nInput: n = 4\nOutput: 400\n\nExample 3:\nInput: n = 50\nOutput: 564908303\n\nApproach:\n- We can observe that for a good digit string of length n, each digit can be either even or a prime number (2, 3, 5, or 7).\n- For odd indices, there are 4 choices (2, 3, 5, or 7) since they must be prime.\n- For even indices, there are 5 choices (0, 2, 4, 6, or 8) since they must be even.\n- We can use a recursive approach to count the number of good digit strings.\n- The base case is when n = 1, in which case there are 5 possible digit strings (0, 2, 4, 6, or 8).\n- For even lengths (n % 2 == 0), we multiply the count of good digit strings of length n-1 by 4 (since there are 4 choices for odd indices).\n- For odd lengths (n % 2 != 0), we multiply the count of good digit strings of length n-1 by 5 (since there are 5 choices for even indices).\n- We return the result modulo 10^9 + 7 to handle large outputs.\n\nTime Complexity: O(n) (due to the recursive calls)\nSpace Complexity: O(n) (due to the recursive calls)\n\nCODE:*/\n\nconst long long mod = 1e9 + 7;\n\nint countGoodNumbers(long long n) {\n    // Base case\n    if (n == 1)\n        return 5;\n\n    if (n % 2 == 0)\n        return (countGoodNumbers(n - 1) % mod * 4 % mod);\n    else\n        return (countGoodNumbers(n - 1) % mod * 5 % mod);\n}\n",
+    "codeLines": 45,
+    "repoPath": "05.Recursion/1.Get Strong Hold/02.Count_good_numbers.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/1.Get%20Strong%20Hold/02.Count_good_numbers.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/count-good-numbers/",
+      "title": "Count Good Numbers",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p116",
+    "index": 116,
+    "title": "Reverse stack using recursion",
+    "topic": "Recursion",
+    "subtopic": "Get Strong Hold",
+    "difficulty": "Foundation",
+    "question": "Reverse a given stack of 'N' integers using recursion.\nNote: You are not allowed to use any extra space other than the internal stack space used due to recursion.\n\nExample:\nInput: [1,2,3,4,5]\nOutput: [5,4,3,2,1]",
+    "approach": "To reverse a stack using recursion without using any extra space, we can follow the following steps:\n1. Create a helper function called 'insertAtBottom' that takes an element and a stack as parameters.\n2. The 'insertAtBottom' function inserts the given element at the bottom of the stack using recursion.\n   - If the stack is empty, push the element to the stack and return.\n   - Otherwise, pop the top element from the stack and recursively call 'insertAtBottom' with the element and the modified stack.\n     After the recursive call, push the popped element back to the stack.\n3. Create the main function called 'reverseStack' that reverses the given stack using recursion.\n   - Base case: If the stack is empty, return.\n   - Otherwise, pop the top element from the stack and recursively call 'reverseStack' on the modified stack.\n     After the recursive call, call the 'insertAtBottom' function with the popped element and the modified stack.\n4. The 'reverseStack' function will reverse the stack in place using recursion and the 'insertAtBottom' function.",
+    "pseudocode": "ALGORITHM  Reverse stack using recursion\nPATTERN    Stack / queue\n\nBEGIN\n  01  To reverse a stack using recursion without using any extra space, we can follow the following steps:\n  02  SET a helper function called 'insertAtBottom' that takes an element and a stack as parameters\n  03  The 'insertAtBottom' function inserts the given element at the bottom of the stack using recursion\n  04  IF the stack is empty, push the element to the stack and return\n  05  ELSE pop the top element from the stack and recursively call 'insertAtBottom' with the element and the modified stack\n  06  After the recursive call, push the popped element back to the stack\n  07  SET the main function called 'reverseStack' that reverses the given stack using recursion\n  08  Base case: If the stack is empty, return\n  09  ELSE pop the top element from the stack and recursively call 'reverseStack' on the modified stack\n  10  After the recursive call, call the 'insertAtBottom' function with the popped element and the modified stack\n  11  The 'reverseStack' function will reverse the stack in place using recursion and the 'insertAtBottom' function\n  12  RETURN the required result\nEND",
+    "time": "O(N^2) (due to multiple recursive calls)",
+    "space": "O(N) (due to the internal stack space used for recursion)",
+    "strategy": "Stack / queue",
+    "tags": ["Recursion", "Stack / queue"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*QUESTION:\nReverse a given stack of 'N' integers using recursion.\nNote: You are not allowed to use any extra space other than the internal stack space used due to recursion.\n\nExample:\nInput: [1,2,3,4,5]\nOutput: [5,4,3,2,1]\n\nApproach:\nTo reverse a stack using recursion without using any extra space, we can follow the following steps:\n1. Create a helper function called 'insertAtBottom' that takes an element and a stack as parameters.\n2. The 'insertAtBottom' function inserts the given element at the bottom of the stack using recursion.\n   - If the stack is empty, push the element to the stack and return.\n   - Otherwise, pop the top element from the stack and recursively call 'insertAtBottom' with the element and the modified stack.\n     After the recursive call, push the popped element back to the stack.\n3. Create the main function called 'reverseStack' that reverses the given stack using recursion.\n   - Base case: If the stack is empty, return.\n   - Otherwise, pop the top element from the stack and recursively call 'reverseStack' on the modified stack.\n     After the recursive call, call the 'insertAtBottom' function with the popped element and the modified stack.\n4. The 'reverseStack' function will reverse the stack in place using recursion and the 'insertAtBottom' function.\n\nTime Complexity: O(N^2) (due to multiple recursive calls)\nSpace Complexity: O(N) (due to the internal stack space used for recursion)\n\nCODE:*/\nvoid insertAtBottom(int ele, stack<int>& stack) {\n    if (stack.empty()) {\n        stack.push(ele);\n        return;\n    }\n\n    int temp = stack.top();\n    stack.pop();\n    insertAtBottom(ele, stack);\n    stack.push(temp);\n}\n\nvoid reverseStack(stack<int>& stack) {\n    if (stack.empty())\n        return;\n\n    int first = stack.top();\n    stack.pop();\n    reverseStack(stack);\n    insertAtBottom(first, stack);\n}\n",
+    "codeLines": 46,
+    "repoPath": "05.Recursion/1.Get Strong Hold/03.Reverse_stack_using_recursion.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/1.Get%20Strong%20Hold/03.Reverse_stack_using_recursion.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/reverse-string/",
+      "title": "Reverse String",
+      "match": "related",
+      "difficulty": "Easy",
+      "paid": false
+    }
+  },
+  {
+    "id": "p117",
+    "index": 117,
+    "title": "Sort stack using recursion",
+    "topic": "Recursion",
+    "subtopic": "Get Strong Hold",
+    "difficulty": "Foundation",
+    "question": "Given a stack, the task is to sort it such that the top of the stack has the greatest element.\n\nExample 1:\nInput:\nStack: 3 2 1\nOutput: 3 2 1\n\nExample 2:\nInput:\nStack: 11 2 32 3 41\nOutput: 41 32 11 3 2",
+    "approach": "To sort a stack in descending order, we can follow the following steps:\n1. Create a helper function called 'placeAtCorrectPos' that takes an element and a stack as parameters.\n2. The 'placeAtCorrectPos' function places the given element at the correct position in the stack using recursion.\n   - If the stack is empty or the top element of the stack is less than the given element, push the element to the stack and return.\n   - Otherwise, pop the top element from the stack and recursively call 'placeAtCorrectPos' with the element and the modified stack.\n     After the recursive call, push the popped element back to the stack.\n3. Create the main function called 'sortSt' that sorts the stack in descending order using recursion.\n   - Base case: If the stack is empty, return.\n   - Otherwise, pop the top element from the stack and recursively call 'sortSt' on the modified stack.\n     After the recursive call, call the 'placeAtCorrectPos' function with the popped element and the modified stack.\n4. The 'sortSt' function will sort the stack in descending order using recursion and the 'placeAtCorrectPos' function.",
+    "pseudocode": "ALGORITHM  Sort stack using recursion\nPATTERN    Stack / queue\n\nBEGIN\n  01  To sort a stack in descending order, we can follow the following steps:\n  02  SET a helper function called 'placeAtCorrectPos' that takes an element and a stack as parameters\n  03  The 'placeAtCorrectPos' function places the given element at the correct position in the stack using recursion\n  04  IF the stack is empty or the top element of the stack is less than the given element, push the element to the stack and return\n  05  ELSE pop the top element from the stack and recursively call 'placeAtCorrectPos' with the element and the modified stack\n  06  After the recursive call, push the popped element back to the stack\n  07  SET the main function called 'sortSt' that sorts the stack in descending order using recursion\n  08  Base case: If the stack is empty, return\n  09  ELSE pop the top element from the stack and recursively call 'sortSt' on the modified stack\n  10  After the recursive call, call the 'placeAtCorrectPos' function with the popped element and the modified stack\n  11  The 'sortSt' function will sort the stack in descending order using recursion and the 'placeAtCorrectPos' function\n  12  RETURN the required result\nEND",
+    "time": "O(N^2) (due to multiple recursive calls)",
+    "space": "O(N) (due to the internal stack space used for recursion)",
+    "strategy": "Stack / queue",
+    "tags": ["Recursion", "Stack / queue"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ N ≤ 2 × 10⁵ for linear or N log N solutions",
+      "Values fit a signed 32-bit integer unless sums require 64-bit",
+      "Input ordering, uniqueness, and positivity assumptions follow the problem statement"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*QUESTION:\nGiven a stack, the task is to sort it such that the top of the stack has the greatest element.\n\nExample 1:\nInput:\nStack: 3 2 1\nOutput: 3 2 1\n\nExample 2:\nInput:\nStack: 11 2 32 3 41\nOutput: 41 32 11 3 2\n\nApproach:\nTo sort a stack in descending order, we can follow the following steps:\n1. Create a helper function called 'placeAtCorrectPos' that takes an element and a stack as parameters.\n2. The 'placeAtCorrectPos' function places the given element at the correct position in the stack using recursion.\n   - If the stack is empty or the top element of the stack is less than the given element, push the element to the stack and return.\n   - Otherwise, pop the top element from the stack and recursively call 'placeAtCorrectPos' with the element and the modified stack.\n     After the recursive call, push the popped element back to the stack.\n3. Create the main function called 'sortSt' that sorts the stack in descending order using recursion.\n   - Base case: If the stack is empty, return.\n   - Otherwise, pop the top element from the stack and recursively call 'sortSt' on the modified stack.\n     After the recursive call, call the 'placeAtCorrectPos' function with the popped element and the modified stack.\n4. The 'sortSt' function will sort the stack in descending order using recursion and the 'placeAtCorrectPos' function.\n\nTime Complexity: O(N^2) (due to multiple recursive calls)\nSpace Complexity: O(N) (due to the internal stack space used for recursion)\n\nCODE:*/\nvoid placeAtCorrectPos(int ele, stack<int>& st) {\n\tif (st.empty() || st.top() < ele) {\n\t\tst.push(ele);\n\t\treturn;\n\t}\n\n\tint first = st.top();\n\tst.pop();\n\tplaceAtCorrectPos(ele, st);\n\tst.push(first);\n}\n\nvoid sortSt(stack<int>& st) {\n\tif (st.empty())\n\t\treturn;\n\n\tint first = st.top();\n\tst.pop();\n\tsortSt(st);\n\tplaceAtCorrectPos(first, st);\n}\n",
+    "codeLines": 51,
+    "repoPath": "05.Recursion/1.Get Strong Hold/04.Sort_stack_using_recursion.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/1.Get%20Strong%20Hold/04.Sort_stack_using_recursion.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sort-an-array/",
+      "title": "Sort an Array",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p118",
+    "index": 118,
+    "title": "Generate all valid parenthesis",
+    "topic": "Recursion",
+    "subtopic": "Subsequences Pattern",
+    "difficulty": "Medium",
+    "question": "Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.\n\nExample 1:\nInput: n = 3\nOutput: [\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]\n\nExample 2:\nInput: n = 1\nOutput: [\"()\"]",
+    "approach": "To generate all combinations of well-formed parentheses, we can use a recursive approach. We can start with an empty string and keep track of the number of open parentheses and close parentheses used so far.\n1. Create a helper function called 'solve' that takes a vector of strings, a string representing the current combination, the count of open parentheses, the count of close parentheses, and the total number of pairs of parentheses as parameters.\n2. In the 'solve' function:\n   - If both the counts of open parentheses and close parentheses are equal to the total number of pairs of parentheses, add the current combination to the vector of strings.\n   - If the count of open parentheses is less than or equal to the total number of pairs of parentheses, recursively call 'solve' by appending an open parenthesis to the current combination and incrementing the count of open parentheses.\n   - If the count of open parentheses is greater than the count of close parentheses, recursively call 'solve' by appending a close parenthesis to the current combination and incrementing the count of close parentheses.\n3. Create the main function called 'generateParenthesis' that generates all combinations of well-formed parentheses using the 'solve' function.\n   - Create an empty vector of strings to store the combinations.\n   - Call the 'solve' function with an empty string, count of open parentheses as 0, count of close parentheses as 0, and the total number of pairs of parentheses as 'n'.\n   - Return the vector of strings containing all the combinations.",
+    "pseudocode": "ALGORITHM  Generate all valid parenthesis\nPATTERN    Stack / queue\n\nBEGIN\n  01  To generate all combinations of well-formed parentheses, we can use a recursive approach\n  02  We can start with an empty string and keep track of the number of open parentheses and close parentheses used so far\n  03  SET a helper function called 'solve' that takes a vector of strings, a string representing the current combination, the count of open parentheses, the count of close parentheses, and the total number of pairs of parentheses as parameters\n  04  In the 'solve' function:\n  05  IF both the counts of open parentheses and close parentheses are equal to the total number of pairs of parentheses, add the current combination to the vector of strings\n  06  IF the count of open parentheses is less than or equal to the total number of pairs of parentheses, recursively call 'solve' by appending an open parenthesis to the current combination and incrementing the count of open parentheses\n  07  IF the count of open parentheses is greater than the count of close parentheses, recursively call 'solve' by appending a close parenthesis to the current combination and incrementing the count of close parentheses\n  08  SET the main function called 'generateParenthesis' that generates all combinations of well-formed parentheses using the 'solve' function\n  09  SET an empty vector of strings to store the combinations\n  10  Call the 'solve' function with an empty string, count of open parentheses as 0, count of close parentheses as 0, and the total number of pairs of parentheses as 'n'\n  11  RETURN the vector of strings containing all the combinations\nEND",
+    "time": "O(2^N * N), where N is the given number of pairs of parentheses",
+    "space": "O(N), where N is the given number of pairs of parentheses (for the recursion stack and storing combinations)",
+    "strategy": "Stack / queue",
+    "tags": ["Recursion", "Stack / queue", "Strings"],
+    "intuition": "Choose the data structure whose removal order matches the problem: LIFO for nested/deferred work, FIFO for arrival order or levels.",
+    "constraints": [
+      "1 ≤ string length ≤ 10⁵ unless an exponential method is intended",
+      "Character set follows the statement (often lowercase English letters)",
+      "Input is treated exactly as given; whitespace/case are significant when stated"
+    ],
+    "edgeCases": [
+      "Empty/minimum input",
+      "Single element or state",
+      "Duplicate/equal values",
+      "Maximum-size input"
+    ],
+    "pitfalls": [
+      "Violating the loop/recursion invariant",
+      "Ignoring boundary input",
+      "Using a numeric type that can overflow"
+    ],
+    "code": "/*QUESTION:\nGiven n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.\n\nExample 1:\nInput: n = 3\nOutput: [\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]\n\nExample 2:\nInput: n = 1\nOutput: [\"()\"]\n\nApproach:\nTo generate all combinations of well-formed parentheses, we can use a recursive approach. We can start with an empty string and keep track of the number of open parentheses and close parentheses used so far.\n1. Create a helper function called 'solve' that takes a vector of strings, a string representing the current combination, the count of open parentheses, the count of close parentheses, and the total number of pairs of parentheses as parameters.\n2. In the 'solve' function:\n   - If both the counts of open parentheses and close parentheses are equal to the total number of pairs of parentheses, add the current combination to the vector of strings.\n   - If the count of open parentheses is less than or equal to the total number of pairs of parentheses, recursively call 'solve' by appending an open parenthesis to the current combination and incrementing the count of open parentheses.\n   - If the count of open parentheses is greater than the count of close parentheses, recursively call 'solve' by appending a close parenthesis to the current combination and incrementing the count of close parentheses.\n3. Create the main function called 'generateParenthesis' that generates all combinations of well-formed parentheses using the 'solve' function.\n   - Create an empty vector of strings to store the combinations.\n   - Call the 'solve' function with an empty string, count of open parentheses as 0, count of close parentheses as 0, and the total number of pairs of parentheses as 'n'.\n   - Return the vector of strings containing all the combinations.\n\nTime Complexity: O(2^N * N), where N is the given number of pairs of parentheses.\nSpace Complexity: O(N), where N is the given number of pairs of parentheses (for the recursion stack and storing combinations).\n\nCODE:*/\n\nvoid solve(vector<string>& ans, string s, int open, int close, int n) {\n\tif (open == n && close == n){\n\t\tans.push_back(s);\n        return;\n    }\n\n\tif (open <= n)\n\t\tsolve(ans, s + '(', open + 1, close, n);\n\tif (open > close)\n\t\tsolve(ans, s + ')', open, close + 1, n);\n}\n\nvector<string> generateParenthesis(int n) {\n\tvector<string> ans;\n\tsolve(ans, \"\", 0, 0, n);\n\treturn ans;\n}\n",
+    "codeLines": 45,
+    "repoPath": "05.Recursion/2.Subsequences Pattern/01.Genereate all valid parenthesis.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/2.Subsequences%20Pattern/01.Genereate%20all%20valid%20parenthesis.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/generate-parentheses/",
+      "title": "Generate Parentheses",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p119",
+    "index": 119,
+    "title": "Power set",
+    "topic": "Recursion",
+    "subtopic": "Subsequences Pattern",
+    "difficulty": "Medium",
+    "question": "Given an integer array nums of unique elements, return all possible subsets (the power set).\n\nExample 1:\nInput: nums = [1,2,3]\nOutput: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]\n\nExample 2:\nInput: nums = [0]\nOutput: [[],[0]]",
+    "approach": "To generate all possible subsets, we can use a recursive backtracking approach.\n1. Create a helper function called 'solve' that takes a vector of vectors to store the subsets, a vector to store the current subset, the input array 'nums', and the current index as parameters.\n2. In the 'solve' function:\n   - If the current index is equal to the size of the input array 'nums', add the current subset to the vector of vectors.\n   - Otherwise, do the following:\n     - Include the element at the current index in the current subset by pushing it into the vector.\n     - Recursively call the 'solve' function with the updated current subset and increment the current index.\n     - Exclude the element at the current index from the current subset by popping it from the vector.\n     - Recursively call the 'solve' function with the updated current subset and increment the current index.\n3. Create the main function called 'subsets' that generates all possible subsets using the 'solve' function.\n   - Create an empty vector of vectors to store the subsets.\n   - Create an empty vector to store the current subset.\n   - Call the 'solve' function with the empty vector of vectors, empty current subset, input array 'nums', and index 0.\n   - Return the vector of vectors containing all the subsets.",
+    "pseudocode": "ALGORITHM  Power set\nPATTERN    Backtracking\n\nBEGIN\n  01  To generate all possible subsets, we can use a recursive backtracking approach\n  02  SET a helper function called 'solve' that takes a vector of vectors to store the subsets, a vector to store the current subset, the input array 'nums', and the current index as parameters\n  03  In the 'solve' function:\n  04  IF the current index is equal to the size of the input array 'nums', add the current subset to the vector of vectors\n  05  ELSE do the following:\n  06  Include the element at the current index in the current subset by pushing it into the vector\n  07  Recursively call the 'solve' function with the updated current subset and increment the current index\n  08  Exclude the element at the current index from the current subset by popping it from the vector\n  09  Recursively call the 'solve' function with the updated current subset and increment the current index\n  10  SET the main function called 'subsets' that generates all possible subsets using the 'solve' function\n  11  SET an empty vector of vectors to store the subsets\n  12  SET an empty vector to store the current subset\n  13  Call the 'solve' function with the empty vector of vectors, empty current subset, input array 'nums', and index 0\n  14  RETURN the vector of vectors containing all the subsets\nEND",
+    "time": "O(2^N), where N is the size of the input array 'nums'",
+    "space": "O(N), where N is the size of the input array 'nums' (for the recursion stack and storing subsets)",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven an integer array nums of unique elements, return all possible subsets (the power set).\n\nExample 1:\nInput: nums = [1,2,3]\nOutput: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]\n\nExample 2:\nInput: nums = [0]\nOutput: [[],[0]]\n\nApproach:\nTo generate all possible subsets, we can use a recursive backtracking approach.\n1. Create a helper function called 'solve' that takes a vector of vectors to store the subsets, a vector to store the current subset, the input array 'nums', and the current index as parameters.\n2. In the 'solve' function:\n   - If the current index is equal to the size of the input array 'nums', add the current subset to the vector of vectors.\n   - Otherwise, do the following:\n     - Include the element at the current index in the current subset by pushing it into the vector.\n     - Recursively call the 'solve' function with the updated current subset and increment the current index.\n     - Exclude the element at the current index from the current subset by popping it from the vector.\n     - Recursively call the 'solve' function with the updated current subset and increment the current index.\n3. Create the main function called 'subsets' that generates all possible subsets using the 'solve' function.\n   - Create an empty vector of vectors to store the subsets.\n   - Create an empty vector to store the current subset.\n   - Call the 'solve' function with the empty vector of vectors, empty current subset, input array 'nums', and index 0.\n   - Return the vector of vectors containing all the subsets.\n\nTime Complexity: O(2^N), where N is the size of the input array 'nums'.\nSpace Complexity: O(N), where N is the size of the input array 'nums' (for the recursion stack and storing subsets).\n\nCODE:*/\nvoid solve(vector<vector<int>>& ans, vector<int>& temp, vector<int>& nums, int index) {\n\tif (index == nums.size()) {\n\t\tans.push_back(temp);\n\t\treturn;\n\t}\n\n\t// Include the element at the current index\n\ttemp.push_back(nums[index]);\n\tsolve(ans, temp, nums, index + 1);\n\n\t// Exclude the element at the current index\n\ttemp.pop_back();\n\tsolve(ans, temp, nums, index + 1);\n}\n\nvector<vector<int>> subsets(vector<int>& nums) {\n\tvector<vector<int>> ans;\n\tvector<int> temp;\n\tsolve(ans, temp, nums, 0);\n\treturn ans;\n}\n",
+    "codeLines": 52,
+    "repoPath": "05.Recursion/2.Subsequences Pattern/02.Power set.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/2.Subsequences%20Pattern/02.Power%20set.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subsets/",
+      "title": "Subsets",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p120",
+    "index": 120,
+    "title": "Count distinct substrings",
+    "topic": "Recursion",
+    "subtopic": "Subsequences Pattern",
+    "difficulty": "Medium",
+    "question": "Given a string consisting of lowercase English alphabets, the task is to find the number of distinct subsequences of the string. Note that the answer can be very large, so the output will be the answer modulo 10^9 + 7.\n\nExample:\nInput: s = \"gfg\"\nOutput: 7\nExplanation: The seven distinct subsequences are \"\", \"g\", \"f\", \"gf\", \"fg\", \"gg\", and \"gfg\".",
+    "approach": "To find the number of distinct subsequences, we can use a recursive approach with backtracking.\n1. Create a set to store the distinct subsequences.\n2. Create a helper function called 'solve' that takes the input string 's', the current index, and a temporary string as parameters.\n3. In the 'solve' function:\n   - If the current index is equal to the size of the input string 's', insert the temporary string into the set of distinct subsequences.\n   - Otherwise, do the following:\n     - Include the character at the current index in the temporary string by appending it.\n     - Recursively call the 'solve' function with the updated temporary string and the next index.\n     - Exclude the character at the current index from the temporary string.\n     - Recursively call the 'solve' function with the updated temporary string and the next index.\n4. Create the main function called 'distinctSubsequences' that calculates the number of distinct subsequences.\n   - Initialize an empty string as the temporary string.\n   - Call the 'solve' function with the input string 's', index 0, and the empty temporary string.\n   - Return the size of the set of distinct subsequences modulo 10^9 + 7.",
+    "pseudocode": "ALGORITHM  Count distinct substrings\nPATTERN    Backtracking\n\nBEGIN\n  01  To find the number of distinct subsequences, we can use a recursive approach with backtracking\n  02  SET a set to store the distinct subsequences\n  03  SET a helper function called 'solve' that takes the input string 's', the current index, and a temporary string as parameters\n  04  In the 'solve' function:\n  05  IF the current index is equal to the size of the input string 's', insert the temporary string into the set of distinct subsequences\n  06  ELSE do the following:\n  07  Include the character at the current index in the temporary string by appending it\n  08  Recursively call the 'solve' function with the updated temporary string and the next index\n  09  Exclude the character at the current index from the temporary string\n  10  Recursively call the 'solve' function with the updated temporary string and the next index\n  11  SET the main function called 'distinctSubsequences' that calculates the number of distinct subsequences\n  12  SET an empty string as the temporary string\n  13  Call the 'solve' function with the input string 's', index 0, and the empty temporary string\n  14  RETURN the size of the set of distinct subsequences modulo 10^9 + 7\nEND",
+    "time": "O(2^N), where N is the length of the input string 's'",
+    "space": "O(2^N), where N is the length of the input string 's' (for storing the distinct subsequences in the set)",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking", "Strings"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "0 ≤ number of nodes ≤ 10⁵",
+      "Node values fit a signed 32-bit integer unless sums require 64-bit",
+      "A skewed tree may create O(N) recursion depth"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven a string consisting of lowercase English alphabets, the task is to find the number of distinct subsequences of the string. Note that the answer can be very large, so the output will be the answer modulo 10^9 + 7.\n\nExample:\nInput: s = \"gfg\"\nOutput: 7\nExplanation: The seven distinct subsequences are \"\", \"g\", \"f\", \"gf\", \"fg\", \"gg\", and \"gfg\".\n\nApproach:\nTo find the number of distinct subsequences, we can use a recursive approach with backtracking.\n1. Create a set to store the distinct subsequences.\n2. Create a helper function called 'solve' that takes the input string 's', the current index, and a temporary string as parameters.\n3. In the 'solve' function:\n   - If the current index is equal to the size of the input string 's', insert the temporary string into the set of distinct subsequences.\n   - Otherwise, do the following:\n     - Include the character at the current index in the temporary string by appending it.\n     - Recursively call the 'solve' function with the updated temporary string and the next index.\n     - Exclude the character at the current index from the temporary string.\n     - Recursively call the 'solve' function with the updated temporary string and the next index.\n4. Create the main function called 'distinctSubsequences' that calculates the number of distinct subsequences.\n   - Initialize an empty string as the temporary string.\n   - Call the 'solve' function with the input string 's', index 0, and the empty temporary string.\n   - Return the size of the set of distinct subsequences modulo 10^9 + 7.\n\nTime Complexity: O(2^N), where N is the length of the input string 's'.\nSpace Complexity: O(2^N), where N is the length of the input string 's' (for storing the distinct subsequences in the set).\n\nCODE:*/\nunordered_set<string> st;\n\nvoid solve(string& s, int index, string& temp) {\n\tif (index == s.size()) {\n\t\tst.insert(temp);\n\t\treturn;\n\t}\n\n\t// Include the character at the current index\n\ttemp.push_back(s[index]);\n\tsolve(s, index + 1, temp);\n\n\t// Exclude the character at the current index\n\ttemp.pop_back();\n\tsolve(s, index + 1, temp);\n}\n\nint distinctSubsequences(string s) {\n\tstring temp = \"\";\n\tsolve(s, 0, temp);\n\treturn st.size() % (int)(1e9 + 7);\n}\n",
+    "codeLines": 50,
+    "repoPath": "05.Recursion/2.Subsequences Pattern/03.Count distinct substrings.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/2.Subsequences%20Pattern/03.Count%20distinct%20substrings.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+      "title": "Implement Trie (Prefix Tree)",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p121",
+    "index": 121,
+    "title": "Count subsets with sum equal to k",
+    "topic": "Recursion",
+    "subtopic": "Subsequences Pattern",
+    "difficulty": "Medium",
+    "question": "Given an array arr[] of non-negative integers and an integer sum, the task is to count all subsets of the given array with a sum equal to the given sum. The answer can be very large, so the output will be the answer modulo 10^9 + 7.\n\nExample:\nInput: N = 6, arr[] = {2, 3, 5, 6, 8, 10}, sum = 10\nOutput: 3\nExplanation: The subsets with a sum equal to 10 are {2, 3, 5}, {2, 8}, and {10}.",
+    "approach": "To count the subsets with a given sum, we can use a recursive approach with backtracking.\n1. Create a helper function called 'solve' that takes the current index, the remaining sum, and the array as parameters.\n2. In the 'solve' function:\n   - If the remaining sum is 0, return 1 (found a subset with the given sum).\n   - If the index becomes 0 and the remaining sum is not 0, return 0 (no subset found with the given sum).\n   - Otherwise, do the following:\n     - Count the subsets that include the element at the current index by recursively calling the 'solve' function with the updated index and the remaining sum minus the element value.\n     - Count the subsets that exclude the element at the current index by recursively calling the 'solve' function with the updated index and the remaining sum.\n     - Return the sum of the counts from the include and exclude steps.\n3. Create the main function called 'perfectSum' that calculates the count of subsets with the given sum.\n   - Call the 'solve' function with the last index of the array, the given sum, and the array.\n   - Return the count modulo 10^9 + 7.",
+    "pseudocode": "ALGORITHM  Count subsets with sum equal to k\nPATTERN    Backtracking\n\nBEGIN\n  01  To count the subsets with a given sum, we can use a recursive approach with backtracking\n  02  SET a helper function called 'solve' that takes the current index, the remaining sum, and the array as parameters\n  03  In the 'solve' function:\n  04  IF the remaining sum is 0, return 1 (found a subset with the given sum)\n  05  IF the index becomes 0 and the remaining sum is not 0, return 0 (no subset found with the given sum)\n  06  ELSE do the following:\n  07  Count the subsets that include the element at the current index by recursively calling the 'solve' function with the updated index and the remaining sum minus the element value\n  08  Count the subsets that exclude the element at the current index by recursively calling the 'solve' function with the updated index and the remaining sum\n  09  RETURN the sum of the counts from the include and exclude steps\n  10  SET the main function called 'perfectSum' that calculates the count of subsets with the given sum\n  11  Call the 'solve' function with the last index of the array, the given sum, and the array\n  12  RETURN the count modulo 10^9 + 7\nEND",
+    "time": "O(N * sum), where N is the size of the array and sum is the given sum",
+    "space": "O(N * sum), where N is the size of the array and sum is the given sum (for recursion stack)",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven an array arr[] of non-negative integers and an integer sum, the task is to count all subsets of the given array with a sum equal to the given sum. The answer can be very large, so the output will be the answer modulo 10^9 + 7.\n\nExample:\nInput: N = 6, arr[] = {2, 3, 5, 6, 8, 10}, sum = 10\nOutput: 3\nExplanation: The subsets with a sum equal to 10 are {2, 3, 5}, {2, 8}, and {10}.\n\nApproach:\nTo count the subsets with a given sum, we can use a recursive approach with backtracking.\n1. Create a helper function called 'solve' that takes the current index, the remaining sum, and the array as parameters.\n2. In the 'solve' function:\n   - If the remaining sum is 0, return 1 (found a subset with the given sum).\n   - If the index becomes 0 and the remaining sum is not 0, return 0 (no subset found with the given sum).\n   - Otherwise, do the following:\n     - Count the subsets that include the element at the current index by recursively calling the 'solve' function with the updated index and the remaining sum minus the element value.\n     - Count the subsets that exclude the element at the current index by recursively calling the 'solve' function with the updated index and the remaining sum.\n     - Return the sum of the counts from the include and exclude steps.\n3. Create the main function called 'perfectSum' that calculates the count of subsets with the given sum.\n   - Call the 'solve' function with the last index of the array, the given sum, and the array.\n   - Return the count modulo 10^9 + 7.\n\nTime Complexity: O(N * sum), where N is the size of the array and sum is the given sum.\nSpace Complexity: O(N * sum), where N is the size of the array and sum is the given sum (for recursion stack).\n\nCODE:*/\nint solve(int index, int sum, int arr[]) {\n\tif (sum == 0) {\n\t\treturn 1;\n\t}\n\tif (index == 0) {\n\t\treturn (arr[0] == sum) ? 1 : 0;\n\t}\n\n\tint include = 0;\n\tif (arr[index] <= sum)\n\t\tinclude = solve(index - 1, sum - arr[index], arr); // include\n\n\tint exclude = solve(index - 1, sum, arr); // exclude\n\n\treturn (include + exclude) % (int)(1e9 + 7);\n}\n\nint perfectSum(int arr[], int n, int sum) {\n\tint cnt = solve(n - 1, sum, arr);\n\treturn cnt % (int)(1e9 + 7);\n}\n",
+    "codeLines": 47,
+    "repoPath": "05.Recursion/2.Subsequences Pattern/04.Count subsets with sum equal to k.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/2.Subsequences%20Pattern/04.Count%20subsets%20with%20sum%20equal%20to%20k.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/target-sum/",
+      "title": "Target Sum",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p122",
+    "index": 122,
+    "title": "Subset 1",
+    "topic": "Recursion",
+    "subtopic": "Subsequences Pattern",
+    "difficulty": "Medium",
+    "question": "Given a list arr of N integers, print the sums of all subsets in it.\n\nExample:\nInput:\nN = 2\narr[] = {2, 3}\nOutput:\n0 2 3 5\nExplanation:\nWhen no element is taken, the sum is 0.\nWhen only 2 is taken, the sum is 2.\nWhen only 3 is taken, the sum is 3.\nWhen elements 2 and 3 are taken, the sum is 2 + 3 = 5.",
+    "approach": "To print the sums of all subsets, we can use a recursive approach with backtracking.\n1. Create a helper function called 'solve' that takes the current index, the current sum, the array, and a vector to store the sums as parameters.\n2. In the 'solve' function:\n   - If the current index is equal to the size of the array, add the current sum to the vector of sums and return.\n   - Otherwise, do the following:\n     - Include the element at the current index in the sum by recursively calling the 'solve' function with the updated index and the current sum plus the element value.\n     - Exclude the element at the current index from the sum by recursively calling the 'solve' function with the updated index and the current sum.\n3. Create the main function called 'subsetSums' that calculates and returns the vector of subset sums.\n   - Initialize an empty vector to store the subset sums.\n   - Call the 'solve' function with the initial index as 0, the initial sum as 0, the array, and the vector of subset sums.\n   - Sort the vector of subset sums in ascending order.\n   - Return the vector of subset sums.",
+    "pseudocode": "ALGORITHM  Subset 1\nPATTERN    Backtracking\n\nBEGIN\n  01  To print the sums of all subsets, we can use a recursive approach with backtracking\n  02  SET a helper function called 'solve' that takes the current index, the current sum, the array, and a vector to store the sums as parameters\n  03  In the 'solve' function:\n  04  IF the current index is equal to the size of the array, add the current sum to the vector of sums and return\n  05  ELSE do the following:\n  06  Include the element at the current index in the sum by recursively calling the 'solve' function with the updated index and the current sum plus the element value\n  07  Exclude the element at the current index from the sum by recursively calling the 'solve' function with the updated index and the current sum\n  08  SET the main function called 'subsetSums' that calculates and returns the vector of subset sums\n  09  SET an empty vector to store the subset sums\n  10  Call the 'solve' function with the initial index as 0, the initial sum as 0, the array, and the vector of subset sums\n  11  Sort the vector of subset sums in ascending order\n  12  RETURN the vector of subset sums\nEND",
+    "time": "O(2^N), where N is the size of the array",
+    "space": "O(N), where N is the size of the array (for recursion stack and storing subset sums)",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven a list arr of N integers, print the sums of all subsets in it.\n\nExample:\nInput:\nN = 2\narr[] = {2, 3}\nOutput:\n0 2 3 5\nExplanation:\nWhen no element is taken, the sum is 0.\nWhen only 2 is taken, the sum is 2.\nWhen only 3 is taken, the sum is 3.\nWhen elements 2 and 3 are taken, the sum is 2 + 3 = 5.\n\nApproach:\nTo print the sums of all subsets, we can use a recursive approach with backtracking.\n1. Create a helper function called 'solve' that takes the current index, the current sum, the array, and a vector to store the sums as parameters.\n2. In the 'solve' function:\n   - If the current index is equal to the size of the array, add the current sum to the vector of sums and return.\n   - Otherwise, do the following:\n     - Include the element at the current index in the sum by recursively calling the 'solve' function with the updated index and the current sum plus the element value.\n     - Exclude the element at the current index from the sum by recursively calling the 'solve' function with the updated index and the current sum.\n3. Create the main function called 'subsetSums' that calculates and returns the vector of subset sums.\n   - Initialize an empty vector to store the subset sums.\n   - Call the 'solve' function with the initial index as 0, the initial sum as 0, the array, and the vector of subset sums.\n   - Sort the vector of subset sums in ascending order.\n   - Return the vector of subset sums.\n\nTime Complexity: O(2^N), where N is the size of the array.\nSpace Complexity: O(N), where N is the size of the array (for recursion stack and storing subset sums).\n\nCODE:*/\nvoid solve(int index, int sum, vector<int>& arr, vector<int>& ans) {\n\tif (index == arr.size()) {\n\t\tans.push_back(sum);\n\t\treturn;\n\t}\n\n\tsolve(index + 1, sum + arr[index], arr, ans);\n\tsolve(index + 1, sum, arr, ans);\n}\n\nvector<int> subsetSums(vector<int> arr, int N) {\n\tvector<int> ans;\n\tint sum = 0;\n\tsolve(0, sum, arr, ans);\n\tsort(ans.begin(), ans.end());\n\treturn ans;\n}\n",
+    "codeLines": 50,
+    "repoPath": "05.Recursion/2.Subsequences Pattern/05.Subset 1.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/2.Subsequences%20Pattern/05.Subset%201.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subsets/",
+      "title": "Subsets",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p123",
+    "index": 123,
+    "title": "Subset 2",
+    "topic": "Recursion",
+    "subtopic": "Subsequences Pattern",
+    "difficulty": "Medium",
+    "question": "Given an integer array nums that may contain duplicates, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order.\n\nExample:\nInput: nums = [1,2,2]\nOutput: [[],[1],[1,2],[1,2,2],[2],[2,2]]\nExample:\nInput: nums = [0]\nOutput: [[],[0]]",
+    "approach": "To find all possible subsets without duplicates, we can use a recursive backtracking approach.\n1. Sort the input array nums in non-decreasing order to handle duplicates.\n2. Create a helper function called 'solve' that takes the current index, the array nums, a temporary vector to store the current subset, and a vector of vector to store all subsets as parameters.\n3. In the 'solve' function:\n   - Add the current subset to the vector of subsets.\n   - Iterate from the current index to the end of the array:\n     - If the current index is greater than the starting index and the current element is the same as the previous element, skip the iteration to avoid duplicates.\n     - Add the current element to the current subset.\n     - Recursively call the 'solve' function with the updated index, the array nums, the current subset, and the vector of subsets.\n     - Remove the last added element from the current subset (backtracking).\n4. Create the main function called 'subsetsWithDup' that calculates and returns the vector of subsets without duplicates.\n   - Sort the input array nums.\n   - Initialize an empty vector to store the subsets.\n   - Call the 'solve' function with the initial index as 0, the array nums, an empty temporary vector, and the vector of subsets.\n   - Return the vector of subsets.",
+    "pseudocode": "ALGORITHM  Subset 2\nPATTERN    Backtracking\n\nBEGIN\n  01  To find all possible subsets without duplicates, we can use a recursive backtracking approach\n  02  Sort the input array nums in non-decreasing order to handle duplicates\n  03  SET a helper function called 'solve' that takes the current index, the array nums, a temporary vector to store the current subset, and a vector of vector to store all subsets as parameters\n  04  In the 'solve' function:\n  05  Add the current subset to the vector of subsets\n  06  Iterate from the current index to the end of the array:\n  07  IF the current index is greater than the starting index and the current element is the same as the previous element, skip the iteration to avoid duplicates\n  08  Add the current element to the current subset\n  09  Recursively call the 'solve' function with the updated index, the array nums, the current subset, and the vector of subsets\n  10  Remove the last added element from the current subset (backtracking)\n  11  SET the main function called 'subsetsWithDup' that calculates and returns the vector of subsets without duplicates\n  12  Sort the input array nums\n  13  SET an empty vector to store the subsets\n  14  Call the 'solve' function with the initial index as 0, the array nums, an empty temporary vector, and the vector of subsets\n  15  RETURN the required result\nEND",
+    "time": "O(2^N), where N is the size of the input array nums. This is because there are 2^N possible subsets",
+    "space": "O(N), where N is the size of the input array nums. This is the space required to store the subsets",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven an integer array nums that may contain duplicates, return all possible subsets (the power set). The solution set must not contain duplicate subsets. Return the solution in any order.\n\nExample:\nInput: nums = [1,2,2]\nOutput: [[],[1],[1,2],[1,2,2],[2],[2,2]]\nExample:\nInput: nums = [0]\nOutput: [[],[0]]\n\nApproach:\nTo find all possible subsets without duplicates, we can use a recursive backtracking approach.\n1. Sort the input array nums in non-decreasing order to handle duplicates.\n2. Create a helper function called 'solve' that takes the current index, the array nums, a temporary vector to store the current subset, and a vector of vector to store all subsets as parameters.\n3. In the 'solve' function:\n   - Add the current subset to the vector of subsets.\n   - Iterate from the current index to the end of the array:\n     - If the current index is greater than the starting index and the current element is the same as the previous element, skip the iteration to avoid duplicates.\n     - Add the current element to the current subset.\n     - Recursively call the 'solve' function with the updated index, the array nums, the current subset, and the vector of subsets.\n     - Remove the last added element from the current subset (backtracking).\n4. Create the main function called 'subsetsWithDup' that calculates and returns the vector of subsets without duplicates.\n   - Sort the input array nums.\n   - Initialize an empty vector to store the subsets.\n   - Call the 'solve' function with the initial index as 0, the array nums, an empty temporary vector, and the vector of subsets.\n   - Return the vector of subsets.\n\nTime Complexity: O(2^N), where N is the size of the input array nums. This is because there are 2^N possible subsets.\nSpace Complexity: O(N), where N is the size of the input array nums. This is the space required to store the subsets.\n\nCODE:*/\n\nvoid solve(int index, vector<int>& nums, vector<int>& temp, vector<vector<int>>& ans){\n    if(index==nums.size()){\n        ans.push_back(temp);\n        return;\n    }\n    // to include\n    temp.push_back(nums[index]);\n    solve(index+1,nums,temp,ans);\n    temp.pop_back();\n\n    // to remove duplicates\n    while(index+1<nums.size() && nums[index]==nums[index+1])\n        index++;\n\n    // to exclude\n    solve(index+1,nums,temp,ans);\n}\n\nvector<vector<int>> subsetsWithDup(vector<int>& nums) {\n\tsort(nums.begin(), nums.end());\n\tvector<vector<int>> ans;\n\tvector<int> temp;\n\tsolve(0, nums, temp, ans);\n\treturn ans;\n}\n",
+    "codeLines": 57,
+    "repoPath": "05.Recursion/2.Subsequences Pattern/06.Subset 2.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/2.Subsequences%20Pattern/06.Subset%202.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/subsets-ii/",
+      "title": "Subsets II",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p124",
+    "index": 124,
+    "title": "Combination Sum 1",
+    "topic": "Recursion",
+    "subtopic": "Subsequences Pattern",
+    "difficulty": "Medium",
+    "question": "Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.\n\nExample:\nInput: candidates = [2,3,6,7], target = 7\nOutput: [[2,2,3],[7]]\nExplanation: 2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times. 7 is a candidate, and 7 = 7. These are the only two combinations.",
+    "approach": "To find all unique combinations that sum up to the target, we can use a recursive backtracking approach.\n1. Create a helper function called 'solve' that takes the current index, the array of candidates, the target sum, a temporary vector to store the current combination, and a vector of vector to store all combinations as parameters.\n2. In the 'solve' function:\n   - If the target sum is equal to 0, add the current combination to the vector of combinations.\n   - If the current index is equal to the size of the array, return.\n   - If the current candidate value is less than or equal to the target sum:\n     - Add the current candidate to the current combination.\n     - Recursively call the 'solve' function with the updated index, the same array of candidates, the reduced target sum by subtracting the current candidate value, the current combination, and the vector of combinations.\n     - Remove the last added candidate from the current combination (backtracking).\n   - Recursively call the 'solve' function with the updated index by incrementing it, the same array of candidates, the same target sum, the current combination, and the vector of combinations.\n3. Create the main function called 'combinationSum' that calculates and returns the vector of combinations.\n   - Initialize an empty vector to store the combinations.\n   - Sort the array of candidates in non-decreasing order to handle duplicates.\n   - Call the 'solve' function with the initial index as 0, the array of candidates, the target sum, an empty temporary vector, and the vector of combinations.\n   - Return the vector of combinations.",
+    "pseudocode": "ALGORITHM  Combination Sum 1\nPATTERN    Backtracking\n\nBEGIN\n  01  To find all unique combinations that sum up to the target, we can use a recursive backtracking approach\n  02  SET a helper function called 'solve' that takes the current index, the array of candidates, the target sum, a temporary vector to store the current combination, and a vector of vector to store all combinations as parameters\n  03  In the 'solve' function:\n  04  IF the target sum is equal to 0, add the current combination to the vector of combinations\n  05  IF the current index is equal to the size of the array, return\n  06  IF the current candidate value is less than or equal to the target sum:\n  07  Add the current candidate to the current combination\n  08  Recursively call the 'solve' function with the updated index, the same array of candidates, the reduced target sum by subtracting the current candidate value, the current combination, and the vector of combinations\n  09  Remove the last added candidate from the current combination (backtracking)\n  10  Recursively call the 'solve' function with the updated index by incrementing it, the same array of candidates, the same target sum, the current combination, and the vector of combinations\n  11  SET the main function called 'combinationSum' that calculates and returns the vector of combinations\n  12  SET an empty vector to store the combinations\n  13  Sort the array of candidates in non-decreasing order to handle duplicates\n  14  Call the 'solve' function with the initial index as 0, the array of candidates, the target sum, an empty temporary vector, and the vector of combinations\n  15  RETURN the required result\nEND",
+    "time": "O(N^target), where N is the size of the array of candidates and target is the target sum. In the worst case, we may have to explore all possible combinations, which is exponential",
+    "space": "O(target), as the maximum depth of the recursion tree is determined by the target sum",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.\n\nExample:\nInput: candidates = [2,3,6,7], target = 7\nOutput: [[2,2,3],[7]]\nExplanation: 2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times. 7 is a candidate, and 7 = 7. These are the only two combinations.\n\nApproach:\nTo find all unique combinations that sum up to the target, we can use a recursive backtracking approach.\n1. Create a helper function called 'solve' that takes the current index, the array of candidates, the target sum, a temporary vector to store the current combination, and a vector of vector to store all combinations as parameters.\n2. In the 'solve' function:\n   - If the target sum is equal to 0, add the current combination to the vector of combinations.\n   - If the current index is equal to the size of the array, return.\n   - If the current candidate value is less than or equal to the target sum:\n     - Add the current candidate to the current combination.\n     - Recursively call the 'solve' function with the updated index, the same array of candidates, the reduced target sum by subtracting the current candidate value, the current combination, and the vector of combinations.\n     - Remove the last added candidate from the current combination (backtracking).\n   - Recursively call the 'solve' function with the updated index by incrementing it, the same array of candidates, the same target sum, the current combination, and the vector of combinations.\n3. Create the main function called 'combinationSum' that calculates and returns the vector of combinations.\n   - Initialize an empty vector to store the combinations.\n   - Sort the array of candidates in non-decreasing order to handle duplicates.\n   - Call the 'solve' function with the initial index as 0, the array of candidates, the target sum, an empty temporary vector, and the vector of combinations.\n   - Return the vector of combinations.\n\nTime Complexity: O(N^target), where N is the size of the array of candidates and target is the target sum. In the worst case, we may have to explore all possible combinations, which is exponential.\nSpace Complexity: O(target), as the maximum depth of the recursion tree is determined by the target sum.\n\nCODE:*/\nvoid solve(int index, vector<int>& candidates, int target, vector<int>& temp, vector<vector<int>>& ans) {\n    if (target == 0) {\n        ans.push_back(temp);\n        return;\n    }\n\n    if (index == candidates.size() || target < 0)\n        return;\n\n    if (candidates[index] <= target) {\n        temp.push_back(candidates[index]);\n        solve(index, candidates, target - candidates[index], temp, ans);\n        temp.pop_back();\n    }\n\n    solve(index + 1, candidates, target, temp, ans);\n}\n\nvector<vector<int>> combinationSum(vector<int>& candidates, int target) {\n    vector<vector<int>> ans;\n    sort(candidates.begin(), candidates.end());\n    vector<int> temp;\n    solve(0, candidates, target, temp, ans);\n    return ans;\n}\n",
+    "codeLines": 54,
+    "repoPath": "05.Recursion/2.Subsequences Pattern/07.Combination Sum 1.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/2.Subsequences%20Pattern/07.Combination%20Sum%201.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/combination-sum/",
+      "title": "Combination Sum",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p125",
+    "index": 125,
+    "title": "Combination Sum 2",
+    "topic": "Recursion",
+    "subtopic": "Subsequences Pattern",
+    "difficulty": "Medium",
+    "question": "Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target. Each number in candidates may only be used once in the combination. Note: The solution set must not contain duplicate combinations.\n\nExample:\nInput: candidates = [10,1,2,7,6,1,5], target = 8\nOutput: [[1,1,6],[1,2,5],[1,7],[2,6]]\nExplanation: The sum of the combinations [1,1,6], [1,2,5], [1,7], and [2,6] is equal to the target 8.",
+    "approach": "To find all unique combinations that sum up to the target, we can use a recursive backtracking approach.\n1. Create a helper function called 'solve' that takes the current index, the target sum, the array of candidates, a temporary vector to store the current combination, and a vector of vector to store all combinations as parameters.\n2. Sort the array of candidates in non-decreasing order to handle duplicates.\n3. In the 'solve' function:\n   - If the target sum is equal to 0, add the current combination to the vector of combinations.\n   - If the current index is equal to the size of the array, return.\n   - If the current candidate value is less than or equal to the target sum:\n     - Add the current candidate to the current combination.\n     - Recursively call the 'solve' function with the updated index by incrementing it, the reduced target sum by subtracting the current candidate value, the same array of candidates, the current combination, and the vector of combinations.\n     - Remove the last added candidate from the current combination (backtracking).\n   - To handle duplicates, skip the candidates with the same value as the current candidate by incrementing the index until a different candidate is found.\n   - Recursively call the 'solve' function with the updated index by incrementing it, the same target sum, the same array of candidates, the current combination, and the vector of combinations.\n4. Create the main function called 'combinationSum2' that calculates and returns the vector of combinations.\n   - Initialize an empty vector to store the combinations.\n   - Call the 'solve' function with the initial index as 0, the target sum, the sorted array of candidates, an empty temporary vector, and the vector of combinations.\n   - Return the vector of combinations.",
+    "pseudocode": "ALGORITHM  Combination Sum 2\nPATTERN    Backtracking\n\nBEGIN\n  01  To find all unique combinations that sum up to the target, we can use a recursive backtracking approach\n  02  SET a helper function called 'solve' that takes the current index, the target sum, the array of candidates, a temporary vector to store the current combination, and a vector of vector to store all combinations as parameters\n  03  Sort the array of candidates in non-decreasing order to handle duplicates\n  04  In the 'solve' function:\n  05  IF the target sum is equal to 0, add the current combination to the vector of combinations\n  06  IF the current index is equal to the size of the array, return\n  07  IF the current candidate value is less than or equal to the target sum:\n  08  Add the current candidate to the current combination\n  09  Recursively call the 'solve' function with the updated index by incrementing it, the reduced target sum by subtracting the current candidate value, the same array of candidates, the current combination, and the vector of combinations\n  10  Remove the last added candidate from the current combination (backtracking)\n  11  To handle duplicates, skip the candidates with the same value as the current candidate by incrementing the index until a different candidate is found\n  12  Recursively call the 'solve' function with the updated index by incrementing it, the same target sum, the same array of candidates, the current combination, and the vector of combinations\n  13  SET the main function called 'combinationSum2' that calculates and returns the vector of combinations\n  14  SET an empty vector to store the combinations\n  15  RETURN the required result\nEND",
+    "time": "O(N * 2^N), where N is the size of the array of candidates. In the worst case, we may have to explore all possible combinations, which is exponential",
+    "space": "O(target), as the maximum depth of the recursion tree is determined by the target sum",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target. Each number in candidates may only be used once in the combination. Note: The solution set must not contain duplicate combinations.\n\nExample:\nInput: candidates = [10,1,2,7,6,1,5], target = 8\nOutput: [[1,1,6],[1,2,5],[1,7],[2,6]]\nExplanation: The sum of the combinations [1,1,6], [1,2,5], [1,7], and [2,6] is equal to the target 8.\n\nApproach:\nTo find all unique combinations that sum up to the target, we can use a recursive backtracking approach.\n1. Create a helper function called 'solve' that takes the current index, the target sum, the array of candidates, a temporary vector to store the current combination, and a vector of vector to store all combinations as parameters.\n2. Sort the array of candidates in non-decreasing order to handle duplicates.\n3. In the 'solve' function:\n   - If the target sum is equal to 0, add the current combination to the vector of combinations.\n   - If the current index is equal to the size of the array, return.\n   - If the current candidate value is less than or equal to the target sum:\n     - Add the current candidate to the current combination.\n     - Recursively call the 'solve' function with the updated index by incrementing it, the reduced target sum by subtracting the current candidate value, the same array of candidates, the current combination, and the vector of combinations.\n     - Remove the last added candidate from the current combination (backtracking).\n   - To handle duplicates, skip the candidates with the same value as the current candidate by incrementing the index until a different candidate is found.\n   - Recursively call the 'solve' function with the updated index by incrementing it, the same target sum, the same array of candidates, the current combination, and the vector of combinations.\n4. Create the main function called 'combinationSum2' that calculates and returns the vector of combinations.\n   - Initialize an empty vector to store the combinations.\n   - Call the 'solve' function with the initial index as 0, the target sum, the sorted array of candidates, an empty temporary vector, and the vector of combinations.\n   - Return the vector of combinations.\n\nTime Complexity: O(N * 2^N), where N is the size of the array of candidates. In the worst case, we may have to explore all possible combinations, which is exponential.\nSpace Complexity: O(target), as the maximum depth of the recursion tree is determined by the target sum.\n\nCODE:*/\nvoid solve(int index, int target, vector<int>& candidates, vector<int>& temp, vector<vector<int>>& ans) {\n    if (target == 0) {\n        ans.push_back(temp);\n        return;\n    }\n\n    if (index == candidates.size() || target < 0)\n        return;\n\n    if (candidates[index] <= target) {\n        temp.push_back(candidates[index]);\n        solve(index + 1, target - candidates[index], candidates, temp, ans);\n        temp.pop_back();\n    }\n\n    while (index + 1 < candidates.size() && candidates[index] == candidates[index + 1])\n        index++;\n\n    solve(index + 1, target, candidates, temp, ans);\n}\n\nvector<vector<int>> combinationSum2(vector<int>& candidates, int target) {\n    vector<vector<int>> ans;\n    vector<int> temp;\n    sort(candidates.begin(), candidates.end());\n    solve(0, target, candidates, temp, ans);\n    return ans;\n}\n",
+    "codeLines": 58,
+    "repoPath": "05.Recursion/2.Subsequences Pattern/08.Combination Sum 2.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/2.Subsequences%20Pattern/08.Combination%20Sum%202.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/combination-sum-ii/",
+      "title": "Combination Sum II",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p126",
+    "index": 126,
+    "title": "Combination Sum 3",
+    "topic": "Recursion",
+    "subtopic": "Subsequences Pattern",
+    "difficulty": "Medium",
+    "question": "Find all valid combinations of k numbers that sum up to n such that the following conditions are true:\n- Only numbers 1 through 9 are used.\n- Each number is used at most once.\nReturn a list of all possible valid combinations. The list must not contain the same combination twice, and the combinations may be returned in any order.\n\nExample:\nInput: k = 3, n = 7\nOutput: [[1,2,4]]\nExplanation: 1 + 2 + 4 = 7. There are no other valid combinations.",
+    "approach": "To find all valid combinations of k numbers that sum up to n, we can use a recursive backtracking approach.\n1. Create a helper function called 'solve' that takes the current index, the number of elements to choose (k), the target sum (tar), the array of available numbers (nums), a temporary vector to store the current combination, and a vector of vector to store all combinations as parameters.\n2. In the 'solve' function:\n   - If the target sum is equal to 0 and the size of the current combination is equal to k, add the current combination to the vector of combinations.\n   - If the current index is equal to the size of the array or the target sum is less than 0, return.\n   - If the current number is less than or equal to the target sum:\n     - Add the current number to the current combination.\n     - Recursively call the 'solve' function with the updated index by incrementing it, the same number of elements to choose (k), the reduced target sum by subtracting the current number, the same array of available numbers (nums), the current combination, and the vector of combinations.\n     - Remove the last added number from the current combination (backtracking).\n   - Recursively call the 'solve' function with the updated index by incrementing it, the same number of elements to choose (k), the same target sum, the same array of available numbers (nums), the current combination, and the vector of combinations.\n3. Create the main function called 'combinationSum3' that calculates and returns the vector of combinations.\n   - Initialize an array of available numbers containing numbers from 1 to 9.\n   - Initialize an empty vector to store the combinations.\n   - Call the 'solve' function with the initial index as 0, the number of elements to choose (k), the target sum (n), the array of available numbers, an empty temporary vector, and the vector of combinations.\n   - Return the vector of combinations.",
+    "pseudocode": "ALGORITHM  Combination Sum 3\nPATTERN    Backtracking\n\nBEGIN\n  01  To find all valid combinations of k numbers that sum up to n, we can use a recursive backtracking approach\n  02  SET a helper function called 'solve' that takes the current index, the number of elements to choose (k), the target sum (tar), the array of available numbers (nums), a temporary vector to store the current combination, and a vector of vector to store all combinations as parameters\n  03  In the 'solve' function:\n  04  IF the target sum is equal to 0 and the size of the current combination is equal to k, add the current combination to the vector of combinations\n  05  IF the current index is equal to the size of the array or the target sum is less than 0, return\n  06  IF the current number is less than or equal to the target sum:\n  07  Add the current number to the current combination\n  08  Recursively call the 'solve' function with the updated index by incrementing it, the same number of elements to choose (k), the reduced target sum by subtracting the current number, the same array of available numbers (nums), the current combination, and the vector of combinations\n  09  Remove the last added number from the current combination (backtracking)\n  10  Recursively call the 'solve' function with the updated index by incrementing it, the same number of elements to choose (k), the same target sum, the same array of available numbers (nums), the current combination, and the vector of combinations\n  11  SET the main function called 'combinationSum3' that calculates and returns the vector of combinations\n  12  SET an array of available numbers containing numbers from 1 to 9\n  13  SET an empty vector to store the combinations\n  14  Call the 'solve' function with the initial index as 0, the number of elements to choose (k), the target sum (n), the array of available numbers, an empty temporary vector, and the vector of combinations\n  15  RETURN the required result\nEND",
+    "time": "O(2^9), as there are 9 available numbers and we have to explore all possible combinations",
+    "space": "O(k), as the maximum depth of the recursion tree is determined by the number of elements to choose (k)",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nFind all valid combinations of k numbers that sum up to n such that the following conditions are true:\n- Only numbers 1 through 9 are used.\n- Each number is used at most once.\nReturn a list of all possible valid combinations. The list must not contain the same combination twice, and the combinations may be returned in any order.\n\nExample:\nInput: k = 3, n = 7\nOutput: [[1,2,4]]\nExplanation: 1 + 2 + 4 = 7. There are no other valid combinations.\n\nApproach:\nTo find all valid combinations of k numbers that sum up to n, we can use a recursive backtracking approach.\n1. Create a helper function called 'solve' that takes the current index, the number of elements to choose (k), the target sum (tar), the array of available numbers (nums), a temporary vector to store the current combination, and a vector of vector to store all combinations as parameters.\n2. In the 'solve' function:\n   - If the target sum is equal to 0 and the size of the current combination is equal to k, add the current combination to the vector of combinations.\n   - If the current index is equal to the size of the array or the target sum is less than 0, return.\n   - If the current number is less than or equal to the target sum:\n     - Add the current number to the current combination.\n     - Recursively call the 'solve' function with the updated index by incrementing it, the same number of elements to choose (k), the reduced target sum by subtracting the current number, the same array of available numbers (nums), the current combination, and the vector of combinations.\n     - Remove the last added number from the current combination (backtracking).\n   - Recursively call the 'solve' function with the updated index by incrementing it, the same number of elements to choose (k), the same target sum, the same array of available numbers (nums), the current combination, and the vector of combinations.\n3. Create the main function called 'combinationSum3' that calculates and returns the vector of combinations.\n   - Initialize an array of available numbers containing numbers from 1 to 9.\n   - Initialize an empty vector to store the combinations.\n   - Call the 'solve' function with the initial index as 0, the number of elements to choose (k), the target sum (n), the array of available numbers, an empty temporary vector, and the vector of combinations.\n   - Return the vector of combinations.\n\nTime Complexity: O(2^9), as there are 9 available numbers and we have to explore all possible combinations.\nSpace Complexity: O(k), as the maximum depth of the recursion tree is determined by the number of elements to choose (k).\n\nCODE:*/\nvoid solve(int i, int k, int tar, vector<int>& nums, vector<int>& temp, vector<vector<int>>& ans) {\n    if (tar == 0 && temp.size() == k) {\n        ans.push_back(temp);\n        return;\n    }\n\n    if (i == nums.size() || tar < 0)\n        return;\n\n    if (nums[i] <= tar) {\n        temp.push_back(nums[i]);\n        solve(i + 1, k, tar - nums[i], nums, temp, ans);\n        temp.pop_back();\n    }\n\n    solve(i + 1, k, tar, nums, temp, ans);\n}\n\nvector<vector<int>> combinationSum3(int k, int n) {\n    vector<int> nums;\n    for (int i = 1; i <= 9; i++) {\n        nums.push_back(i);\n    }\n\n    vector<vector<int>> ans;\n    vector<int> temp;\n    solve(0, k, n, nums, temp, ans);\n    return ans;\n}\n",
+    "codeLines": 61,
+    "repoPath": "05.Recursion/2.Subsequences Pattern/09.Combination Sum 3.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/2.Subsequences%20Pattern/09.Combination%20Sum%203.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/combination-sum-iii/",
+      "title": "Combination Sum III",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p127",
+    "index": 127,
+    "title": "Letter combinations of phone",
+    "topic": "Recursion",
+    "subtopic": "Subsequences Pattern",
+    "difficulty": "Medium",
+    "question": "Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.\n\nExample:\nInput: digits = \"23\"\nOutput: [\"ad\",\"ae\",\"af\",\"bd\",\"be\",\"bf\",\"cd\",\"ce\",\"cf\"]",
+    "approach": "We can use a recursive backtracking approach to generate all possible letter combinations.\n1. Create a helper function called 'solve' that takes the current index, the input string of digits, a temporary string to store the current combination, the vector to store all combinations, and a mapping vector that maps each digit to its corresponding letters.\n2. In the 'solve' function:\n   - If the current index is equal to the size of the input string, add the current combination to the vector of combinations and return.\n   - Get the corresponding digit at the current index from the input string.\n   - Iterate through the letters associated with the current digit:\n     - Append the current letter to the temporary string.\n     - Recursively call the 'solve' function with the updated index by incrementing it, the same input string of digits, the updated temporary string, the vector of combinations, and the mapping vector.\n     - Remove the last added letter from the temporary string (backtracking).\n3. Create the main function called 'letterCombinations' that calculates and returns the vector of combinations.\n   - Check if the input string is empty. If so, return an empty vector.\n   - Initialize a mapping vector that maps each digit to its corresponding letters.\n   - Initialize an empty temporary string.\n   - Initialize an empty vector to store the combinations.\n   - Call the 'solve' function with the initial index as 0, the input string of digits, the temporary string, the vector of combinations, and the mapping vector.\n   - Return the vector of combinations.",
+    "pseudocode": "ALGORITHM  Letter combinations of phone\nPATTERN    Backtracking\n\nBEGIN\n  01  We can use a recursive backtracking approach to generate all possible letter combinations\n  02  SET a helper function called 'solve' that takes the current index, the input string of digits, a temporary string to store the current combination, the vector to store all combinations, and a mapping vector that maps each digit to its corresponding letters\n  03  In the 'solve' function:\n  04  IF the current index is equal to the size of the input string, add the current combination to the vector of combinations and return\n  05  Get the corresponding digit at the current index from the input string\n  06  FOR EACH element while traversing the letters associated with the current digit:\n  07  Append the current letter to the temporary string\n  08  Recursively call the 'solve' function with the updated index by incrementing it, the same input string of digits, the updated temporary string, the vector of combinations, and the mapping vector\n  09  Remove the last added letter from the temporary string (backtracking)\n  10  SET the main function called 'letterCombinations' that calculates and returns the vector of combinations\n  11  Check if the input string is empty. If so, return an empty vector\n  12  SET a mapping vector that maps each digit to its corresponding letters\n  13  SET an empty temporary string\n  14  SET an empty vector to store the combinations\n  15  RETURN the required result\nEND",
+    "time": "O(3^N * 4^M), where N is the number of digits that map to 3 letters and M is the number of digits that map to 4 letters",
+    "space": "O(N + M), where N is the number of digits that map to 3 letters and M is the number of digits that map to 4 letters",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking", "Strings"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.\n\nExample:\nInput: digits = \"23\"\nOutput: [\"ad\",\"ae\",\"af\",\"bd\",\"be\",\"bf\",\"cd\",\"ce\",\"cf\"]\n\nApproach:\nWe can use a recursive backtracking approach to generate all possible letter combinations.\n1. Create a helper function called 'solve' that takes the current index, the input string of digits, a temporary string to store the current combination, the vector to store all combinations, and a mapping vector that maps each digit to its corresponding letters.\n2. In the 'solve' function:\n   - If the current index is equal to the size of the input string, add the current combination to the vector of combinations and return.\n   - Get the corresponding digit at the current index from the input string.\n   - Iterate through the letters associated with the current digit:\n     - Append the current letter to the temporary string.\n     - Recursively call the 'solve' function with the updated index by incrementing it, the same input string of digits, the updated temporary string, the vector of combinations, and the mapping vector.\n     - Remove the last added letter from the temporary string (backtracking).\n3. Create the main function called 'letterCombinations' that calculates and returns the vector of combinations.\n   - Check if the input string is empty. If so, return an empty vector.\n   - Initialize a mapping vector that maps each digit to its corresponding letters.\n   - Initialize an empty temporary string.\n   - Initialize an empty vector to store the combinations.\n   - Call the 'solve' function with the initial index as 0, the input string of digits, the temporary string, the vector of combinations, and the mapping vector.\n   - Return the vector of combinations.\n\nTime Complexity: O(3^N * 4^M), where N is the number of digits that map to 3 letters and M is the number of digits that map to 4 letters.\nSpace Complexity: O(N + M), where N is the number of digits that map to 3 letters and M is the number of digits that map to 4 letters.\n\nCODE:*/\nvoid solve(int index, string digits, string& temp, vector<string>& ans, vector<string>& mp) {\n    if (index == digits.size()) {\n        ans.push_back(temp);\n        return;\n    }\n\n    int num = digits[index] - '0';\n    for (int i = 0; i < mp[num].size(); i++) {\n        temp.push_back(mp[num][i]);\n        solve(index + 1, digits, temp, ans, mp);\n        temp.pop_back();\n    }\n}\n\nvector<string> letterCombinations(string digits) {\n    if (digits.empty())\n        return {};\n\n    vector<string> mp{\"\", \"\", \"abc\", \"def\", \"ghi\", \"jkl\", \"mno\", \"pqrs\", \"tuv\", \"wxyz\"};\n    string temp = \"\";\n    vector<string> ans;\n    solve(0, digits, temp, ans, mp);\n    return ans;\n}\n",
+    "codeLines": 53,
+    "repoPath": "05.Recursion/2.Subsequences Pattern/10.Letter combinations of phone.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/2.Subsequences%20Pattern/10.Letter%20combinations%20of%20phone.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/letter-combinations-of-a-phone-number/",
+      "title": "Letter Combinations of a Phone Number",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p128",
+    "index": 128,
+    "title": "Palindrome partitioning",
+    "topic": "Recursion",
+    "subtopic": "Try Out All Combos",
+    "difficulty": "Medium",
+    "question": "Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.\n\nExample:\nInput: s = \"aab\"\nOutput: [[\"a\",\"a\",\"b\"],[\"aa\",\"b\"]]",
+    "approach": "We can use a recursive backtracking approach to generate all possible palindrome partitioning.\n1. Create a helper function called 'solve' that takes the current index, the input string 's', a temporary vector to store the current partition, and the vector to store all partitions.\n2. In the 'solve' function:\n   - If the current index is greater than or equal to the size of the input string 's', add the current partition to the vector of partitions and return.\n   - Iterate through all possible substrings starting from the current index to the end of the string.\n   - Check if the current substring is a palindrome by using a helper function 'isPalindrome'.\n   - If the current substring is a palindrome:\n     - Add the current substring to the temporary partition vector.\n     - Recursively call the 'solve' function with the updated index by incrementing it, the same input string 's', the updated temporary partition vector, and the vector of partitions.\n     - Remove the last added substring from the temporary partition vector (backtracking).\n3. Create the main function called 'partition' that calculates and returns the vector of partitions.\n   - Initialize an empty vector to store the partitions.\n   - Initialize an empty temporary vector to store the current partition.\n   - Call the 'solve' function with the initial index as 0, the input string 's', the temporary partition vector, and the vector of partitions.\n   - Return the vector of partitions.",
+    "pseudocode": "ALGORITHM  Palindrome partitioning\nPATTERN    Backtracking\n\nBEGIN\n  01  We can use a recursive backtracking approach to generate all possible palindrome partitioning\n  02  SET a helper function called 'solve' that takes the current index, the input string 's', a temporary vector to store the current partition, and the vector to store all partitions\n  03  In the 'solve' function:\n  04  IF the current index is greater than or equal to the size of the input string 's', add the current partition to the vector of partitions and return\n  05  FOR EACH element while traversing all possible substrings starting from the current index to the end of the string\n  06  Check if the current substring is a palindrome by using a helper function 'isPalindrome'\n  07  IF the current substring is a palindrome:\n  08  Add the current substring to the temporary partition vector\n  09  Recursively call the 'solve' function with the updated index by incrementing it, the same input string 's', the updated temporary partition vector, and the vector of partitions\n  10  Remove the last added substring from the temporary partition vector (backtracking)\n  11  SET the main function called 'partition' that calculates and returns the vector of partitions\n  12  SET an empty vector to store the partitions\n  13  SET an empty temporary vector to store the current partition\n  14  Call the 'solve' function with the initial index as 0, the input string 's', the temporary partition vector, and the vector of partitions\n  15  RETURN the required result\nEND",
+    "time": "O(N * 2^N), where N is the length of the input string 's'. In the worst case, we can have 2^N possible partitions, and for each partition, we need to check if each substring is a palindrome, which takes O(N) time",
+    "space": "O(N), where N is the length of the input string 's'. The space is used for storing the temporary partition vector and the vector of partitions",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking", "Strings"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.\n\nExample:\nInput: s = \"aab\"\nOutput: [[\"a\",\"a\",\"b\"],[\"aa\",\"b\"]]\n\nApproach:\nWe can use a recursive backtracking approach to generate all possible palindrome partitioning.\n1. Create a helper function called 'solve' that takes the current index, the input string 's', a temporary vector to store the current partition, and the vector to store all partitions.\n2. In the 'solve' function:\n   - If the current index is greater than or equal to the size of the input string 's', add the current partition to the vector of partitions and return.\n   - Iterate through all possible substrings starting from the current index to the end of the string.\n   - Check if the current substring is a palindrome by using a helper function 'isPalindrome'.\n   - If the current substring is a palindrome:\n     - Add the current substring to the temporary partition vector.\n     - Recursively call the 'solve' function with the updated index by incrementing it, the same input string 's', the updated temporary partition vector, and the vector of partitions.\n     - Remove the last added substring from the temporary partition vector (backtracking).\n3. Create the main function called 'partition' that calculates and returns the vector of partitions.\n   - Initialize an empty vector to store the partitions.\n   - Initialize an empty temporary vector to store the current partition.\n   - Call the 'solve' function with the initial index as 0, the input string 's', the temporary partition vector, and the vector of partitions.\n   - Return the vector of partitions.\n\nTime Complexity: O(N * 2^N), where N is the length of the input string 's'. In the worst case, we can have 2^N possible partitions, and for each partition, we need to check if each substring is a palindrome, which takes O(N) time.\nSpace Complexity: O(N), where N is the length of the input string 's'. The space is used for storing the temporary partition vector and the vector of partitions.\n\nCODE:*/\nbool isPalindrome(string& palin){\n    int i = 0, j = palin.size() - 1;\n    while (i < j) {\n        if (palin[i] != palin[j])\n            return false;\n        i++;\n        j--;\n    }\n    return true;\n}\n\nvoid solve(int i, string& s, vector<string>& temp, vector<vector<string>>& ans) {\n    if (i >= s.size()) {\n        ans.push_back(temp);\n        return;\n    }\n\n    for (int p = i; p < s.size(); p++) {\n        string palin = s.substr(i, p - i + 1);\n        if (isPalindrome(palin)) {\n            temp.push_back(palin);\n            solve(p + 1, s, temp, ans);\n            temp.pop_back();\n        }\n    }\n}\n\nvector<vector<string>> partition(string s) {\n    vector<vector<string>> ans;\n    vector<string> temp;\n    solve(0, s, temp, ans);\n    return ans;\n}\n",
+    "codeLines": 61,
+    "repoPath": "05.Recursion/3.Try Out All Combos/01.Palindrome partioning.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/3.Try%20Out%20All%20Combos/01.Palindrome%20partioning.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/palindrome-partitioning/",
+      "title": "Palindrome Partitioning",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p129",
+    "index": 129,
+    "title": "Word search in grid",
+    "topic": "Recursion",
+    "subtopic": "Try Out All Combos",
+    "difficulty": "Medium",
+    "question": "Given an m x n grid of characters board and a string word, return true if word exists in the grid.\n\nExample 1:\n\nInput: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"\nOutput: true\n\nExample 2:\n\nInput: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"SEE\"\nOutput: true\n\nExample 3:\n\nInput: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCB\"\nOutput: false",
+    "approach": "We can use a backtracking approach to solve this problem.\n1. Create a helper function called 'solve' that takes the current row index, column index, letter index, the target word, and the board.\n2. In the 'solve' function:\n   - If the letter index is equal to the length of the target word, set the flag to true and return.\n   - Check if the current cell value is equal to the target letter.\n   - If it is, mark the current cell as visited (by changing its value to '!') and recursively call the 'solve' function for its neighboring cells (up, down, left, and right).\n   - After the recursive call, restore the original value of the current cell.\n3. Create the main function called 'exist' that calculates and returns true if the word exists in the grid, false otherwise.\n   - Initialize a flag variable to false.\n   - Iterate through each cell in the grid.\n   - If the current cell value is equal to the first letter of the target word, mark the current cell as visited (by changing its value to '!') and call the 'solve' function with the current cell's coordinates, letter index as 1, the target word, and the board.\n   - If the flag is true, return true (word exists in the grid).\n   - If the loop completes without finding the word, return false.",
+    "pseudocode": "ALGORITHM  Word search in grid\nPATTERN    Backtracking\n\nBEGIN\n  01  We can use a backtracking approach to solve this problem\n  02  SET a helper function called 'solve' that takes the current row index, column index, letter index, the target word, and the board\n  03  In the 'solve' function:\n  04  IF the letter index is equal to the length of the target word, set the flag to true and return\n  05  Check if the current cell value is equal to the target letter\n  06  IF it is, mark the current cell as visited (by changing its value to '!') and recursively call the 'solve' function for its neighboring cells (up, down, left, and right)\n  07  After the recursive call, restore the original value of the current cell\n  08  SET the main function called 'exist' that calculates and returns true if the word exists in the grid, false otherwise\n  09  SET a flag variable to false\n  10  FOR EACH element while traversing each cell in the grid\n  11  IF the current cell value is equal to the first letter of the target word, mark the current cell as visited (by changing its value to '!') and call the 'solve' function with the current cell's coordinates, letter index as 1, the target word, and the board\n  12  IF the flag is true, return true (word exists in the grid)\n  13  IF the loop completes without finding the word, return false\n  14  RETURN the required result\nEND",
+    "time": "O(M * N * 4^L), where M is the number of rows, N is the number of columns in the grid, and L is the length of the target word. In the worst case, we traverse the entire grid for each letter in the target word, and we have 4 choices (up, down, left, right) at e",
+    "space": "O(L), where L is the length of the target word. The space is used for the recursive call stack",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking", "Matrix / grid", "Strings"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "1 ≤ rows, columns ≤ 10³",
+      "Total cells should fit memory for the chosen O(R × C) representation",
+      "Cell values fit a signed 32-bit integer unless path sums require 64-bit"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven an m x n grid of characters board and a string word, return true if word exists in the grid.\n\nExample 1:\n\nInput: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"\nOutput: true\n\nExample 2:\n\nInput: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"SEE\"\nOutput: true\n\nExample 3:\n\nInput: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCB\"\nOutput: false\n\n\nApproach:\nWe can use a backtracking approach to solve this problem.\n1. Create a helper function called 'solve' that takes the current row index, column index, letter index, the target word, and the board.\n2. In the 'solve' function:\n   - If the letter index is equal to the length of the target word, set the flag to true and return.\n   - Check if the current cell value is equal to the target letter.\n   - If it is, mark the current cell as visited (by changing its value to '!') and recursively call the 'solve' function for its neighboring cells (up, down, left, and right).\n   - After the recursive call, restore the original value of the current cell.\n3. Create the main function called 'exist' that calculates and returns true if the word exists in the grid, false otherwise.\n   - Initialize a flag variable to false.\n   - Iterate through each cell in the grid.\n   - If the current cell value is equal to the first letter of the target word, mark the current cell as visited (by changing its value to '!') and call the 'solve' function with the current cell's coordinates, letter index as 1, the target word, and the board.\n   - If the flag is true, return true (word exists in the grid).\n   - If the loop completes without finding the word, return false.\n   \nTime Complexity: O(M * N * 4^L), where M is the number of rows, N is the number of columns in the grid, and L is the length of the target word. In the worst case, we traverse the entire grid for each letter in the target word, and we have 4 choices (up, down, left, right) at each step.\nSpace Complexity: O(L), where L is the length of the target word. The space is used for the recursive call stack.\n\nCODE:*/\n\n// Note:- I'm making recursive call only for the potential grids rather than making call for the all four to reduce unwanted calls,\n// this makes code quite big but if you want to make it compact you could make call for all four cases and after call check if it's valid\n// just check the code of rat in maze for shorter code\n\nbool flag = false;\n\nvoid solve(int i, int j, int ltr, string& word, vector<vector<char>>& board) {\n    if (ltr == word.size()) {\n        flag = true;\n        return;\n    }\n\n    // left\n    if (j - 1 >= 0 && board[i][j - 1] == word[ltr]) {\n        board[i][j - 1] = '!';\n        solve(i, j - 1, ltr + 1, word, board);\n        board[i][j - 1] = word[ltr];\n    }\n    // right\n    if (j + 1 < board[0].size() && board[i][j + 1] == word[ltr]) {\n        board[i][j + 1] = '!';\n        solve(i, j + 1, ltr + 1, word, board);\n        board[i][j + 1] = word[ltr];\n    }\n    // top\n    if (i - 1 >= 0 && board[i - 1][j] == word[ltr]) {\n        board[i - 1][j] = '!';\n        solve(i - 1, j, ltr + 1, word, board);\n        board[i - 1][j] = word[ltr];\n    }\n    // bottom\n    if (i + 1 < board.size() && board[i + 1][j] == word[ltr]) {\n        board[i + 1][j] = '!';\n        solve(i + 1, j, ltr + 1, word, board);\n        board[i + 1][j] = word[ltr];\n    }\n}\n\nbool exist(vector<vector<char>>& board, string word) {\n    flag = false;\n\n    for (int i = 0; i < board.size(); i++) {\n        for (int j = 0; j < board[0].size(); j++) {\n            if (board[i][j] == word[0]) {\n                board[i][j] = '!';\n                solve(i, j, 1, word, board);\n                board[i][j] = word[0];\n                if (flag)\n                    return true;\n            }\n        }\n    }\n    return false;\n}\n",
+    "codeLines": 93,
+    "repoPath": "05.Recursion/3.Try Out All Combos/02.Word search in grid.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/3.Try%20Out%20All%20Combos/02.Word%20search%20in%20grid.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/word-search/",
+      "title": "Word Search",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p130",
+    "index": 130,
+    "title": "Rat in maze",
+    "topic": "Recursion",
+    "subtopic": "Try Out All Combos",
+    "difficulty": "Medium",
+    "question": "Consider a rat placed at (0, 0) in a square matrix of order N * N. It has to reach the destination at (N - 1, N - 1). Find all possible paths that the rat can take to reach from source to destination. The directions in which the rat can move are 'U'(up), 'D'(down), 'L' (left), 'R' (right). Value 0 at a cell in the matrix represents that it is blocked and rat cannot move to it while value 1 at a cell in the matrix represents that rat can be travel through it.\n\nExample 1:\n\nInput:\nN = 4\nm[][] = {{1, 0, 0, 0},\n         {1, 1, 0, 1},\n         {1, 1, 0, 0},\n         {0, 1, 1, 1}}\nOutput:\nDDRDRR DRDDRR\nExplanation:\nThe rat can reach the destination at\n(3, 3) from (0, 0) by two paths - DRDDRR\nand DDRDRR, when printed in sorted order\nwe get DDRDRR DRDDRR.",
+    "approach": "We can use a backtracking approach to find all possible paths.\n1. Create a helper function called 'solve' that takes the current row index, column index, a string representing the current path, a vector of strings to store the paths, the matrix, and the size of the matrix.\n2. In the 'solve' function:\n   - If the current position is the destination (N-1, N-1), add the current path to the vector of paths and return.\n   - Check if the current position is valid and not a blocked cell.\n   - Mark the current position as visited (by setting its value to 0) to avoid revisiting it.\n   - Recursively call the 'solve' function for the neighboring cells (left, right, up, down) with the updated path.\n   - After the recursive calls, restore the original value of the current position to allow other paths to visit it.\n3. Create the main function called 'findPath' that calculates and returns all possible paths from (0, 0) to (N-1, N-1).\n   - If the source cell or the destination cell is blocked, return an empty vector.\n   - Initialize an empty vector of strings to store the paths.\n   - Call the 'solve' function with the initial position (0, 0), an empty path string, the vector of paths, the matrix, and the size of the matrix.\n   - Return the vector of paths.",
+    "pseudocode": "ALGORITHM  Rat in maze\nPATTERN    Backtracking\n\nBEGIN\n  01  We can use a backtracking approach to find all possible paths\n  02  SET a helper function called 'solve' that takes the current row index, column index, a string representing the current path, a vector of strings to store the paths, the matrix, and the size of the matrix\n  03  In the 'solve' function:\n  04  IF the current position is the destination (N-1, N-1), add the current path to the vector of paths and return\n  05  Check if the current position is valid and not a blocked cell\n  06  Mark the current position as visited (by setting its value to 0) to avoid revisiting it\n  07  Recursively call the 'solve' function for the neighboring cells (left, right, up, down) with the updated path\n  08  After the recursive calls, restore the original value of the current position to allow other paths to visit it\n  09  SET the main function called 'findPath' that calculates and returns all possible paths from (0, 0) to (N-1, N-1)\n  10  IF the source cell or the destination cell is blocked, return an empty vector\n  11  SET an empty vector of strings to store the paths\n  12  Call the 'solve' function with the initial position (0, 0), an empty path string, the vector of paths, the matrix, and the size of the matrix\n  13  RETURN the vector of paths\nEND",
+    "time": "O(3^(N^2)), where N is the size of the matrix. In the worst case, each cell can have three possible neighboring cells to explore",
+    "space": "O(N^2), as we are using a vector of strings to store the paths",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking", "Matrix / grid", "Strings"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nConsider a rat placed at (0, 0) in a square matrix of order N * N. It has to reach the destination at (N - 1, N - 1). Find all possible paths that the rat can take to reach from source to destination. The directions in which the rat can move are 'U'(up), 'D'(down), 'L' (left), 'R' (right). Value 0 at a cell in the matrix represents that it is blocked and rat cannot move to it while value 1 at a cell in the matrix represents that rat can be travel through it.\n\nExample 1:\n\nInput:\nN = 4\nm[][] = {{1, 0, 0, 0},\n         {1, 1, 0, 1}, \n         {1, 1, 0, 0},\n         {0, 1, 1, 1}}\nOutput:\nDDRDRR DRDDRR\nExplanation:\nThe rat can reach the destination at \n(3, 3) from (0, 0) by two paths - DRDDRR \nand DDRDRR, when printed in sorted order \nwe get DDRDRR DRDDRR.\n\nApproach:\nWe can use a backtracking approach to find all possible paths.\n1. Create a helper function called 'solve' that takes the current row index, column index, a string representing the current path, a vector of strings to store the paths, the matrix, and the size of the matrix.\n2. In the 'solve' function:\n   - If the current position is the destination (N-1, N-1), add the current path to the vector of paths and return.\n   - Check if the current position is valid and not a blocked cell.\n   - Mark the current position as visited (by setting its value to 0) to avoid revisiting it.\n   - Recursively call the 'solve' function for the neighboring cells (left, right, up, down) with the updated path.\n   - After the recursive calls, restore the original value of the current position to allow other paths to visit it.\n3. Create the main function called 'findPath' that calculates and returns all possible paths from (0, 0) to (N-1, N-1).\n   - If the source cell or the destination cell is blocked, return an empty vector.\n   - Initialize an empty vector of strings to store the paths.\n   - Call the 'solve' function with the initial position (0, 0), an empty path string, the vector of paths, the matrix, and the size of the matrix.\n   - Return the vector of paths.\n   \nTime Complexity: O(3^(N^2)), where N is the size of the matrix. In the worst case, each cell can have three possible neighboring cells to explore.\nSpace Complexity: O(N^2), as we are using a vector of strings to store the paths.\n\nCODE:*/\nbool isValid(int i, int j, vector<vector<int>>& m, int n) {\n    if (i < 0 || i >= n || j < 0 || j >= n || m[i][j] == 0)\n        return false;\n    return true;\n}\n\nvoid solve(int i, int j, string temp, vector<string>& ans, vector<vector<int>>& m, int n) {\n    if (i == n - 1 && j == n - 1) {\n        ans.push_back(temp);\n        return;\n    }\n\n    if (!isValid(i, j, m, n))\n        return;\n\n    m[i][j] = 0;\n\n    solve(i, j - 1, temp + 'L', ans, m, n);\n    solve(i, j + 1, temp + 'R', ans, m, n);\n    solve(i - 1, j, temp + 'U', ans, m, n);\n    solve(i + 1, j, temp + 'D', ans, m, n);\n\n    m[i][j] = 1;\n}\n\nvector<string> findPath(vector<vector<int>>& m, int n) {\n    if (m[0][0] == 0 || m[n - 1][n - 1] == 0)\n        return {};\n\n    vector<string> ans;\n    string temp = \"\";\n    solve(0, 0, temp, ans, m, n);\n    return ans;\n}\n",
+    "codeLines": 72,
+    "repoPath": "05.Recursion/3.Try Out All Combos/03.Rat in maze.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/3.Try%20Out%20All%20Combos/03.Rat%20in%20maze.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/unique-paths-iii/",
+      "title": "Unique Paths III",
+      "match": "related",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p131",
+    "index": 131,
+    "title": "M coloring problem",
+    "topic": "Recursion",
+    "subtopic": "Try Out All Combos",
+    "difficulty": "Medium",
+    "question": "Given an undirected graph and an integer M. The task is to determine if the graph can be colored with at most M colors such that no two adjacent vertices of the graph are colored with the same color. Here coloring of a graph means the assignment of colors to all vertices. Print 1 if it is possible to colour vertices and 0 otherwise.",
+    "approach": "We can solve this problem using backtracking.\n1. Create a helper function called 'isPossible' that takes the graph, an array of colors assigned to vertices, the number of vertices, the color to be assigned, and the current vertex.\n   - Iterate through all the adjacent vertices of the current vertex.\n   - If an adjacent vertex is already colored with the same color, return false.\n   - If there is no conflict, continue checking other adjacent vertices.\n   - If all adjacent vertices have different colors or are uncolored, return true.\n2. Create another helper function called 'solve' that takes the graph, the number of colors, the number of vertices, an array of colors assigned to vertices, and the current vertex.\n   - If all vertices have been assigned colors, return true.\n   - Iterate through all possible colors from 1 to M.\n   - If it is possible to assign the current color to the current vertex without any conflict, assign the color and recursively call the 'solve' function for the next vertex.\n   - If the 'solve' function returns true, return true.\n   - If the 'solve' function returns false, try the next color.\n   - If no color can be assigned to the current vertex without any conflict, return false.\n3. Create the main function called 'graphColoring' that initializes an array of colors and calls the 'solve' function to check if it is possible to color the graph.\n   - If the 'solve' function returns true, return true.\n   - Otherwise, return false.",
+    "pseudocode": "ALGORITHM  M coloring problem\nPATTERN    Backtracking\n\nBEGIN\n  01  We can solve this problem using backtracking\n  02  SET a helper function called 'isPossible' that takes the graph, an array of colors assigned to vertices, the number of vertices, the color to be assigned, and the current vertex\n  03  FOR EACH element while traversing all the adjacent vertices of the current vertex\n  04  IF an adjacent vertex is already colored with the same color, return false\n  05  IF there is no conflict, continue checking other adjacent vertices\n  06  IF all adjacent vertices have different colors or are uncolored, return true\n  07  SET another helper function called 'solve' that takes the graph, the number of colors, the number of vertices, an array of colors assigned to vertices, and the current vertex\n  08  IF all vertices have been assigned colors, return true\n  09  FOR EACH element while traversing all possible colors from 1 to M\n  10  IF it is possible to assign the current color to the current vertex without any conflict, assign the color and recursively call the 'solve' function for the next vertex\n  11  IF the 'solve' function returns true, return true\n  12  IF the 'solve' function returns false, try the next color\n  13  IF no color can be assigned to the current vertex without any conflict, return false\n  14  SET the main function called 'graphColoring' that initializes an array of colors and calls the 'solve' function to check if it is possible to color the graph\n  15  RETURN the required result\nEND",
+    "time": "O(M^N), where M is the number of colors and N is the number of vertices in the graph. In the worst case, we have to try all possible color combinations for all vertices",
+    "space": "O(N), as we are using an array of colors to store the assigned colors for each vertex",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking", "Graph"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:\nGiven an undirected graph and an integer M. The task is to determine if the graph can be colored with at most M colors such that no two adjacent vertices of the graph are colored with the same color. Here coloring of a graph means the assignment of colors to all vertices. Print 1 if it is possible to colour vertices and 0 otherwise.\n\nApproach:\nWe can solve this problem using backtracking.\n1. Create a helper function called 'isPossible' that takes the graph, an array of colors assigned to vertices, the number of vertices, the color to be assigned, and the current vertex.\n   - Iterate through all the adjacent vertices of the current vertex.\n   - If an adjacent vertex is already colored with the same color, return false.\n   - If there is no conflict, continue checking other adjacent vertices.\n   - If all adjacent vertices have different colors or are uncolored, return true.\n2. Create another helper function called 'solve' that takes the graph, the number of colors, the number of vertices, an array of colors assigned to vertices, and the current vertex.\n   - If all vertices have been assigned colors, return true.\n   - Iterate through all possible colors from 1 to M.\n   - If it is possible to assign the current color to the current vertex without any conflict, assign the color and recursively call the 'solve' function for the next vertex.\n   - If the 'solve' function returns true, return true.\n   - If the 'solve' function returns false, try the next color.\n   - If no color can be assigned to the current vertex without any conflict, return false.\n3. Create the main function called 'graphColoring' that initializes an array of colors and calls the 'solve' function to check if it is possible to color the graph.\n   - If the 'solve' function returns true, return true.\n   - Otherwise, return false.\n\nTime Complexity: O(M^N), where M is the number of colors and N is the number of vertices in the graph. In the worst case, we have to try all possible color combinations for all vertices.\nSpace Complexity: O(N), as we are using an array of colors to store the assigned colors for each vertex.\n\nCODE:*/\nbool isPossible(bool graph[101][101], int color[], int N, int col, int node) {\n    for (int k = 0; k < N; k++) {\n        if (k != node && graph[node][k] == 1 && color[k] == col)\n            return false;\n    }\n    return true;\n}\n\nbool solve(bool graph[101][101], int m, int N, int color[], int node) {\n    if (node == N)\n        return true;\n\n    for (int i = 1; i <= m; i++) {\n        if (isPossible(graph, color, N, i, node)) {\n            color[node] = i;\n            if (solve(graph, m, N, color, node + 1))\n                return true;\n            color[node] = 0;\n        }\n    }\n    return false;\n}\n\nbool graphColoring(bool graph[101][101], int m, int N) {\n    int color[N];\n    memset(color, 0, sizeof color);\n    if (solve(graph, m, N, color, 0))\n        return true;\n    return false;\n}\n",
+    "codeLines": 55,
+    "repoPath": "05.Recursion/3.Try Out All Combos/04.M coloring problem.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/3.Try%20Out%20All%20Combos/04.M%20coloring%20problem.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/possible-bipartition/",
+      "title": "Possible Bipartition",
+      "match": "related",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p132",
+    "index": 132,
+    "title": "N queens",
+    "topic": "Recursion",
+    "subtopic": "Try Out All Combos",
+    "difficulty": "Hard",
+    "question": "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.\nGiven an integer n, return all distinct solutions to the n-queens puzzle.\n\nExample 1:\n\nInput: n = 4\nOutput: [[\".Q..\",\"...Q\",\"Q...\",\"..Q.\"],[\"..Q.\",\"Q...\",\"...Q\",\".Q..\"]]\nExplanation: There exist two distinct solutions to the 4-queens puzzle as shown above",
+    "approach": "1. Use backtracking to solve the n-queens puzzle.\n2. Start with an empty chessboard and try placing queens in each row, ensuring that no two queens threaten each other.\n3. Use row, column, and diagonal constraints to validate the queen placements.\n4. If a valid configuration is found, add it to the list of solutions.",
+    "pseudocode": "ALGORITHM  N queens\nPATTERN    Backtracking\n\nBEGIN\n  01  Use backtracking to solve the n-queens puzzle\n  02  Start with an empty chessboard and try placing queens in each row, ensuring that no two queens threaten each other\n  03  Use row, column, and diagonal constraints to validate the queen placements\n  04  IF a valid configuration is found, add it to the list of solutions\n  05  RETURN the required result\nEND",
+    "time": "O(N!), where N is the input parameter representing the size of the chessboard",
+    "space": "O(N^2), where N is the input parameter representing the size of the chessboard",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking", "Strings"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/**\n * Question: The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.\n * Given an integer n, return all distinct solutions to the n-queens puzzle.\n *\nExample 1:\n\n\nInput: n = 4\nOutput: [[\".Q..\",\"...Q\",\"Q...\",\"..Q.\"],[\"..Q.\",\"Q...\",\"...Q\",\".Q..\"]]\nExplanation: There exist two distinct solutions to the 4-queens puzzle as shown above\n\n * Approach:\n * 1. Use backtracking to solve the n-queens puzzle.\n * 2. Start with an empty chessboard and try placing queens in each row, ensuring that no two queens threaten each other.\n * 3. Use row, column, and diagonal constraints to validate the queen placements.\n * 4. If a valid configuration is found, add it to the list of solutions.\n *\n * Time Complexity: O(N!), where N is the input parameter representing the size of the chessboard.\n *   - In the worst case, there can be N! possible configurations to check.\n *   - However, with the pruning technique used in backtracking, the actual runtime is much less than N! in most cases.\n *\n * Space Complexity: O(N^2), where N is the input parameter representing the size of the chessboard.\n *   - The space is used to store the chessboard configuration and the auxiliary arrays for tracking the used columns and diagonals.\n */\n\nunordered_map<int,bool>rowMap ;\nunordered_map<int,bool>left_downMap;\nunordered_map<int,bool>left_upMap;\n\nvector<vector<string>> solveNQueens(int n) {\n    vector<vector<string>> ans;\n    vector<string> board (n,string(n,'.'));\n    solve(0,n,board,ans);\n    return ans;\n}\n\nvoid solve(int col, int n, vector<string>& board, vector<vector<string>>& ans){\n\n    if(col==n){\n        ans.push_back(board);\n        return;\n    }\n\n    for(int row = 0; row < n; row++){\n        if(isValid(row,col,n)){\n            // setting in maps\n            rowMap[row] = true;\n            left_downMap[row+col+n] = true;\n            left_upMap[row-col+n] = true;\n\n            // making recursive calls\n            board[row][col] = 'Q';\n            solve(col+1,n,board,ans);\n            board[row][col] = '.';\n\n            // unsetting in maps\n            rowMap[row] = false;\n            left_downMap[row+col+n] = false;\n            left_upMap[row-col+n] = false;\n        }\n    }\n}\n\nbool isValid(int row, int col, int n){\n    \n    bool cnd1 = rowMap[row];\n    bool cnd2 = left_upMap[row-col+n];\n    bool cnd3 = left_downMap[row+col+n];\n\n    return (cnd1 || cnd2 || cnd3)? false:true;\n}\n",
+    "codeLines": 71,
+    "repoPath": "05.Recursion/3.Try Out All Combos/05.N queens.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/3.Try%20Out%20All%20Combos/05.N%20queens.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/n-queens/",
+      "title": "N-Queens",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  },
+  {
+    "id": "p133",
+    "index": 133,
+    "title": "Word Break",
+    "topic": "Recursion",
+    "subtopic": "Try Out All Combos",
+    "difficulty": "Medium",
+    "question": "Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.\n\nExample:\nInput: s = \"leetcode\", wordDict = [\"leet\",\"code\"]\nOutput: true\nExplanation: Return true because \"leetcode\" can be segmented as \"leet code\".",
+    "approach": "We can solve this problem using a recursive approach with backtracking.\n1. Start from the beginning of the string and try to find a word from the dictionary that matches a substring starting at the current index.\n2. If we find a match, recursively call the function on the remaining substring.\n3. Repeat this process until we reach the end of the string.\n4. If we can successfully break the string into words, we return true. Otherwise, we return false.",
+    "pseudocode": "ALGORITHM  Word Break\nPATTERN    Backtracking\n\nBEGIN\n  01  We can solve this problem using a recursive approach with backtracking\n  02  Start from the beginning of the string and try to find a word from the dictionary that matches a substring starting at the current index\n  03  IF we find a match, recursively call the function on the remaining substring\n  04  REPEAT this process until we reach the end of the string\n  05  IF we can successfully break the string into words, we return true. Otherwise, we return false\n  06  RETURN the required result\nEND",
+    "time": "O(2^N), where N is the length of the string. In the worst case, we can have 2^N recursive calls",
+    "space": "O(N), where N is the length of the string. The recursion stack can go up to N in the worst case",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking", "Strings"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/**\n * QUESTION: Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.\n * \n * Example:\n * Input: s = \"leetcode\", wordDict = [\"leet\",\"code\"]\n * Output: true\n * Explanation: Return true because \"leetcode\" can be segmented as \"leet code\".\n *\n * Approach:\n * We can solve this problem using a recursive approach with backtracking.\n * 1. Start from the beginning of the string and try to find a word from the dictionary that matches a substring starting at the current index.\n * 2. If we find a match, recursively call the function on the remaining substring.\n * 3. Repeat this process until we reach the end of the string.\n * 4. If we can successfully break the string into words, we return true. Otherwise, we return false.\n *\n * Time Complexity: O(2^N), where N is the length of the string. In the worst case, we can have 2^N recursive calls.\n * Space Complexity: O(N), where N is the length of the string. The recursion stack can go up to N in the worst case.\n */\n\nbool solve(int index, string& s, unordered_set<string>& dict) {\n    if (index >= s.size()) {\n        return true;\n    }\n\n    for (int i = index; i < s.size(); i++) {\n        string temp = s.substr(index, i - index + 1);\n\n        if (dict.find(temp) != dict.end() && solve(i + 1, s, dict)) {\n            return true;\n        }\n    }\n\n    return false;\n}\n\nbool wordBreak(string s, vector<string>& wordDict) {\n    unordered_set<string> dict;\n    for (int i = 0; i < wordDict.size(); i++) {\n        dict.insert(wordDict[i]);\n    }\n    return solve(0, s, dict);\n}\n",
+    "codeLines": 42,
+    "repoPath": "05.Recursion/3.Try Out All Combos/06.Word Break.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/3.Try%20Out%20All%20Combos/06.Word%20Break.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/word-break/",
+      "title": "Word Break",
+      "match": "exact",
+      "difficulty": "Medium",
+      "paid": false
+    }
+  },
+  {
+    "id": "p134",
+    "index": 134,
+    "title": "Sudoku solver",
+    "topic": "Recursion",
+    "subtopic": "Try Out All Combos",
+    "difficulty": "Hard",
+    "question": "Write a program to solve a Sudoku puzzle by filling the empty cells.\n\nA sudoku solution must satisfy all of the following rules:\n- Each of the digits 1-9 must occur exactly once in each row.\n- Each of the digits 1-9 must occur exactly once in each column.\n- Each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.\n- The '.' character indicates empty cells.\n\nExample:\nInput:\n[\n  [\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],\n  [\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],\n  [\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],\n  [\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],\n  [\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],\n  [\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],\n  [\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],\n  [\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],\n  [\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]\n]\n\nOutput:\n[\n  [\"5\",\"3\",\"4\",\"6\",\"7\",\"8\",\"9\",\"1\",\"2\"],\n  [\"6\",\"7\",\"2\",\"1\",\"9\",\"5\",\"3\",\"4\",\"8\"],\n  [\"1\",\"9\",\"8\",\"3\",\"4\",\"2\",\"5\",\"6\",\"7\"],\n  [\"8\",\"5\",\"9\",\"7\",\"6\",\"1\",\"4\",\"2\",\"3\"],\n  [\"4\",\"2\",\"6\",\"8\",\"5\",\"3\",\"7\",\"9\",\"1\"],\n  [\"7\",\"1\",\"3\",\"9\",\"2\",\"4\",\"8\",\"5\",\"6\"],\n  [\"9\",\"6\",\"1\",\"5\",\"3\",\"7\",\"2\",\"8\",\"4\"],\n  [\"2\",\"8\",\"7\",\"4\",\"1\",\"9\",\"6\",\"3\",\"5\"],\n  [\"3\",\"4\",\"5\",\"2\",\"8\",\"6\",\"1\",\"7\",\"9\"]\n]",
+    "approach": "We can solve the Sudoku puzzle using a backtracking approach.\n1. Iterate over each cell in the board.\n2. If the cell is empty (denoted by '.'), try placing a digit from 1 to 9.\n3. Check if the placement is valid by verifying that the digit does not already exist in the same row, column, or 3x3 sub-box.\n4. If the placement is valid, update the cell with the digit and move to the next cell recursively.\n5. If the placement is not valid or we have reached the end of the board, backtrack by undoing the placement and trying the next digit.\n6. Repeat this process until we have filled all the cells or found a valid solution.",
+    "pseudocode": "ALGORITHM  Sudoku solver\nPATTERN    Backtracking\n\nBEGIN\n  01  We can solve the Sudoku puzzle using a backtracking approach\n  02  Iterate over each cell in the board\n  03  IF the cell is empty (denoted by '.'), try placing a digit from 1 to 9\n  04  Check if the placement is valid by verifying that the digit does not already exist in the same row, column, or 3x3 sub-box\n  05  IF the placement is valid, update the cell with the digit and move to the next cell recursively\n  06  IF the placement is not valid or we have reached the end of the board, backtrack by undoing the placement and trying the next digit\n  07  REPEAT this process until we have filled all the cells or found a valid solution\n  08  RETURN the required result\nEND",
+    "time": "The time complexity of the backtracking algorithm for solving a Sudoku puzzle is O(9^(m*n)), where m and n are the number of rows and columns in the board. In the worst case, we have to try all possible combinations",
+    "space": "The space complexity is O(1) as we are using a constant amount of space for the board and temporary variables",
+    "strategy": "Backtracking",
+    "tags": ["Recursion", "Backtracking", "Matrix / grid"],
+    "intuition": "Build one decision at a time, stop immediately when a partial choice is invalid, and undo the choice before exploring the next branch.",
+    "constraints": [
+      "Input size is small enough for exponential search (commonly N ≤ 15; smaller for N!)",
+      "Candidates and duplicate-handling rules follow the statement",
+      "Recursion depth is bounded by the number of decisions"
+    ],
+    "edgeCases": [
+      "No valid solution",
+      "One valid choice",
+      "Duplicate candidates",
+      "Early pruning at the root"
+    ],
+    "pitfalls": [
+      "Forgetting to undo a choice",
+      "Late validity checks",
+      "Emitting duplicate answers"
+    ],
+    "code": "/*QUESTION:-\nWrite a program to solve a Sudoku puzzle by filling the empty cells.\n\nA sudoku solution must satisfy all of the following rules:\n- Each of the digits 1-9 must occur exactly once in each row.\n- Each of the digits 1-9 must occur exactly once in each column.\n- Each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.\n- The '.' character indicates empty cells.\n\nExample:\nInput:\n[\n  [\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],\n  [\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],\n  [\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],\n  [\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],\n  [\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],\n  [\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],\n  [\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],\n  [\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],\n  [\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]\n]\n\nOutput:\n[\n  [\"5\",\"3\",\"4\",\"6\",\"7\",\"8\",\"9\",\"1\",\"2\"],\n  [\"6\",\"7\",\"2\",\"1\",\"9\",\"5\",\"3\",\"4\",\"8\"],\n  [\"1\",\"9\",\"8\",\"3\",\"4\",\"2\",\"5\",\"6\",\"7\"],\n  [\"8\",\"5\",\"9\",\"7\",\"6\",\"1\",\"4\",\"2\",\"3\"],\n  [\"4\",\"2\",\"6\",\"8\",\"5\",\"3\",\"7\",\"9\",\"1\"],\n  [\"7\",\"1\",\"3\",\"9\",\"2\",\"4\",\"8\",\"5\",\"6\"],\n  [\"9\",\"6\",\"1\",\"5\",\"3\",\"7\",\"2\",\"8\",\"4\"],\n  [\"2\",\"8\",\"7\",\"4\",\"1\",\"9\",\"6\",\"3\",\"5\"],\n  [\"3\",\"4\",\"5\",\"2\",\"8\",\"6\",\"1\",\"7\",\"9\"]\n]\n\nApproach:\nWe can solve the Sudoku puzzle using a backtracking approach.\n1. Iterate over each cell in the board.\n2. If the cell is empty (denoted by '.'), try placing a digit from 1 to 9.\n3. Check if the placement is valid by verifying that the digit does not already exist in the same row, column, or 3x3 sub-box.\n4. If the placement is valid, update the cell with the digit and move to the next cell recursively.\n5. If the placement is not valid or we have reached the end of the board, backtrack by undoing the placement and trying the next digit.\n6. Repeat this process until we have filled all the cells or found a valid solution.\n\nTime Complexity: The time complexity of the backtracking algorithm for solving a Sudoku puzzle is O(9^(m*n)), where m and n are the number of rows and columns in the board. In the worst case, we have to try all possible combinations.\nSpace Complexity: The space complexity is O(1) as we are using a constant amount of space for the board and temporary variables.\n\nCODE:-*/\n\nbool isValid(int row, int col, char digit, vector<vector<char>>& board) {\n    for (int i = 0; i < 9; i++) {\n        if (board[row][i] == digit)\n            return false;\n        if (board[i][col] == digit)\n            return false;\n        if (board[3 * (row / 3) + (i / 3)][3 * (col / 3) + (i % 3)] == digit)\n            return false;\n    }\n    return true;\n}\n\nbool solve(vector<vector<char>>& board) {\n    for (int i = 0; i < board.size(); i++) {\n        for (int j = 0; j < board[0].size(); j++) {\n            if (board[i][j] == '.') {\n                for (char digit = '1'; digit <= '9'; digit++) {\n                    if (isValid(i, j, digit, board)) {\n                        board[i][j] = digit;\n                        if (solve(board))\n                            return true;\n                        board[i][j] = '.';\n                    }\n                }\n                return false;\n            }\n        }\n    }\n    return true;\n}\n",
+    "codeLines": 80,
+    "repoPath": "05.Recursion/3.Try Out All Combos/07.Sudoku solver.cpp",
+    "sourceUrl": "https://github.com/raghavkashyap-org/dsa-prep/blob/main/05.Recursion/3.Try%20Out%20All%20Combos/07.Sudoku%20solver.cpp",
+    "leetcode": {
+      "url": "https://leetcode.com/problems/sudoku-solver/",
+      "title": "Sudoku Solver",
+      "match": "exact",
+      "difficulty": "Hard",
+      "paid": false
+    }
+  }
+]

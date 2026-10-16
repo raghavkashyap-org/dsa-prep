@@ -1,0 +1,59 @@
+/* Reset, typography, document defaults, and shared layout foundations. */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  overflow-x: hidden;
+  transition:
+    background 0.45s,
+    color 0.45s;
+}
+.font-display {
+  font-family: 'Fraunces', Georgia, serif;
+}
+.font-mono,
+code,
+pre {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+[data-theme='cyber'] body:before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(78, 255, 150, 0.025) 2px,
+    rgba(78, 255, 150, 0.025) 3px
+  );
+  mix-blend-mode: overlay;
+}
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--strong);
+  border: 2px solid var(--bg);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+a {
+  color: inherit;
+}

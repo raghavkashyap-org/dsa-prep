@@ -1,0 +1,65 @@
+/* Theme tokens: shared semantic colors and surfaces for each theme. */
+:root[data-theme='dark'] {
+  --bg: #0c0b09;
+  --bg2: #14120e;
+  --bg3: #1c1a14;
+  --fg: #f0ead6;
+  --fg2: #c9c1ad;
+  --muted: #8a8275;
+  --accent: #f59e0b;
+  --accent-rgb: 245, 158, 11;
+  --accent2: #06b6d4;
+  --accent2-rgb: 6, 182, 212;
+  --border: rgba(240, 234, 214, 0.09);
+  --strong: rgba(240, 234, 214, 0.19);
+  --card: #15130e;
+  --code: #060503;
+  --good: #4ade80;
+  --warn: #fbbf24;
+  --bad: #fb7185;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+:root[data-theme='light'] {
+  --bg: #f3ecdc;
+  --bg2: #faf3e1;
+  --bg3: #fffaee;
+  --fg: #1a1610;
+  --fg2: #3d362b;
+  --muted: #6b6358;
+  --accent: #c2410c;
+  --accent-rgb: 194, 65, 12;
+  --accent2: #0e7490;
+  --accent2-rgb: 14, 116, 144;
+  --border: rgba(26, 22, 16, 0.12);
+  --strong: rgba(26, 22, 16, 0.25);
+  --card: #fffaee;
+  --code: #1a1610;
+  --good: #15803d;
+  --warn: #a16207;
+  --bad: #be123c;
+  --shadow: rgba(26, 22, 16, 0.18);
+}
+:root[data-theme='cyber'] {
+  --bg: #02060a;
+  --bg2: #050d10;
+  --bg3: #071318;
+  --fg: #4eff96;
+  --fg2: #8affb8;
+  --muted: #2a8a5e;
+  --accent: #ffea00;
+  --accent-rgb: 255, 234, 0;
+  --accent2: #ff10f0;
+  --accent2-rgb: 255, 16, 240;
+  --border: rgba(78, 255, 150, 0.18);
+  --strong: rgba(78, 255, 150, 0.42);
+  --card: #050d10;
+  --code: #000;
+  --good: #4eff96;
+  --warn: #ffea00;
+  --bad: #ff10f0;
+  --shadow: rgba(0, 0, 0, 0.65);
+}
+* {
+  box-sizing: border-box;
+}
+/* Base document styles and global elements. */
